@@ -4,13 +4,14 @@ stages:
 
 build:
   stage: build
+  tags:
+    - ugrad
   script:
     - echo "Building"
-    - mkdir build
-    - touch build/info.txt
 
 test:
   stage: test
+  tags:
+    - ugrad
   script:
     - echo "Testing"
-    - test -f "build/info.txt"
