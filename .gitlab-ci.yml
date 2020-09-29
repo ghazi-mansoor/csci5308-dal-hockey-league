@@ -40,7 +40,7 @@ deployStep:
   artifacts:
     paths:
       # Change this directory to the path that contains your built executable. TESTING
-      - build/libs
+      - build
   script:
     - chmod og-rwx ${DEPLOY_SSH_KEY}
     - echo ${CI_COMMIT_REF_NAME}
