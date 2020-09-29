@@ -1,5 +1,21 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "HelloWorld"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+}
+
+application {
+    mainClassName = "HelloWorld"
 }
 
 group 'org.example'
