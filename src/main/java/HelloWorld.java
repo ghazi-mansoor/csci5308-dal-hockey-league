@@ -5,7 +5,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class HelloWorld {
+public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
         System.out.println("Hello World!");
