@@ -11,7 +11,7 @@ before_script:
 stages:
   - build
   - test
-  - deploy
+  - deployTest
 
 build:
   stage: build
@@ -34,7 +34,7 @@ test:
   script: ./gradlew check
   
 deployStep:
-  stage: deploy
+  stage: deployTest
   tags:
     - ugrad
   artifacts:
