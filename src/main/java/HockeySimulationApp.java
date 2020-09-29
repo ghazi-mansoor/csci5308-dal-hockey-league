@@ -1,4 +1,4 @@
-import com.console.ConsoleInterface;
+import com.groupten.console.ConsoleInterface;
 
 public class HockeySimulationApp {
 

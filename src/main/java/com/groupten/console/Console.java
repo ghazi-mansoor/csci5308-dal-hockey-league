@@ -1,4 +1,4 @@
-package com.console;
+package com.groupten.console;
 
 import java.io.InputStream;
 import java.io.PrintStream;

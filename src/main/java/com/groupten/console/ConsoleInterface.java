@@ -1,4 +1,4 @@
-package com.console;
+package com.groupten.console;
 
 public interface ConsoleInterface {
 

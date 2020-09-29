@@ -1,5 +1,5 @@
-import com.console.Console;
-import com.console.ConsoleInterface;
+import com.groupten.console.Console;
+import com.groupten.console.ConsoleInterface;
 
 public class Injector {
 
