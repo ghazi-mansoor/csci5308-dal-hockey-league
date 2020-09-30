@@ -38,6 +38,8 @@ test:
   
 deployStep:
   stage: deploy
+  only:
+    - develop
   tags:
     - ugrad
   artifacts:
