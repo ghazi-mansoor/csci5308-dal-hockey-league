@@ -23,9 +23,9 @@ public class HelloWorld {
             System.out.println("Environment details are : " + dbDetails);
 
         } catch (ParseException e) {
-            System.out.println("Cound not parse configuration files.");
+            System.out.println("Could not parse configuration files.");
         } catch (IllegalArgumentException e) {
-            System.out.println("Cound not find configuration files.");
+            System.out.println("Could not find configuration files.");
         } catch (IOException e) {
             System.out.println("Could not open configuartion files.");
         }
