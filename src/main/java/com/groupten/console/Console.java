@@ -17,7 +17,7 @@ public class Console implements ConsoleInterface {
     }
 
     @Override
-    public void printLine(String line) {
+    public void printLine(Object line) {
         out.println(line);
     }
 

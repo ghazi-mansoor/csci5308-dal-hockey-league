@@ -2,7 +2,7 @@ package com.groupten.console;
 
 public interface ConsoleInterface {
 
-    void printLine(String line);
+    void printLine(Object line);
     String readLine();
     int readInteger();
 

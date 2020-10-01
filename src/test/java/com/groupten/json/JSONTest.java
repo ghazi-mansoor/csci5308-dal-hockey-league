@@ -8,8 +8,7 @@ public class JSONTest {
 
     @Test
     public void importJSONData(){
-        String path = "src/main/resources/configuration.json";
-
+        String path = "E:/Project/Dalhousie/Advance_Software_Development/csci5308//src/main/resources/testData.json";
         JSON json = new JSON();
         assertTrue(json.importJSONData(path));
     }
