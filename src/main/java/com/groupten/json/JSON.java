@@ -86,8 +86,6 @@ public class JSON implements JSONInterface {
 
     @Override
     public void loadJSONData() {
-        // TODO Instantiate the LOM
-        System.out.println(jsonData);
 
     }
 }

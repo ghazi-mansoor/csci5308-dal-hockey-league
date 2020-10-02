@@ -16,7 +16,7 @@ public class JSONTest {
 
     @Test
     public void importJSONDataTest(){
-        String path = "E:/Project/Dalhousie/Advance_Software_Development/csci5308//src/main/resources/testData.json";
+        String path = "src/main/resources/testData.json";
         assertTrue(json.importJSONData(path));
     }
 

@@ -48,12 +48,10 @@ public class CreateTeam implements CreateTeamInterface {
 
     @Override
     public void loadNewTeam() {
-
     }
 
     @Override
     public void persistAllData() {
-
     }
 
     public void setConferenceName(String conferenceName) {

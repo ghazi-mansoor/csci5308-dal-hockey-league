@@ -26,7 +26,7 @@ public class HockeySimulationApp {
                     console.printLine("Please enter the file path:");
                     String path = console.readLine();
 
-                    path = "E:\\Project\\Dalhousie\\Advance_Software_Development\\csci5308\\src\\main\\resources\\testData.json";
+                    path = "src/main/resources/testData.json";
 
                     boolean didImport = json.importJSONData(path);
 
