@@ -1,8 +1,7 @@
 import com.groupten.console.ConsoleInterface;
 import com.groupten.injector.Injector;
 import com.groupten.json.JSONInterface;
-import com.groupten.useraction.UserAction;
-import com.groupten.useraction.UserActionInterface;
+import com.groupten.createteam.CreateTeamInterface;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -14,11 +13,9 @@ public class HockeySimulationApp {
         boolean quit_1 = true;
         ConsoleInterface console = Injector.injector().getConsoleObject();
         JSONInterface json = Injector.injector().getJSONObject();
-        UserActionInterface userAction = Injector.injector().getUserActionObject();
+        CreateTeamInterface createTeam = Injector.injector().getCreateTeamObject();
 
-        console.printLine("\t\t\t\t\t\t\t\t##############################" +
-                "\n\t\t\t\t\t\t\t\t### Hockey Game Simulation ###" +
-                "\n\t\t\t\t\t\t\t\t##############################");
+        console.printLine("\t\t\t\t\t\t\t\t##############################\n\t\t\t\t\t\t\t\t### Hockey Game Simulation ###\n\t\t\t\t\t\t\t\t##############################");
 
         do{
             console.printLine("\nDo you want to import JSON file? (y/n) (q to quit)");
@@ -37,7 +34,9 @@ public class HockeySimulationApp {
                         boolean isValid = json.validateJSONData();
 
                         if(isValid){
-                            userAction.createTeam();
+                            console.printLine("JSON data import is successful");
+                            console.printLine("Proceeding to team creation. Please answer the below questions.");
+                            createTeam.userPrompt();
                         }else{
                             console.printLine("There are empty fields in JSON file.");
                         }
@@ -48,7 +47,6 @@ public class HockeySimulationApp {
 
                     break;
                 case "n":
-                    userAction.loadTeam();
                     break;
                 case "q":
                     quit_1 = false;

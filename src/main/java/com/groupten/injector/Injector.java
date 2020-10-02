@@ -4,20 +4,20 @@ import com.groupten.console.Console;
 import com.groupten.console.ConsoleInterface;
 import com.groupten.json.JSON;
 import com.groupten.json.JSONInterface;
-import com.groupten.useraction.UserAction;
-import com.groupten.useraction.UserActionInterface;
+import com.groupten.createteam.CreateTeam;
+import com.groupten.createteam.CreateTeamInterface;
 
 public class Injector {
 
     private static Injector injector = null;
     private ConsoleInterface consoleInterface;
     private JSONInterface jsonInterface;
-    private UserActionInterface userActionInterface;
+    private CreateTeamInterface createTeamInterface;
 
     private Injector() {
         consoleInterface = new Console();
         jsonInterface = new JSON();
-        userActionInterface = new UserAction();
+        createTeamInterface = new CreateTeam();
     }
 
     public static Injector injector(){
@@ -40,8 +40,8 @@ public class Injector {
         this.jsonInterface = jsonInterface;
     }
 
-    public void setUserActionObject(UserActionInterface userActionInterface) {
-        this.userActionInterface = userActionInterface;
+    public void setCreateTeamObject(CreateTeamInterface createTeamInterface) {
+        this.createTeamInterface = createTeamInterface;
     }
 
     public ConsoleInterface getConsoleObject() {
@@ -52,8 +52,8 @@ public class Injector {
         return jsonInterface;
     }
 
-    public UserActionInterface getUserActionObject() {
-        return userActionInterface;
+    public CreateTeamInterface getCreateTeamObject() {
+        return createTeamInterface;
     }
 
 }
