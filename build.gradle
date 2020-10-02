@@ -5,7 +5,7 @@ plugins {
 
 jar {
     manifest {
-        attributes "Main-Class": "HelloWorld"
+        attributes "Main-Class": "HockeySimulationApp"
     }
 
     from {
@@ -15,7 +15,7 @@ jar {
 }
 
 application {
-    mainClassName = "HelloWorld"
+    mainClassName = "HockeySimulationApp"
 }
 
 group 'org.example'
