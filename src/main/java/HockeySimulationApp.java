@@ -1,5 +1,8 @@
 import com.groupten.console.ConsoleInterface;
+import com.groupten.injector.Injector;
 import com.groupten.json.JSONInterface;
+import com.groupten.useraction.UserAction;
+import com.groupten.useraction.UserActionInterface;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -11,6 +14,7 @@ public class HockeySimulationApp {
         boolean quit_1 = true;
         ConsoleInterface console = Injector.injector().getConsoleObject();
         JSONInterface json = Injector.injector().getJSONObject();
+        UserActionInterface userAction = Injector.injector().getUserActionObject();
 
         console.printLine("\t\t\t\t\t\t\t\t##############################" +
                 "\n\t\t\t\t\t\t\t\t### Hockey Game Simulation ###" +
@@ -29,46 +33,22 @@ public class HockeySimulationApp {
 
                     boolean didImport = json.importJSONData(path);
 
-                    json.loadJSONData();
+                    if(didImport){
+                        boolean isValid = json.validateJSONData();
 
-//                    if(didImport){
-//                        console.printLine("JSON import is successful");
-//                        console.printLine("Proceeding to team creation. Please answer the below questions.");
-//
-//                        console.printLine("Enter the Confernce name:");
-//                        String conferenceName = console.readLine();
-//
-//                        // Check if the conferenceName exist
-//
-//                        console.printLine("Enter the Division name:");
-//                        String divisionName = console.readLine();
-//
-//                        // Check if the divisionName exist
-//                        // Attach the divisionName to conferenceName
-//
-//                        // Create field Team and attach to divisionName
-//
-//                        console.printLine("Enter the Team name:");
-//                        String teamName = console.readLine();
-//
-//                        // Attach the teamName to Team
-//
-//                        console.printLine("Enter the General Manager name:");
-//                        String generalManager = console.readLine();
-//
-//                        // Attach the generalManager to Team
-//
-//                        console.printLine("Enter the Head Coach name:");
-//                        String headCoach = console.readLine();
-//
-//                        // Attach the headCoach to Team
-//
-//                    }else{
-//                        console.printLine("JSON import is not successful");
-//                    }
+                        if(isValid){
+                            userAction.createTeam();
+                        }else{
+                            console.printLine("There are empty fields in JSON file.");
+                        }
+
+                    }else{
+                        console.printLine("JSON import is not successful");
+                    }
+
                     break;
                 case "n":
-                    console.printLine("No");
+                    userAction.loadTeam();
                     break;
                 case "q":
                     quit_1 = false;
