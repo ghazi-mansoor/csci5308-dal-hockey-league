@@ -24,4 +24,11 @@ public class LeagueModel implements IinstantiateLeague {
         this.division = new Division(leagueID, conferenceID, divisionID, divisionName);
         conference.addDivision(division);
     }
+
+    @Override
+    public void addTeam(String leagueName, String conferenceName, String divisionName, String teamName) {
+        // TODO 1. Create new team > 2. Add team to the current league that is in-memory via the addTeamToDivision method
+    }
+
+
 }
