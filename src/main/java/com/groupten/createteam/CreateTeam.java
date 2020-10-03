@@ -8,12 +8,8 @@ public class CreateTeam implements CreateTeamInterface {
     private ConsoleInterface console;
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
 
-    public CreateTeam(){
-
-    }
-
     @Override
-    public void userPrompt() {
+    public void userPromptForNewTeam() {
 
         console = Injector.injector().getConsoleObject();
 
@@ -36,22 +32,24 @@ public class CreateTeam implements CreateTeamInterface {
 
     @Override
     public boolean validateUserInput() {
-        return conferenceName.length() > 0 && divisionName.length() > 0 && teamName.length() > 0 &&
-                generalManager.length() > 0 && headCoach.length() > 0;
+        return (conferenceName.length() > 0 && divisionName.length() > 0 && teamName.length() > 0 &&
+                generalManager.length() > 0 && headCoach.length() > 0);
     }
 
     @Override
     public boolean ifExist() {
+        // Invoke the methods in LOM to check if data exist
         return false;
     }
 
-
     @Override
-    public void loadNewTeam() {
+    public void instantiateNewTeam() {
+        // Instantiate new team in LOM
     }
 
     @Override
     public void persistAllData() {
+        // Invoke store procedures to store the data in database
     }
 
     public void setConferenceName(String conferenceName) {

@@ -85,7 +85,7 @@ public class JSON implements JSONInterface {
     }
 
     @Override
-    public void loadJSONData() {
-
+    public void instantiateJSONData() {
+        // Instantiate data in LOM
     }
 }

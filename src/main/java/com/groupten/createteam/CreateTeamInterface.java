@@ -2,10 +2,10 @@ package com.groupten.createteam;
 
 public interface CreateTeamInterface {
 
-    void userPrompt();
+    void userPromptForNewTeam();
     boolean validateUserInput();
     boolean ifExist();
-    void loadNewTeam();
+    void instantiateNewTeam();
     void persistAllData();
 
 }

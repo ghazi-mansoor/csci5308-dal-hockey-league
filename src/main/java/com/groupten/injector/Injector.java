@@ -6,6 +6,8 @@ import com.groupten.json.JSON;
 import com.groupten.json.JSONInterface;
 import com.groupten.createteam.CreateTeam;
 import com.groupten.createteam.CreateTeamInterface;
+import com.groupten.loadteam.LoadTeam;
+import com.groupten.loadteam.LoadTeamInterface;
 
 public class Injector {
 
@@ -13,11 +15,13 @@ public class Injector {
     private ConsoleInterface consoleInterface;
     private JSONInterface jsonInterface;
     private CreateTeamInterface createTeamInterface;
+    private LoadTeamInterface loadTeamInterface;
 
     private Injector() {
         consoleInterface = new Console();
         jsonInterface = new JSON();
         createTeamInterface = new CreateTeam();
+        loadTeamInterface = new LoadTeam();
     }
 
     public static Injector injector(){
@@ -44,6 +48,10 @@ public class Injector {
         this.createTeamInterface = createTeamInterface;
     }
 
+    public void setLoadTeamObject(LoadTeamInterface loadTeamInterface) {
+        this.loadTeamInterface = loadTeamInterface;
+    }
+
     public ConsoleInterface getConsoleObject() {
         return consoleInterface;
     }
@@ -54,6 +62,10 @@ public class Injector {
 
     public CreateTeamInterface getCreateTeamObject() {
         return createTeamInterface;
+    }
+
+    public LoadTeamInterface getLoadTeamObject() {
+        return loadTeamInterface;
     }
 
 }
