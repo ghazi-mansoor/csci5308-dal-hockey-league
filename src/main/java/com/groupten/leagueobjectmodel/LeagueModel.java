@@ -27,5 +27,8 @@ public class LeagueModel {
         // TODO 1. Create new team > 2. Add team to the current league that is in-memory via the addTeamToDivision method
     }
 
+    public void saveLeagueToDB() {
+        // TODO 1. Save the league to DB, while making calls for the same to its conferences, divisions, teams, and players
+    }
 
 }

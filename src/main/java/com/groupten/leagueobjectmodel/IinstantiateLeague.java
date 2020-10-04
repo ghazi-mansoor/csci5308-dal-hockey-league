@@ -3,7 +3,7 @@ package com.groupten.leagueobjectmodel;
 public interface IinstantiateLeague {
     void addLeague(int leagueID, String leagueName);
 
-    void addConference(int conferenceID, String conferenceName);
+    void addConferenceToLeague(League league, int conferenceID, String conferenceName);
     void addConference(int leagueID, String leagueName, int conferenceID, String conferenceName);
 
     void addDivision(int divisionID, String divisionName);
