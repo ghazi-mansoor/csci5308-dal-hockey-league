@@ -1,11 +1,15 @@
 package com.groupten.jdbc.team;
 
 import com.groupten.jdbc.DatabaseConnection;
+import com.groupten.jdbc.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Team implements TeamInterface {
     static Connection con = DatabaseConnection.getConnection();
@@ -38,12 +42,13 @@ public class Team implements TeamInterface {
     }
 
     @Override
-    public ResultSet listTeams(int divisionId) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listTeams(int divisionId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listTeams(?)}");
             cs.setInt(1, divisionId);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -55,18 +60,19 @@ public class Team implements TeamInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
-    public ResultSet getTeams(int divisionId, String colName, String colValue) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> getTeams(int divisionId, String colName, String colValue) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL getTeams(?,?,?)}");
             cs.setInt(1, divisionId);
             cs.setString(2, colName);
             cs.setString(3, colValue);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -78,7 +84,7 @@ public class Team implements TeamInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
@@ -163,12 +169,13 @@ public class Team implements TeamInterface {
     }
 
     @Override
-    public ResultSet listTeamPlayers(int teamId) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listTeamPlayers(int teamId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listTeamPlayers(?)}");
             cs.setInt(1, teamId);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -180,6 +187,6 @@ public class Team implements TeamInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 }

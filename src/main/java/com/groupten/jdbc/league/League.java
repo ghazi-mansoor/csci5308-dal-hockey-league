@@ -1,11 +1,15 @@
 package com.groupten.jdbc.league;
 
 import com.groupten.jdbc.DatabaseConnection;
+import com.groupten.jdbc.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class League implements LeagueInterface {
     static Connection con = DatabaseConnection.getConnection();
@@ -35,11 +39,12 @@ public class League implements LeagueInterface {
     };
 
     @Override
-    public ResultSet listLeagues(){
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listLeagues() {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listLeagues()}");
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,17 +56,18 @@ public class League implements LeagueInterface {
                 }
             }
         }
-        return rs;
+        return list;
     };
 
     @Override
-    public ResultSet getLeagues(String colName, String colValue){
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> getLeagues(String colName, String colValue) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL getLeagues(?,?)}");
             cs.setString(1, colName);
             cs.setString(2, colValue);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -73,7 +79,7 @@ public class League implements LeagueInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override

@@ -1,11 +1,15 @@
 package com.groupten.jdbc.division;
 
 import com.groupten.jdbc.DatabaseConnection;
+import com.groupten.jdbc.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Division implements DivisionInterface {
     static Connection con = DatabaseConnection.getConnection();
@@ -36,12 +40,13 @@ public class Division implements DivisionInterface {
     }
 
     @Override
-    public ResultSet listDivisions(int conferenceId) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listDivisions(int conferenceId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listDivisions(?)}");
             cs.setInt(1, conferenceId);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -53,18 +58,19 @@ public class Division implements DivisionInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
-    public ResultSet getDivisions(int conferenceId, String colName, String colValue) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> getDivisions(int conferenceId, String colName, String colValue) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL getDivisions(?,?,?)}");
             cs.setInt(1, conferenceId);
             cs.setString(2, colName);
             cs.setString(3, colValue);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -76,7 +82,7 @@ public class Division implements DivisionInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override

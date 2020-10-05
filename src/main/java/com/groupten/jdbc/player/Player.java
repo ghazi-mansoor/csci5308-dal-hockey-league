@@ -1,11 +1,15 @@
 package com.groupten.jdbc.player;
 
 import com.groupten.jdbc.DatabaseConnection;
+import com.groupten.jdbc.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Player implements PlayerInterface {
     static Connection con = DatabaseConnection.getConnection();
@@ -38,12 +42,13 @@ public class Player implements PlayerInterface {
     }
 
     @Override
-    public ResultSet listPlayers(int leagueId) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listPlayers(int leagueId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listPlayers(?)}");
             cs.setInt(1, leagueId);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -55,18 +60,19 @@ public class Player implements PlayerInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
-    public ResultSet getPlayers(int leagueId, String colName, String colValue) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> getPlayers(int leagueId, String colName, String colValue) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL getPlayers(?,?,?)}");
             cs.setInt(1, leagueId);
             cs.setString(2, colName);
             cs.setString(3, colValue);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -78,7 +84,7 @@ public class Player implements PlayerInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
@@ -123,12 +129,13 @@ public class Player implements PlayerInterface {
     }
 
     @Override
-    public ResultSet listFreeAgents(int leagueId) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listFreeAgents(int leagueId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listFreeAgents(?)}");
             cs.setInt(1, leagueId);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -140,18 +147,19 @@ public class Player implements PlayerInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
-    public ResultSet getFreeAgents(int leagueId, String colName, String colValue) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> getFreeAgents(int leagueId, String colName, String colValue) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL getFreeAgents(?,?,?)}");
             cs.setInt(1, leagueId);
             cs.setString(2, colName);
             cs.setString(3, colValue);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -163,6 +171,6 @@ public class Player implements PlayerInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 }

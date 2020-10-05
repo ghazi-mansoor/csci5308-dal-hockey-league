@@ -1,11 +1,15 @@
 package com.groupten.jdbc.conference;
 
 import com.groupten.jdbc.DatabaseConnection;
+import com.groupten.jdbc.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Conference implements ConferenceInterface {
     static Connection con = DatabaseConnection.getConnection();
@@ -36,12 +40,13 @@ public class Conference implements ConferenceInterface {
     }
 
     @Override
-    public ResultSet listConferences(int leagueId) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> listConferences(int leagueId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL listConferences(?)}");
             cs.setInt(1, leagueId);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -53,18 +58,19 @@ public class Conference implements ConferenceInterface {
                 }
             }
         }
-        return rs;
+        return list;
     }
 
     @Override
-    public ResultSet getConferences(int leagueId, String colName, String colValue) {
-        ResultSet rs = null;
+    public List<HashMap<String, Object>> getConferences(int leagueId, String colName, String colValue) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
             CallableStatement cs = con.prepareCall("{CALL getConferences(?,?,?)}");
             cs.setInt(1, leagueId);
             cs.setString(2, colName);
             cs.setString(3, colValue);
-            rs = cs.executeQuery();
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -77,7 +83,7 @@ public class Conference implements ConferenceInterface {
             }
         }
 
-        return rs;
+        return list;
     }
 
     @Override
