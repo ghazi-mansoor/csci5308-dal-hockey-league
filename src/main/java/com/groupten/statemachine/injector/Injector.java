@@ -1,13 +1,13 @@
-package com.groupten.injector;
+package com.groupten.statemachine.injector;
 
-import com.groupten.console.Console;
-import com.groupten.console.ConsoleInterface;
-import com.groupten.json.JSON;
-import com.groupten.json.JSONInterface;
-import com.groupten.createteam.CreateTeam;
-import com.groupten.createteam.CreateTeamInterface;
-import com.groupten.loadteam.LoadTeam;
-import com.groupten.loadteam.LoadTeamInterface;
+import com.groupten.statemachine.console.Console;
+import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.json.JSON;
+import com.groupten.statemachine.json.JSONInterface;
+import com.groupten.statemachine.createteam.CreateTeam;
+import com.groupten.statemachine.createteam.CreateTeamInterface;
+import com.groupten.statemachine.loadteam.LoadTeam;
+import com.groupten.statemachine.loadteam.LoadTeamInterface;
 
 public class Injector {
 

@@ -1,4 +1,4 @@
-package com.groupten.json;
+package com.groupten.statemachine.json;
 
 import org.json.simple.parser.ParseException;
 

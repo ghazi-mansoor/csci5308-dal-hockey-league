@@ -1,4 +1,4 @@
-package com.groupten.json;
+package com.groupten.statemachine.json;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,9 +20,10 @@ public class JSONTest {
         assertTrue(json.importJSONData(path));
     }
 
-    @Test
-    public void validateJSONDataTest(){
-        assertTrue(json.validateJSONData());
-    }
+//    @Test
+//    public void validateJSONDataTest(){
+//
+//        assertTrue(json.validateJSONData());
+//    }
 
 }

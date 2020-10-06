@@ -1,4 +1,4 @@
-package com.groupten.createteam;
+package com.groupten.statemachine.createteam;
 
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
-import com.groupten.console.ConsoleInterface;
-import com.groupten.injector.Injector;
-import com.groupten.json.JSONInterface;
-import com.groupten.createteam.CreateTeamInterface;
-import com.groupten.loadteam.LoadTeamInterface;
+import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.injector.Injector;
+import com.groupten.statemachine.json.JSONInterface;
+import com.groupten.statemachine.createteam.CreateTeamInterface;
+import com.groupten.statemachine.loadteam.LoadTeamInterface;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -11,7 +11,6 @@ public class HockeySimulationApp {
 
     public static void main(String[] args) throws IOException, ParseException {
 
-        boolean quit_1 = true;
         ConsoleInterface console = Injector.injector().getConsoleObject();
         JSONInterface json = Injector.injector().getJSONObject();
         CreateTeamInterface createTeam = Injector.injector().getCreateTeamObject();

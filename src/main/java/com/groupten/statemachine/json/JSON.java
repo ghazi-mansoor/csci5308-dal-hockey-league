@@ -1,4 +1,4 @@
-package com.groupten.json;
+package com.groupten.statemachine.json;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,7 +26,7 @@ public class JSON implements JSONInterface {
     }
 
     @Override
-    public boolean validateJSONData() {
+    public boolean validateJSONData(){
 
         String leagueName = (String) jsonData.get("leagueName");
         JSONArray conferences = (JSONArray) jsonData.get("conferences");

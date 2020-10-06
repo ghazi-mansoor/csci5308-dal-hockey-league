@@ -1,7 +1,7 @@
-package com.groupten.loadteam;
+package com.groupten.statemachine.loadteam;
 
-import com.groupten.console.ConsoleInterface;
-import com.groupten.injector.Injector;
+import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.injector.Injector;
 
 public class LoadTeam implements LoadTeamInterface {
 

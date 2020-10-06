@@ -1,4 +1,4 @@
-package com.groupten.loadteam;
+package com.groupten.statemachine.loadteam;
 
 public interface LoadTeamInterface {
 
