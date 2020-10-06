@@ -1,4 +1,4 @@
-package com.groupten.jdbc;
+package com.groupten.services.jdbc.helpers;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

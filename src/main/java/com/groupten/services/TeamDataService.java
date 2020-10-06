@@ -1,10 +1,10 @@
-package com.groupten.jdbc.team;
+package com.groupten.services;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 
-public interface TeamInterface {
+public interface TeamDataService {
     int createTeam(int divisionId, String teamName, String generalManager, String headCoach);
     List<HashMap<String,Object>> listTeams(int divisionId);
     List<HashMap<String,Object>> getTeams(int divisionId, String colName, String colValue);

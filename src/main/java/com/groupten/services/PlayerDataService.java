@@ -1,10 +1,10 @@
-package com.groupten.jdbc.player;
+package com.groupten.services;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 
-public interface PlayerInterface {
+public interface PlayerDataService {
     int createPlayer(int leagueId, String playerName, String position, boolean isCaptain);
     List<HashMap<String,Object>> listPlayers(int leagueId);
     List<HashMap<String,Object>> getPlayers(int leagueId, String colName, String colValue);

@@ -1,7 +1,8 @@
-package com.groupten.jdbc.conference;
+package com.groupten.services.jdbc;
 
-import com.groupten.jdbc.DatabaseConnection;
-import com.groupten.jdbc.ResultSetOperation;
+import com.groupten.services.ConferenceDataService;
+import com.groupten.services.jdbc.helpers.DatabaseConnection;
+import com.groupten.services.jdbc.helpers.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Conference implements ConferenceInterface {
+public class ConferenceData implements ConferenceDataService {
     static Connection con = DatabaseConnection.getConnection();
 
     @Override

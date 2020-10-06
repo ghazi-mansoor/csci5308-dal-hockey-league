@@ -1,7 +1,8 @@
-package com.groupten.jdbc.team;
+package com.groupten.services.jdbc;
 
-import com.groupten.jdbc.DatabaseConnection;
-import com.groupten.jdbc.ResultSetOperation;
+import com.groupten.services.TeamDataService;
+import com.groupten.services.jdbc.helpers.DatabaseConnection;
+import com.groupten.services.jdbc.helpers.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Team implements TeamInterface {
+public class TeamData implements TeamDataService {
     static Connection con = DatabaseConnection.getConnection();
 
     @Override
