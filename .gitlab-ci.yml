@@ -36,8 +36,10 @@ test:
     - ugrad
   script: ./gradlew check
   
-deployStep:
+deploy_develop:
   stage: deploy
+  environment:
+    name: develop
   only:
     - develop
   tags:
@@ -48,7 +50,26 @@ deployStep:
   script:
     - chmod og-rwx ${TEST_DEPLOY_SSH_KEY}
     - |
-      echo "{\"HOST\": \"$DB_HOST\",\"PORT\": \"$DB_PORT\",\"DBNAME\": \"$TEST_DB_NAME\",\"USER\": \"$TEST_DB_USER\",\"PASS\": \"$TEST_DB_PASS\"}" > configuration.json
+      echo "{\"DB_HOST\": \"$DB_HOST\",\"DB_PORT\": \"$DB_PORT\",\"DB_NAME\": \"$TEST_DB_NAME\",\"DB_USER\": \"$TEST_DB_USER\",\"DB_PASS\": \"$TEST_DB_PASS\"}" > configuration.json
     - mv configuration.json build/libs
     - zip -r ${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip build/libs
     - scp -r -o StrictHostKeyChecking=no -i "${TEST_DEPLOY_SSH_KEY}" ${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip "${TEST_DEPLOY_USER}@${TEST_DEPLOY_HOST}:${TEST_DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip"
+
+deploy_release:
+  stage: deploy
+  environment:
+    name: release
+  only:
+    - release
+  tags:
+    - ugrad
+  artifacts:
+    paths:
+      - build/libs
+  script:
+    - chmod og-rwx ${DEPLOY_SSH_KEY}
+    - |
+      echo "{\"DB_HOST\": \"$DB_HOST\",\"DB_PORT\": \"$DB_PORT\",\"DB_NAME\": \"$PROD_DB_NAME\",\"DB_USER\": \"$PROD_DB_USER\",\"DB_PASS\": \"$PROD_DB_PASS\"}" > configuration.json
+    - mv configuration.json build/libs
+    - zip -r ${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip build/libs
+    - scp -r -o StrictHostKeyChecking=no -i "${DEPLOY_SSH_KEY}" ${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip"
