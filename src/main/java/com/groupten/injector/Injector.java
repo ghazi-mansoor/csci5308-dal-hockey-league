@@ -1,4 +1,4 @@
-package com.groupten.statemachine.injector;
+package com.groupten.injector;
 
 import com.groupten.statemachine.console.Console;
 import com.groupten.statemachine.console.ConsoleInterface;

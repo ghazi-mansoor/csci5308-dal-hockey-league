@@ -1,5 +1,5 @@
 import com.groupten.statemachine.console.ConsoleInterface;
-import com.groupten.statemachine.injector.Injector;
+import com.groupten.injector.Injector;
 import com.groupten.statemachine.json.JSONInterface;
 import com.groupten.statemachine.createteam.CreateTeamInterface;
 import com.groupten.statemachine.loadteam.LoadTeamInterface;

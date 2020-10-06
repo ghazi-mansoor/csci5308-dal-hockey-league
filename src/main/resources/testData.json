@@ -13,33 +13,6 @@
 							"headCoach":"Mary Smith",
 							"players":[
 								{
-								"playerName":"Player One",
-								"position":"forward",
-								"captain":true
-								},
-								{
-								"playerName":"Player Two",
-								"position":"defense",
-								"captain":false
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			"conferenceName": "Western Conference",
-			"divisions":[
-				{
-					"divisionName": "Pacific",
-					"teams": [
-						{
-							"teamName":"XYZ",
-							"generalManager":"ABC",
-							"headCoach":"CDCD",
-							"players":[
-								{
 									"playerName":"Player One",
 									"position":"forward",
 									"captain":true

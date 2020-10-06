@@ -1,7 +1,7 @@
 package com.groupten.statemachine.createteam;
 
 import com.groupten.statemachine.console.ConsoleInterface;
-import com.groupten.statemachine.injector.Injector;
+import com.groupten.injector.Injector;
 
 public class CreateTeam implements CreateTeamInterface {
 
