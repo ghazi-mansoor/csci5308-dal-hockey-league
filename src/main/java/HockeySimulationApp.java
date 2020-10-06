@@ -31,7 +31,7 @@ public class HockeySimulationApp {
                 boolean didImport = json.importJSONData(path);
 
                 if(didImport){
-                    boolean isValid = json.validateJSONData();
+                    boolean isValid = json.doesLeagueNameExist();
 
                     if(isValid){
                         console.printLine("JSON data import is successful");
