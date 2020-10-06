@@ -1,8 +1,7 @@
-package com.groupten.services.jdbc;
+package com.groupten.jdbc.player;
 
-import com.groupten.services.PlayerDataService;
-import com.groupten.services.jdbc.helpers.DatabaseConnection;
-import com.groupten.services.jdbc.helpers.ResultSetOperation;
+import com.groupten.jdbc.DatabaseConnection;
+import com.groupten.jdbc.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PlayerData implements PlayerDataService {
+public class Player implements PlayerInterface {
     static Connection con = DatabaseConnection.getConnection();
 
     @Override

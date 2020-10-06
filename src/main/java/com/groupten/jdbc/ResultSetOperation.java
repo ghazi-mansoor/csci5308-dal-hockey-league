@@ -1,7 +1,8 @@
-package com.groupten.services.jdbc.helpers;
+package com.groupten.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
