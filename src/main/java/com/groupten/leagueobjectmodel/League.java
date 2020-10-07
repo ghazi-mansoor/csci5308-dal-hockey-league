@@ -1,16 +1,26 @@
 package com.groupten.leagueobjectmodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class League {
     private int leagueID;
     private String leagueName;
-    private List<Conference> divisions;
+    private List<Conference> conferences;
     private List<Player> freeAgents;
     private IPersistence persistenceAPI;
 
     public League(String ln) {
         leagueName = ln;
+        conferences = new ArrayList<Conference>();
+        freeAgents = new ArrayList<Player>();
+    }
+
+    public League (String ln, IPersistence per) {
+        leagueName = ln;
+        persistenceAPI = per;
+        conferences = new ArrayList<Conference>();
+        freeAgents = new ArrayList<Player>();
     }
 
     public int getLeagueID() {
@@ -30,11 +40,11 @@ public class League {
     }
 
     public List<Conference> getDivisions() {
-        return divisions;
+        return conferences;
     }
 
-    public void setDivisions(List<Conference> divisions) {
-        this.divisions = divisions;
+    public void setDivisions(List<Conference> conferences) {
+        this.conferences = conferences;
     }
 
     public List<Player> getFreeAgents() {

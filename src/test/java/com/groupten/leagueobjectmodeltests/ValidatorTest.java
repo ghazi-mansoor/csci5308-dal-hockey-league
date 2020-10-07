@@ -8,8 +8,10 @@ import static org.junit.Assert.assertTrue;
 
 public class ValidatorTest {
     @Test
-    public void isStringValidTest() {
-        assertTrue(Validator.isStringValid("Hello World!"));
-        assertFalse(Validator.isStringValid(" "));
+    public void areStringsValidTest() {
+        assertTrue(Validator.areStringsValid("Hello"));
+        assertTrue(Validator.areStringsValid("Hello", "World"));
+        assertFalse(Validator.areStringsValid(" "));
+        assertFalse(Validator.areStringsValid("Hello", " "));
     }
 }
