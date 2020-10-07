@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LeagueDBMock implements LeagueInterface {
-    static Connection con = DatabaseConnection.getConnection();
 
     @Override
     public int createLeague(String leagueName) {
