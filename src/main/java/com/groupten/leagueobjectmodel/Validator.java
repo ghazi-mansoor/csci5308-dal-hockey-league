@@ -20,6 +20,19 @@ public class Validator {
         } else {
             return true;
         }
-
     }
+
+    static public boolean isPositionValid(String position) {
+        String[] validPositions = {"goalie", "forward", "defense"};
+        position = position.toLowerCase();
+
+        for (String s : validPositions) {
+            if (s.equals(position)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

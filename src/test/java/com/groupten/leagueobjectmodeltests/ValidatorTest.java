@@ -14,4 +14,14 @@ public class ValidatorTest {
         assertFalse(Validator.areStringsValid(" "));
         assertFalse(Validator.areStringsValid("Hello", " "));
     }
+
+    @Test
+    public void isPositionValidTest() {
+        assertTrue(Validator.isPositionValid("forward"));
+        assertTrue(Validator.isPositionValid("goalie"));
+        assertTrue(Validator.isPositionValid("defense"));
+        assertTrue(Validator.isPositionValid("Defense"));
+        assertFalse(Validator.isPositionValid("hello"));
+    }
+
 }
