@@ -25,6 +25,77 @@
 							]
 						}
 					]
+				},
+				{
+					"divisionName": "Atlantic",
+					"teams": [
+						{
+							"teamName":"Boston",
+							"generalManager":"Mister Fred",
+							"headCoach":"Mary Smith",
+							"players":[
+								{
+									"playerName":"Player One",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player Two",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"conferenceName": "Eastern Conference",
+			"divisions":[
+				{
+					"divisionName": "Atlantic",
+					"teams": [
+						{
+							"teamName":"Boston",
+							"generalManager":"Mister Fred",
+							"headCoach":"Mary Smith",
+							"players":[
+								{
+									"playerName":"Player One",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player Two",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
+				},
+				{
+					"divisionName": "Atlantic",
+					"teams": [
+						{
+							"teamName":"Boston",
+							"generalManager":"Mister Fred",
+							"headCoach":"Mary Smith",
+							"players":[
+								{
+									"playerName":"Player One",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player Two",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -47,3 +118,4 @@
 		}
 	]
 }
+

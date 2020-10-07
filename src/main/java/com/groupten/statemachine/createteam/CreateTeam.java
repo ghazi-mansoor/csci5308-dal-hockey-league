@@ -1,17 +1,18 @@
 package com.groupten.statemachine.createteam;
 
+import com.groupten.jdbc.league.League;
+import com.groupten.leagueobjectmodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
 
 public class CreateTeam implements CreateTeamInterface {
 
-    private ConsoleInterface console;
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
 
     @Override
     public void userPromptForNewTeam() {
 
-        console = Injector.injector().getConsoleObject();
+        ConsoleInterface console = Injector.injector().getConsoleObject();
 
         console.printLine("Enter the Conference name:");
         conferenceName = console.readLine();
@@ -39,19 +40,20 @@ public class CreateTeam implements CreateTeamInterface {
     @Override
     public boolean ifExist() {
         // Invoke the methods in LOM to check if data exist
-        return false;
+        return true;
     }
 
     @Override
     public boolean instantiateNewTeam() {
         // Invoke the method in LOM to instantiate new team
-        return false;
+        return true;
     }
 
     @Override
     public boolean persistLeagueModel() {
-        // Invoke the method in LOM to call stored procedure for persistence
-        return false;
+        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        leagueModel.saveLeagueModelToDB();
+        return true;
     }
 
     public void setConferenceName(String conferenceName) {
