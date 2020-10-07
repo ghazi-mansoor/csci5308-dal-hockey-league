@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Player implements PlayerInterface {
-    static Connection con = DatabaseConnection.getConnection();
+    DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     @Override
     public int createPlayer(int leagueId, String playerName, String position, boolean isCaptain) {
         int playerId = 0;
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL createPlayer(?,?,?,?,?)}");
             cs.setInt(1, leagueId);
             cs.setString(2, playerName);
@@ -29,44 +30,32 @@ public class Player implements PlayerInterface {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return playerId;
     }
 
     @Override
     public List<HashMap<String, Object>> listPlayers(int leagueId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL listPlayers(?)}");
             cs.setInt(1, leagueId);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return list;
     }
 
     @Override
     public List<HashMap<String, Object>> getPlayers(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL getPlayers(?,?)}");
             cs.setString(1, colName);
             cs.setString(2, colValue);
@@ -74,21 +63,14 @@ public class Player implements PlayerInterface {
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return list;
     }
 
     @Override
     public void updatePlayer(int playerId, String playerName, String position, boolean isCaptain) {
-        try {
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL updatePlayer(?,?,?,?)}");
             cs.setInt(1, playerId);
             cs.setString(2, playerName);
@@ -97,54 +79,31 @@ public class Player implements PlayerInterface {
             cs.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
     @Override
     public void deletePlayer(int playerId) {
-        try {
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL deletePlayer(?)}");
             cs.setInt(1, playerId);
             cs.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
     @Override
     public List<HashMap<String, Object>> listFreeAgents(int leagueId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL listFreeAgents(?)}");
             cs.setInt(1, leagueId);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return list;
     }
@@ -152,7 +111,8 @@ public class Player implements PlayerInterface {
     @Override
     public List<HashMap<String, Object>> getFreeAgents(int leagueId, String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL getFreeAgents(?,?,?)}");
             cs.setInt(1, leagueId);
             cs.setString(2, colName);
@@ -161,14 +121,6 @@ public class Player implements PlayerInterface {
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return list;
     }

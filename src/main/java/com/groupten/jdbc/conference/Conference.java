@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Conference implements ConferenceInterface {
-    static Connection con = DatabaseConnection.getConnection();
+    DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     @Override
     public int createConference(int leagueId, String conferenceName) {
         int conferenceId = 0;
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL createConference(?,?,?)}");
             cs.setInt(1, leagueId);
             cs.setString(2, conferenceName);
@@ -27,44 +28,32 @@ public class Conference implements ConferenceInterface {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return conferenceId;
     }
 
     @Override
     public List<HashMap<String, Object>> listConferences(int leagueId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL listConferences(?)}");
             cs.setInt(1, leagueId);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return list;
     }
 
     @Override
     public List<HashMap<String, Object>> getConferences(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        try {
+
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL getConferences(?,?)}");
             cs.setString(1, colName);
             cs.setString(2, colValue);
@@ -72,14 +61,6 @@ public class Conference implements ConferenceInterface {
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
         return list;
@@ -87,40 +68,24 @@ public class Conference implements ConferenceInterface {
 
     @Override
     public void updateConference(int conferenceId, String conferenceName) {
-        try {
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL updateConference(?,?)}");
             cs.setInt(1, conferenceId);
             cs.setString(2, conferenceName);
             cs.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
     @Override
     public void deleteConference(int conferenceId) {
-        try {
+        try(Connection con = dbConnectionObj.connect()) {
             CallableStatement cs = con.prepareCall("{CALL deleteConference(?)}");
             cs.setInt(1, conferenceId);
             cs.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if(con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }
