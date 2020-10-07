@@ -1,5 +1,8 @@
 package com.groupten.leagueobjectmodel;
 
+import com.groupten.jdbc.player.PlayerInterface;
+import com.groupten.jdbc.team.TeamInterface;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -9,7 +12,8 @@ public class Player {
     private String playerName;
     private String position;
     private boolean captain;
-    private IPersistence persistenceAPI;
+    private PlayerInterface playerPersistenceAPI;
+    private TeamInterface teamPersistenceAPI;
 
     public Player(String pn, String pos, boolean cap) {
         playerName = pn;
@@ -17,20 +21,23 @@ public class Player {
         captain = cap;
     }
 
-    public Player(String pn, String pos, boolean cap, IPersistence per) {
+    public Player(String pn, String pos, boolean cap, PlayerInterface per, TeamInterface perTeam) {
         playerName = pn;
         position = pos;
         captain = cap;
-        persistenceAPI = per;
+        playerPersistenceAPI = per;
+        teamPersistenceAPI = perTeam;
     }
 
     public void savePlayerToDB() {
-        playerID = persistenceAPI.persistPlayer(this);
+
+        playerID = playerPersistenceAPI.createPlayer(1, playerName, position, captain);
+        teamPersistenceAPI.addTeamPlayer(teamID, playerID);
         System.out.println("Player saved to DB");
     }
 
     public void saveFreeAgentPlayerToDB() {
-        // TODO: To add freeAgent player
+        playerID = playerPersistenceAPI.createPlayer(leagueID, playerName, position, captain);
     }
 
     public int getLeagueID() {
