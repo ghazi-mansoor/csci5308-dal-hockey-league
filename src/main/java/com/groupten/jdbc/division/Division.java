@@ -62,13 +62,12 @@ public class Division implements DivisionInterface {
     }
 
     @Override
-    public List<HashMap<String, Object>> getDivisions(int conferenceId, String colName, String colValue) {
+    public List<HashMap<String, Object>> getDivisions(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
-            CallableStatement cs = con.prepareCall("{CALL getDivisions(?,?,?)}");
-            cs.setInt(1, conferenceId);
-            cs.setString(2, colName);
-            cs.setString(3, colValue);
+            CallableStatement cs = con.prepareCall("{CALL getDivisions(?,?)}");
+            cs.setString(1, colName);
+            cs.setString(2, colValue);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
