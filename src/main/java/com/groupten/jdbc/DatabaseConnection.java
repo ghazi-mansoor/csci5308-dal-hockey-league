@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private Connection connection = null;
+    private static DatabaseConnection dbConnectionObj = null;
 
     //Set Driver
     String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -47,8 +47,8 @@ public class DatabaseConnection {
         }
     }
 
-    //Establish Connection
-    private Connection connect(){
+    public Connection connect(){
+        Connection connection = null;
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -59,8 +59,10 @@ public class DatabaseConnection {
         return connection;
     }
 
-    public static Connection getConnection() {
-        DatabaseConnection db = new DatabaseConnection();
-        return db.connect();
+    public static DatabaseConnection getDatabaseConnectionObject() {
+        if(dbConnectionObj == null){
+            dbConnectionObj = new DatabaseConnection();
+        }
+        return dbConnectionObj;
     }
 }
