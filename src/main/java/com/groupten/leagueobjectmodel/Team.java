@@ -1,5 +1,7 @@
 package com.groupten.leagueobjectmodel;
 
+import com.groupten.jdbc.team.TeamInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class Team {
     private String generalManager;
     private String headCoach;
     private List<Player> players;
-    private IPersistence persistenceAPI;
+    private TeamInterface teamPersistenceAPI;
 
     public Team(String tn, String gm, String hc) {
         teamName = tn;
@@ -19,12 +21,12 @@ public class Team {
         players = new ArrayList<Player>();
     }
 
-    public Team(String tn, String gm, String hc, IPersistence per) {
+    public Team(String tn, String gm, String hc, TeamInterface per) {
         teamName = tn;
         generalManager = gm;
         headCoach = hc;
         players = new ArrayList<Player>();
-        persistenceAPI = per;
+        teamPersistenceAPI = per;
     }
 
     public void addPlayerToTeam(Player player) {
@@ -32,7 +34,7 @@ public class Team {
     }
 
     public void saveTeamToDB() {
-        teamID = persistenceAPI.persistTeam(this);
+        teamID = teamPersistenceAPI.createTeam(divisionID, teamName, generalManager, headCoach);
         setPlayerForeignKeys();
         saveAllPlayers();
         System.out.println("Team saved to DB");
