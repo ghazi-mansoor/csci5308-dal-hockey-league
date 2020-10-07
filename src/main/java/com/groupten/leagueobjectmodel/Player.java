@@ -29,6 +29,10 @@ public class Player {
         System.out.println("Player saved to DB");
     }
 
+    public void saveFreeAgentPlayerToDB() {
+        // TODO: To add freeAgent player
+    }
+
     public int getLeagueID() {
         return leagueID;
     }
