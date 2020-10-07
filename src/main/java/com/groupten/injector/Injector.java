@@ -1,5 +1,7 @@
 package com.groupten.injector;
 
+import com.groupten.jdbc.league.League;
+import com.groupten.jdbc.league.LeagueInterface;
 import com.groupten.statemachine.console.Console;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.statemachine.json.JSON;
@@ -8,6 +10,8 @@ import com.groupten.statemachine.createteam.CreateTeam;
 import com.groupten.statemachine.createteam.CreateTeamInterface;
 import com.groupten.statemachine.loadteam.LoadTeam;
 import com.groupten.statemachine.loadteam.LoadTeamInterface;
+import com.groupten.statemachine.simulation.Simulation;
+import com.groupten.statemachine.simulation.SimulationInterface;
 
 public class Injector {
 
@@ -16,12 +20,16 @@ public class Injector {
     private JSONInterface jsonInterface;
     private CreateTeamInterface createTeamInterface;
     private LoadTeamInterface loadTeamInterface;
+    private LeagueInterface leagueDatabaseInterface;
+    private SimulationInterface simulationInterface;
 
     private Injector() {
         consoleInterface = new Console();
         jsonInterface = new JSON();
         createTeamInterface = new CreateTeam();
         loadTeamInterface = new LoadTeam();
+        leagueDatabaseInterface = new League();
+        simulationInterface = new Simulation();
     }
 
     public static Injector injector(){
@@ -52,6 +60,14 @@ public class Injector {
         this.loadTeamInterface = loadTeamInterface;
     }
 
+    public void setLeagueDatabaseObject(LeagueInterface leagueDatabaseInterface) {
+        this.leagueDatabaseInterface = leagueDatabaseInterface;
+    }
+
+    public void setSimulationObject(SimulationInterface simulationInterface) {
+        this.simulationInterface = simulationInterface;
+    }
+
     public ConsoleInterface getConsoleObject() {
         return consoleInterface;
     }
@@ -66,6 +82,14 @@ public class Injector {
 
     public LoadTeamInterface getLoadTeamObject() {
         return loadTeamInterface;
+    }
+
+    public LeagueInterface getLeagueDatabaseObject() {
+        return leagueDatabaseInterface;
+    }
+
+    public SimulationInterface getSimulationObject() {
+        return simulationInterface;
     }
 
 }

@@ -43,13 +43,15 @@ public class CreateTeam implements CreateTeamInterface {
     }
 
     @Override
-    public void instantiateNewTeam() {
-        // Instantiate new team in LOM
+    public boolean instantiateNewTeam() {
+        // Invoke the method in LOM to instantiate new team
+        return false;
     }
 
     @Override
-    public void persistAllData() {
-        // Invoke store procedures to store the data in database
+    public boolean persistLeagueModel() {
+        // Invoke the method in LOM to call stored procedure for persistence
+        return false;
     }
 
     public void setConferenceName(String conferenceName) {

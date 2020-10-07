@@ -17,17 +17,17 @@ public class LoadTeam implements LoadTeamInterface {
 
     @Override
     public boolean doesTeamExist() {
-        // Check in LOM if team exist
+        // Invoke the method of DB to check if team exist
         return false;
     }
 
     @Override
-    public void loadExistingTeam() {
-        // Invoke the method in DB to instantiate team
+    public void loadTeamsLeagueID() {
+        // Invoke the method of DB to get team and it league ID
     }
 
     @Override
     public void loadExistingLeague() {
-        // Invoke the method in DB to instantiate league
+        // Invoke the method in LOM to load required league in memory
     }
 }

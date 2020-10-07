@@ -7,7 +7,7 @@ import java.io.IOException;
 public interface JSONInterface {
 
     boolean importJSONData(String path) throws IOException, ParseException;
-    boolean doesLeagueNameExist();
+    boolean isLeagueNameUnique();
     boolean instantiateJSONData();
 
 }

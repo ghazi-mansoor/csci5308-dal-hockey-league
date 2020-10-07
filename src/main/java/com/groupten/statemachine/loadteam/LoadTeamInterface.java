@@ -4,7 +4,7 @@ public interface LoadTeamInterface {
 
     void userPromptForLoadingTeam();
     boolean doesTeamExist();
-    void loadExistingTeam();
+    void loadTeamsLeagueID();
     void loadExistingLeague();
 
 }
