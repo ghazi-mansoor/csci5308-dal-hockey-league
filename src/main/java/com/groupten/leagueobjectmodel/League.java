@@ -23,6 +23,29 @@ public class League {
         freeAgents = new ArrayList<Player>();
     }
 
+    public void addConferenceToLeague(Conference conference) {
+        conferences.add(conference);
+    }
+
+    public void saveLeagueToDB() {
+        leagueID = persistenceAPI.persistLeague(this);
+        setConferenceForeignKeys();
+        saveAllConferences();
+        System.out.println("League saved to DB");
+    }
+
+    private void setConferenceForeignKeys() {
+        for (Conference conference : conferences) {
+            conference.setLeagueID(leagueID);
+        }
+    }
+
+    private void saveAllConferences() {
+        for (Conference conference : conferences) {
+            conference.saveConferenceToDB();
+        }
+    }
+
     public int getLeagueID() {
         return leagueID;
     }

@@ -24,4 +24,10 @@ public class LeagueModel {
         return numberOfLeaguesPostAdditions == numberOfLeagues + 1;
     }
 
+    public void saveLeagueModelToDB() {
+        for (League league : leagues) {
+            league.saveLeagueToDB();
+        }
+    }
+
 }

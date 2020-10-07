@@ -1,5 +1,7 @@
 package com.groupten.leagueobjectmodel;
 
+import java.util.ArrayList;
+
 public class Player {
     private int leagueID;
     private int teamID;
@@ -7,6 +9,25 @@ public class Player {
     private String playerName;
     private String position;
     private boolean captain;
+    private IPersistence persistenceAPI;
+
+    public Player(String pn, String pos, boolean cap) {
+        playerName = pn;
+        position = pos;
+        captain = cap;
+    }
+
+    public Player(String pn, String pos, boolean cap, IPersistence per) {
+        playerName = pn;
+        position = pos;
+        captain = cap;
+        persistenceAPI = per;
+    }
+
+    public void savePlayerToDB() {
+        playerID = persistenceAPI.persistPlayer(this);
+        System.out.println("Player saved to DB");
+    }
 
     public int getLeagueID() {
         return leagueID;
@@ -55,4 +76,5 @@ public class Player {
     public void setCaptain(boolean captain) {
         this.captain = captain;
     }
+
 }
