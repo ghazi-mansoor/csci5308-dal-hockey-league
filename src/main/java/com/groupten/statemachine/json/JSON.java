@@ -41,15 +41,12 @@ public class JSON implements JSONInterface {
     }
 
     @Override
-    public boolean instantiateJSONData() {
+    public void instantiateJSONData() {
 
         JSONObject conference, division, team, teamPlayer, freePlayer;
         JSONArray divisions, teams, players;
 
         String leagueName = (String) jsonData.get("leagueName");
-
-        // Invoke the method in LOM to add the league
-        // Return false if not able to add
 
         JSONArray conferences = (JSONArray) jsonData.get("conferences");
 
@@ -105,7 +102,5 @@ public class JSON implements JSONInterface {
             // Return false if not able to add
 
         }
-
-        return true;
     }
 }

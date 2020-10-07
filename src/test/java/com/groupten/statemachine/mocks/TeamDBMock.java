@@ -1,4 +1,4 @@
-package com.groupten.jdbcmock.league;
+package com.groupten.statemachine.mocks;
 
 import com.groupten.jdbc.team.TeamInterface;
 

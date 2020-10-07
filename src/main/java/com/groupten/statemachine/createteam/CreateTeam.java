@@ -5,13 +5,12 @@ import com.groupten.injector.Injector;
 
 public class CreateTeam implements CreateTeamInterface {
 
-    private ConsoleInterface console;
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
 
     @Override
     public void userPromptForNewTeam() {
 
-        console = Injector.injector().getConsoleObject();
+        ConsoleInterface console = Injector.injector().getConsoleObject();
 
         console.printLine("Enter the Conference name:");
         conferenceName = console.readLine();

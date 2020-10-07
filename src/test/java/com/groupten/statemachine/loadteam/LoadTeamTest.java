@@ -1,10 +1,7 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.jdbc.league.LeagueInterface;
 import com.groupten.jdbc.team.TeamInterface;
-import com.groupten.jdbcmock.league.LeagueDBMock;
-import com.groupten.jdbcmock.league.TeamDBMock;
-import com.groupten.statemachine.json.JSON;
+import com.groupten.statemachine.mocks.TeamDBMock;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
