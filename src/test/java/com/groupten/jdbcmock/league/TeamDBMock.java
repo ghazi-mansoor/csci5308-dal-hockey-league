@@ -24,6 +24,7 @@ public class TeamDBMock implements TeamInterface {
 
         mockMap.put("teamID", 1);
         mockMap.put("teamName", "Dal Team");
+        mockMap.put("leagueId", 1);
 
         mockList.add(mockMap);
 

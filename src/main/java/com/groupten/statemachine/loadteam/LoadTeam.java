@@ -12,6 +12,7 @@ public class LoadTeam implements LoadTeamInterface {
 
     private ConsoleInterface console;
     private String teamName;
+    private int leagueID;
 
     public LoadTeam() {}
 
@@ -27,19 +28,25 @@ public class LoadTeam implements LoadTeamInterface {
     }
 
     @Override
+    public boolean validateUserInput() {
+        return teamName.length() > 0;
+    }
+
+    @Override
     public boolean doesTeamExist() {
         TeamInterface teamDB = Injector.injector().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
+        leagueID = (int) teamList.get(0).get("leagueId");
         return teamList.size() > 0;
     }
 
     @Override
-    public void loadTeamsLeagueID() {
-        // Invoke the method of DB to get team and it league ID
+    public void loadExistingLeague() {
+        System.out.println(leagueID);
     }
 
-    @Override
-    public void loadExistingLeague() {
-        // Invoke the method in LOM to load required league in memory
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
+
 }
