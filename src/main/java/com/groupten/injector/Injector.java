@@ -2,6 +2,8 @@ package com.groupten.injector;
 
 import com.groupten.jdbc.league.League;
 import com.groupten.jdbc.league.LeagueInterface;
+import com.groupten.jdbc.team.Team;
+import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.statemachine.console.Console;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.statemachine.json.JSON;
@@ -22,6 +24,7 @@ public class Injector {
     private LoadTeamInterface loadTeamInterface;
     private LeagueInterface leagueDatabaseInterface;
     private SimulationInterface simulationInterface;
+    private TeamInterface teamDatabaseInterface;
 
     private Injector() {
         consoleInterface = new Console();
@@ -30,6 +33,7 @@ public class Injector {
         loadTeamInterface = new LoadTeam();
         leagueDatabaseInterface = new League();
         simulationInterface = new Simulation();
+        teamDatabaseInterface = new Team();
     }
 
     public static Injector injector(){
@@ -68,6 +72,10 @@ public class Injector {
         this.simulationInterface = simulationInterface;
     }
 
+    public void setTeamDatabaseObject(TeamInterface teamDatabaseInterface) {
+        this.teamDatabaseInterface = teamDatabaseInterface;
+    }
+
     public ConsoleInterface getConsoleObject() {
         return consoleInterface;
     }
@@ -92,4 +100,7 @@ public class Injector {
         return simulationInterface;
     }
 
+    public TeamInterface getTeamDatabaseObject() {
+        return teamDatabaseInterface;
+    }
 }
