@@ -1,5 +1,7 @@
 package com.groupten.leagueobjectmodel;
 
+import com.groupten.jdbc.league.LeagueInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class League {
     private String leagueName;
     private List<Conference> conferences;
     private List<Player> freeAgents;
-    private IPersistence persistenceAPI;
+    private LeagueInterface leaguePersistenceAPI;
 
     public League(String ln) {
         leagueName = ln;
@@ -16,9 +18,9 @@ public class League {
         freeAgents = new ArrayList<Player>();
     }
 
-    public League (String ln, IPersistence per) {
+    public League (String ln, LeagueInterface per) {
         leagueName = ln;
-        persistenceAPI = per;
+        leaguePersistenceAPI = per;
         conferences = new ArrayList<Conference>();
         freeAgents = new ArrayList<Player>();
     }
@@ -28,7 +30,7 @@ public class League {
     }
 
     public void saveLeagueToDB() {
-        leagueID = persistenceAPI.persistLeague(this);
+        leagueID = leaguePersistenceAPI.createLeague(leagueName);
         setConferenceForeignKeys();
         saveAllConferences();
         System.out.println("League saved to DB");

@@ -1,5 +1,7 @@
 package com.groupten.leagueobjectmodel;
 
+import com.groupten.jdbc.conference.ConferenceInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +10,17 @@ public class Conference {
     private int conferenceID;
     private String conferenceName;
     private List<Division> divisions;
-    private IPersistence persistenceAPI;
+    private ConferenceInterface conferencePersistenceAPI;
 
     public Conference(String cn) {
         conferenceName = cn;
         divisions = new ArrayList<Division>();
     }
 
-    public Conference(String cn, IPersistence per) {
+    public Conference(String cn, ConferenceInterface per) {
         conferenceName = cn;
         divisions = new ArrayList<Division>();
-        persistenceAPI = per;
+        conferencePersistenceAPI = per;
     }
 
     public void addDivisionToConference(Division division) {
@@ -26,7 +28,7 @@ public class Conference {
     }
 
     public void saveConferenceToDB() {
-        conferenceID = persistenceAPI.persistConference(this);
+        conferenceID = conferencePersistenceAPI.createConference(leagueID, conferenceName);
         setDivisionForeignKeys();
         saveAllDivisions();
         System.out.println("Conference saved to DB");
