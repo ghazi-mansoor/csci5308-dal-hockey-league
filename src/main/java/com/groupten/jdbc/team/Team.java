@@ -64,13 +64,12 @@ public class Team implements TeamInterface {
     }
 
     @Override
-    public List<HashMap<String, Object>> getTeams(int divisionId, String colName, String colValue) {
+    public List<HashMap<String, Object>> getTeams(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
         try {
-            CallableStatement cs = con.prepareCall("{CALL getTeams(?,?,?)}");
-            cs.setInt(1, divisionId);
-            cs.setString(2, colName);
-            cs.setString(3, colValue);
+            CallableStatement cs = con.prepareCall("{CALL getTeams(?,?)}");
+            cs.setString(1, colName);
+            cs.setString(2, colValue);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
