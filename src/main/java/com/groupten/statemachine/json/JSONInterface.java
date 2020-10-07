@@ -8,6 +8,6 @@ public interface JSONInterface {
 
     boolean importJSONData(String path) throws IOException, ParseException;
     boolean isLeagueNameUnique();
-    void instantiateJSONData();
+    boolean instantiateJSONData();
 
 }

@@ -41,7 +41,7 @@ public class JSON implements JSONInterface {
     }
 
     @Override
-    public void instantiateJSONData() {
+    public boolean instantiateJSONData() {
 
         JSONObject conference, division, team, teamPlayer, freePlayer;
         JSONArray divisions, teams, players;
@@ -102,5 +102,6 @@ public class JSON implements JSONInterface {
             // Return false if not able to add
 
         }
+        return true;
     }
 }
