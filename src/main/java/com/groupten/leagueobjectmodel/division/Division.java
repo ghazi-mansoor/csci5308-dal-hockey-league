@@ -1,11 +1,10 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.division;
 
 import com.groupten.jdbc.division.DivisionInterface;
-import jdk.jfr.ValueDescriptor;
+import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.leagueobjectmodel.validators.Validator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Division {
@@ -41,7 +40,6 @@ public class Division {
         divisionID = divisionPersistenceAPI.createDivision(conferenceID, divisionName);
         setTeamForeignKeys();
         saveAllTeams();
-        System.out.println("Division saved to DB");
     }
 
     private void setTeamForeignKeys() {

@@ -1,6 +1,11 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.leaguemodel;
 
 import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.league.League;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,16 +49,13 @@ public class LeagueModel {
 
                     return true;
                 } else {
-                    System.out.println("Division: " + divisionName + " is not part of the " + conferenceName + " conference");
                     return false;
                 }
             } else {
-                System.out.println("Conference: " + conferenceName + " is not part of the " + leagueName + " league");
                 return false;
             }
         }
         else {
-            System.out.println("League: " + leagueName + " does not exist.");
             return false;
         }
     }
@@ -65,6 +67,10 @@ public class LeagueModel {
 
     public boolean doesContainLeague(String leagueName) {
         return leagues.containsKey(leagueName);
+    }
+
+    public Map<String, League> getLeagues() {
+        return leagues;
     }
 
     public League getLeague(String leagueName) {

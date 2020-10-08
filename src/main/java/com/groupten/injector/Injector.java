@@ -10,7 +10,7 @@ import com.groupten.jdbc.player.Player;
 import com.groupten.jdbc.player.PlayerInterface;
 import com.groupten.jdbc.team.Team;
 import com.groupten.jdbc.team.TeamInterface;
-import com.groupten.leagueobjectmodel.LeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.Console;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.statemachine.json.JSON;

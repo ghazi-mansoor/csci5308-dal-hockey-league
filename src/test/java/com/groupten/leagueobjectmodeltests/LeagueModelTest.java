@@ -2,10 +2,10 @@ package com.groupten.leagueobjectmodeltests;
 
 import com.groupten.jdbc.team.Team;
 import com.groupten.jdbc.team.TeamInterface;
-import com.groupten.leagueobjectmodel.Conference;
-import com.groupten.leagueobjectmodel.Division;
-import com.groupten.leagueobjectmodel.League;
-import com.groupten.leagueobjectmodel.LeagueModel;
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
