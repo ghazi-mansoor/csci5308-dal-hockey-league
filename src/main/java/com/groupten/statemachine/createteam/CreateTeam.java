@@ -1,10 +1,9 @@
 package com.groupten.statemachine.createteam;
 
+import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
-
-import java.util.Map;
 
 public class CreateTeam implements CreateTeamInterface {
 
@@ -42,7 +41,7 @@ public class CreateTeam implements CreateTeamInterface {
     @Override
     public boolean ifConferenceAndDivisionExist() {
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        leagueLOM = (League) leagueModel.leagues.values().toArray()[0];
+        leagueLOM = (League) leagueModel.getLeagues().values().toArray()[0];
         return leagueLOM.doEntitiesExistInMemory(conferenceName, divisionName);
     }
 
