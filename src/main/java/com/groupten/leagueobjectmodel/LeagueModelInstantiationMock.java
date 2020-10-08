@@ -56,6 +56,8 @@ public class LeagueModelInstantiationMock {
         // Add League 1 to League Model
         leagueModel.addLeagueToModel(league1);
 
+        // System.out.println(leagueModel.doEntitiesExistInMemory("League 1", "L1-Conference 1", "L1-C1-Division 1"));
+
         // Recursively save league object model to DB
         leagueModel.saveLeagueModelToDB();
 

@@ -98,5 +98,9 @@ public class League {
         return conferences;
     }
 
+    public Conference getConference(String conferenceName) {
+        return conferences.get(conferenceName);
+    }
+
 
 }

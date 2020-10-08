@@ -64,4 +64,7 @@ public class Conference {
         return conferenceName;
     }
 
+    public Division getDivision(String divisionName) {
+        return divisions.get(divisionName);
+    }
 }

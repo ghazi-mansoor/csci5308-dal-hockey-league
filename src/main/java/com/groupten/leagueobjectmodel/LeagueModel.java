@@ -1,12 +1,15 @@
 package com.groupten.leagueobjectmodel;
 
-import java.util.ArrayList;
+import com.groupten.jdbc.team.TeamInterface;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LeagueModel {
     private Map<String, League> leagues;
+    private League currentLeague;
+    private Conference currentConference;
+    private Division currentDivision;
 
     public LeagueModel() {
         leagues = new HashMap<String, League>();
@@ -29,26 +32,43 @@ public class LeagueModel {
         }
     }
 
-    public boolean areEntitiesInMemory(String leagueName, String conferenceName, String divisionName) {
+    public boolean doEntitiesExistInMemory(String leagueName, String conferenceName, String divisionName) {
         if (doesContainLeague(leagueName)) {
-            for (League league : leagues.values()) {
-                if (league.doesContainConference(conferenceName)) {
-                    Map<String, Conference> conferences = league.getConferences();
-                    for (Conference conference : conferences.values()) {
-                        return conference.doesContainDivision(divisionName);
-                    }
+            League league = getLeague(leagueName);
+            if (league.doesContainConference(conferenceName)) {
+                Conference conference = league.getConference(conferenceName);
+                if (conference.doesContainDivision(divisionName)) {
+                    currentDivision = conference.getDivision(divisionName);
+                    currentConference = league.getConference(conferenceName);
+                    currentLeague = getLeague(leagueName);
+
+                    return true;
                 } else {
+                    System.out.println("Division: " + divisionName + " is not part of the " + conferenceName + " conference");
                     return false;
                 }
+            } else {
+                System.out.println("Conference: " + conferenceName + " is not part of the " + leagueName + " league");
+                return false;
             }
-            return true;
-        } else {
+        }
+        else {
+            System.out.println("League: " + leagueName + " does not exist.");
             return false;
         }
     }
 
+    public boolean addTeamToLeagueModel(String teamName, String generalManager, String headCoach, TeamInterface persistenceAPI) {
+        Team team = new Team(teamName, generalManager, headCoach, persistenceAPI);
+        return currentDivision.addTeamToDivision(team);
+    }
+
     public boolean doesContainLeague(String leagueName) {
         return leagues.containsKey(leagueName);
+    }
+
+    public League getLeague(String leagueName) {
+        return leagues.get(leagueName);
     }
 
 }
