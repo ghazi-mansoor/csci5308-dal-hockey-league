@@ -39,7 +39,7 @@ public class HockeySimulationApp {
                             createTeam.userPromptForNewTeam();
 
                             if(createTeam.validateUserInput()){
-                                if(createTeam.ifExist()){
+                                if(createTeam.ifConferenceAndDivisionExist()){
                                     console.printLine("SUCCESS: Ready to add the team.");
 
                                     if(createTeam.instantiateNewTeam()){
