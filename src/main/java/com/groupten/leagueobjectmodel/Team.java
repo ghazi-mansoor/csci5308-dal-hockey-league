@@ -14,27 +14,29 @@ public class Team {
     private String teamName;
     private String generalManager;
     private String headCoach;
-    private Map<String, Player> players;
+    private List <Player> players;
     private TeamInterface teamPersistenceAPI;
 
     public Team(String tn, String gm, String hc) {
         teamName = tn;
         generalManager = gm;
         headCoach = hc;
-        players = new HashMap<String, Player>();
+        players = new ArrayList<Player>();
     }
 
     public Team(String tn, String gm, String hc, TeamInterface per) {
         teamName = tn;
         generalManager = gm;
         headCoach = hc;
-        players = new HashMap<String, Player>();
+        players = new ArrayList<Player>();
         teamPersistenceAPI = per;
     }
 
     public boolean addPlayerToTeam(Player player) {
-        players.put(player.getPlayerName(), player);
-        return players.containsKey(player.getPlayerName());
+        int sizeBeforeAddition = players.size();
+        players.add(player);
+        int sizeAfterAddition = players.size();
+        return sizeAfterAddition == sizeBeforeAddition + 1;
     }
 
     public void saveTeamToDB() {
@@ -45,14 +47,14 @@ public class Team {
     }
 
     private void setPlayerForeignKeys() {
-        for (Player player : players.values()) {
+        for (Player player : players) {
             player.setTeamID(teamID);
             player.setLeagueID(leagueID);
         }
     }
 
     private void saveAllPlayers() {
-        for (Player player : players.values()) {
+        for (Player player : players) {
             player.savePlayerToDB();
         }
     }
