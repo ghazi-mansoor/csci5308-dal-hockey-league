@@ -1,4 +1,4 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.player;
 
 import com.groupten.jdbc.player.PlayerInterface;
 import com.groupten.jdbc.team.TeamInterface;
@@ -37,7 +37,6 @@ public class Player {
     public void savePlayerToDB() {
         playerID = playerPersistenceAPI.createPlayer(leagueID, playerName, position, captain);
         teamPersistenceAPI.attachTeamPlayer(teamID, playerID);
-        System.out.println("Player saved to DB");
     }
 
     public void saveFreeAgentPlayerToDB() {

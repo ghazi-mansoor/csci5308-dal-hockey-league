@@ -1,11 +1,11 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.team;
 
 import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.leagueobjectmodel.player.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Team {
     private int leagueID;
@@ -51,7 +51,6 @@ public class Team {
         teamID = teamPersistenceAPI.createTeam(divisionID, teamName, generalManager, headCoach);
         setPlayerForeignKeys();
         saveAllPlayers();
-        System.out.println("Team saved to DB");
     }
 
     private void setPlayerForeignKeys() {
