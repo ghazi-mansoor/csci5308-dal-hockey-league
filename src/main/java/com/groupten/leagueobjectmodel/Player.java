@@ -19,6 +19,13 @@ public class Player {
         captain = cap;
     }
 
+    public Player(String pn, String pos, boolean cap, PlayerInterface per) {
+        playerName = pn;
+        position = pos;
+        captain = cap;
+        playerPersistenceAPI = per;
+    }
+
     public Player(String pn, String pos, boolean cap, PlayerInterface per, TeamInterface perTeam) {
         playerName = pn;
         position = pos;
