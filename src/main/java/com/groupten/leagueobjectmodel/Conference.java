@@ -37,6 +37,7 @@ public class Conference {
     private void setDivisionForeignKeys() {
         for (Division division : divisions) {
             division.setConferenceID(conferenceID);
+            division.setLeagueID(leagueID);
         }
     }
 
