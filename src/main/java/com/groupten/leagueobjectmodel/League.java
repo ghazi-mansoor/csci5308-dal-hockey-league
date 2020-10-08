@@ -1,6 +1,7 @@
 package com.groupten.leagueobjectmodel;
 
 import com.groupten.jdbc.league.LeagueInterface;
+import com.groupten.jdbc.team.TeamInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,9 @@ public class League {
     private Map<String, Conference> conferences;
     private List<Player> freeAgents;
     private LeagueInterface leaguePersistenceAPI;
+
+    private Conference currentConference;
+    private Division currentDivision;
 
     public League(String ln) {
         leagueName = ln;
@@ -84,6 +88,29 @@ public class League {
             player.saveFreeAgentPlayerToDB();
         }
         System.out.println("Saved free agents to DB");
+    }
+
+    public boolean doEntitiesExistInMemory(String conferenceName, String divisionName) {
+        if (doesContainConference(conferenceName)) {
+            Conference conference = getConference(conferenceName);
+            if (conference.doesContainDivision(divisionName)) {
+                currentDivision = conference.getDivision(divisionName);
+                currentConference = getConference(conferenceName);
+
+                return true;
+            } else {
+                System.out.println("Division: " + divisionName + " is not part of the " + conferenceName + " conference");
+                return false;
+            }
+        } else {
+            System.out.println("Conference: " + conferenceName + " is not part of the " + leagueName + " league");
+            return false;
+        }
+    }
+
+    public boolean addTeamToLeagueModel(String teamName, String generalManager, String headCoach, TeamInterface persistenceAPI) {
+        Team team = new Team(teamName, generalManager, headCoach, persistenceAPI);
+        return currentDivision.addTeamToDivision(team);
     }
 
     public boolean doesContainConference(String conferenceName) {
