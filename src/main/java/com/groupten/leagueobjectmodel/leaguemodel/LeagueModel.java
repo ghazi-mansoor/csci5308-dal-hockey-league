@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LeagueModel {
-    public Map<String, League> leagues;
+    private Map<String, League> leagues;
     private League currentLeague;
     private Conference currentConference;
     private Division currentDivision;
