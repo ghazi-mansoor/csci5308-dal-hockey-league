@@ -28,16 +28,26 @@ public class League {
     }
 
     public boolean addConferenceToLeague(Conference conference) {
-        conferences.put(conference.getConferenceName(), conference);
-        return conferences.containsKey(conference.getConferenceName());
+        String conferenceName = conference.getConferenceName();
+        if (Validator.areStringsValid(conferenceName)) {
+            conferences.put(conference.getConferenceName(), conference);
+            return conferences.containsKey(conference.getConferenceName());
+        } else {
+            return false;
+        }
     }
 
     public boolean addFreeAgentToLeague(Player player) {
-        int numberOfFreeAgents = freeAgents.size();
-        freeAgents.add(player);
-        int numberOfFreeAgentsPostAdditions = freeAgents.size();
+        String playerPosition = player.getPosition();
+        if (Validator.isPositionValid(playerPosition)) {
+            int numberOfFreeAgents = freeAgents.size();
+            freeAgents.add(player);
+            int numberOfFreeAgentsPostAdditions = freeAgents.size();
 
-        return numberOfFreeAgentsPostAdditions == numberOfFreeAgents + 1;
+            return numberOfFreeAgentsPostAdditions == numberOfFreeAgents + 1;
+        } else {
+            return false;
+        }
     }
 
     public void saveLeagueToDB() {

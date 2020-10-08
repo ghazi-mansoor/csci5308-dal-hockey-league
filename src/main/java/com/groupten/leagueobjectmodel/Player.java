@@ -56,4 +56,8 @@ public class Player {
         return playerName;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
 }

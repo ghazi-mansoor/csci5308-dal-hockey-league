@@ -33,10 +33,17 @@ public class Team {
     }
 
     public boolean addPlayerToTeam(Player player) {
-        int sizeBeforeAddition = players.size();
-        players.add(player);
-        int sizeAfterAddition = players.size();
-        return sizeAfterAddition == sizeBeforeAddition + 1;
+        String playerPosition = player.getPosition();
+
+        if (Validator.isPositionValid(playerPosition)) {
+            int numberOfFreeAgents = players.size();
+            players.add(player);
+            int numberOfFreeAgentsPostAdditions = players.size();
+
+            return numberOfFreeAgentsPostAdditions == numberOfFreeAgents + 1;
+        } else {
+            return false;
+        }
     }
 
     public void saveTeamToDB() {
