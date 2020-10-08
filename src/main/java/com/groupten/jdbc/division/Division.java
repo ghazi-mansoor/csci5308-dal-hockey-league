@@ -14,6 +14,8 @@ import java.util.List;
 public class Division implements DivisionInterface {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
+    //CRUD
+
     @Override
     public int createDivision(int conferenceId, String divisionName) {
         int divisionId = 0;
@@ -30,22 +32,6 @@ public class Division implements DivisionInterface {
         }
 
         return divisionId;
-    }
-
-    @Override
-    public List<HashMap<String, Object>> listDivisions(int conferenceId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listDivisions(?)}");
-            cs.setInt(1, conferenceId);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
     }
 
     @Override
@@ -86,5 +72,23 @@ public class Division implements DivisionInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Relations
+
+    @Override
+    public List<HashMap<String, Object>> getDivisionTeams(int divisionId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL getDivisionTeams(?)}");
+            cs.setInt(1, divisionId);
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

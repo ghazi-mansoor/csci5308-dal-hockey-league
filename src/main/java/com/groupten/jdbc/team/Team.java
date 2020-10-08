@@ -14,6 +14,8 @@ import java.util.List;
 public class Team implements TeamInterface {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
+    //CRUD
+
     @Override
     public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {
         int teamId = 0;
@@ -32,22 +34,6 @@ public class Team implements TeamInterface {
         }
 
         return teamId;
-    }
-
-    @Override
-    public List<HashMap<String, Object>> listTeams(int divisionId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listTeams(?)}");
-            cs.setInt(1, divisionId);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
     }
 
     @Override
@@ -92,32 +78,10 @@ public class Team implements TeamInterface {
         }
     }
 
-    @Override
-    public void addTeamPlayer(int teamId, int playerId) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL addTeamPlayer(?,?)}");
-            cs.setInt(1, teamId);
-            cs.setInt(2, playerId);
-            cs.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    //Relations
 
     @Override
-    public void removeTeamPlayer(int teamId, int playerId) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL removeTeamPlayer(?,?)}");
-            cs.setInt(1, teamId);
-            cs.setInt(2, playerId);
-            cs.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<HashMap<String, Object>> listTeamPlayers(int teamId) {
+    public List<HashMap<String, Object>> getTeamPlayers(int teamId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         try(Connection con = dbConnectionObj.connect()) {
@@ -130,5 +94,29 @@ public class Team implements TeamInterface {
         }
 
         return list;
+    }
+
+    @Override
+    public void attachTeamPlayer(int teamId, int playerId) {
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL addTeamPlayer(?,?)}");
+            cs.setInt(1, teamId);
+            cs.setInt(2, playerId);
+            cs.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void detachTeamPlayer(int teamId, int playerId) {
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL removeTeamPlayer(?,?)}");
+            cs.setInt(1, teamId);
+            cs.setInt(2, playerId);
+            cs.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
