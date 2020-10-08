@@ -99,7 +99,7 @@ public class Team implements TeamInterface {
     @Override
     public void attachTeamPlayer(int teamId, int playerId) {
         try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL addTeamPlayer(?,?)}");
+            CallableStatement cs = con.prepareCall("{CALL attachTeamPlayer(?,?)}");
             cs.setInt(1, teamId);
             cs.setInt(2, playerId);
             cs.executeUpdate();

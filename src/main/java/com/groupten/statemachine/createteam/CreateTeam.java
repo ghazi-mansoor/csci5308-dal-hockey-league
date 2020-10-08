@@ -1,13 +1,16 @@
 package com.groupten.statemachine.createteam;
 
-import com.groupten.jdbc.league.League;
+import com.groupten.leagueobjectmodel.League;
 import com.groupten.leagueobjectmodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
 
+import java.util.Map;
+
 public class CreateTeam implements CreateTeamInterface {
 
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
+    private League leagueLOM;
 
     @Override
     public void userPromptForNewTeam() {
@@ -38,15 +41,15 @@ public class CreateTeam implements CreateTeamInterface {
     }
 
     @Override
-    public boolean ifExist() {
-        // Invoke the methods in LOM to check if data exist
-        return true;
+    public boolean ifConferenceAndDivisionExist() {
+        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        leagueLOM = (League) leagueModel.leagues.values().toArray()[0];
+        return leagueLOM.doEntitiesExistInMemory(conferenceName, divisionName);
     }
 
     @Override
     public boolean instantiateNewTeam() {
-        // Invoke the method in LOM to instantiate new team
-        return true;
+        return leagueLOM.addTeamToLeagueModel(teamName, generalManager, headCoach, Injector.injector().getTeamDatabaseObject());
     }
 
     @Override

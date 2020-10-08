@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LeagueModel {
-    private Map<String, League> leagues;
+    public Map<String, League> leagues;
     private League currentLeague;
     private Conference currentConference;
     private Division currentDivision;
