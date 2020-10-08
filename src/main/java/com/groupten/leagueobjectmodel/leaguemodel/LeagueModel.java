@@ -13,8 +13,6 @@ import java.util.Map;
 public class LeagueModel {
     private Map<String, League> leagues;
     private League currentLeague;
-    private Conference currentConference;
-    private Division currentDivision;
 
     public LeagueModel() {
         leagues = new HashMap<String, League>();
@@ -35,34 +33,6 @@ public class LeagueModel {
         for (League league : leagues.values()) {
             league.saveLeagueToDB();
         }
-    }
-
-    public boolean doEntitiesExistInMemory(String leagueName, String conferenceName, String divisionName) {
-        if (doesContainLeague(leagueName)) {
-            League league = getLeague(leagueName);
-            if (league.doesContainConference(conferenceName)) {
-                Conference conference = league.getConference(conferenceName);
-                if (conference.doesContainDivision(divisionName)) {
-                    currentDivision = conference.getDivision(divisionName);
-                    currentConference = league.getConference(conferenceName);
-                    currentLeague = getLeague(leagueName);
-
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-        else {
-            return false;
-        }
-    }
-
-    public boolean addTeamToLeagueModel(String teamName, String generalManager, String headCoach, TeamInterface persistenceAPI) {
-        Team team = new Team(teamName, generalManager, headCoach, persistenceAPI);
-        return currentDivision.addTeamToDivision(team);
     }
 
     public boolean doesContainLeague(String leagueName) {
