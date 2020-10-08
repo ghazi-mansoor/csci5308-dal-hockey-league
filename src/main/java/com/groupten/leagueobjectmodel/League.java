@@ -42,8 +42,15 @@ public class League {
         leagueID = leaguePersistenceAPI.createLeague(leagueName);
         setConferenceForeignKeys();
         saveAllConferences();
+        setFreeAgentForeignKeys();
         saveAllFreeAgents();
         System.out.println("League saved to DB");
+    }
+
+    private void setFreeAgentForeignKeys() {
+        for (Player player : freeAgents.values()) {
+            player.setLeagueID(leagueID);
+        }
     }
 
     private void setConferenceForeignKeys() {
