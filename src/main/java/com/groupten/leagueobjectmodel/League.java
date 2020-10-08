@@ -36,6 +36,10 @@ public class League {
         System.out.println("League saved to DB");
     }
 
+    public void addFreeAgent(Player player) {
+        freeAgents.add(player);
+    }
+
     private void setConferenceForeignKeys() {
         for (Conference conference : conferences) {
             conference.setLeagueID(leagueID);
