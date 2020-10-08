@@ -13,11 +13,6 @@ public class TeamDBMock implements TeamInterface {
     }
 
     @Override
-    public List<HashMap<String, Object>> listTeams(int divisionId) {
-        return null;
-    }
-
-    @Override
     public List<HashMap<String, Object>> getTeams(String colName, String colValue) {
         List<HashMap<String,Object>> mockList = new ArrayList<HashMap<String,Object>>();
         HashMap<String, Object> mockMap = new HashMap<>();
@@ -42,17 +37,18 @@ public class TeamDBMock implements TeamInterface {
     }
 
     @Override
-    public void addTeamPlayer(int teamId, int playerId) {
-
-    }
-
-    @Override
-    public void removeTeamPlayer(int teamId, int playerId) {
-
-    }
-
-    @Override
-    public List<HashMap<String, Object>> listTeamPlayers(int teamId) {
+    public List<HashMap<String, Object>> getTeamPlayers(int teamId) {
         return null;
     }
+
+    @Override
+    public void attachTeamPlayer(int teamId, int playerId) {
+
+    }
+
+    @Override
+    public void detachTeamPlayer(int teamId, int playerId) {
+
+    }
+
 }
