@@ -16,12 +16,6 @@ public class LeagueDBMock implements LeagueInterface {
     };
 
     @Override
-    public List<HashMap<String, Object>> listLeagues() {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        return list;
-    };
-
-    @Override
     public List<HashMap<String, Object>> getLeagues(String colName, String colValue) {
         HashMap<String, Object> mMap = new HashMap<>();
         List<HashMap<String, Object>> list = new ArrayList<>();
@@ -34,5 +28,20 @@ public class LeagueDBMock implements LeagueInterface {
 
     @Override
     public void deleteLeague(int leagueId) {
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeagueConferences(int leagueId) {
+        return null;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeaguePlayers(int leagueId) {
+        return null;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeagueFreeAgents(int leagueId) {
+        return null;
     }
 }

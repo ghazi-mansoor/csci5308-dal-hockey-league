@@ -14,6 +14,8 @@ import java.util.List;
 public class Player implements PlayerInterface {
     DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
+    //CRUD
+
     @Override
     public int createPlayer(int leagueId, String playerName, String position, boolean isCaptain) {
         int playerId = 0;
@@ -33,22 +35,6 @@ public class Player implements PlayerInterface {
         }
 
         return playerId;
-    }
-
-    @Override
-    public List<HashMap<String, Object>> listPlayers(int leagueId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listPlayers(?)}");
-            cs.setInt(1, leagueId);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
     }
 
     @Override
@@ -93,13 +79,16 @@ public class Player implements PlayerInterface {
         }
     }
 
+    //Filters
+
     @Override
-    public List<HashMap<String, Object>> listFreeAgents(int leagueId) {
+    public List<HashMap<String, Object>> getCaptains(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listFreeAgents(?)}");
-            cs.setInt(1, leagueId);
+            CallableStatement cs = con.prepareCall("{CALL getCaptains(?,?)}");
+            cs.setString(1, colName);
+            cs.setString(2, colValue);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {
@@ -109,14 +98,13 @@ public class Player implements PlayerInterface {
     }
 
     @Override
-    public List<HashMap<String, Object>> getFreeAgents(int leagueId, String colName, String colValue) {
+    public List<HashMap<String, Object>> getFreeAgents(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL getFreeAgents(?,?,?)}");
-            cs.setInt(1, leagueId);
-            cs.setString(2, colName);
-            cs.setString(3, colValue);
+            CallableStatement cs = con.prepareCall("{CALL getFreeAgents(?,?)}");
+            cs.setString(1, colName);
+            cs.setString(2, colValue);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
         } catch (Exception e) {

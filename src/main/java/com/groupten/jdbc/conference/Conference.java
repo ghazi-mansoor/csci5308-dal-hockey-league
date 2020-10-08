@@ -14,6 +14,8 @@ import java.util.List;
 public class Conference implements ConferenceInterface {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
+    //CRUD
+
     @Override
     public int createConference(int leagueId, String conferenceName) {
         int conferenceId = 0;
@@ -31,22 +33,6 @@ public class Conference implements ConferenceInterface {
         }
 
         return conferenceId;
-    }
-
-    @Override
-    public List<HashMap<String, Object>> listConferences(int leagueId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listConferences(?)}");
-            cs.setInt(1, leagueId);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
     }
 
     @Override
@@ -87,5 +73,23 @@ public class Conference implements ConferenceInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Relations
+
+    @Override
+    public List<HashMap<String, Object>> getConferenceDivisions(int conferenceId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL getConferenceDivisions(?)}");
+            cs.setInt(1, conferenceId);
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

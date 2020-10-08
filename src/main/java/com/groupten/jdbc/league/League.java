@@ -14,6 +14,8 @@ import java.util.List;
 public class League implements LeagueInterface {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
+    //CRUD
+
     @Override
     public int createLeague(String leagueName) {
         int leagueId = 0;
@@ -30,21 +32,6 @@ public class League implements LeagueInterface {
         }
 
         return leagueId;
-    };
-
-    @Override
-    public List<HashMap<String, Object>> listLeagues() {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listLeagues()}");
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
     };
 
     @Override
@@ -86,4 +73,53 @@ public class League implements LeagueInterface {
             e.printStackTrace();
         }
     };
+
+    //Relations
+
+    @Override
+    public List<HashMap<String, Object>> getLeagueConferences(int leagueId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL getLeagueConferences(?)}");
+            cs.setInt(1, leagueId);
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeaguePlayers(int leagueId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL getLeaguePlayers(?)}");
+            cs.setInt(1, leagueId);
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeagueFreeAgents(int leagueId) {
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+
+        try(Connection con = dbConnectionObj.connect()) {
+            CallableStatement cs = con.prepareCall("{CALL getLeagueFreeAgents(?)}");
+            cs.setInt(1, leagueId);
+            ResultSet rs = cs.executeQuery();
+            list = ResultSetOperation.convertResultSetToList(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
