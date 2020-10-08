@@ -53,6 +53,10 @@ public class Conference {
         }
     }
 
+    public boolean doesContainDivision(String divisionName) {
+        return divisions.containsKey(divisionName);
+    }
+
     public void setLeagueID(int leagueID) {
         this.leagueID = leagueID;
     }

@@ -33,9 +33,10 @@ public class Team {
     }
 
     public boolean addPlayerToTeam(Player player) {
+        String playerName = player.getPlayerName();
         String playerPosition = player.getPosition();
 
-        if (Validator.isPositionValid(playerPosition)) {
+        if (Validator.areStringsValid(playerName) && Validator.isPositionValid(playerPosition)) {
             int numberOfFreeAgents = players.size();
             players.add(player);
             int numberOfFreeAgentsPostAdditions = players.size();

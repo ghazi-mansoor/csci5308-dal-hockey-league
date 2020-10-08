@@ -38,8 +38,10 @@ public class League {
     }
 
     public boolean addFreeAgentToLeague(Player player) {
+        String playerName = player.getPlayerName();
         String playerPosition = player.getPosition();
-        if (Validator.isPositionValid(playerPosition)) {
+
+        if (Validator.areStringsValid(playerName) && Validator.isPositionValid(playerPosition)) {
             int numberOfFreeAgents = freeAgents.size();
             freeAgents.add(player);
             int numberOfFreeAgentsPostAdditions = freeAgents.size();
@@ -84,8 +86,16 @@ public class League {
         System.out.println("Saved free agents to DB");
     }
 
+    public boolean doesContainConference(String conferenceName) {
+        return conferences.containsKey(conferenceName);
+    }
+
     public String getLeagueName() {
         return leagueName;
+    }
+
+    public Map<String, Conference> getConferences() {
+        return conferences;
     }
 
 
