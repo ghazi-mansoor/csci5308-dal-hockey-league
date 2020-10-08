@@ -1,6 +1,8 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.conference;
 
 import com.groupten.jdbc.conference.ConferenceInterface;
+import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.validators.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +39,6 @@ public class Conference {
         conferenceID = conferencePersistenceAPI.createConference(leagueID, conferenceName);
         setDivisionForeignKeys();
         saveAllDivisions();
-        System.out.println("Conference saved to DB");
     }
 
     private void setDivisionForeignKeys() {

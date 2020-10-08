@@ -1,7 +1,12 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.league;
 
 import com.groupten.jdbc.league.LeagueInterface;
 import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +67,6 @@ public class League {
         saveAllConferences();
         setFreeAgentForeignKeys();
         saveAllFreeAgents();
-        System.out.println("League saved to DB");
     }
 
     private void setFreeAgentForeignKeys() {
@@ -87,7 +91,6 @@ public class League {
         for (Player player : freeAgents) {
             player.saveFreeAgentPlayerToDB();
         }
-        System.out.println("Saved free agents to DB");
     }
 
     public boolean doEntitiesExistInMemory(String conferenceName, String divisionName) {
@@ -99,11 +102,9 @@ public class League {
 
                 return true;
             } else {
-                System.out.println("Division: " + divisionName + " is not part of the " + conferenceName + " conference");
                 return false;
             }
         } else {
-            System.out.println("Conference: " + conferenceName + " is not part of the " + leagueName + " league");
             return false;
         }
     }

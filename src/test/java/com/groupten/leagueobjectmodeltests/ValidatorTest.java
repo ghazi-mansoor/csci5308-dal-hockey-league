@@ -1,6 +1,6 @@
 package com.groupten.leagueobjectmodeltests;
 
-import com.groupten.leagueobjectmodel.Validator;
+import com.groupten.leagueobjectmodel.validators.Validator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

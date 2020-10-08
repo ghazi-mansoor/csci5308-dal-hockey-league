@@ -1,4 +1,4 @@
-package com.groupten.leagueobjectmodel;
+package com.groupten.leagueobjectmodel.validators;
 
 import java.util.ArrayList;
 import java.util.List;
