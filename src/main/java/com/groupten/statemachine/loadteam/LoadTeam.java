@@ -2,6 +2,7 @@ package com.groupten.statemachine.loadteam;
 
 import com.groupten.jdbc.team.Team;
 import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
 
@@ -41,8 +42,10 @@ public class LoadTeam implements LoadTeamInterface {
     }
 
     @Override
-    public void loadExistingLeague() {
-        System.out.println(leagueID);
+    public boolean loadExistingLeague() {
+//        LeagueModel leagueModel = new LeagueModel();
+//        return leagueModel.loadLeagueFromDB(leagueID);
+        return true;
     }
 
     public void setTeamName(String teamName) {
