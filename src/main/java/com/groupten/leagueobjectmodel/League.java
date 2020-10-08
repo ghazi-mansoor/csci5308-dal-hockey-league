@@ -2,31 +2,40 @@ package com.groupten.leagueobjectmodel;
 
 import com.groupten.jdbc.league.LeagueInterface;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class League {
     private int leagueID;
     private String leagueName;
-    private List<Conference> conferences;
-    private List<Player> freeAgents;
+    private Map<String, Conference> conferences;
+    private Map<String, Player> freeAgents;
     private LeagueInterface leaguePersistenceAPI;
 
     public League(String ln) {
         leagueName = ln;
-        conferences = new ArrayList<Conference>();
-        freeAgents = new ArrayList<Player>();
+        conferences = new HashMap<String, Conference>();
+        freeAgents = new HashMap<String, Player>();
     }
 
     public League (String ln, LeagueInterface per) {
         leagueName = ln;
         leaguePersistenceAPI = per;
-        conferences = new ArrayList<Conference>();
-        freeAgents = new ArrayList<Player>();
+        conferences = new HashMap<String, Conference>();
+        freeAgents = new HashMap<String, Player>();
     }
 
-    public void addConferenceToLeague(Conference conference) {
-        conferences.add(conference);
+    public boolean addConferenceToLeague(Conference conference) {
+        conferences.put(conference.getConferenceName(), conference);
+        return conferences.containsKey(conference.getConferenceName());
+    }
+
+    public boolean addFreeAgentToLeague(Player player) {
+        int numberOfFreeAgents = freeAgents.size();
+        freeAgents.put(player.getPlayerName(), player);
+        int numberOfFreeAgentsPostAdditions = freeAgents.size();
+
+        return numberOfFreeAgentsPostAdditions == numberOfFreeAgents + 1;
     }
 
     public void saveLeagueToDB() {
@@ -37,59 +46,28 @@ public class League {
         System.out.println("League saved to DB");
     }
 
-    private void saveAllFreeAgents() {
-        for (Player player : freeAgents) {
-            player.saveFreeAgentPlayerToDB();
-        }
-        System.out.println("Saved free agents to DB");
-    }
-
-    public void addFreeAgent(Player player) {
-        freeAgents.add(player);
-    }
-
     private void setConferenceForeignKeys() {
-        for (Conference conference : conferences) {
+        for (Conference conference : conferences.values()) {
             conference.setLeagueID(leagueID);
         }
     }
 
     private void saveAllConferences() {
-        for (Conference conference : conferences) {
+        for (Conference conference : conferences.values()) {
             conference.saveConferenceToDB();
         }
     }
 
-    public int getLeagueID() {
-        return leagueID;
-    }
-
-    public void setLeagueID(int leagueID) {
-        this.leagueID = leagueID;
+    private void saveAllFreeAgents() {
+        for (Player player : freeAgents.values()) {
+            player.saveFreeAgentPlayerToDB();
+        }
+        System.out.println("Saved free agents to DB");
     }
 
     public String getLeagueName() {
         return leagueName;
     }
 
-    public void setLeagueName(String leagueName) {
-        this.leagueName = leagueName;
-    }
-
-    public List<Conference> getDivisions() {
-        return conferences;
-    }
-
-    public void setDivisions(List<Conference> conferences) {
-        this.conferences = conferences;
-    }
-
-    public List<Player> getFreeAgents() {
-        return freeAgents;
-    }
-
-    public void setFreeAgents(List<Player> freeAgents) {
-        this.freeAgents = freeAgents;
-    }
 
 }

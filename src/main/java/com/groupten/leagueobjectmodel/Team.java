@@ -3,7 +3,9 @@ package com.groupten.leagueobjectmodel;
 import com.groupten.jdbc.team.TeamInterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Team {
     private int leagueID;
@@ -12,26 +14,27 @@ public class Team {
     private String teamName;
     private String generalManager;
     private String headCoach;
-    private List<Player> players;
+    private Map<String, Player> players;
     private TeamInterface teamPersistenceAPI;
 
     public Team(String tn, String gm, String hc) {
         teamName = tn;
         generalManager = gm;
         headCoach = hc;
-        players = new ArrayList<Player>();
+        players = new HashMap<String, Player>();
     }
 
     public Team(String tn, String gm, String hc, TeamInterface per) {
         teamName = tn;
         generalManager = gm;
         headCoach = hc;
-        players = new ArrayList<Player>();
+        players = new HashMap<String, Player>();
         teamPersistenceAPI = per;
     }
 
-    public void addPlayerToTeam(Player player) {
-        players.add(player);
+    public boolean addPlayerToTeam(Player player) {
+        players.put(player.getPlayerName(), player);
+        return players.containsKey(player.getPlayerName());
     }
 
     public void saveTeamToDB() {
@@ -42,61 +45,24 @@ public class Team {
     }
 
     private void setPlayerForeignKeys() {
-        for (Player player : players) {
+        for (Player player : players.values()) {
             player.setTeamID(teamID);
             player.setLeagueID(leagueID);
         }
     }
 
     private void saveAllPlayers() {
-        for (Player player : players) {
+        for (Player player : players.values()) {
             player.savePlayerToDB();
         }
-    }
-
-
-    public int getDivisionID() {
-        return divisionID;
     }
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
     }
 
-    public int getTeamID() {
-        return teamID;
-    }
-
-    public void setTeamID(int teamID) {
-        this.teamID = teamID;
-    }
-
     public String getTeamName() {
         return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public String getGeneralManager() {
-        return generalManager;
-    }
-
-    public void setGeneralManager(String generalManager) {
-        this.generalManager = generalManager;
-    }
-
-    public String getHeadCoach() {
-        return headCoach;
-    }
-
-    public void setHeadCoach(String headCoach) {
-        this.headCoach = headCoach;
-    }
-
-    public int getLeagueID() {
-        return leagueID;
     }
 
     public void setLeagueID(int leagueID) {

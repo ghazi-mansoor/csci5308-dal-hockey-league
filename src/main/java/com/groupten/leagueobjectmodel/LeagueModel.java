@@ -1,8 +1,6 @@
 package com.groupten.leagueobjectmodel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LeagueModel {
@@ -13,11 +11,8 @@ public class LeagueModel {
     }
 
     public boolean addLeagueToModel(League league) {
-        int numberOfLeagues = leagues.size();
         leagues.put(league.getLeagueName(), league);
-        int numberOfLeaguesPostAdditions = leagues.size();
-
-        return numberOfLeaguesPostAdditions == numberOfLeagues + 1;
+        return leagues.containsKey(league.getLeagueName());
     }
 
     public void saveLeagueModelToDB() {
