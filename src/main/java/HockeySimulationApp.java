@@ -12,6 +12,7 @@ public class HockeySimulationApp {
 
     public static void main(String[] args) throws IOException, ParseException {
 
+        boolean startSimulation = false;
         ConsoleInterface console = Injector.injector().getConsoleObject();
         JSONInterface json = Injector.injector().getJSONObject();
         CreateTeamInterface createTeam = Injector.injector().getCreateTeamObject();
@@ -44,6 +45,7 @@ public class HockeySimulationApp {
                                     if(createTeam.instantiateNewTeam()){
                                         if(createTeam.persistLeagueModel()){
                                             console.printLine("SUCCESS: We can now proceed to simulation.");
+                                            startSimulation = true;
                                         }else{
                                             console.printLine("FAILURE: Could not save the data.");
                                         }
@@ -80,19 +82,21 @@ public class HockeySimulationApp {
                 break;
         }
 
-        console.printLine("How many seasons do you want to simulate");
-        int numberOfSeasons = console.readInteger();
+        if(startSimulation){
+            console.printLine("How many seasons do you want to simulate");
+            int numberOfSeasons = console.readInteger();
 
-        for(int i = 1; i <= numberOfSeasons; i++){
-            console.printLine("Season " + i);
-            simulation.beginSimulation();
-            simulation.fakeState_1();
-            simulation.fakeState_2();
-            simulation.simulate();
-            simulation.fakeState_3();
-            simulation.fakeState_4();
-            simulation.endSimulation();
-            console.printLine("\n");
+            for(int i = 1; i <= numberOfSeasons; i++){
+                console.printLine("Season " + i);
+                simulation.beginSimulation();
+                simulation.fakeState_1();
+                simulation.fakeState_2();
+                simulation.simulate();
+                simulation.fakeState_3();
+                simulation.fakeState_4();
+                simulation.endSimulation();
+                console.printLine("\n");
+            }
         }
 
     }

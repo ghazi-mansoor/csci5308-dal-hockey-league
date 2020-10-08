@@ -44,14 +44,15 @@ public class JSON implements JSONInterface {
     @Override
     public boolean instantiateJSONData() {
 
+        boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false;
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
 
         League leagueLOM;
         Conference conferenceLOM;
         Division divisionLOM;
-        Player playerLOM;
+        Player playerLOM, freeAgentLOM;
         Team teamLOM;
-        JSONObject conference, division, team, teamPlayer, freePlayer;
+        JSONObject conference, division, team, teamPlayer, freeAgent;
         JSONArray divisions, teams, players;
 
         String leagueName = (String) jsonData.get("leagueName");
@@ -89,34 +90,50 @@ public class JSON implements JSONInterface {
                         Boolean captain = (Boolean) teamPlayer.get("captain");
 
                         playerLOM = new Player(playerName, position, captain, Injector.injector().getPlayerDatabaseObject(), Injector.injector().getTeamDatabaseObject());
-                        teamLOM.addPlayerToTeam(playerLOM);
+                        if(teamLOM.addPlayerToTeam(playerLOM)){
+                            playerAddedToTeam = true;
+                        }else{
+                            return false;
+                        }
                     }
 
-                    divisionLOM.addTeamToDivision(teamLOM);
+                    if(divisionLOM.addTeamToDivision(teamLOM)){
+                        divisionAddedToConference = true;
+                    }else{
+                        return false;
+                    }
                 }
-
-                conferenceLOM.addDivisionToConference(divisionLOM);
+                if(conferenceLOM.addDivisionToConference(divisionLOM)){
+                    teamAddedToDivision = true;
+                }else{
+                    return false;
+                }
             }
-
-            leagueLOM.addConferenceToLeague(conferenceLOM);
+            if( leagueLOM.addConferenceToLeague(conferenceLOM)){
+                conferenceAddedToLeague = true;
+            }else{
+                return false;
+            }
         }
 
         JSONArray freeAgents = (JSONArray) jsonData.get("freeAgents");
 
         for(int i = 0; i < freeAgents.size(); i++) {
-            freePlayer = (JSONObject) freeAgents.get(i);
-            String playerName = (String) freePlayer.get("playerName");
-            String position = (String) freePlayer.get("position");
-            Boolean captain = (Boolean) freePlayer.get("captain");
+            freeAgent = (JSONObject) freeAgents.get(i);
+            String playerName = (String) freeAgent.get("playerName");
+            String position = (String) freeAgent.get("position");
+            Boolean captain = (Boolean) freeAgent.get("captain");
 
-            // Invoke the method in LOM to add the Player Name, Position, Captain
-
-            // Return false if not able to add
-
+            freeAgentLOM = new Player(playerName, position, captain, Injector.injector().getPlayerDatabaseObject());
+            if(leagueLOM.addFreeAgentToLeague(freeAgentLOM)){
+                freeAgentAddedToLeague = true;
+            }else{
+                return false;
+            }
         }
 
         leagueModel.addLeagueToModel(leagueLOM);
 
-        return true;
+        return playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague;
     }
 }
