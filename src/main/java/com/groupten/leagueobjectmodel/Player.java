@@ -31,7 +31,7 @@ public class Player {
 
     public void savePlayerToDB() {
 
-        playerID = playerPersistenceAPI.createPlayer(1, playerName, position, captain);
+        playerID = playerPersistenceAPI.createPlayer(leagueID, playerName, position, captain);
         teamPersistenceAPI.addTeamPlayer(teamID, playerID);
         System.out.println("Player saved to DB");
     }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
+    private int leagueID;
     private int divisionID;
     private int teamID;
     private String teamName;
@@ -43,6 +44,7 @@ public class Team {
     private void setPlayerForeignKeys() {
         for (Player player : players) {
             player.setTeamID(teamID);
+            player.setLeagueID(leagueID);
         }
     }
 
@@ -91,5 +93,13 @@ public class Team {
 
     public void setHeadCoach(String headCoach) {
         this.headCoach = headCoach;
+    }
+
+    public int getLeagueID() {
+        return leagueID;
+    }
+
+    public void setLeagueID(int leagueID) {
+        this.leagueID = leagueID;
     }
 }
