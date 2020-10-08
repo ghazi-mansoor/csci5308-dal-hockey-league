@@ -93,30 +93,26 @@ public class JSON implements JSONInterface {
                         if(teamLOM.addPlayerToTeam(playerLOM)){
                             playerAddedToTeam = true;
                         }else{
-                            playerAddedToTeam = false;
-                            break;
+                            return false;
                         }
                     }
 
                     if(divisionLOM.addTeamToDivision(teamLOM)){
                         divisionAddedToConference = true;
                     }else{
-                        divisionAddedToConference = false;
-                        break;
+                        return false;
                     }
                 }
                 if(conferenceLOM.addDivisionToConference(divisionLOM)){
                     teamAddedToDivision = true;
                 }else{
-                    teamAddedToDivision = false;
-                    break;
+                    return false;
                 }
             }
             if( leagueLOM.addConferenceToLeague(conferenceLOM)){
                 conferenceAddedToLeague = true;
             }else{
-                conferenceAddedToLeague = false;
-                break;
+                return false;
             }
         }
 
@@ -132,8 +128,7 @@ public class JSON implements JSONInterface {
             if(leagueLOM.addFreeAgentToLeague(freeAgentLOM)){
                 freeAgentAddedToLeague = true;
             }else{
-                freeAgentAddedToLeague = false;
-                break;
+                return false;
             }
         }
 
