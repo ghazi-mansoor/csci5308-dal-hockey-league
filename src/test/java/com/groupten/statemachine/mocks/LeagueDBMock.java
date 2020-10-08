@@ -16,12 +16,6 @@ public class LeagueDBMock implements LeagueInterface {
     };
 
     @Override
-    public List<HashMap<String, Object>> listLeagues() {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-        return list;
-    };
-
-    @Override
     public List<HashMap<String, Object>> getLeagues(String colName, String colValue) {
         HashMap<String, Object> mMap = new HashMap<>();
         List<HashMap<String, Object>> list = new ArrayList<>();
