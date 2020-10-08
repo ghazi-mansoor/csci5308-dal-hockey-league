@@ -86,8 +86,16 @@ public class League {
         System.out.println("Saved free agents to DB");
     }
 
+    public boolean doesContainConference(String conferenceName) {
+        return conferences.containsKey(conferenceName);
+    }
+
     public String getLeagueName() {
         return leagueName;
+    }
+
+    public Map<String, Conference> getConferences() {
+        return conferences;
     }
 
 

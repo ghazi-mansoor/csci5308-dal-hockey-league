@@ -57,6 +57,10 @@ public class Division {
         }
     }
 
+    public boolean doesTeamExistInMemory(String teamName) {
+        return teams.containsKey(teamName);
+    }
+
     public void setConferenceID(int conferenceID) {
         this.conferenceID = conferenceID;
     }
