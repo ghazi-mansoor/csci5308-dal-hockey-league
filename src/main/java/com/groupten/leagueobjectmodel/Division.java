@@ -1,6 +1,7 @@
 package com.groupten.leagueobjectmodel;
 
 import com.groupten.jdbc.division.DivisionInterface;
+import jdk.jfr.ValueDescriptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,13 @@ public class Division {
     }
 
     public boolean addTeamToDivision(Team team) {
-        teams.put(team.getTeamName(), team);
-        return teams.containsKey(team.getTeamName());
+        String teamName = team.getTeamName();
+        if (Validator.areStringsValid(teamName)) {
+            teams.put(team.getTeamName(), team);
+            return teams.containsKey(team.getTeamName());
+        } else {
+            return false;
+        }
     }
 
     public void saveDivisionToDB() {

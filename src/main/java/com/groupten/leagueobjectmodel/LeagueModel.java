@@ -11,8 +11,14 @@ public class LeagueModel {
     }
 
     public boolean addLeagueToModel(League league) {
-        leagues.put(league.getLeagueName(), league);
-        return leagues.containsKey(league.getLeagueName());
+        String leagueName = league.getLeagueName();
+
+        if (Validator.areStringsValid(leagueName)) {
+            leagues.put(league.getLeagueName(), league);
+            return leagues.containsKey(league.getLeagueName());
+        } else {
+            return false;
+        }
     }
 
     public void saveLeagueModelToDB() {

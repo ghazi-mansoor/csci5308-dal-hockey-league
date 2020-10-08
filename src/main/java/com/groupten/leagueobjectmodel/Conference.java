@@ -24,8 +24,13 @@ public class Conference {
     }
 
     public boolean addDivisionToConference(Division division) {
-        divisions.put(division.getDivisionName(), division);
-        return divisions.containsKey(division.getDivisionName());
+        String divisionName = division.getDivisionName();
+        if (Validator.areStringsValid(divisionName)) {
+            divisions.put(division.getDivisionName(), division);
+            return divisions.containsKey(division.getDivisionName());
+        } else {
+            return false;
+        }
     }
 
     public void saveConferenceToDB() {
