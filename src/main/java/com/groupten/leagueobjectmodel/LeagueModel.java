@@ -1,25 +1,22 @@
 package com.groupten.leagueobjectmodel;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LeagueModel {
-    private List<League> leagues;
+    private Map<String, League> leagues;
 
     public LeagueModel() {
-        leagues = new ArrayList<League>();
+        leagues = new HashMap<String, League>();
     }
 
     public boolean addLeagueToModel(League league) {
-        int numberOfLeagues = leagues.size();
-        leagues.add(league);
-        int numberOfLeaguesPostAdditions = leagues.size();
-
-        return numberOfLeaguesPostAdditions == numberOfLeagues + 1;
+        leagues.put(league.getLeagueName(), league);
+        return leagues.containsKey(league.getLeagueName());
     }
 
     public void saveLeagueModelToDB() {
-        for (League league : leagues) {
+        for (League league : leagues.values()) {
             league.saveLeagueToDB();
         }
     }
