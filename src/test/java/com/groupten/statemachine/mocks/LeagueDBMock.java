@@ -35,4 +35,19 @@ public class LeagueDBMock implements LeagueInterface {
     @Override
     public void deleteLeague(int leagueId) {
     }
+
+    @Override
+    public List<HashMap<String, Object>> getLeagueConferences(int leagueId) {
+        return null;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeaguePlayers(int leagueId) {
+        return null;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getLeagueFreeAgents(int leagueId) {
+        return null;
+    }
 }
