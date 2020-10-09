@@ -64,7 +64,6 @@ public class LeagueModel {
     }
 
     public boolean loadLeagueFromDB(int lID) {
-        // TODO: Get the league info from DB
         String leagueId = String.valueOf(lID);
         List<HashMap<String, Object>> leaguesMap = leaguePersistenceAPI.getLeagues("leagueId", leagueId);
         Map<String, Object> leagueMap = leaguesMap.get(0);
@@ -72,14 +71,11 @@ public class LeagueModel {
         int leagueID = (int) leagueMap.get("leagueId");
         String leagueName = (String) leagueMap.get("leagueName");
 
-        // TODO: Use league info to create new league object
         currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
 
-        // TODO: Call loadConferencesFromDB and loadFreeAgentsFromDB on the league object
         currentLeague.loadConferencesFromDB();
-        currentLeague.loadFreeAgentsFromDB();
+        // currentLeague.loadFreeAgentsFromDB();
 
-        // TODO: Return true if the returned league has the same leagueID as the one passed via the argument
         return (currentLeague.getLeagueID() == lID);
     }
 
