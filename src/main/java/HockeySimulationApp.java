@@ -71,8 +71,13 @@ public class HockeySimulationApp {
             case "n":
                 loadTeam.userPromptForLoadingTeam();
                 if(loadTeam.doesTeamExist()){
-                    console.printLine("SUCCESS: We can now proceed to simulation.");
-                    loadTeam.loadExistingLeague();
+                    console.printLine("SUCCESS: The team exist.");
+                    if(loadTeam.loadExistingLeague()){
+                        console.printLine("SUCCESS: We can now proceed to simulation.");
+                        startSimulation = true;
+                    }else{
+                        console.printLine("FAILURE: Loading league failed");
+                    }
                 }else{
                     console.printLine("FAILURE: Team does not exist.");
                 }
