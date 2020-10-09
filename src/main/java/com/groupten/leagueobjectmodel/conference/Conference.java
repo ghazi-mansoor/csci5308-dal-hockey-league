@@ -8,6 +8,7 @@ import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.validator.Validator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Conference {
@@ -92,4 +93,15 @@ public class Conference {
         return (divisions.size() % 2 == 0);
     }
 
+    public void loadDivisionFromDB() {
+        List<HashMap<String, Object>> divisionMaps = conferencePersistenceAPI.getConferenceDivisions(conferenceID);
+        for (Map<String, Object> divisionMap : divisionMaps) {
+            int divisionID = (int) divisionMap.get("divisionId");
+            String divisionName = (String) divisionMap.get("divisionName");
+            Division division = new Division(leagueID, conferenceID, divisionID, divisionName, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
+            System.out.println(divisionName);
+            addDivisionToConference(division);
+            division.loadTeamsFromDB();
+        }
+    }
 }
