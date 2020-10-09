@@ -29,11 +29,17 @@ public class League {
         freeAgents = new ArrayList<Player>();
     }
 
-    public League (String ln, LeagueInterface per) {
+    public League(String ln, LeagueInterface per) {
         leagueName = ln;
         leaguePersistenceAPI = per;
         conferences = new HashMap<String, Conference>();
         freeAgents = new ArrayList<Player>();
+    }
+
+    public League(int lID, String ln, LeagueInterface per) {
+        leagueID = lID;
+        leagueName = ln;
+        leaguePersistenceAPI = per;
     }
 
     public boolean addConferenceToLeague(Conference conference) {
@@ -132,6 +138,10 @@ public class League {
 
     public boolean areNumberOfConferencesEven() {
         return (conferences.size() % 2 == 0);
+    }
+
+    public int getLeagueID() {
+        return leagueID;
     }
 
 }
