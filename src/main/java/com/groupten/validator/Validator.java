@@ -1,4 +1,6 @@
-package com.groupten.leagueobjectmodel.validators;
+package com.groupten.validator;
+
+import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ public class Validator {
         List<Boolean> checks = new ArrayList<Boolean>();
 
         for (String s : args) {
-            if (s.isEmpty() || s.isBlank()) {
+            if (s.isEmpty() || s.isBlank() || s.equals("null") || s.equals("NULL") || s.equals("Null")) {
                 checks.add(false);
             } else {
                 checks.add(true);

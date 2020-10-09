@@ -2,7 +2,7 @@ package com.groupten.leagueobjectmodel.conference;
 
 import com.groupten.jdbc.conference.ConferenceInterface;
 import com.groupten.leagueobjectmodel.division.Division;
-import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.validator.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +61,7 @@ public class Conference {
     public void setLeagueID(int leagueID) {
         this.leagueID = leagueID;
     }
+
     public String getConferenceName() {
         return conferenceName;
     }
@@ -68,4 +69,9 @@ public class Conference {
     public Division getDivision(String divisionName) {
         return divisions.get(divisionName);
     }
+
+    public boolean areNumberOfDivisionsEven() {
+        return (divisions.size() % 2 == 0);
+    }
+
 }

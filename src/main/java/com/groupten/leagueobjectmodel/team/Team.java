@@ -1,7 +1,7 @@
 package com.groupten.leagueobjectmodel.team;
 
 import com.groupten.jdbc.team.TeamInterface;
-import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.player.Player;
 
 import java.util.ArrayList;
