@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class League {
+public class League implements ILeague {
     private int leagueID;
     private String leagueName;
     private Map<String, Conference> conferences;
@@ -167,18 +167,6 @@ public class League {
             Conference conference = new Conference(leagueID, conferenceID, conferenceName, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
             addConferenceToLeague(conference);
             conference.loadDivisionFromDB();
-        }
-    }
-
-    public void loadFreeAgentsFromDB() {
-        List<HashMap<String, Object>> playerMaps = leaguePersistenceAPI.getLeagueFreeAgents(leagueID);
-        for (Map<String, Object> playerMap : playerMaps) {
-            int playerID = (int) playerMap.get("playerId");
-            String playerName = (String) playerMap.get("playerName");
-            String position = (String) playerMap.get("position");
-            Boolean captain = (Boolean) playerMap.get("captain");
-            Player player = new Player(leagueID, playerID, playerName, position, captain, playerPersistenceAPI, teamPersistenceAPI);
-            addFreeAgentToLeague(player);
         }
     }
 }

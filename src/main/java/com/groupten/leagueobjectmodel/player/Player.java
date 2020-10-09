@@ -3,7 +3,7 @@ package com.groupten.leagueobjectmodel.player;
 import com.groupten.jdbc.player.PlayerInterface;
 import com.groupten.jdbc.team.TeamInterface;
 
-public class Player {
+public class Player implements IPlayer {
     private int leagueID;
     private int teamID;
     private int playerID;
