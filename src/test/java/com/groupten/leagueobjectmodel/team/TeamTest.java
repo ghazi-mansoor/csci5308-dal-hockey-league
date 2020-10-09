@@ -1,6 +1,5 @@
 package com.groupten.leagueobjectmodel.team;
 
-import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.player.Player;
 import org.junit.Test;
 

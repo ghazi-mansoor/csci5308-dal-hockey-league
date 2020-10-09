@@ -2,11 +2,10 @@ package com.groupten.statemachine.createteam;
 
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.console.IConsole;
 import com.groupten.injector.Injector;
 
-public class CreateTeam implements CreateTeamInterface {
+public class CreateTeam implements ICreateTeam {
 
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
     private League leagueLOM;
@@ -16,7 +15,7 @@ public class CreateTeam implements CreateTeamInterface {
     @Override
     public void userPromptForNewTeam() {
 
-        ConsoleInterface console = Injector.injector().getConsoleObject();
+        IConsole console = Injector.injector().getConsoleObject();
 
         console.printLine("Enter the Conference name:");
         conferenceName = console.readLine();

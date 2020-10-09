@@ -1,11 +1,11 @@
 package com.groupten.statemachine.simulation;
 
 import com.groupten.injector.Injector;
-import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.console.IConsole;
 
-public class Simulation implements SimulationInterface {
+public class Simulation implements ISimulation {
 
-    private ConsoleInterface console;
+    private IConsole console;
 
     @Override
     public void beginSimulation() {

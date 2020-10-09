@@ -1,9 +1,8 @@
 package com.groupten.leagueobjectmodel.league;
 
-import com.groupten.jdbc.team.Team;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.team.TeamDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.conference.Conference;
-import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodelmock.LeagueModelMock;
 import org.junit.Test;
@@ -17,7 +16,7 @@ public class LeagueTest {
         LeagueModelMock leagueModelMock = new LeagueModelMock();
         LeagueModel leagueModel = leagueModelMock.getLeagueModel();
         League league = leagueModel.getLeague("League 1");
-        TeamInterface teamPersistenceAPI = new Team();
+        ITeamDAO teamPersistenceAPI = new TeamDAO();
 
         assertTrue(league.doEntitiesExistInMemory("L1-Conference 1", "L1-C1 Division 1"));
         assertTrue(league.addTeamToLeagueModel("Team 1", "GM",

@@ -1,12 +1,9 @@
 package com.groupten.statemachine.console;
 
-import java.io.PrintStream;
-
-public interface ConsoleInterface {
+public interface IConsole {
 
     void printLine(Object line);
     String readLine();
     int readInteger();
-    PrintStream getOut();
 
 }

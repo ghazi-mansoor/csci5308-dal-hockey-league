@@ -1,7 +1,5 @@
 package com.groupten.validator;
 
-import org.json.simple.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +15,7 @@ public class Validator {
             }
         }
 
-        if (checks.contains(false)){
-            return false;
-        } else {
-            return true;
-        }
+        return !checks.contains(false);
     }
 
     static public boolean isPositionValid(String position) {
@@ -33,8 +27,6 @@ public class Validator {
                 return true;
             }
         }
-
         return false;
     }
-
 }

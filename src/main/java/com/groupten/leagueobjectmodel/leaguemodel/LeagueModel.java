@@ -1,10 +1,10 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
-import com.groupten.jdbc.conference.ConferenceInterface;
-import com.groupten.jdbc.division.DivisionInterface;
-import com.groupten.jdbc.league.LeagueInterface;
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.conference.IConferenceDAO;
+import com.groupten.jdbc.division.IDivisionDAO;
+import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.league.League;
 
@@ -15,17 +15,17 @@ import java.util.Map;
 public class LeagueModel implements ILeagueModel {
     private Map<String, League> leagues;
     private League currentLeague;
-    private LeagueInterface leaguePersistenceAPI;
-    private ConferenceInterface conferencePersistenceAPI;
-    private DivisionInterface divisionPersistenceAPI;
-    private TeamInterface teamPersistenceAPI;
-    private PlayerInterface playerPersistenceAPI;
+    private ILeagueDAO leaguePersistenceAPI;
+    private IConferenceDAO conferencePersistenceAPI;
+    private IDivisionDAO divisionPersistenceAPI;
+    private ITeamDAO teamPersistenceAPI;
+    private IPlayerDAO playerPersistenceAPI;
 
     public LeagueModel() {
         leagues = new HashMap<String, League>();
     }
 
-    public LeagueModel(LeagueInterface lPer, ConferenceInterface cPer, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
+    public LeagueModel(ILeagueDAO lPer, IConferenceDAO cPer, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
         leagues = new HashMap<String, League>();
         leaguePersistenceAPI = lPer;
         conferencePersistenceAPI = cPer;
@@ -34,6 +34,7 @@ public class LeagueModel implements ILeagueModel {
         playerPersistenceAPI = pPer;
     }
 
+    @Override
     public boolean addLeagueToModel(League league) {
         String leagueName = league.getLeagueName();
 
@@ -45,24 +46,29 @@ public class LeagueModel implements ILeagueModel {
         }
     }
 
+    @Override
     public void saveLeagueModelToDB() {
         for (League league : leagues.values()) {
             league.saveLeagueToDB();
         }
     }
 
+    @Override
     public boolean doesContainLeague(String leagueName) {
         return leagues.containsKey(leagueName);
     }
 
+    @Override
     public Map<String, League> getLeagues() {
         return leagues;
     }
 
+    @Override
     public League getLeague(String leagueName) {
         return leagues.get(leagueName);
     }
 
+    @Override
     public boolean loadLeagueFromDB(int lID) {
         String leagueId = String.valueOf(lID);
         List<HashMap<String, Object>> leaguesMap = leaguePersistenceAPI.getLeagues("leagueId", leagueId);

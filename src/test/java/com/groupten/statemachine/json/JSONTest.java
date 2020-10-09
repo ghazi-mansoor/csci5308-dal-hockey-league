@@ -1,6 +1,6 @@
 package com.groupten.statemachine.json;
 
-import com.groupten.jdbc.league.LeagueInterface;
+import com.groupten.jdbc.league.ILeagueDAO;
 import com.groupten.statemachine.mocks.LeagueDBMock;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class JSONTest {
 
     @Test
     public void isLeagueNameUniqueTest(){
-        LeagueInterface leagueDBObj = new LeagueDBMock();
+        ILeagueDAO leagueDBObj = new LeagueDBMock();
         JSON json = new JSON(leagueDBObj);
         String path = "src/test/java/com/groupten/statemachine/mocks/JsonMock.json";
         json.importJSONData(path);

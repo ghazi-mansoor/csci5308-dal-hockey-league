@@ -1,6 +1,6 @@
 package com.groupten.statemachine.createteam;
 
-public interface CreateTeamInterface {
+public interface ICreateTeam {
 
     void userPromptForNewTeam();
     boolean validateUserInput();

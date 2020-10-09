@@ -1,6 +1,6 @@
 package com.groupten.statemachine.loadteam;
 
-public interface LoadTeamInterface {
+public interface ILoadTeam {
 
     void userPromptForLoadingTeam();
     boolean doesTeamExist();

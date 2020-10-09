@@ -1,6 +1,6 @@
 package com.groupten.statemachine.simulation;
 
-public interface SimulationInterface {
+public interface ISimulation {
 
     void beginSimulation();
     void fakeState_1();

@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Console implements ConsoleInterface {
+public class Console implements IConsole {
 
     private InputStream in;
     private PrintStream out;
@@ -31,7 +31,4 @@ public class Console implements ConsoleInterface {
         return sc.nextInt();
     }
 
-    public PrintStream getOut(){
-        return this.out;
-    }
 }
