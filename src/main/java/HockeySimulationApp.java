@@ -4,13 +4,12 @@ import com.groupten.statemachine.json.IJSON;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.ISimulation;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
 public class HockeySimulationApp {
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException {
 
         boolean startSimulation = false;
         IConsole console = Injector.injector().getConsoleObject();
