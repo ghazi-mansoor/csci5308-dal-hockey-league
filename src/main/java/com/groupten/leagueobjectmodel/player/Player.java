@@ -81,4 +81,8 @@ public class Player {
         return position;
     }
 
+    public boolean getCaptain() {
+        return captain;
+    }
+
 }
