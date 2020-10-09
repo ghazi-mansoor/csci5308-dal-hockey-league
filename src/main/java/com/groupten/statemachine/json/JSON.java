@@ -22,8 +22,8 @@ public class JSON implements JSONInterface {
 
     public JSON(){ }
 
-    public JSON(LeagueInterface leagueDBObj){
-        Injector.injector().setLeagueDatabaseObject(leagueDBObj);
+    public JSON(LeagueInterface leagueDBMockObj){
+        Injector.injector().setLeagueDatabaseObject(leagueDBMockObj);
     }
 
     @Override

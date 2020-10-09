@@ -10,6 +10,8 @@ public class CreateTeam implements CreateTeamInterface {
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
     private League leagueLOM;
 
+    public CreateTeam() { }
+
     @Override
     public void userPromptForNewTeam() {
 
