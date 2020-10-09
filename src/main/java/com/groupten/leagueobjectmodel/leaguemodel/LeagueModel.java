@@ -1,10 +1,6 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
-import com.groupten.jdbc.team.TeamInterface;
-import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.leagueobjectmodel.validators.Validator;
-import com.groupten.leagueobjectmodel.conference.Conference;
-import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.league.League;
 
 import java.util.HashMap;
