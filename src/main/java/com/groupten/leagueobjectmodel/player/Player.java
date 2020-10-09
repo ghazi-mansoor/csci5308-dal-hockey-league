@@ -34,6 +34,27 @@ public class Player {
         teamPersistenceAPI = perTeam;
     }
 
+    public Player(int lID, int pID, String pn, String pos, boolean cap, PlayerInterface pPer, TeamInterface tPer) {
+        leagueID = lID;
+        playerID = pID;
+        playerName = pn;
+        position = pos;
+        captain = cap;
+        playerPersistenceAPI = pPer;
+        teamPersistenceAPI = tPer;
+    }
+
+    public Player(int lID, int tID, int pID, String pn, String pos, boolean cap, PlayerInterface pPer, TeamInterface tPer) {
+        leagueID = lID;
+        teamID = tID;
+        playerID = pID;
+        playerName = pn;
+        position = pos;
+        captain = cap;
+        playerPersistenceAPI = pPer;
+        teamPersistenceAPI = tPer;
+    }
+
     public boolean savePlayerToDB() {
         playerID = playerPersistenceAPI.createPlayer(leagueID, playerName, position, captain);
         teamPersistenceAPI.attachTeamPlayer(teamID, playerID);
