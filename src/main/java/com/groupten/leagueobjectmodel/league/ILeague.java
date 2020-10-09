@@ -4,8 +4,6 @@ import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.player.Player;
 
-import java.util.Map;
-
 public interface ILeague {
     boolean addConferenceToLeague(Conference conference);
     boolean addFreeAgentToLeague(Player player);
@@ -14,9 +12,7 @@ public interface ILeague {
     boolean addTeamToLeagueModel(String teamName, String generalManager, String headCoach, TeamInterface persistenceAPI);
     boolean doesContainConference(String conferenceName);
     String getLeagueName();
-    Map<String, Conference> getConferences();
     Conference getConference(String conferenceName);
     boolean areNumberOfConferencesEven();
     void loadConferencesFromDB();
-
 }
