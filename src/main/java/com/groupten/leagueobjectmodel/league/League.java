@@ -1,6 +1,9 @@
 package com.groupten.leagueobjectmodel.league;
 
+import com.groupten.jdbc.conference.ConferenceInterface;
+import com.groupten.jdbc.division.DivisionInterface;
 import com.groupten.jdbc.league.LeagueInterface;
+import com.groupten.jdbc.player.PlayerInterface;
 import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
@@ -19,6 +22,10 @@ public class League {
     private Map<String, Conference> conferences;
     private List<Player> freeAgents;
     private LeagueInterface leaguePersistenceAPI;
+    private ConferenceInterface conferencePersistenceAPI;
+    private DivisionInterface divisionPersistenceAPI;
+    private TeamInterface teamPersistenceAPI;
+    private PlayerInterface playerPersistenceAPI;
 
     private Conference currentConference;
     private Division currentDivision;
@@ -36,10 +43,17 @@ public class League {
         freeAgents = new ArrayList<Player>();
     }
 
-    public League(int lID, String ln, LeagueInterface per) {
+    public League(int lID, String ln, LeagueInterface lPer, ConferenceInterface cPer, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
         leagueID = lID;
         leagueName = ln;
-        leaguePersistenceAPI = per;
+        conferences = new HashMap<String, Conference>();
+        freeAgents = new ArrayList<Player>();
+        leaguePersistenceAPI = lPer;
+        conferencePersistenceAPI = cPer;
+        divisionPersistenceAPI = dPer;
+        teamPersistenceAPI = tPer;
+        playerPersistenceAPI = pPer;
+
     }
 
     public boolean addConferenceToLeague(Conference conference) {
@@ -145,4 +159,14 @@ public class League {
         return leagueID;
     }
 
+    public void loadConferencesFromDB() {
+        List<HashMap<String, Object>> conferenceMaps = leaguePersistenceAPI.getLeagueConferences(leagueID);
+        for (Map<String, Object> conferenceMap : conferenceMaps) {
+            int conferenceID = (int) conferenceMap.get("conferenceId");
+            String conferenceName = (String) conferenceMap.get("conferenceName");
+            Conference conference = new Conference(leagueID, conferenceID, conferenceName, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
+            System.out.println(conferenceName);
+            addConferenceToLeague(conference);
+        }
+    }
 }

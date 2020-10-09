@@ -1,6 +1,10 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
+import com.groupten.jdbc.conference.ConferenceInterface;
+import com.groupten.jdbc.division.DivisionInterface;
 import com.groupten.jdbc.league.LeagueInterface;
+import com.groupten.jdbc.player.PlayerInterface;
+import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.league.League;
 
@@ -12,14 +16,22 @@ public class LeagueModel {
     private Map<String, League> leagues;
     private League currentLeague;
     private LeagueInterface leaguePersistenceAPI;
+    private ConferenceInterface conferencePersistenceAPI;
+    private DivisionInterface divisionPersistenceAPI;
+    private TeamInterface teamPersistenceAPI;
+    private PlayerInterface playerPersistenceAPI;
 
     public LeagueModel() {
         leagues = new HashMap<String, League>();
     }
 
-    public LeagueModel(LeagueInterface per) {
+    public LeagueModel(LeagueInterface lPer, ConferenceInterface cPer, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
         leagues = new HashMap<String, League>();
-        leaguePersistenceAPI = per;
+        leaguePersistenceAPI = lPer;
+        conferencePersistenceAPI = cPer;
+        divisionPersistenceAPI = dPer;
+        teamPersistenceAPI = tPer;
+        playerPersistenceAPI = pPer;
     }
 
     public boolean addLeagueToModel(League league) {
@@ -61,9 +73,10 @@ public class LeagueModel {
         String leagueName = (String) leagueMap.get("leagueName");
 
         // TODO: Use league info to create new league object
-        currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI);
+        currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
 
         // TODO: Call loadConferencesFromDB on the league object
+        currentLeague.loadConferencesFromDB();
 
         // TODO: Return true if the returned league has the same leagueID as the one passed via the argument
         return (currentLeague.getLeagueID() == lID);
