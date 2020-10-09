@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Division {
+public class Division implements IDivision {
     private int leagueID;
     private int conferenceID;
     private int divisionID;

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Conference {
+public class Conference implements IConference {
     private int leagueID;
     private int conferenceID;
     private String conferenceName;

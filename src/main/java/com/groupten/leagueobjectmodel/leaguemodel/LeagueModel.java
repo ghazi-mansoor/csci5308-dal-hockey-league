@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LeagueModel {
+public class LeagueModel implements ILeagueModel {
     private Map<String, League> leagues;
     private League currentLeague;
     private LeagueInterface leaguePersistenceAPI;
@@ -74,7 +74,6 @@ public class LeagueModel {
         currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
 
         currentLeague.loadConferencesFromDB();
-        // currentLeague.loadFreeAgentsFromDB();
 
         return (currentLeague.getLeagueID() == lID);
     }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Team {
+public class Team implements ITeam {
     private int leagueID;
     private int divisionID;
     private int teamID;
