@@ -85,7 +85,7 @@ public class Team implements TeamInterface {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL listTeamPlayers(?)}");
+            CallableStatement cs = con.prepareCall("{CALL getTeamPlayers(?)}");
             cs.setInt(1, teamId);
             ResultSet rs = cs.executeQuery();
             list = ResultSetOperation.convertResultSetToList(rs);
