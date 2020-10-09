@@ -82,6 +82,24 @@ public class Team {
         }
     }
 
+    public boolean isOnlyOnePlayerCaptain() {
+        List<Boolean> captains = new ArrayList<Boolean>();
+        int count = 0;
+
+        for (Player player : players) {
+            captains.add((player.getCaptain()));
+        }
+
+        for (Boolean captain : captains) {
+            if (captain) {
+                count++;
+            }
+        }
+
+        return count == 1;
+
+    }
+
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
     }
@@ -106,4 +124,5 @@ public class Team {
             addPlayerToTeam(player);
         }
     }
+
 }

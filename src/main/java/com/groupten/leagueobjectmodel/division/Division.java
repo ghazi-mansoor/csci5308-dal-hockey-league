@@ -100,7 +100,7 @@ public class Division {
             Team team = new Team(leagueID, divisionID, teamID, teamName, generalManager, headCoach, teamPersistenceAPI, playerPersistenceAPI);
             System.out.println(teamName);
             addTeamToDivision(team);
-            team.loadPlayersFromDB();
+            //team.loadPlayersFromDB();
         }
     }
 }
