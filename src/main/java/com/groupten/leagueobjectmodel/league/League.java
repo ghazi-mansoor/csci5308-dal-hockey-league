@@ -4,7 +4,7 @@ import com.groupten.jdbc.league.LeagueInterface;
 import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 
@@ -130,5 +130,8 @@ public class League {
         return conferences.get(conferenceName);
     }
 
+    public boolean areNumberOfConferencesEven() {
+        return (conferences.size() % 2 == 0);
+    }
 
 }

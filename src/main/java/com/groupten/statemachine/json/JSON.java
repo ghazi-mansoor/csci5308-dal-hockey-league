@@ -102,9 +102,9 @@ public class JSON implements JSONInterface {
                         }
                     }
 
-                    if(divisionLOM.addTeamToDivision(teamLOM)){
+                    if (divisionLOM.addTeamToDivision(teamLOM)){
                         divisionAddedToConference = true;
-                    }else{
+                    } else{
                         return false;
                     }
                 }
@@ -116,7 +116,7 @@ public class JSON implements JSONInterface {
             }
             if( leagueLOM.addConferenceToLeague(conferenceLOM)){
                 conferenceAddedToLeague = true;
-            }else{
+            } else{
                 return false;
             }
         }

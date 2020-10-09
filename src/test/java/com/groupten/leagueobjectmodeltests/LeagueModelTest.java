@@ -45,8 +45,8 @@ public class LeagueModelTest {
 
         leagueModel.addLeagueToModel(league);
 
-        assertTrue(leagueModel.doEntitiesExistInMemory("League 1", "L1-Conference 1", "L1-C1 Division 1"));
-        assertTrue(leagueModel.addTeamToLeagueModel("Team 1", "GM",
+        assertTrue(league.doEntitiesExistInMemory("L1-Conference 1", "L1-C1 Division 1"));
+        assertTrue(league.addTeamToLeagueModel("Team 1", "GM",
                 "HC", teamPersistenceAPI));
     }
 
@@ -75,8 +75,8 @@ public class LeagueModelTest {
 
         leagueModel.addLeagueToModel(league);
 
-        assertTrue(leagueModel.doEntitiesExistInMemory("League 1", "L1-Conference 1", "L1-C1 Division 1"));
-        assertTrue(leagueModel.doEntitiesExistInMemory("League 1", "L1-Conference 2", "L1-C2 Division 1"));
-        assertFalse(leagueModel.doEntitiesExistInMemory("League 1", "L1-Conference 2", "L1-C1 Division 1"));
+        assertTrue(league.doEntitiesExistInMemory("L1-Conference 1", "L1-C1 Division 1"));
+        assertTrue(league.doEntitiesExistInMemory("L1-Conference 2", "L1-C2 Division 1"));
+        assertFalse(league.doEntitiesExistInMemory("L1-Conference 2", "L1-C1 Division 1"));
     }
 }

@@ -2,7 +2,7 @@ package com.groupten.leagueobjectmodel.division;
 
 import com.groupten.jdbc.division.DivisionInterface;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.leagueobjectmodel.validators.Validator;
+import com.groupten.validator.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
