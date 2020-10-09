@@ -2,6 +2,7 @@ package com.groupten.statemachine.loadteam;
 
 import com.groupten.jdbc.team.Team;
 import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
 
@@ -36,13 +37,20 @@ public class LoadTeam implements LoadTeamInterface {
     public boolean doesTeamExist() {
         TeamInterface teamDB = Injector.injector().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
-        leagueID = (int) teamList.get(0).get("leagueId");
-        return teamList.size() > 0;
+        if(teamList.size() > 0){
+            leagueID = (int) teamList.get(0).get("leagueId");
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
-    public void loadExistingLeague() {
+    public boolean loadExistingLeague() {
         System.out.println(leagueID);
+//        LeagueModel leagueModel = new LeagueModel();
+//        return leagueModel.loadLeagueFromDB(leagueID);
+        return true;
     }
 
     public void setTeamName(String teamName) {
