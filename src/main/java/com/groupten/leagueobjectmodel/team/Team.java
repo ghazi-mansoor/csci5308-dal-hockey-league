@@ -120,7 +120,6 @@ public class Team {
             String position = (String) playerMap.get("position");
             Boolean captain = (Boolean) playerMap.get("captain");
             Player player = new Player(leagueID, teamID, playerID, playerName, position, captain, playerPersistenceAPI, teamPersistenceAPI);
-            System.out.println(playerName);
             addPlayerToTeam(player);
         }
     }

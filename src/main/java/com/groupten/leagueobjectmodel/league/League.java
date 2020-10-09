@@ -165,7 +165,6 @@ public class League {
             int conferenceID = (int) conferenceMap.get("conferenceId");
             String conferenceName = (String) conferenceMap.get("conferenceName");
             Conference conference = new Conference(leagueID, conferenceID, conferenceName, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
-            System.out.println(conferenceName);
             addConferenceToLeague(conference);
             conference.loadDivisionFromDB();
         }
@@ -179,7 +178,6 @@ public class League {
             String position = (String) playerMap.get("position");
             Boolean captain = (Boolean) playerMap.get("captain");
             Player player = new Player(leagueID, playerID, playerName, position, captain, playerPersistenceAPI, teamPersistenceAPI);
-            System.out.println(playerName);
             addFreeAgentToLeague(player);
         }
     }

@@ -98,7 +98,6 @@ public class Division {
             String generalManager = (String) teamMap.get("generalManager");
             String headCoach = (String) teamMap.get("headCoach");
             Team team = new Team(leagueID, divisionID, teamID, teamName, generalManager, headCoach, teamPersistenceAPI, playerPersistenceAPI);
-            System.out.println(teamName);
             addTeamToDivision(team);
             //team.loadPlayersFromDB();
         }
