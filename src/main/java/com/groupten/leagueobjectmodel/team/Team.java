@@ -47,10 +47,11 @@ public class Team {
         }
     }
 
-    public void saveTeamToDB() {
+    public boolean saveTeamToDB() {
         teamID = teamPersistenceAPI.createTeam(divisionID, teamName, generalManager, headCoach);
         setPlayerForeignKeys();
         saveAllPlayers();
+        return (teamID != 0);
     }
 
     private void setPlayerForeignKeys() {

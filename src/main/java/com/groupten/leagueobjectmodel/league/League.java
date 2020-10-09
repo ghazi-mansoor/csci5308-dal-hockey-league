@@ -67,12 +67,13 @@ public class League {
         }
     }
 
-    public void saveLeagueToDB() {
+    public boolean saveLeagueToDB() {
         leagueID = leaguePersistenceAPI.createLeague(leagueName);
         setConferenceForeignKeys();
         saveAllConferences();
         setFreeAgentForeignKeys();
         saveAllFreeAgents();
+        return (leagueID != 0);
     }
 
     private void setFreeAgentForeignKeys() {

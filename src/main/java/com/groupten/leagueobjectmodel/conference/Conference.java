@@ -35,10 +35,11 @@ public class Conference {
         }
     }
 
-    public void saveConferenceToDB() {
+    public boolean saveConferenceToDB() {
         conferenceID = conferencePersistenceAPI.createConference(leagueID, conferenceName);
         setDivisionForeignKeys();
         saveAllDivisions();
+        return (conferenceID != 0);
     }
 
     private void setDivisionForeignKeys() {
