@@ -77,7 +77,7 @@ public class LeagueModel {
 
         // TODO: Call loadConferencesFromDB and loadFreeAgentsFromDB on the league object
         currentLeague.loadConferencesFromDB();
-        currentLeague.loadFreeAgentsFromDB();
+        // currentLeague.loadFreeAgentsFromDB();
 
         // TODO: Return true if the returned league has the same leagueID as the one passed via the argument
         return (currentLeague.getLeagueID() == lID);

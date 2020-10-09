@@ -99,7 +99,6 @@ public class Conference {
             int divisionID = (int) divisionMap.get("divisionId");
             String divisionName = (String) divisionMap.get("divisionName");
             Division division = new Division(leagueID, conferenceID, divisionID, divisionName, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
-            System.out.println(divisionName);
             addDivisionToConference(division);
             division.loadTeamsFromDB();
         }
