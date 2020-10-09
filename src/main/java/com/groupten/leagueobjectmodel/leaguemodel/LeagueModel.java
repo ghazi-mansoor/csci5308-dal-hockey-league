@@ -57,14 +57,12 @@ public class LeagueModel {
         List<HashMap<String, Object>> leaguesMap = leaguePersistenceAPI.getLeagues("leagueId", leagueId);
         Map<String, Object> leagueMap = leaguesMap.get(0);
 
-        System.out.println(leagueMap.get("leagueId"));
-        System.out.println(leagueMap.get("leagueName"));
-
         int leagueID = (int) leagueMap.get("leagueId");
         String leagueName = (String) leagueMap.get("leagueName");
 
         // TODO: Use league info to create new league object
         currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI);
+
         // TODO: Call loadConferencesFromDB on the league object
 
         // TODO: Return true if the returned league has the same leagueID as the one passed via the argument
