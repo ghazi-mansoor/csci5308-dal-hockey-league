@@ -43,7 +43,9 @@ public class HockeySimulationApp {
                                     console.printLine("SUCCESS: Ready to add the team.");
 
                                     if(createTeam.instantiateNewTeam()){
+                                        console.printLine("INFO: Saving the data to Database.");
                                         if(createTeam.persistLeagueModel()){
+                                            console.printLine("SUCCESS: Saving successful.");
                                             console.printLine("SUCCESS: We can now proceed to simulation.");
                                             startSimulation = true;
                                         }else{
@@ -73,6 +75,7 @@ public class HockeySimulationApp {
                 if(loadTeam.doesTeamExist()){
                     console.printLine("SUCCESS: The team exist.");
                     if(loadTeam.loadExistingLeague()){
+                        console.printLine("SUCCESS: Loading League Successful.");
                         console.printLine("SUCCESS: We can now proceed to simulation.");
                         startSimulation = true;
                     }else{

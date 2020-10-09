@@ -49,7 +49,7 @@ public class JSON implements JSONInterface {
     @Override
     public boolean instantiateJSONData() {
 
-        boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false;
+        boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false, leagueAddedToLeagueModel = false;
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
 
         League leagueLOM;
@@ -137,8 +137,12 @@ public class JSON implements JSONInterface {
             }
         }
 
-        leagueModel.addLeagueToModel(leagueLOM);
+        if(leagueModel.addLeagueToModel(leagueLOM)){
+            leagueAddedToLeagueModel = true;
+        }else{
+            return false;
+        }
 
-        return playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
+        return leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
     }
 }
