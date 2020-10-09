@@ -1,9 +1,8 @@
 package com.groupten.leagueobjectmodel.division;
 
-import com.groupten.jdbc.conference.ConferenceInterface;
-import com.groupten.jdbc.division.DivisionInterface;
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.division.IDivisionDAO;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.validator.Validator;
 
@@ -17,9 +16,9 @@ public class Division implements IDivision {
     private int divisionID;
     private String divisionName;
     private Map<String, Team> teams;
-    private DivisionInterface divisionPersistenceAPI;
-    private TeamInterface teamPersistenceAPI;
-    private PlayerInterface playerPersistenceAPI;
+    private IDivisionDAO divisionPersistenceAPI;
+    private ITeamDAO teamPersistenceAPI;
+    private IPlayerDAO playerPersistenceAPI;
 
 
     public Division(String dn) {
@@ -27,13 +26,13 @@ public class Division implements IDivision {
         teams = new HashMap<String, Team>();
     }
 
-    public Division(String dn, DivisionInterface per) {
+    public Division(String dn, IDivisionDAO per) {
         divisionName = dn;
         teams = new HashMap<String, Team>();
         divisionPersistenceAPI = per;
     }
 
-    public Division(int lID, int cID, int dID, String dn, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
+    public Division(int lID, int cID, int dID, String dn, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
         leagueID = lID;
         conferenceID = cID;
         divisionID = dID;

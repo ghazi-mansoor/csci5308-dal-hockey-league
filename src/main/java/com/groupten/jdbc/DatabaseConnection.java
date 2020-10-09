@@ -10,19 +10,10 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static DatabaseConnection dbConnectionObj = null;
 
-    //Set Driver
     String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DB_HOST;
-    String DB_PORT;
-    String DB_NAME;
-    String DB_URL;
-
-    String DB_USER;
-    String DB_PASS;
-
+    String DB_HOST, DB_PORT, DB_NAME, DB_URL, DB_USER, DB_PASS;
 
     public DatabaseConnection(){
-        //Load Configurations
         String CONFIG_PATH = "configuration.json";
         JSONParser parser = new JSONParser();
         JSONObject configData = null;
@@ -33,13 +24,10 @@ public class DatabaseConnection {
         }
 
         try{
-            //Set DB Configs
             DB_HOST = (String) configData.get("DB_HOST");
             DB_PORT = (String) configData.get("DB_PORT");
             DB_NAME = (String) configData.get("DB_NAME");
             DB_URL = "jdbc:" + "mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
-
-            //Set DB Credentials
             DB_USER = (String) configData.get("DB_USER");
             DB_PASS = (String) configData.get("DB_PASS");
         }catch (Exception e) {

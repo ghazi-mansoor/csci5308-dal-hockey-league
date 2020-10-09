@@ -1,12 +1,12 @@
 package com.groupten.statemachine.mocks;
 
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.team.ITeamDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TeamDBMock implements TeamInterface {
+public class TeamDBMock implements ITeamDAO {
     @Override
     public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {
         return 0;

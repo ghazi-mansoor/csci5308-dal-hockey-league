@@ -1,14 +1,13 @@
 package com.groupten.statemachine.mocks;
 
-import com.groupten.jdbc.DatabaseConnection;
-import com.groupten.jdbc.league.LeagueInterface;
-import java.sql.Connection;
+import com.groupten.jdbc.league.ILeagueDAO;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class LeagueDBMock implements LeagueInterface {
+public class LeagueDBMock implements ILeagueDAO {
 
     @Override
     public int createLeague(String leagueName) {

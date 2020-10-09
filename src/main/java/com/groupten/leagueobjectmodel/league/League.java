@@ -1,10 +1,10 @@
 package com.groupten.leagueobjectmodel.league;
 
-import com.groupten.jdbc.conference.ConferenceInterface;
-import com.groupten.jdbc.division.DivisionInterface;
-import com.groupten.jdbc.league.LeagueInterface;
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.conference.IConferenceDAO;
+import com.groupten.jdbc.division.IDivisionDAO;
+import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.validator.Validator;
@@ -21,11 +21,11 @@ public class League implements ILeague {
     private String leagueName;
     private Map<String, Conference> conferences;
     private List<Player> freeAgents;
-    private LeagueInterface leaguePersistenceAPI;
-    private ConferenceInterface conferencePersistenceAPI;
-    private DivisionInterface divisionPersistenceAPI;
-    private TeamInterface teamPersistenceAPI;
-    private PlayerInterface playerPersistenceAPI;
+    private ILeagueDAO leaguePersistenceAPI;
+    private IConferenceDAO conferencePersistenceAPI;
+    private IDivisionDAO divisionPersistenceAPI;
+    private ITeamDAO teamPersistenceAPI;
+    private IPlayerDAO playerPersistenceAPI;
 
     private Conference currentConference;
     private Division currentDivision;
@@ -36,14 +36,14 @@ public class League implements ILeague {
         freeAgents = new ArrayList<Player>();
     }
 
-    public League(String ln, LeagueInterface per) {
+    public League(String ln, ILeagueDAO per) {
         leagueName = ln;
         leaguePersistenceAPI = per;
         conferences = new HashMap<String, Conference>();
         freeAgents = new ArrayList<Player>();
     }
 
-    public League(int lID, String ln, LeagueInterface lPer, ConferenceInterface cPer, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
+    public League(int lID, String ln, ILeagueDAO lPer, IConferenceDAO cPer, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
         leagueID = lID;
         leagueName = ln;
         conferences = new HashMap<String, Conference>();
@@ -130,7 +130,7 @@ public class League implements ILeague {
         }
     }
 
-    public boolean addTeamToLeagueModel(String teamName, String generalManager, String headCoach, TeamInterface persistenceAPI) {
+    public boolean addTeamToLeagueModel(String teamName, String generalManager, String headCoach, ITeamDAO persistenceAPI) {
         Team team = new Team(teamName, generalManager, headCoach, persistenceAPI);
         return currentDivision.addTeamToDivision(team);
     }

@@ -6,15 +6,12 @@ import com.groupten.jdbc.ResultSetOperation;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Division implements DivisionInterface {
+public class DivisionDAO implements IDivisionDAO {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
-
-    //CRUD
 
     @Override
     public int createDivision(int conferenceId, String divisionName) {
@@ -73,8 +70,6 @@ public class Division implements DivisionInterface {
             e.printStackTrace();
         }
     }
-
-    //Relations
 
     @Override
     public List<HashMap<String, Object>> getDivisionTeams(int divisionId) {

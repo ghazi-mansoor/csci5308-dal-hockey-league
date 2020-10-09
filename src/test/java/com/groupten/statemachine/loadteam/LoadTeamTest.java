@@ -1,6 +1,6 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.statemachine.mocks.TeamDBMock;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class LoadTeamTest {
 
     @Test
     public void isLeagueNameUniqueTest(){
-        TeamInterface teamDBObj = new TeamDBMock();
+        ITeamDAO teamDBObj = new TeamDBMock();
         LoadTeam loadTeam = new LoadTeam(teamDBObj);
         assertTrue( loadTeam.doesTeamExist());
     }

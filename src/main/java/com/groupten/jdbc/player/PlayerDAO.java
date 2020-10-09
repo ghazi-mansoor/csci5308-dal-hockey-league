@@ -6,15 +6,12 @@ import com.groupten.jdbc.ResultSetOperation;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Player implements PlayerInterface {
+public class PlayerDAO implements IPlayerDAO {
     DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
-
-    //CRUD
 
     @Override
     public int createPlayer(int leagueId, String playerName, String position, boolean isCaptain) {
@@ -78,8 +75,6 @@ public class Player implements PlayerInterface {
             e.printStackTrace();
         }
     }
-
-    //Filters
 
     @Override
     public List<HashMap<String, Object>> getCaptains(String colName, String colValue) {

@@ -1,9 +1,9 @@
 package com.groupten.leagueobjectmodel.conference;
 
-import com.groupten.jdbc.conference.ConferenceInterface;
-import com.groupten.jdbc.division.DivisionInterface;
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.conference.IConferenceDAO;
+import com.groupten.jdbc.division.IDivisionDAO;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.validator.Validator;
 
@@ -16,23 +16,23 @@ public class Conference implements IConference {
     private int conferenceID;
     private String conferenceName;
     private Map<String, Division> divisions;
-    private ConferenceInterface conferencePersistenceAPI;
-    private DivisionInterface divisionPersistenceAPI;
-    private TeamInterface teamPersistenceAPI;
-    private PlayerInterface playerPersistenceAPI;
+    private IConferenceDAO conferencePersistenceAPI;
+    private IDivisionDAO divisionPersistenceAPI;
+    private ITeamDAO teamPersistenceAPI;
+    private IPlayerDAO playerPersistenceAPI;
 
     public Conference(String cn) {
         conferenceName = cn;
         divisions = new HashMap<String, Division>();
     }
 
-    public Conference(String cn, ConferenceInterface per) {
+    public Conference(String cn, IConferenceDAO per) {
         conferenceName = cn;
         divisions = new HashMap<String, Division>();
         conferencePersistenceAPI = per;
     }
 
-    public Conference(int lID, int cID, String cn, ConferenceInterface cPer, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
+    public Conference(int lID, int cID, String cn, IConferenceDAO cPer, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
         leagueID = lID;
         conferenceID = cID;
         conferenceName = cn;

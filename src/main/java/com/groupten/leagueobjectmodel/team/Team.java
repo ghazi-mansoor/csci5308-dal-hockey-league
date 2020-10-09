@@ -1,7 +1,7 @@
 package com.groupten.leagueobjectmodel.team;
 
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.player.Player;
 
@@ -18,8 +18,8 @@ public class Team implements ITeam {
     private String generalManager;
     private String headCoach;
     private List <Player> players;
-    private TeamInterface teamPersistenceAPI;
-    private PlayerInterface playerPersistenceAPI;
+    private ITeamDAO teamPersistenceAPI;
+    private IPlayerDAO playerPersistenceAPI;
 
     public Team(String tn, String gm, String hc) {
         teamName = tn;
@@ -28,7 +28,7 @@ public class Team implements ITeam {
         players = new ArrayList<Player>();
     }
 
-    public Team(String tn, String gm, String hc, TeamInterface per) {
+    public Team(String tn, String gm, String hc, ITeamDAO per) {
         teamName = tn;
         generalManager = gm;
         headCoach = hc;
@@ -36,7 +36,7 @@ public class Team implements ITeam {
         teamPersistenceAPI = per;
     }
 
-    public Team(int lID, int dID, int tID, String tn, String gm, String hc, TeamInterface tPer, PlayerInterface pPer) {
+    public Team(int lID, int dID, int tID, String tn, String gm, String hc, ITeamDAO tPer, IPlayerDAO pPer) {
         leagueID = lID;
         divisionID = dID;
         teamID = tID;

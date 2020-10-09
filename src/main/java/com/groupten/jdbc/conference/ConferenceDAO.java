@@ -6,15 +6,12 @@ import com.groupten.jdbc.ResultSetOperation;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConferenceDAO implements ConferenceInterface {
+public class ConferenceDAO implements IConferenceDAO {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
-
-    //CRUD
 
     @Override
     public int createConference(int leagueId, String conferenceName) {
@@ -74,8 +71,6 @@ public class ConferenceDAO implements ConferenceInterface {
             e.printStackTrace();
         }
     }
-
-    //Relations
 
     @Override
     public List<HashMap<String, Object>> getConferenceDivisions(int conferenceId) {

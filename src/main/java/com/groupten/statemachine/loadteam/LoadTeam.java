@@ -1,7 +1,6 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.jdbc.team.Team;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
@@ -17,7 +16,7 @@ public class LoadTeam implements LoadTeamInterface {
 
     public LoadTeam() {}
 
-    public LoadTeam(TeamInterface teamDBObj) {
+    public LoadTeam(ITeamDAO teamDBObj) {
         Injector.injector().setTeamDatabaseObject(teamDBObj);
     }
 
@@ -35,7 +34,7 @@ public class LoadTeam implements LoadTeamInterface {
 
     @Override
     public boolean doesTeamExist() {
-        TeamInterface teamDB = Injector.injector().getTeamDatabaseObject();
+        ITeamDAO teamDB = Injector.injector().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
         if(teamList.size() > 0){
             leagueID = (int) teamList.get(0).get("leagueId");

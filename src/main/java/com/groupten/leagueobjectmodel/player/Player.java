@@ -1,7 +1,7 @@
 package com.groupten.leagueobjectmodel.player;
 
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 
 public class Player implements IPlayer {
     private int leagueID;
@@ -10,8 +10,8 @@ public class Player implements IPlayer {
     private String playerName;
     private String position;
     private boolean captain;
-    private PlayerInterface playerPersistenceAPI;
-    private TeamInterface teamPersistenceAPI;
+    private IPlayerDAO playerPersistenceAPI;
+    private ITeamDAO teamPersistenceAPI;
 
     public Player(String pn, String pos, boolean cap) {
         playerName = pn;
@@ -19,14 +19,14 @@ public class Player implements IPlayer {
         captain = cap;
     }
 
-    public Player(String pn, String pos, boolean cap, PlayerInterface per) {
+    public Player(String pn, String pos, boolean cap, IPlayerDAO per) {
         playerName = pn;
         position = pos;
         captain = cap;
         playerPersistenceAPI = per;
     }
 
-    public Player(String pn, String pos, boolean cap, PlayerInterface per, TeamInterface perTeam) {
+    public Player(String pn, String pos, boolean cap, IPlayerDAO per, ITeamDAO perTeam) {
         playerName = pn;
         position = pos;
         captain = cap;
@@ -34,7 +34,7 @@ public class Player implements IPlayer {
         teamPersistenceAPI = perTeam;
     }
 
-    public Player(int lID, int pID, String pn, String pos, boolean cap, PlayerInterface pPer, TeamInterface tPer) {
+    public Player(int lID, int pID, String pn, String pos, boolean cap, IPlayerDAO pPer, ITeamDAO tPer) {
         leagueID = lID;
         playerID = pID;
         playerName = pn;
@@ -44,7 +44,7 @@ public class Player implements IPlayer {
         teamPersistenceAPI = tPer;
     }
 
-    public Player(int lID, int tID, int pID, String pn, String pos, boolean cap, PlayerInterface pPer, TeamInterface tPer) {
+    public Player(int lID, int tID, int pID, String pn, String pos, boolean cap, IPlayerDAO pPer, ITeamDAO tPer) {
         leagueID = lID;
         teamID = tID;
         playerID = pID;

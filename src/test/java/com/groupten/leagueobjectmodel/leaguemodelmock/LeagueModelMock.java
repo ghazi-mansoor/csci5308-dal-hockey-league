@@ -1,7 +1,8 @@
 package com.groupten.leagueobjectmodel.leaguemodelmock;
 
+import com.groupten.jdbc.team.TeamDAO;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
@@ -12,7 +13,7 @@ public class LeagueModelMock {
 
     public LeagueModelMock() {
         leagueModel = new LeagueModel();
-        TeamInterface teamPersistenceAPI = new com.groupten.jdbc.team.Team();
+        ITeamDAO teamPersistenceAPI = new TeamDAO();
 
         League league = new League("League 1");
 

@@ -1,12 +1,11 @@
 package com.groupten.statemachine.json;
 
 import com.groupten.injector.Injector;
-import com.groupten.jdbc.league.LeagueInterface;
+import com.groupten.jdbc.league.ILeagueDAO;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 import org.json.simple.JSONArray;
@@ -23,7 +22,7 @@ public class JSON implements JSONInterface {
 
     public JSON(){ }
 
-    public JSON(LeagueInterface leagueDBMockObj){
+    public JSON(ILeagueDAO leagueDBMockObj){
         Injector.injector().setLeagueDatabaseObject(leagueDBMockObj);
     }
 
@@ -40,7 +39,7 @@ public class JSON implements JSONInterface {
 
     @Override
     public boolean isLeagueNameUnique(){
-        LeagueInterface leagueDB = Injector.injector().getLeagueDatabaseObject();
+        ILeagueDAO leagueDB = Injector.injector().getLeagueDatabaseObject();
         String columnName = "leagueName";
         String leagueName = (String) jsonData.get("leagueName");
         List<HashMap<String,Object>> leagues = leagueDB.getLeagues(columnName, leagueName);

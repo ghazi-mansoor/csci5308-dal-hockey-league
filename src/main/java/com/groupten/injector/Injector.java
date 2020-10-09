@@ -1,16 +1,15 @@
 package com.groupten.injector;
 
 import com.groupten.jdbc.conference.ConferenceDAO;
-import com.groupten.jdbc.conference.ConferenceInterface;
-import com.groupten.jdbc.division.Division;
-import com.groupten.jdbc.division.DivisionInterface;
-import com.groupten.jdbc.league.League;
-import com.groupten.jdbc.league.LeagueInterface;
-import com.groupten.jdbc.player.Player;
-import com.groupten.jdbc.player.PlayerInterface;
-import com.groupten.jdbc.team.Team;
-import com.groupten.jdbc.team.TeamInterface;
-import com.groupten.leagueobjectmodel.league.ILeague;
+import com.groupten.jdbc.conference.IConferenceDAO;
+import com.groupten.jdbc.division.DivisionDAO;
+import com.groupten.jdbc.division.IDivisionDAO;
+import com.groupten.jdbc.league.LeagueDAO;
+import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.jdbc.player.PlayerDAO;
+import com.groupten.jdbc.player.IPlayerDAO;
+import com.groupten.jdbc.team.TeamDAO;
+import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.Console;
@@ -34,11 +33,11 @@ public class Injector {
     private LoadTeamInterface loadTeamInterface;
     private SimulationInterface simulationInterface;
 
-    private LeagueInterface leagueDatabaseInterface;
-    private ConferenceInterface conferenceDatabaseInterface;
-    private DivisionInterface divisionDatabaseInterface;
-    private TeamInterface teamDatabaseInterface;
-    private PlayerInterface playerDatabaseInterface;
+    private ILeagueDAO leagueDatabaseInterface;
+    private IConferenceDAO conferenceDatabaseInterface;
+    private IDivisionDAO divisionDatabaseInterface;
+    private ITeamDAO teamDatabaseInterface;
+    private IPlayerDAO playerDatabaseInterface;
 
     private ILeagueModel leagueModel;
 
@@ -50,11 +49,11 @@ public class Injector {
         loadTeamInterface = new LoadTeam();
         simulationInterface = new Simulation();
 
-        leagueDatabaseInterface = new League();
+        leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
-        divisionDatabaseInterface = new Division();
-        teamDatabaseInterface = new Team();
-        playerDatabaseInterface = new Player();
+        divisionDatabaseInterface = new DivisionDAO();
+        teamDatabaseInterface = new TeamDAO();
+        playerDatabaseInterface = new PlayerDAO();
 
         leagueModel = new LeagueModel();
     }
@@ -111,43 +110,43 @@ public class Injector {
         return simulationInterface;
     }
 
-    public void setLeagueDatabaseObject(LeagueInterface leagueDatabaseInterface) {
+    public void setLeagueDatabaseObject(ILeagueDAO leagueDatabaseInterface) {
         this.leagueDatabaseInterface = leagueDatabaseInterface;
     }
 
-    public LeagueInterface getLeagueDatabaseObject() {
+    public ILeagueDAO getLeagueDatabaseObject() {
         return leagueDatabaseInterface;
     }
 
-    public void setConferenceDatabaseObject(ConferenceInterface conferenceDatabaseInterface) {
+    public void setConferenceDatabaseObject(IConferenceDAO conferenceDatabaseInterface) {
         this.conferenceDatabaseInterface = conferenceDatabaseInterface;
     }
 
-    public ConferenceInterface getConferenceDatabaseObject() {
+    public IConferenceDAO getConferenceDatabaseObject() {
         return conferenceDatabaseInterface;
     }
 
-    public void setDivisionDatabaseObject(DivisionInterface divisionDatabaseInterface) {
+    public void setDivisionDatabaseObject(IDivisionDAO divisionDatabaseInterface) {
         this.divisionDatabaseInterface = divisionDatabaseInterface;
     }
 
-    public DivisionInterface getDivisionDatabaseObject() {
+    public IDivisionDAO getDivisionDatabaseObject() {
         return divisionDatabaseInterface;
     }
 
-    public void setTeamDatabaseObject(TeamInterface teamDatabaseInterface) {
+    public void setTeamDatabaseObject(ITeamDAO teamDatabaseInterface) {
         this.teamDatabaseInterface = teamDatabaseInterface;
     }
 
-    public TeamInterface getTeamDatabaseObject() {
+    public ITeamDAO getTeamDatabaseObject() {
         return teamDatabaseInterface;
     }
 
-    public void setPlayerDatabaseObject(PlayerInterface playerDatabaseInterface) {
+    public void setPlayerDatabaseObject(IPlayerDAO playerDatabaseInterface) {
         this.playerDatabaseInterface = playerDatabaseInterface;
     }
 
-    public PlayerInterface getPlayerDatabaseObject() {
+    public IPlayerDAO getPlayerDatabaseObject() {
         return playerDatabaseInterface;
     }
 
