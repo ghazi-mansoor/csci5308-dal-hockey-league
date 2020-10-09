@@ -53,7 +53,7 @@ public class JSON implements JSONInterface {
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
 
         League leagueLOM;
-        Conference conferenceLOM;
+        Conference conferenceLOM = null;
         Division divisionLOM;
         Player playerLOM, freeAgentLOM;
         Team teamLOM;
@@ -114,7 +114,7 @@ public class JSON implements JSONInterface {
                     return false;
                 }
             }
-            if( leagueLOM.addConferenceToLeague(conferenceLOM)){
+            if(leagueLOM.addConferenceToLeague(conferenceLOM)){
                 conferenceAddedToLeague = true;
             } else{
                 return false;
@@ -139,6 +139,6 @@ public class JSON implements JSONInterface {
 
         leagueModel.addLeagueToModel(leagueLOM);
 
-        return playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague;
+        return playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
     }
 }

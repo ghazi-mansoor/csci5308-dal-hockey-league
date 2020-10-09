@@ -37,12 +37,17 @@ public class LoadTeam implements LoadTeamInterface {
     public boolean doesTeamExist() {
         TeamInterface teamDB = Injector.injector().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
-        leagueID = (int) teamList.get(0).get("leagueId");
-        return teamList.size() > 0;
+        if(teamList.size() > 0){
+            leagueID = (int) teamList.get(0).get("leagueId");
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
     public boolean loadExistingLeague() {
+        System.out.println(leagueID);
 //        LeagueModel leagueModel = new LeagueModel();
 //        return leagueModel.loadLeagueFromDB(leagueID);
         return true;
