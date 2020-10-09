@@ -30,4 +30,8 @@ public class Console implements ConsoleInterface {
     public int readInteger() {
         return sc.nextInt();
     }
+
+    public PrintStream getOut(){
+        return this.out;
+    }
 }

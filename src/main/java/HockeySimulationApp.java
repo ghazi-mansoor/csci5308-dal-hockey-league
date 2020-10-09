@@ -43,7 +43,7 @@ public class HockeySimulationApp {
                                     console.printLine("SUCCESS: Ready to add the team.");
 
                                     if(createTeam.instantiateNewTeam()){
-                                        console.printLine("INFO: Saving the data to Database.");
+                                        console.printLine("INFO: Saving the data to Database. It will take few moments");
                                         createTeam.persistLeagueModel();
                                         console.printLine("SUCCESS: Saving successful.");
                                         console.printLine("SUCCESS: We can now proceed to simulation.");

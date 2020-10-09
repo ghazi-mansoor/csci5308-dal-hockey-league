@@ -4,7 +4,7 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -25,7 +25,7 @@ public class CreateTeamTest {
     @Test
     public void ifConferenceAndDivisionExistTest(){
 
-        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         League league = new League("Deep Test League");
         Conference conference = new Conference("Deep Test Conference");
         Division division = new Division("Deep Division Division");
@@ -43,7 +43,7 @@ public class CreateTeamTest {
 
     @Test
     public void instantiateNewTeamTest(){
-        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         League league = new League("Deep Test League");
         Conference conference = new Conference("Deep Test Conference");
         Division division = new Division("Deep Division Division");

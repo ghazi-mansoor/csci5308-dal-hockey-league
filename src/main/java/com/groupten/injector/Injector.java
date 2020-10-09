@@ -1,6 +1,6 @@
 package com.groupten.injector;
 
-import com.groupten.jdbc.conference.Conference;
+import com.groupten.jdbc.conference.ConferenceDAO;
 import com.groupten.jdbc.conference.ConferenceInterface;
 import com.groupten.jdbc.division.Division;
 import com.groupten.jdbc.division.DivisionInterface;
@@ -10,6 +10,8 @@ import com.groupten.jdbc.player.Player;
 import com.groupten.jdbc.player.PlayerInterface;
 import com.groupten.jdbc.team.Team;
 import com.groupten.jdbc.team.TeamInterface;
+import com.groupten.leagueobjectmodel.league.ILeague;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.Console;
 import com.groupten.statemachine.console.ConsoleInterface;
@@ -38,7 +40,7 @@ public class Injector {
     private TeamInterface teamDatabaseInterface;
     private PlayerInterface playerDatabaseInterface;
 
-    private LeagueModel leagueModel;
+    private ILeagueModel leagueModel;
 
     private Injector() {
         consoleInterface = new Console();
@@ -49,7 +51,7 @@ public class Injector {
         simulationInterface = new Simulation();
 
         leagueDatabaseInterface = new League();
-        conferenceDatabaseInterface = new Conference();
+        conferenceDatabaseInterface = new ConferenceDAO();
         divisionDatabaseInterface = new Division();
         teamDatabaseInterface = new Team();
         playerDatabaseInterface = new Player();
@@ -149,11 +151,11 @@ public class Injector {
         return playerDatabaseInterface;
     }
 
-    public void setLeagueModelObject(LeagueModel leagueModel) {
+    public void setLeagueModelObject(ILeagueModel leagueModel) {
         this.leagueModel = leagueModel;
     }
 
-    public LeagueModel getLeagueModelObject() {
+    public ILeagueModel getLeagueModelObject() {
         return leagueModel;
     }
 
