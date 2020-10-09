@@ -1,0 +1,121 @@
+{
+	"leagueName": "Dalhousie Hockey League",
+	"conferences": [
+		{
+			"conferenceName": "Eastern Conference",
+			"divisions":[
+				{
+					"divisionName": "Atlantic Division",
+					"teams": [
+						{
+							"teamName":"Boston Bruins",
+							"generalManager":"Don Sweeney",
+							"headCoach":"Bruce Cassidy",
+							"players":[
+								{
+									"playerName":"Zdeno Chara",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player One",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
+				},
+				{
+					"divisionName": "Metropolitan Division",
+					"teams": [
+						{
+							"teamName":"Carolina Hurricanes",
+							"generalManager":"Don Waddell",
+							"headCoach":"Rod Brind'Amour",
+							"players":[
+								{
+									"playerName":"Jordan Staal",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player Two",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"conferenceName": "Western Conference",
+			"divisions":[
+				{
+					"divisionName": "Central Division",
+					"teams": [
+						{
+							"teamName":"Chicago Blackhawks",
+							"generalManager":"Stan Bowman",
+							"headCoach":"Jeremy Colliton",
+							"players":[
+								{
+									"playerName":"Jonathan Toews",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player Three",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
+				},
+				{
+					"divisionName": "Pacific Division",
+					"teams": [
+						{
+							"teamName":"Anaheim Ducks",
+							"generalManager":"Bob Murray",
+							"headCoach":"Dallas Eakins",
+							"players":[
+								{
+									"playerName":"Ryan Getzlaf",
+									"position":"forward",
+									"captain":true
+								},
+								{
+									"playerName":"Player Four",
+									"position":"defense",
+									"captain":false
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"freeAgents":[
+		{
+			"playerName":"",
+			"position":"forward",
+			"captain":false
+		},
+		{
+			"playerName":"Agent Two",
+			"position":"defense",
+			"captain":false
+		},
+		{
+			"playerName":"Agent Three",
+			"position":"goalie",
+			"captain":false
+		}
+	]
+}
+
