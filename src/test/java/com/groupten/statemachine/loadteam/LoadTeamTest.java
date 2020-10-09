@@ -5,7 +5,6 @@ import com.groupten.statemachine.mocks.TeamDBMock;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class LoadTeamTest {
 
@@ -22,10 +21,4 @@ public class LoadTeamTest {
         LoadTeam loadTeam = new LoadTeam(teamDBObj);
         assertTrue( loadTeam.doesTeamExist());
     }
-
-//    @Test
-//    public void loadExistingLeagueTest(){
-//        assertTrue(true);
-//    }
-
 }
