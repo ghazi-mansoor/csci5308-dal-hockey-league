@@ -1,6 +1,7 @@
 package com.groupten.statemachine.createteam;
 
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.ConsoleInterface;
 import com.groupten.injector.Injector;
@@ -42,7 +43,7 @@ public class CreateTeam implements CreateTeamInterface {
 
     @Override
     public boolean ifConferenceAndDivisionExist() {
-        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         leagueLOM = (League) leagueModel.getLeagues().values().toArray()[0];
         return leagueLOM.doEntitiesExistInMemory(conferenceName, divisionName);
     }
@@ -54,7 +55,7 @@ public class CreateTeam implements CreateTeamInterface {
 
     @Override
     public void persistLeagueModel() {
-        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         leagueModel.saveLeagueModelToDB();
     }
 

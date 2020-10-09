@@ -5,6 +5,7 @@ import com.groupten.jdbc.league.LeagueInterface;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
@@ -50,7 +51,7 @@ public class JSON implements JSONInterface {
     public boolean instantiateJSONData() {
 
         boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false, leagueAddedToLeagueModel = false;
-        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
 
         League leagueLOM;
         Conference conferenceLOM = null;
@@ -142,8 +143,6 @@ public class JSON implements JSONInterface {
         }else{
             return false;
         }
-
-        System.out.println(teamLOM.isOnlyOnePlayerCaptain());
 
         return teamLOM.isOnlyOnePlayerCaptain() && leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
     }
