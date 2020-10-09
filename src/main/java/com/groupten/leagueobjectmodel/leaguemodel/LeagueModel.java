@@ -75,8 +75,9 @@ public class LeagueModel {
         // TODO: Use league info to create new league object
         currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
 
-        // TODO: Call loadConferencesFromDB on the league object
+        // TODO: Call loadConferencesFromDB and loadFreeAgentsFromDB on the league object
         currentLeague.loadConferencesFromDB();
+        currentLeague.loadFreeAgentsFromDB();
 
         // TODO: Return true if the returned league has the same leagueID as the one passed via the argument
         return (currentLeague.getLeagueID() == lID);

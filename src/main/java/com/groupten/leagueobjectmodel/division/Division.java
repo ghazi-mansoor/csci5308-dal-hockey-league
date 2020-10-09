@@ -1,10 +1,14 @@
 package com.groupten.leagueobjectmodel.division;
 
+import com.groupten.jdbc.conference.ConferenceInterface;
 import com.groupten.jdbc.division.DivisionInterface;
+import com.groupten.jdbc.player.PlayerInterface;
+import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.validator.Validator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Division {
@@ -14,6 +18,9 @@ public class Division {
     private String divisionName;
     private Map<String, Team> teams;
     private DivisionInterface divisionPersistenceAPI;
+    private TeamInterface teamPersistenceAPI;
+    private PlayerInterface playerPersistenceAPI;
+
 
     public Division(String dn) {
         divisionName = dn;
@@ -24,6 +31,17 @@ public class Division {
         divisionName = dn;
         teams = new HashMap<String, Team>();
         divisionPersistenceAPI = per;
+    }
+
+    public Division(int lID, int cID, int dID, String dn, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
+        leagueID = lID;
+        conferenceID = cID;
+        divisionID = dID;
+        divisionName = dn;
+        teams = new HashMap<String, Team>();
+        divisionPersistenceAPI = dPer;
+        teamPersistenceAPI = tPer;
+        playerPersistenceAPI = pPer;
     }
 
     public boolean addTeamToDivision(Team team) {
@@ -70,5 +88,19 @@ public class Division {
 
     public void setLeagueID(int leagueID) {
         this.leagueID = leagueID;
+    }
+
+    public void loadTeamsFromDB() {
+        List<HashMap<String, Object>> teamMaps = divisionPersistenceAPI.getDivisionTeams(divisionID);
+        for (Map<String, Object> teamMap : teamMaps) {
+            int teamID = (int) teamMap.get("teamId");
+            String teamName = (String) teamMap.get("teamName");
+            String generalManager = (String) teamMap.get("generalManager");
+            String headCoach = (String) teamMap.get("headCoach");
+            Team team = new Team(leagueID, divisionID, teamID, teamName, generalManager, headCoach, teamPersistenceAPI, playerPersistenceAPI);
+            System.out.println(teamName);
+            addTeamToDivision(team);
+            team.loadPlayersFromDB();
+        }
     }
 }
