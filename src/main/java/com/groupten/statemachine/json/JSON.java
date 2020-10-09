@@ -56,7 +56,7 @@ public class JSON implements JSONInterface {
         Conference conferenceLOM = null;
         Division divisionLOM;
         Player playerLOM, freeAgentLOM;
-        Team teamLOM;
+        Team teamLOM = null;
         JSONObject conference, division, team, teamPlayer, freeAgent;
         JSONArray divisions, teams, players;
 
@@ -102,7 +102,7 @@ public class JSON implements JSONInterface {
                         }
                     }
 
-                    if (divisionLOM.addTeamToDivision(teamLOM)){
+                    if (divisionLOM.addTeamToDivision(teamLOM) && teamLOM.isOnlyOnePlayerCaptain()){
                         divisionAddedToConference = true;
                     } else{
                         return false;
@@ -143,6 +143,8 @@ public class JSON implements JSONInterface {
             return false;
         }
 
-        return leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
+        System.out.println(teamLOM.isOnlyOnePlayerCaptain());
+
+        return teamLOM.isOnlyOnePlayerCaptain() && leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
     }
 }

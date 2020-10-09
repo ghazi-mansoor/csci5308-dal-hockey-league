@@ -15,12 +15,12 @@
 								{
 									"playerName":"Zdeno Chara",
 									"position":"forward",
-									"captain":true
+									"captain":false
 								},
 								{
 									"playerName":"Player One",
 									"position":"defense",
-									"captain":false
+									"captain":true
 								}
 							]
 						}
