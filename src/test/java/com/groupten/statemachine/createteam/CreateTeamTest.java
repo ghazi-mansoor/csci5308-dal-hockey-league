@@ -41,24 +41,26 @@ public class CreateTeamTest {
 
     }
 
-//    @Test
-//    public void instantiateNewTeamTest(){
-//        LeagueModel leagueModel = new LeagueModel();
-//        League league = new League("Deep Test League");
-//        Conference conference = new Conference("Deep Test Conference");
-//        Division division = new Division("Deep Division Conference");
-//        conference.addDivisionToConference(division);
-//        league.addConferenceToLeague(conference);
-//        leagueModel.addLeagueToModel(league);
-//
-//        CreateTeam createTeam = new CreateTeam();
-//        createTeam.setConferenceName("Deep Test Conference");
-//        createTeam.setDivisionName("Deep Division Conference");
-//        createTeam.setGeneralManager("Deep Test 1");
-//        createTeam.setHeadCoach("Deep Test 2");
-//        createTeam.setTeamName("Deep Test 3");
-//
-//        assertTrue(createTeam.instantiateNewTeam());
-//    }
+    @Test
+    public void instantiateNewTeamTest(){
+        LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        League league = new League("Deep Test League");
+        Conference conference = new Conference("Deep Test Conference");
+        Division division = new Division("Deep Division Division");
+        conference.addDivisionToConference(division);
+        league.addConferenceToLeague(conference);
+        leagueModel.addLeagueToModel(league);
+
+        CreateTeam createTeam = new CreateTeam();
+        createTeam.setConferenceName("Deep Test Conference");
+        createTeam.setDivisionName("Deep Division Division");
+        createTeam.setGeneralManager("Deep Test 1");
+        createTeam.setHeadCoach("Deep Test 2");
+        createTeam.setTeamName("Deep Test 3");
+
+        createTeam.ifConferenceAndDivisionExist();
+
+        assertTrue(createTeam.instantiateNewTeam());
+    }
 
 }

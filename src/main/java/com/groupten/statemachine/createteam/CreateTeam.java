@@ -53,10 +53,9 @@ public class CreateTeam implements CreateTeamInterface {
     }
 
     @Override
-    public boolean persistLeagueModel() {
+    public void persistLeagueModel() {
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         leagueModel.saveLeagueModelToDB();
-        return true;
     }
 
     public void setConferenceName(String conferenceName) {
