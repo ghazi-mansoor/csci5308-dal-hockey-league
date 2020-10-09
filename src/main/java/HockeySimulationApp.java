@@ -30,7 +30,7 @@ public class HockeySimulationApp {
                 String path = console.readLine();
 
                 if(json.importJSONData(path)){
-                    console.printLine("SUCCESS: Reading JSON file.");
+                    console.printLine("SUCCESS: Reading JSON file.\n");
 
                     if(json.isLeagueNameUnique()){
 
@@ -40,10 +40,10 @@ public class HockeySimulationApp {
 
                             if(createTeam.validateUserInput()){
                                 if(createTeam.ifConferenceAndDivisionExist()){
-                                    console.printLine("SUCCESS: Ready to add the team.");
+                                    console.printLine("SUCCESS: Ready to add the team.\n");
 
                                     if(createTeam.instantiateNewTeam()){
-                                        console.printLine("INFO: Saving the data to Database. It will take few moments");
+                                        console.printLine("INFO: Saving the data to Database. It will take few moments.");
                                         createTeam.persistLeagueModel();
                                         console.printLine("SUCCESS: Saving successful.");
                                         console.printLine("SUCCESS: We can now proceed to simulation.");
@@ -64,22 +64,22 @@ public class HockeySimulationApp {
                         console.printLine("FAILURE: League already exist.");
                     }
                 }else{
-                    console.printLine("FAILURE: Reading JSON file");
+                    console.printLine("FAILURE: Reading JSON file.");
                 }
                 break;
             case "n":
                 loadTeam.userPromptForLoadingTeam();
                 if(loadTeam.doesTeamExist()){
-                    console.printLine("SUCCESS: The team exist.");
+                    console.printLine("\nSUCCESS: The team exist.");
                     if(loadTeam.loadExistingLeague()){
                         console.printLine("SUCCESS: Loading League Successful.");
                         console.printLine("SUCCESS: We can now proceed to simulation.");
                         startSimulation = true;
                     }else{
-                        console.printLine("FAILURE: Loading league failed");
+                        console.printLine("FAILURE: Loading league failed.");
                     }
                 }else{
-                    console.printLine("FAILURE: Team does not exist.");
+                    console.printLine("FAILURE: Team does not exist. Please try again");
                 }
                 break;
             default:
@@ -88,7 +88,7 @@ public class HockeySimulationApp {
         }
 
         if(startSimulation){
-            console.printLine("How many seasons do you want to simulate");
+            console.printLine("\nHow many seasons do you want to simulate?");
             int numberOfSeasons = console.readInteger();
 
             for(int i = 1; i <= numberOfSeasons; i++){
