@@ -1,9 +1,9 @@
-import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.console.IConsole;
 import com.groupten.injector.Injector;
-import com.groupten.statemachine.json.JSONInterface;
-import com.groupten.statemachine.createteam.CreateTeamInterface;
-import com.groupten.statemachine.loadteam.LoadTeamInterface;
-import com.groupten.statemachine.simulation.SimulationInterface;
+import com.groupten.statemachine.json.IJSON;
+import com.groupten.statemachine.createteam.ICreateTeam;
+import com.groupten.statemachine.loadteam.ILoadTeam;
+import com.groupten.statemachine.simulation.ISimulation;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -13,11 +13,11 @@ public class HockeySimulationApp {
     public static void main(String[] args) throws IOException, ParseException {
 
         boolean startSimulation = false;
-        ConsoleInterface console = Injector.injector().getConsoleObject();
-        JSONInterface json = Injector.injector().getJSONObject();
-        CreateTeamInterface createTeam = Injector.injector().getCreateTeamObject();
-        LoadTeamInterface loadTeam = Injector.injector().getLoadTeamObject();
-        SimulationInterface simulation = Injector.injector().getSimulationObject();
+        IConsole console = Injector.injector().getConsoleObject();
+        IJSON json = Injector.injector().getJSONObject();
+        ICreateTeam createTeam = Injector.injector().getCreateTeamObject();
+        ILoadTeam loadTeam = Injector.injector().getLoadTeamObject();
+        ISimulation simulation = Injector.injector().getSimulationObject();
 
         console.printLine("\t\t\t\t\t\t\t\t##############################\n\t\t\t\t\t\t\t\t### Hockey Game Simulation ###\n\t\t\t\t\t\t\t\t##############################");
 

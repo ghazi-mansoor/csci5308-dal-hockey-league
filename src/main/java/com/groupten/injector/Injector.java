@@ -13,25 +13,25 @@ import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.Console;
-import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.console.IConsole;
 import com.groupten.statemachine.json.JSON;
-import com.groupten.statemachine.json.JSONInterface;
+import com.groupten.statemachine.json.IJSON;
 import com.groupten.statemachine.createteam.CreateTeam;
-import com.groupten.statemachine.createteam.CreateTeamInterface;
+import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.LoadTeam;
-import com.groupten.statemachine.loadteam.LoadTeamInterface;
+import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.Simulation;
-import com.groupten.statemachine.simulation.SimulationInterface;
+import com.groupten.statemachine.simulation.ISimulation;
 
 public class Injector {
 
     private static Injector injector = null;
-    private ConsoleInterface consoleInterface;
+    private IConsole consoleInterface;
 
-    private JSONInterface jsonInterface;
-    private CreateTeamInterface createTeamInterface;
-    private LoadTeamInterface loadTeamInterface;
-    private SimulationInterface simulationInterface;
+    private IJSON jsonInterface;
+    private ICreateTeam createTeamInterface;
+    private ILoadTeam loadTeamInterface;
+    private ISimulation simulationInterface;
 
     private ILeagueDAO leagueDatabaseInterface;
     private IConferenceDAO conferenceDatabaseInterface;
@@ -70,43 +70,43 @@ public class Injector {
         Injector.injector = injector;
     }
 
-    public void setConsoleObject(ConsoleInterface consoleInterface) {
+    public void setConsoleObject(IConsole consoleInterface) {
         this.consoleInterface = consoleInterface;
     }
 
-    public ConsoleInterface getConsoleObject() {
+    public IConsole getConsoleObject() {
         return consoleInterface;
     }
 
-    public void setJSONObject(JSONInterface jsonInterface) {
+    public void setJSONObject(IJSON jsonInterface) {
         this.jsonInterface = jsonInterface;
     }
 
-    public JSONInterface getJSONObject() {
+    public IJSON getJSONObject() {
         return jsonInterface;
     }
 
-    public void setCreateTeamObject(CreateTeamInterface createTeamInterface) {
+    public void setCreateTeamObject(ICreateTeam createTeamInterface) {
         this.createTeamInterface = createTeamInterface;
     }
 
-    public CreateTeamInterface getCreateTeamObject() {
+    public ICreateTeam getCreateTeamObject() {
         return createTeamInterface;
     }
 
-    public void setLoadTeamObject(LoadTeamInterface loadTeamInterface) {
+    public void setLoadTeamObject(ILoadTeam loadTeamInterface) {
         this.loadTeamInterface = loadTeamInterface;
     }
 
-    public LoadTeamInterface getLoadTeamObject() {
+    public ILoadTeam getLoadTeamObject() {
         return loadTeamInterface;
     }
 
-    public void setSimulationObject(SimulationInterface simulationInterface) {
+    public void setSimulationObject(ISimulation simulationInterface) {
         this.simulationInterface = simulationInterface;
     }
 
-    public SimulationInterface getSimulationObject() {
+    public ISimulation getSimulationObject() {
         return simulationInterface;
     }
 

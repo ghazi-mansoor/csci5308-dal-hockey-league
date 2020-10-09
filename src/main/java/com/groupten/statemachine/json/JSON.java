@@ -16,7 +16,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 
-public class JSON implements JSONInterface {
+public class JSON implements IJSON {
 
     private JSONObject jsonData;
 

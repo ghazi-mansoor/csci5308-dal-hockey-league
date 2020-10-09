@@ -43,6 +43,7 @@ public class Division implements IDivision {
         playerPersistenceAPI = pPer;
     }
 
+    @Override
     public boolean addTeamToDivision(Team team) {
         String teamName = team.getTeamName();
         if (Validator.areStringsValid(teamName)) {
@@ -53,6 +54,7 @@ public class Division implements IDivision {
         }
     }
 
+    @Override
     public boolean saveDivisionToDB() {
         divisionID = divisionPersistenceAPI.createDivision(conferenceID, divisionName);
         setTeamForeignKeys();
@@ -73,6 +75,7 @@ public class Division implements IDivision {
         }
     }
 
+    @Override
     public boolean doesTeamExistInMemory(String teamName) {
         return teams.containsKey(teamName);
     }
@@ -89,6 +92,7 @@ public class Division implements IDivision {
         this.leagueID = leagueID;
     }
 
+    @Override
     public void loadTeamsFromDB() {
         List<HashMap<String, Object>> teamMaps = divisionPersistenceAPI.getDivisionTeams(divisionID);
         for (Map<String, Object> teamMap : teamMaps) {
@@ -98,7 +102,6 @@ public class Division implements IDivision {
             String headCoach = (String) teamMap.get("headCoach");
             Team team = new Team(leagueID, divisionID, teamID, teamName, generalManager, headCoach, teamPersistenceAPI, playerPersistenceAPI);
             addTeamToDivision(team);
-            //team.loadPlayersFromDB();
         }
     }
 }

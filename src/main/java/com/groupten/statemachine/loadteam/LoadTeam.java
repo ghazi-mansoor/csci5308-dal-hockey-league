@@ -2,15 +2,15 @@ package com.groupten.statemachine.loadteam;
 
 import com.groupten.jdbc.team.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.statemachine.console.ConsoleInterface;
+import com.groupten.statemachine.console.IConsole;
 import com.groupten.injector.Injector;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class LoadTeam implements LoadTeamInterface {
+public class LoadTeam implements ILoadTeam {
 
-    private ConsoleInterface console;
+    private IConsole console;
     private String teamName;
     private int leagueID;
 

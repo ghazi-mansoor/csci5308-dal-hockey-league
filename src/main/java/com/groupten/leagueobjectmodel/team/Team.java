@@ -47,6 +47,7 @@ public class Team implements ITeam {
         teamPersistenceAPI = tPer;
     }
 
+    @Override
     public boolean addPlayerToTeam(Player player) {
         String playerName = player.getPlayerName();
         String playerPosition = player.getPosition();
@@ -62,6 +63,7 @@ public class Team implements ITeam {
         }
     }
 
+    @Override
     public boolean saveTeamToDB() {
         teamID = teamPersistenceAPI.createTeam(divisionID, teamName, generalManager, headCoach);
         setPlayerForeignKeys();
@@ -82,6 +84,7 @@ public class Team implements ITeam {
         }
     }
 
+    @Override
     public boolean isOnlyOnePlayerCaptain() {
         List<Boolean> captains = new ArrayList<Boolean>();
         int count = 0;
@@ -112,6 +115,7 @@ public class Team implements ITeam {
         this.leagueID = leagueID;
     }
 
+    @Override
     public void loadPlayersFromDB() {
         List<HashMap<String, Object>> playerMaps = teamPersistenceAPI.getTeamPlayers(teamID);
         for (Map<String, Object> playerMap : playerMaps) {

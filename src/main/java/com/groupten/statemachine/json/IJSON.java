@@ -4,7 +4,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
-public interface JSONInterface {
+public interface IJSON {
 
     boolean importJSONData(String path) throws IOException, ParseException;
     boolean isLeagueNameUnique();

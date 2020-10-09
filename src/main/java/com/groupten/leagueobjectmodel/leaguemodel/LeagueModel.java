@@ -34,6 +34,7 @@ public class LeagueModel implements ILeagueModel {
         playerPersistenceAPI = pPer;
     }
 
+    @Override
     public boolean addLeagueToModel(League league) {
         String leagueName = league.getLeagueName();
 
@@ -45,24 +46,29 @@ public class LeagueModel implements ILeagueModel {
         }
     }
 
+    @Override
     public void saveLeagueModelToDB() {
         for (League league : leagues.values()) {
             league.saveLeagueToDB();
         }
     }
 
+    @Override
     public boolean doesContainLeague(String leagueName) {
         return leagues.containsKey(leagueName);
     }
 
+    @Override
     public Map<String, League> getLeagues() {
         return leagues;
     }
 
+    @Override
     public League getLeague(String leagueName) {
         return leagues.get(leagueName);
     }
 
+    @Override
     public boolean loadLeagueFromDB(int lID) {
         String leagueId = String.valueOf(lID);
         List<HashMap<String, Object>> leaguesMap = leaguePersistenceAPI.getLeagues("leagueId", leagueId);
