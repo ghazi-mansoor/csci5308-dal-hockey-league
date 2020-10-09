@@ -1,7 +1,7 @@
 {
-	"DB_HOST": "<database-host>",
-	"DB_PORT": "<database-port>",
-	"DB_NAME": "<database-name>",
-	"DB_USER": "<database-username>",
-	"DB_PASS": "<database-userpassword>"
+  "DB_HOST": "db-5308.cs.dal.ca",
+  "DB_PORT": "3306",
+  "DB_NAME": "CSCI5308_10_DEVINT",
+  "DB_USER": "CSCI5308_10_DEVINT_USER",
+  "DB_PASS": "muSb6zhD3B"
 }

@@ -17,7 +17,7 @@ public class ConferenceTest {
     }
 
     @Test
-    public void doesContainDivsionTest() {
+    public void doesContainDivisionTest() {
         Conference conference = new Conference("L1-Conference 3");
         Division division = new Division("L1-C3 Division 1");
         conference.addDivisionToConference(division);

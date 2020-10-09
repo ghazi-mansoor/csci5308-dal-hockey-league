@@ -35,41 +35,61 @@ public class JSONTest {
         jsonTestSuccess.importJSONData(path);
         jsonTestSuccess.isLeagueNameUnique();
         assertTrue(jsonTestSuccess.instantiateJSONData());
+    }
 
+    @Test
+    public void instantiateJSONDataTest_Player(){
         JSON jsonTestPlayerBlank = new JSON();
-        path = "src/test/java/com/groupten/statemachine/mocks/PlayerBlankMock.json";
+        String path = "src/test/java/com/groupten/statemachine/mocks/PlayerBlankMock.json";
         jsonTestPlayerBlank.importJSONData(path);
         jsonTestPlayerBlank.isLeagueNameUnique();
         assertFalse(jsonTestPlayerBlank.instantiateJSONData());
+    }
 
-        JSON jsonTestTeamBlank = new JSON();
-        path = "src/test/java/com/groupten/statemachine/mocks/TeamBlankMock.json";
-        jsonTestTeamBlank.importJSONData(path);
-        jsonTestTeamBlank.isLeagueNameUnique();
-        assertFalse(jsonTestTeamBlank.instantiateJSONData());
-
+    @Test
+    public void instantiateJSONDataTest_Division(){
         JSON jsonTestDivisionBlank = new JSON();
-        path = "src/test/java/com/groupten/statemachine/mocks/DivisionBlankMock.json";
+        String path = "src/test/java/com/groupten/statemachine/mocks/DivisionBlankMock.json";
         jsonTestDivisionBlank.importJSONData(path);
         jsonTestDivisionBlank.isLeagueNameUnique();
         assertFalse(jsonTestDivisionBlank.instantiateJSONData());
+    }
 
+    @Test
+    public void instantiateJSONDataTest_Conference(){
         JSON jsonTestConferenceBlank = new JSON();
-        path = "src/test/java/com/groupten/statemachine/mocks/ConferenceBlankMock.json";
+        String path = "src/test/java/com/groupten/statemachine/mocks/ConferenceBlankMock.json";
         jsonTestConferenceBlank.importJSONData(path);
         jsonTestConferenceBlank.isLeagueNameUnique();
         assertFalse(jsonTestConferenceBlank.instantiateJSONData());
+    }
 
+    @Test
+    public void instantiateJSONDataTest_League(){
         JSON jsonTestLeagueBlank = new JSON();
-        path = "src/test/java/com/groupten/statemachine/mocks/LeagueBlankMock.json";
+        String path = "src/test/java/com/groupten/statemachine/mocks/LeagueBlankMock.json";
         jsonTestLeagueBlank.importJSONData(path);
         jsonTestLeagueBlank.isLeagueNameUnique();
         assertFalse(jsonTestLeagueBlank.instantiateJSONData());
+    }
 
+    @Test
+    public void instantiateJSONDataTest_FreeAgents(){
         JSON jsonTestFreeAgentBlank = new JSON();
-        path = "src/test/java/com/groupten/statemachine/mocks/FreeAgentBlankMock.json";
+        String path = "src/test/java/com/groupten/statemachine/mocks/FreeAgentBlankMock.json";
         jsonTestFreeAgentBlank.importJSONData(path);
         jsonTestFreeAgentBlank.isLeagueNameUnique();
         assertFalse(jsonTestFreeAgentBlank.instantiateJSONData());
     }
+
+    @Test
+    public void instantiateJSONDataTest_Team(){
+        JSON jsonTestTeamBlank = new JSON();
+        String path = "src/test/java/com/groupten/statemachine/mocks/TeamBlankMock.json";
+        jsonTestTeamBlank.importJSONData(path);
+        jsonTestTeamBlank.isLeagueNameUnique();
+        assertFalse(jsonTestTeamBlank.instantiateJSONData());
+
+    }
+
 }

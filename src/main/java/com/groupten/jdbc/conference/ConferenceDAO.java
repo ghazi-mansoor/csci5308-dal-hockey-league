@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Conference implements ConferenceInterface {
+public class ConferenceDAO implements ConferenceInterface {
     DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     //CRUD

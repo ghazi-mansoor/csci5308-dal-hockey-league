@@ -1,6 +1,6 @@
 package com.groupten.injector;
 
-import com.groupten.jdbc.conference.Conference;
+import com.groupten.jdbc.conference.ConferenceDAO;
 import com.groupten.jdbc.conference.ConferenceInterface;
 import com.groupten.jdbc.division.Division;
 import com.groupten.jdbc.division.DivisionInterface;
@@ -49,7 +49,7 @@ public class Injector {
         simulationInterface = new Simulation();
 
         leagueDatabaseInterface = new League();
-        conferenceDatabaseInterface = new Conference();
+        conferenceDatabaseInterface = new ConferenceDAO();
         divisionDatabaseInterface = new Division();
         teamDatabaseInterface = new Team();
         playerDatabaseInterface = new Player();
