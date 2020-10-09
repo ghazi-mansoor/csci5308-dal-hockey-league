@@ -1,5 +1,8 @@
 package com.groupten.statemachine.json;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.groupten.injector.Injector;
 import com.groupten.jdbc.league.ILeagueDAO;
 import com.groupten.leagueobjectmodel.conference.Conference;
@@ -8,9 +11,6 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class JSON implements IJSON {
 
-    private JSONObject jsonData;
+    private JsonObject jsonData;
 
     public JSON(){ }
 
@@ -28,9 +28,10 @@ public class JSON implements IJSON {
 
     @Override
     public boolean importJSONData(String path) {
-        JSONParser parser = new JSONParser();
+        JsonParser parser = new JsonParser();
+
         try{
-            jsonData = (JSONObject) parser.parse(new FileReader(path));
+            jsonData = (JsonObject) parser.parse(new FileReader(path));
             return true;
         }catch (Exception e){
             return false;
@@ -41,7 +42,7 @@ public class JSON implements IJSON {
     public boolean isLeagueNameUnique(){
         ILeagueDAO leagueDB = Injector.injector().getLeagueDatabaseObject();
         String columnName = "leagueName";
-        String leagueName = (String) jsonData.get("leagueName");
+        String leagueName = jsonData.get("leagueName").getAsString();
         List<HashMap<String,Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
         return leagues.size() == 0;
     }
@@ -57,42 +58,42 @@ public class JSON implements IJSON {
         Division divisionLOM;
         Player playerLOM, freeAgentLOM;
         Team teamLOM = null;
-        JSONObject conference, division, team, teamPlayer, freeAgent;
-        JSONArray divisions, teams, players;
+        JsonObject conference, division, team, teamPlayer, freeAgent;
+        JsonArray divisions, teams, players;
 
-        String leagueName = (String) jsonData.get("leagueName");
+        String leagueName = jsonData.get("leagueName").getAsString();
         leagueLOM = new League(leagueName, Injector.injector().getLeagueDatabaseObject());
 
-        JSONArray conferences = (JSONArray) jsonData.get("conferences");
+        JsonArray conferences = (JsonArray) jsonData.get("conferences");
 
         for(int i = 0; i < conferences.size(); i++) {
-            conference = (JSONObject) conferences.get(i);
-            divisions = (JSONArray) conference.get("divisions");
+            conference = (JsonObject) conferences.get(i);
+            divisions = (JsonArray) conference.get("divisions");
 
-            String conferenceName = (String) conference.get("conferenceName");
+            String conferenceName = conference.get("conferenceName").getAsString();
             conferenceLOM = new Conference(conferenceName, Injector.injector().getConferenceDatabaseObject());
 
             for (int j = 0; j < divisions.size(); j++) {
-                division = (JSONObject) divisions.get(j);
-                teams = (JSONArray) division.get("teams");
+                division = (JsonObject) divisions.get(j);
+                teams = (JsonArray) division.get("teams");
 
-                String divisionName = (String) division.get("divisionName");
+                String divisionName = division.get("divisionName").getAsString();
                 divisionLOM = new Division(divisionName, Injector.injector().getDivisionDatabaseObject());
 
                 for (int k = 0; k < teams.size(); k++) {
-                    team = (JSONObject) teams.get(k);
-                    String teamName = (String) team.get("teamName");
-                    String generalManager = (String) team.get("generalManager");
-                    String headCoach = (String) team.get("headCoach");
-                    players = (JSONArray) team.get("players");
+                    team = (JsonObject) teams.get(k);
+                    String teamName = team.get("teamName").getAsString();
+                    String generalManager = team.get("generalManager").getAsString();
+                    String headCoach = team.get("headCoach").getAsString();
+                    players = (JsonArray) team.get("players");
 
                     teamLOM = new Team(teamName, generalManager, headCoach, Injector.injector().getTeamDatabaseObject());
 
                     for (int l = 0; l < players.size(); l++) {
-                        teamPlayer = (JSONObject) players.get(l);
-                        String playerName = (String) teamPlayer.get("playerName");
-                        String position = (String) teamPlayer.get("position");
-                        Boolean captain = (Boolean) teamPlayer.get("captain");
+                        teamPlayer = (JsonObject) players.get(l);
+                        String playerName = teamPlayer.get("playerName").getAsString();
+                        String position = teamPlayer.get("position").getAsString();
+                        Boolean captain = teamPlayer.get("captain").getAsBoolean();
 
                         playerLOM = new Player(playerName, position, captain, Injector.injector().getPlayerDatabaseObject(), Injector.injector().getTeamDatabaseObject());
                         if(teamLOM.addPlayerToTeam(playerLOM)){
@@ -121,13 +122,13 @@ public class JSON implements IJSON {
             }
         }
 
-        JSONArray freeAgents = (JSONArray) jsonData.get("freeAgents");
+        JsonArray freeAgents = (JsonArray) jsonData.get("freeAgents");
 
         for(int i = 0; i < freeAgents.size(); i++) {
-            freeAgent = (JSONObject) freeAgents.get(i);
-            String playerName = (String) freeAgent.get("playerName");
-            String position = (String) freeAgent.get("position");
-            Boolean captain = (Boolean) freeAgent.get("captain");
+            freeAgent = (JsonObject) freeAgents.get(i);
+            String playerName = freeAgent.get("playerName").getAsString();
+            String position = freeAgent.get("position").getAsString();
+            Boolean captain = freeAgent.get("captain").getAsBoolean();
 
             freeAgentLOM = new Player(playerName, position, captain, Injector.injector().getPlayerDatabaseObject());
             if(leagueLOM.addFreeAgentToLeague(freeAgentLOM)){

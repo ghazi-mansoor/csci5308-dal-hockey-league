@@ -30,12 +30,8 @@ repositories {
 }
 
 dependencies {
-    //Json Library
-    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
-
-    //JUnit Test Framework
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
-
-    //MYSQL Java Connector
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
 }
+

@@ -1,7 +1,7 @@
 package com.groupten.jdbc;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,21 +15,21 @@ public class DatabaseConnection {
 
     public DatabaseConnection(){
         String CONFIG_PATH = "configuration.json";
-        JSONParser parser = new JSONParser();
-        JSONObject configData = null;
+        JsonParser parser = new JsonParser();
+        JsonObject configData = null;
         try {
-            configData = (JSONObject) parser.parse(new FileReader(CONFIG_PATH));
+            configData = (JsonObject) parser.parse(new FileReader(CONFIG_PATH));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try{
-            DB_HOST = (String) configData.get("DB_HOST");
-            DB_PORT = (String) configData.get("DB_PORT");
-            DB_NAME = (String) configData.get("DB_NAME");
+            DB_HOST = configData.get("DB_HOST").getAsString();
+            DB_PORT = configData.get("DB_PORT").getAsString();
+            DB_NAME = configData.get("DB_NAME").getAsString();
             DB_URL = "jdbc:" + "mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
-            DB_USER = (String) configData.get("DB_USER");
-            DB_PASS = (String) configData.get("DB_PASS");
+            DB_USER = configData.get("DB_USER").getAsString();
+            DB_PASS = configData.get("DB_PASS").getAsString();
         }catch (Exception e) {
             e.printStackTrace();
         }
