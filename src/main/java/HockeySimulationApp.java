@@ -43,12 +43,11 @@ public class HockeySimulationApp {
                                     console.printLine("SUCCESS: Ready to add the team.");
 
                                     if(createTeam.instantiateNewTeam()){
-                                        if(createTeam.persistLeagueModel()){
-                                            console.printLine("SUCCESS: We can now proceed to simulation.");
-                                            startSimulation = true;
-                                        }else{
-                                            console.printLine("FAILURE: Could not save the data.");
-                                        }
+                                        console.printLine("INFO: Saving the data to Database.");
+                                        createTeam.persistLeagueModel();
+                                        console.printLine("SUCCESS: Saving successful.");
+                                        console.printLine("SUCCESS: We can now proceed to simulation.");
+                                        startSimulation = true;
                                     }else{
                                         console.printLine("FAILURE: Could not create new team.");
                                     }
@@ -71,8 +70,14 @@ public class HockeySimulationApp {
             case "n":
                 loadTeam.userPromptForLoadingTeam();
                 if(loadTeam.doesTeamExist()){
-                    console.printLine("SUCCESS: We can now proceed to simulation.");
-                    loadTeam.loadExistingLeague();
+                    console.printLine("SUCCESS: The team exist.");
+                    if(loadTeam.loadExistingLeague()){
+                        console.printLine("SUCCESS: Loading League Successful.");
+                        console.printLine("SUCCESS: We can now proceed to simulation.");
+                        startSimulation = true;
+                    }else{
+                        console.printLine("FAILURE: Loading league failed");
+                    }
                 }else{
                     console.printLine("FAILURE: Team does not exist.");
                 }

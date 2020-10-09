@@ -8,19 +8,19 @@
 					"divisionName": "Atlantic Division",
 					"teams": [
 						{
-							"teamName":"Boston Bruins",
+							"teamName":"",
 							"generalManager":"Don Sweeney",
 							"headCoach":"Bruce Cassidy",
 							"players":[
 								{
 									"playerName":"Zdeno Chara",
 									"position":"forward",
-									"captain":false
+									"captain":true
 								},
 								{
 									"playerName":"Player One",
 									"position":"defense",
-									"captain":true
+									"captain":false
 								}
 							]
 						}

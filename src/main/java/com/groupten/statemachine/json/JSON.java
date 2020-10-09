@@ -22,8 +22,8 @@ public class JSON implements JSONInterface {
 
     public JSON(){ }
 
-    public JSON(LeagueInterface leagueDBObj){
-        Injector.injector().setLeagueDatabaseObject(leagueDBObj);
+    public JSON(LeagueInterface leagueDBMockObj){
+        Injector.injector().setLeagueDatabaseObject(leagueDBMockObj);
     }
 
     @Override
@@ -49,14 +49,14 @@ public class JSON implements JSONInterface {
     @Override
     public boolean instantiateJSONData() {
 
-        boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false;
+        boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false, leagueAddedToLeagueModel = false;
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
 
         League leagueLOM;
         Conference conferenceLOM = null;
         Division divisionLOM;
         Player playerLOM, freeAgentLOM;
-        Team teamLOM;
+        Team teamLOM = null;
         JSONObject conference, division, team, teamPlayer, freeAgent;
         JSONArray divisions, teams, players;
 
@@ -102,7 +102,7 @@ public class JSON implements JSONInterface {
                         }
                     }
 
-                    if (divisionLOM.addTeamToDivision(teamLOM)){
+                    if (divisionLOM.addTeamToDivision(teamLOM) && teamLOM.isOnlyOnePlayerCaptain()){
                         divisionAddedToConference = true;
                     } else{
                         return false;
@@ -137,8 +137,14 @@ public class JSON implements JSONInterface {
             }
         }
 
-        leagueModel.addLeagueToModel(leagueLOM);
+        if(leagueModel.addLeagueToModel(leagueLOM)){
+            leagueAddedToLeagueModel = true;
+        }else{
+            return false;
+        }
 
-        return playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
+        System.out.println(teamLOM.isOnlyOnePlayerCaptain());
+
+        return teamLOM.isOnlyOnePlayerCaptain() && leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
     }
 }

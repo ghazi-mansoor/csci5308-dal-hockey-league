@@ -13,14 +13,14 @@
 							"headCoach":"Bruce Cassidy",
 							"players":[
 								{
-									"playerName":"Zdeno Chara",
+									"playerName":"",
 									"position":"forward",
-									"captain":false
+									"captain":true
 								},
 								{
 									"playerName":"Player One",
 									"position":"defense",
-									"captain":true
+									"captain":false
 								}
 							]
 						}

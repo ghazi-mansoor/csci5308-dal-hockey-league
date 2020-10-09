@@ -47,10 +47,11 @@ public class LoadTeam implements LoadTeamInterface {
 
     @Override
     public boolean loadExistingLeague() {
-        System.out.println(leagueID);
-//        LeagueModel leagueModel = new LeagueModel();
-//        return leagueModel.loadLeagueFromDB(leagueID);
-        return true;
+        LeagueModel leagueModel = new LeagueModel(Injector.injector().getLeagueDatabaseObject(),
+                Injector.injector().getConferenceDatabaseObject(), Injector.injector().getDivisionDatabaseObject(),
+                Injector.injector().getTeamDatabaseObject(), Injector.injector().getPlayerDatabaseObject()
+        );
+        return leagueModel.loadLeagueFromDB(leagueID);
     }
 
     public void setTeamName(String teamName) {

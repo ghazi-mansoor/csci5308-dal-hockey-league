@@ -5,7 +5,7 @@
 			"conferenceName": "Eastern Conference",
 			"divisions":[
 				{
-					"divisionName": "Atlantic Division",
+					"divisionName": "",
 					"teams": [
 						{
 							"teamName":"Boston Bruins",
@@ -15,12 +15,12 @@
 								{
 									"playerName":"Zdeno Chara",
 									"position":"forward",
-									"captain":false
+									"captain":true
 								},
 								{
 									"playerName":"Player One",
 									"position":"defense",
-									"captain":true
+									"captain":false
 								}
 							]
 						}

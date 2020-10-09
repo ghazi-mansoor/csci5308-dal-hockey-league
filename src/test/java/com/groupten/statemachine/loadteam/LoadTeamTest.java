@@ -21,5 +21,4 @@ public class LoadTeamTest {
         LoadTeam loadTeam = new LoadTeam(teamDBObj);
         assertTrue( loadTeam.doesTeamExist());
     }
-
 }

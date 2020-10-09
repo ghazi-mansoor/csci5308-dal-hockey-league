@@ -6,6 +6,6 @@ public interface CreateTeamInterface {
     boolean validateUserInput();
     boolean ifConferenceAndDivisionExist();
     boolean instantiateNewTeam();
-    boolean persistLeagueModel();
+    void persistLeagueModel();
 
 }

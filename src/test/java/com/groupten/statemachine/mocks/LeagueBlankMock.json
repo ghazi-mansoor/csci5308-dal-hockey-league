@@ -1,5 +1,5 @@
 {
-	"leagueName": "Dalhousie Hockey League",
+	"leagueName": "",
 	"conferences": [
 		{
 			"conferenceName": "Eastern Conference",
@@ -15,12 +15,12 @@
 								{
 									"playerName":"Zdeno Chara",
 									"position":"forward",
-									"captain":false
+									"captain":true
 								},
 								{
 									"playerName":"Player One",
 									"position":"defense",
-									"captain":true
+									"captain":false
 								}
 							]
 						}

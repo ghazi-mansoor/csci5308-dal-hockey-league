@@ -10,6 +10,8 @@ public class CreateTeam implements CreateTeamInterface {
     private String conferenceName, divisionName, teamName, generalManager, headCoach;
     private League leagueLOM;
 
+    public CreateTeam() { }
+
     @Override
     public void userPromptForNewTeam() {
 
@@ -51,10 +53,9 @@ public class CreateTeam implements CreateTeamInterface {
     }
 
     @Override
-    public boolean persistLeagueModel() {
+    public void persistLeagueModel() {
         LeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         leagueModel.saveLeagueModelToDB();
-        return true;
     }
 
     public void setConferenceName(String conferenceName) {
