@@ -34,9 +34,10 @@ public class Player {
         teamPersistenceAPI = perTeam;
     }
 
-    public void savePlayerToDB() {
+    public boolean savePlayerToDB() {
         playerID = playerPersistenceAPI.createPlayer(leagueID, playerName, position, captain);
         teamPersistenceAPI.attachTeamPlayer(teamID, playerID);
+        return (playerID != 0);
     }
 
     public void saveFreeAgentPlayerToDB() {

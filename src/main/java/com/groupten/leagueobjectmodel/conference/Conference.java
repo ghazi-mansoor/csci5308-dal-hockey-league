@@ -1,6 +1,9 @@
 package com.groupten.leagueobjectmodel.conference;
 
 import com.groupten.jdbc.conference.ConferenceInterface;
+import com.groupten.jdbc.division.DivisionInterface;
+import com.groupten.jdbc.player.PlayerInterface;
+import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.validator.Validator;
 
@@ -13,6 +16,9 @@ public class Conference {
     private String conferenceName;
     private Map<String, Division> divisions;
     private ConferenceInterface conferencePersistenceAPI;
+    private DivisionInterface divisionPersistenceAPI;
+    private TeamInterface teamPersistenceAPI;
+    private PlayerInterface playerPersistenceAPI;
 
     public Conference(String cn) {
         conferenceName = cn;
@@ -25,6 +31,17 @@ public class Conference {
         conferencePersistenceAPI = per;
     }
 
+    public Conference(int lID, int cID, String cn, ConferenceInterface cPer, DivisionInterface dPer, TeamInterface tPer, PlayerInterface pPer) {
+        leagueID = lID;
+        conferenceID = cID;
+        conferenceName = cn;
+        divisions = new HashMap<String, Division>();
+        conferencePersistenceAPI = cPer;
+        divisionPersistenceAPI = dPer;
+        teamPersistenceAPI = tPer;
+        playerPersistenceAPI = pPer;
+    }
+
     public boolean addDivisionToConference(Division division) {
         String divisionName = division.getDivisionName();
         if (Validator.areStringsValid(divisionName)) {
@@ -35,10 +52,11 @@ public class Conference {
         }
     }
 
-    public void saveConferenceToDB() {
+    public boolean saveConferenceToDB() {
         conferenceID = conferencePersistenceAPI.createConference(leagueID, conferenceName);
         setDivisionForeignKeys();
         saveAllDivisions();
+        return (conferenceID != 0);
     }
 
     private void setDivisionForeignKeys() {

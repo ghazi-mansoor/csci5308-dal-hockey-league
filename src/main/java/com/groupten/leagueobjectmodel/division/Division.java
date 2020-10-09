@@ -36,10 +36,11 @@ public class Division {
         }
     }
 
-    public void saveDivisionToDB() {
+    public boolean saveDivisionToDB() {
         divisionID = divisionPersistenceAPI.createDivision(conferenceID, divisionName);
         setTeamForeignKeys();
         saveAllTeams();
+        return (divisionID != 0);
     }
 
     private void setTeamForeignKeys() {
