@@ -1,6 +1,6 @@
 package com.groupten.leagueobjectmodel.leaguemodelmock;
 
-import com.groupten.jdbc.team.Team;
+import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.jdbc.team.TeamInterface;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
@@ -12,7 +12,7 @@ public class LeagueModelMock {
 
     public LeagueModelMock() {
         leagueModel = new LeagueModel();
-        TeamInterface teamPersistenceAPI = new Team();
+        TeamInterface teamPersistenceAPI = new com.groupten.jdbc.team.Team();
 
         League league = new League("League 1");
 
@@ -21,6 +21,18 @@ public class LeagueModelMock {
 
         Division division1 = new Division("L1-C1 Division 1");
         Division division2 = new Division("L1-C1 Division 2");
+
+        Team team1 = new Team("L1-C1-D1 Team 1", "Bob", "Marley");
+        Team team2 = new Team("L1-C1-D1 Team 2", "Bob", "Marley");
+
+        division1.addTeamToDivision(team1);
+        division1.addTeamToDivision(team2);
+
+        team1 = new Team("L1-C1-D2 Team 1", "Bob", "Marley");
+        team2 = new Team("L1-C1-D2 Team 2", "Bob", "Marley");
+
+        division2.addTeamToDivision(team1);
+        division2.addTeamToDivision(team2);
 
         conference1.addDivisionToConference(division1);
         conference1.addDivisionToConference(division2);
