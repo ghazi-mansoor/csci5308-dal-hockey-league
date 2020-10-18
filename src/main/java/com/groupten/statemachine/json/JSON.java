@@ -146,4 +146,137 @@ public class JSON implements IJSON {
 
         return teamLOM.isOnlyOnePlayerCaptain() && leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
     }
+
+    public boolean instantiateJSONData_1(){
+
+        JsonObject conference, division, team, teamPlayer, headCoach, coach, freeAgent;
+        JsonObject gamePlayConfig, aging, gameResolver, injuries, training, trading;
+        JsonArray conferences, divisions, teams, players;
+
+        String leagueName = jsonData.get("leagueName").getAsString();
+
+        System.out.println(leagueName);
+
+        gamePlayConfig = (JsonObject) jsonData.get("gameplayConfig");
+        aging = (JsonObject) gamePlayConfig.get("aging");
+        gameResolver = (JsonObject) gamePlayConfig.get("gameResolver");
+        injuries = (JsonObject) gamePlayConfig.get("injuries");
+        training = (JsonObject) gamePlayConfig.get("training");
+        trading = (JsonObject) gamePlayConfig.get("trading");
+
+        double averageRetirementAge = aging.get("averageRetirementAge").getAsDouble();
+        double maximumAge = aging.get("maximumAge").getAsDouble();
+
+        System.out.println(averageRetirementAge + " " + maximumAge);
+
+        double randomWinChance = gameResolver.get("randomWinChance").getAsDouble();
+
+        System.out.println(randomWinChance);
+
+        double randomInjuryChance = injuries.get("randomInjuryChance").getAsDouble();
+        double injuryDaysLow = injuries.get("injuryDaysLow").getAsDouble();
+        double injuryDaysHigh = injuries.get("injuryDaysHigh").getAsDouble();
+
+        System.out.println(randomInjuryChance + " " + injuryDaysLow + " " + injuryDaysHigh);
+
+        double daysUntilStatIncreaseCheck = training.get("daysUntilStatIncreaseCheck").getAsDouble();
+
+        System.out.println(daysUntilStatIncreaseCheck);
+
+        double lossPoint = trading.get("lossPoint").getAsDouble();
+        double randomTradeOfferChance = trading.get("randomTradeOfferChance").getAsDouble();
+        double maxPlayersPerTrade = trading.get("maxPlayersPerTrade").getAsDouble();
+        double randomAcceptanceChance = trading.get("randomAcceptanceChance").getAsDouble();
+
+        System.out.println(lossPoint + " " + randomTradeOfferChance + " " + maxPlayersPerTrade + " " + randomAcceptanceChance);
+
+        conferences = (JsonArray) jsonData.get("conferences");
+
+        for(int i = 0; i < conferences.size(); i++) {
+            conference = (JsonObject) conferences.get(i);
+            divisions = (JsonArray) conference.get("divisions");
+
+            String conferenceName = conference.get("conferenceName").getAsString();
+
+            System.out.println(conferenceName);
+
+            for (int j = 0; j < divisions.size(); j++) {
+                division = (JsonObject) divisions.get(j);
+                teams = (JsonArray) division.get("teams");
+
+                String divisionName = division.get("divisionName").getAsString();
+
+                System.out.println(divisionName);
+
+                for (int k = 0; k < teams.size(); k++) {
+                    team = (JsonObject) teams.get(k);
+                    String teamName = team.get("teamName").getAsString();
+                    String generalManager = team.get("generalManager").getAsString();
+                    headCoach = (JsonObject) team.get("headCoach");
+                    String coachName = headCoach.get("name").getAsString();
+                    double coachSkating = headCoach.get("skating").getAsDouble();
+                    double coachShooting = headCoach.get("shooting").getAsDouble();
+                    double coachChecking = headCoach.get("checking").getAsDouble();
+                    double coachSaving = headCoach.get("saving").getAsDouble();
+                    players = (JsonArray) team.get("players");
+
+                    System.out.println(teamName + " " + generalManager);
+                    System.out.println(coachName + " " + coachSkating + " " + coachShooting + " " + coachChecking + " " + coachSaving);
+
+                    for (int l = 0; l < players.size(); l++) {
+                        teamPlayer = (JsonObject) players.get(l);
+                        String playerName = teamPlayer.get("playerName").getAsString();
+                        String position = teamPlayer.get("position").getAsString();
+                        Boolean captain = teamPlayer.get("captain").getAsBoolean();
+                        double playerAge = teamPlayer.get("age").getAsDouble();
+                        double playerSkating = teamPlayer.get("skating").getAsDouble();
+                        double playerShooting = teamPlayer.get("shooting").getAsDouble();
+                        double playerChecking = teamPlayer.get("checking").getAsDouble();
+                        double playerSaving = teamPlayer.get("saving").getAsDouble();
+
+                        System.out.println(playerName + " " + position + " " + captain);
+                        System.out.println(playerAge + " " + playerSkating + " " + playerShooting + " " + playerChecking + " " + playerSaving);
+                    }
+                }
+            }
+        }
+
+        JsonArray freeAgents = (JsonArray) jsonData.get("freeAgents");
+
+        for(int i = 0; i < freeAgents.size(); i++) {
+            freeAgent = (JsonObject) freeAgents.get(i);
+            String playerName = freeAgent.get("playerName").getAsString();
+            String position = freeAgent.get("position").getAsString();
+            double playerAge = freeAgent.get("age").getAsDouble();
+            double playerSkating = freeAgent.get("skating").getAsDouble();
+            double playerShooting = freeAgent.get("shooting").getAsDouble();
+            double playerChecking = freeAgent.get("checking").getAsDouble();
+            double playerSaving = freeAgent.get("saving").getAsDouble();
+
+            System.out.println(playerName + " " + position);
+            System.out.println(playerAge + " " + playerSkating + " " + playerShooting + " " + playerChecking + " " + playerSaving);
+        }
+
+        JsonArray coaches = (JsonArray) jsonData.get("coaches");
+
+        for(int i = 0; i < coaches.size(); i++) {
+            coach = (JsonObject) coaches.get(i);
+            String coachName = coach.get("name").getAsString();
+            double coachSkating = coach.get("skating").getAsDouble();
+            double coachShooting = coach.get("shooting").getAsDouble();
+            double coachChecking = coach.get("checking").getAsDouble();
+            double coachSaving = coach.get("saving").getAsDouble();
+
+            System.out.println(coachName + " " + coachSkating + " " + coachShooting + " " + coachChecking + " " + coachSaving);
+        }
+
+        JsonArray generalManagers = (JsonArray) jsonData.get("generalManagers");
+
+        for(int i = 0; i < generalManagers.size(); i++) {
+            String generalManager = generalManagers.get(i).getAsString();
+            System.out.println(generalManager);
+        }
+
+        return true;
+    }
 }
