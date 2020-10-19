@@ -1,47 +1,34 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodelmock.LeagueModelMock;
 import org.junit.Test;
 
-import java.util.Map;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class LeagueModelTest {
-
     @Test
-    public void addLeagueToModelTest() {
+    public void addLeagueTest() {
         LeagueModel leagueModel = new LeagueModel();
-        League league = new League("League 1");
-        assertTrue(leagueModel.addLeagueToModel(league));
+        League league = new League("First League");
+        assertTrue(leagueModel.addLeague(league));
     }
 
     @Test
-    public void doesContainLeagueTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-
-        assertTrue(leagueModel.doesContainLeague("League 1"));
-        assertFalse(leagueModel.doesContainLeague("League XYZ"));
-    }
-
-    @Test
-    public void getLeaguesTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-
-        Map<String, League> leagues = leagueModel.getLeagues();
-        assertTrue(leagueModel.getLeagues().containsKey("League 1"));
-        assertFalse(leagueModel.getLeagues().containsKey("League XYZ"));
+    public void containsLeagueTest() {
+        LeagueModel leagueModel = new LeagueModel();
+        League league = new League(1, "First League");
+        leagueModel.addLeague(league);
+        assertTrue(leagueModel.containsLeague("First League"));
     }
 
     @Test
     public void getLeagueTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
+        LeagueModel leagueModel = new LeagueModel();
+        League league = new League("First League");
+        leagueModel.addLeague(league);
+        assertEquals("First League", leagueModel.getLeague("First League").getLeagueName());
 
-        assertEquals("League 1", leagueModel.getLeague("League 1").getLeagueName());
     }
 
 }
