@@ -39,7 +39,7 @@ public class LoadTeam implements ILoadTeam {
         if(teamList.size() > 0){
             leagueID = (int) teamList.get(0).get("leagueId");
             return true;
-        }else{
+        } else{
             return false;
         }
     }
