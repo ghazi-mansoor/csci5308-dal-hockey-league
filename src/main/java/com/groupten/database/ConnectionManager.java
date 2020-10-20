@@ -27,6 +27,7 @@ public class ConnectionManager
 		if (null == uniqueInstance)
 		{
 			uniqueInstance = new ConnectionManager();
+			uniqueInstance.configure(new DefaultDatabaseConfiguration());
 		}
 		return uniqueInstance;
 	}
