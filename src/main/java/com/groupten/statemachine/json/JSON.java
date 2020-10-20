@@ -5,8 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.groupten.injector.Injector;
 import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
@@ -48,102 +50,207 @@ public class JSON implements IJSON {
     }
 
     @Override
-    public boolean instantiateJSONData() {
+    public boolean instantiateJSONData(){
 
-        boolean playerAddedToTeam = false, teamAddedToDivision = false, divisionAddedToConference = false, conferenceAddedToLeague = false, freeAgentAddedToLeague = false, leagueAddedToLeagueModel = false;
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        boolean playerAdded = false,
+                teamAdded = false,
+                divisionAdded = false,
+                conferenceAdded = false,
+                leagueAdded = false,
+                managerAdded = false,
+                coachAdded = false;
 
         League leagueLOM;
         Conference conferenceLOM = null;
         Division divisionLOM;
+        GeneralManager managerLOM;
+        Coach coachLOM;
         Player playerLOM, freeAgentLOM;
         Team teamLOM = null;
-        JsonObject conference, division, team, teamPlayer, freeAgent;
-        JsonArray divisions, teams, players;
+
+        JsonObject conference, division, team, teamPlayer, headCoach, coach, freeAgent;
+        JsonObject gamePlayConfig, aging, gameResolver, injuries, training, trading;
+        JsonArray conferences, divisions, teams, players;
 
         String leagueName = jsonData.get("leagueName").getAsString();
-        leagueLOM = new League(leagueName, Injector.injector().getLeagueDatabaseObject());
 
-        JsonArray conferences = (JsonArray) jsonData.get("conferences");
+        System.out.println(leagueName);
+
+        gamePlayConfig = (JsonObject) jsonData.get("gameplayConfig");
+        aging = (JsonObject) gamePlayConfig.get("aging");
+        gameResolver = (JsonObject) gamePlayConfig.get("gameResolver");
+        injuries = (JsonObject) gamePlayConfig.get("injuries");
+        training = (JsonObject) gamePlayConfig.get("training");
+        trading = (JsonObject) gamePlayConfig.get("trading");
+
+        double averageRetirementAge = aging.get("averageRetirementAge").getAsDouble();
+        double maximumAge = aging.get("maximumAge").getAsDouble();
+
+        System.out.println(averageRetirementAge + " " + maximumAge);
+
+        double randomWinChance = gameResolver.get("randomWinChance").getAsDouble();
+
+        System.out.println(randomWinChance);
+
+        double randomInjuryChance = injuries.get("randomInjuryChance").getAsDouble();
+        double injuryDaysLow = injuries.get("injuryDaysLow").getAsDouble();
+        double injuryDaysHigh = injuries.get("injuryDaysHigh").getAsDouble();
+
+        System.out.println(randomInjuryChance + " " + injuryDaysLow + " " + injuryDaysHigh);
+
+        double daysUntilStatIncreaseCheck = training.get("daysUntilStatIncreaseCheck").getAsDouble();
+
+        System.out.println(daysUntilStatIncreaseCheck);
+
+        double lossPoint = trading.get("lossPoint").getAsDouble();
+        double randomTradeOfferChance = trading.get("randomTradeOfferChance").getAsDouble();
+        double maxPlayersPerTrade = trading.get("maxPlayersPerTrade").getAsDouble();
+        double randomAcceptanceChance = trading.get("randomAcceptanceChance").getAsDouble();
+
+        System.out.println(lossPoint + " " + randomTradeOfferChance + " " + maxPlayersPerTrade + " " + randomAcceptanceChance);
+
+        conferences = (JsonArray) jsonData.get("conferences");
+
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+
+        leagueLOM = new League(leagueName);
 
         for(int i = 0; i < conferences.size(); i++) {
             conference = (JsonObject) conferences.get(i);
             divisions = (JsonArray) conference.get("divisions");
 
             String conferenceName = conference.get("conferenceName").getAsString();
-            conferenceLOM = new Conference(conferenceName, Injector.injector().getConferenceDatabaseObject());
+            System.out.println(conferenceName);
+
+            conferenceLOM = new Conference(conferenceName);
 
             for (int j = 0; j < divisions.size(); j++) {
                 division = (JsonObject) divisions.get(j);
                 teams = (JsonArray) division.get("teams");
 
                 String divisionName = division.get("divisionName").getAsString();
-                divisionLOM = new Division(divisionName, Injector.injector().getDivisionDatabaseObject());
+                System.out.println(divisionName);
+
+                divisionLOM = new Division(divisionName);
 
                 for (int k = 0; k < teams.size(); k++) {
                     team = (JsonObject) teams.get(k);
                     String teamName = team.get("teamName").getAsString();
                     String generalManager = team.get("generalManager").getAsString();
-                    String headCoach = team.get("headCoach").getAsString();
+                    headCoach = (JsonObject) team.get("headCoach");
+                    String coachName = headCoach.get("name").getAsString();
+                    double coachSkating = headCoach.get("skating").getAsDouble();
+                    double coachShooting = headCoach.get("shooting").getAsDouble();
+                    double coachChecking = headCoach.get("checking").getAsDouble();
+                    double coachSaving = headCoach.get("saving").getAsDouble();
                     players = (JsonArray) team.get("players");
 
-                    teamLOM = new Team(teamName, generalManager, headCoach, Injector.injector().getTeamDatabaseObject());
+                    System.out.println(teamName + " " + generalManager);
+                    System.out.println(coachName + " " + coachSkating + " " + coachShooting + " " + coachChecking + " " + coachSaving);
+
+                    teamLOM = new Team(teamName);
+                    managerLOM = new GeneralManager(generalManager);
+                    coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
+
+                    // Add method in LOM for adding manager and coach to LOM
 
                     for (int l = 0; l < players.size(); l++) {
                         teamPlayer = (JsonObject) players.get(l);
                         String playerName = teamPlayer.get("playerName").getAsString();
                         String position = teamPlayer.get("position").getAsString();
                         Boolean captain = teamPlayer.get("captain").getAsBoolean();
+                        // Change them to double
+                        int playerAge = teamPlayer.get("age").getAsInt();
+                        int playerSkating = teamPlayer.get("skating").getAsInt();
+                        int playerShooting = teamPlayer.get("shooting").getAsInt();
+                        int playerChecking = teamPlayer.get("checking").getAsInt();
+                        int playerSaving = teamPlayer.get("saving").getAsInt();
 
-                        playerLOM = new Player(playerName, position, captain, Injector.injector().getPlayerDatabaseObject(), Injector.injector().getTeamDatabaseObject());
-                        if(teamLOM.addPlayerToTeam(playerLOM)){
-                            playerAddedToTeam = true;
+                        playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
+
+                        if(teamLOM.addPlayer(playerLOM)){
+                            playerAdded = true;
                         }else{
                             return false;
                         }
                     }
 
-                    if (divisionLOM.addTeamToDivision(teamLOM) && teamLOM.isOnlyOnePlayerCaptain()){
-                        divisionAddedToConference = true;
-                    } else{
+                    if(divisionLOM.addTeam(teamLOM)){
+                        teamAdded = true;
+                    }else{
                         return false;
                     }
                 }
-                if(conferenceLOM.addDivisionToConference(divisionLOM)){
-                    teamAddedToDivision = true;
+                if(conferenceLOM.addDivision(divisionLOM)){
+                    divisionAdded = true;
                 }else{
                     return false;
                 }
             }
-            if(leagueLOM.addConferenceToLeague(conferenceLOM)){
-                conferenceAddedToLeague = true;
+            if(leagueLOM.addConference(conferenceLOM)){
+                conferenceAdded = true;
             } else{
                 return false;
             }
+
         }
 
         JsonArray freeAgents = (JsonArray) jsonData.get("freeAgents");
-
         for(int i = 0; i < freeAgents.size(); i++) {
             freeAgent = (JsonObject) freeAgents.get(i);
             String playerName = freeAgent.get("playerName").getAsString();
             String position = freeAgent.get("position").getAsString();
-            Boolean captain = freeAgent.get("captain").getAsBoolean();
+            int playerAge = freeAgent.get("age").getAsInt();
+            int playerSkating = freeAgent.get("skating").getAsInt();
+            int playerShooting = freeAgent.get("shooting").getAsInt();
+            // remove captain field from free agents
+            Boolean captain = false;
+            int playerChecking = freeAgent.get("checking").getAsInt();
+            int playerSaving = freeAgent.get("saving").getAsInt();
 
-            freeAgentLOM = new Player(playerName, position, captain, Injector.injector().getPlayerDatabaseObject());
-            if(leagueLOM.addFreeAgentToLeague(freeAgentLOM)){
-                freeAgentAddedToLeague = true;
+            playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
+            if(leagueLOM.addFreeAgent(playerLOM)){
+                playerAdded = true;
             }else{
                 return false;
             }
         }
 
-        if(leagueModel.addLeagueToModel(leagueLOM)){
-            leagueAddedToLeagueModel = true;
+        JsonArray coaches = (JsonArray) jsonData.get("coaches");
+        for(int i = 0; i < coaches.size(); i++) {
+            coach = (JsonObject) coaches.get(i);
+            String coachName = coach.get("name").getAsString();
+            double coachSkating = coach.get("skating").getAsDouble();
+            double coachShooting = coach.get("shooting").getAsDouble();
+            double coachChecking = coach.get("checking").getAsDouble();
+            double coachSaving = coach.get("saving").getAsDouble();
+
+            coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
+            if(leagueLOM.addCoach(coachLOM)){
+                coachAdded = true;
+            }else{
+                return false;
+            }
+        }
+
+        JsonArray generalManagers = (JsonArray) jsonData.get("generalManagers");
+        for(int i = 0; i < generalManagers.size(); i++) {
+            String generalManager = generalManagers.get(i).getAsString();
+
+            managerLOM = new GeneralManager(generalManager);
+            if(leagueLOM.addGeneralManager(managerLOM)){
+                managerAdded = true;
+            }else{
+                return false;
+            }
+        }
+
+        if(leagueModel.addLeague(leagueLOM)){
+            leagueAdded = true;
         }else{
             return false;
         }
 
-        return teamLOM.isOnlyOnePlayerCaptain() && leagueAddedToLeagueModel && playerAddedToTeam && teamAddedToDivision && divisionAddedToConference && conferenceAddedToLeague && freeAgentAddedToLeague && leagueLOM.areNumberOfConferencesEven() && conferenceLOM.areNumberOfDivisionsEven();
+        return managerAdded && coachAdded && playerAdded && teamAdded && leagueAdded && divisionAdded && conferenceAdded;
     }
 }
