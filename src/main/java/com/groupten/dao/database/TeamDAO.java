@@ -1,34 +1,35 @@
 package com.groupten.dao.database;
 
-import com.groupten.dao.DatabaseConnection;
 import com.groupten.dao.ITeamDAO;
-import com.groupten.dao.ResultSetOperation;
+import com.groupten.database.StoredProcedure;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class TeamDAO implements ITeamDAO {
-    DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     @Override
     public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {
         int teamId = 0;
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL createTeam(?,?,?,?,?)}");
-            cs.setInt(1, divisionId);
-            cs.setString(2, teamName);
-            cs.setString(3, generalManager);
-            cs.setString(4, headCoach);
-            cs.registerOutParameter(5, java.sql.Types.INTEGER);
-            cs.executeUpdate();
-            teamId = cs.getInt(5);
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("createTeam(?,?,?,?,?)");
+            storedProcedure.setParameter(1, divisionId);
+            storedProcedure.setParameter(2, teamName);
+            storedProcedure.setParameter(3, generalManager);
+            storedProcedure.setParameter(4, headCoach);
+
+            storedProcedure.registerOutputParameterInt(5);
+            storedProcedure.execute();
+            teamId = storedProcedure.getOutputParameterInt(5);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
 
         return teamId;
@@ -38,14 +39,18 @@ public class TeamDAO implements ITeamDAO {
     public List<HashMap<String, Object>> getTeams(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL getTeams(?,?)}");
-            cs.setString(1, colName);
-            cs.setString(2, colValue);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("getTeams(?,?)");
+            storedProcedure.setParameter(1, colName);
+            storedProcedure.setParameter(2, colValue);
+            list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
 
         return list;
@@ -53,26 +58,36 @@ public class TeamDAO implements ITeamDAO {
 
     @Override
     public void updateTeam(int teamId, String teamName, String generalManager, String headCoach) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL updateTeam(?,?,?,?)}");
-            cs.setInt(1, teamId);
-            cs.setString(2, teamName);
-            cs.setString(3, generalManager);
-            cs.setString(4, headCoach);
-            cs.executeUpdate();
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("updateTeam(?,?,?,?)");
+            storedProcedure.setParameter(1, teamId);
+            storedProcedure.setParameter(2, teamName);
+            storedProcedure.setParameter(3, generalManager);
+            storedProcedure.setParameter(4, headCoach);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
     }
 
     @Override
     public void deleteTeam(int teamId) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL deleteTeam(?)}");
-            cs.setInt(1, teamId);
-            cs.executeUpdate();
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("deleteTeam(?)");
+            storedProcedure.setParameter(1,teamId);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
     }
 
@@ -80,13 +95,17 @@ public class TeamDAO implements ITeamDAO {
     public List<HashMap<String, Object>> getTeamPlayers(int teamId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL getTeamPlayers(?)}");
-            cs.setInt(1, teamId);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("getTeamPlayers(?)");
+            storedProcedure.setParameter(1, teamId);
+            list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
 
         return list;
@@ -94,25 +113,35 @@ public class TeamDAO implements ITeamDAO {
 
     @Override
     public void attachTeamPlayer(int teamId, int playerId) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL attachTeamPlayer(?,?)}");
-            cs.setInt(1, teamId);
-            cs.setInt(2, playerId);
-            cs.executeUpdate();
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("attachTeamPlayer(?,?)");
+            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(2, playerId);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
     }
 
     @Override
     public void detachTeamPlayer(int teamId, int playerId) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL removeTeamPlayer(?,?)}");
-            cs.setInt(1, teamId);
-            cs.setInt(2, playerId);
-            cs.executeUpdate();
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("attachTeamPlayer(?,?)");
+            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(2, playerId);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
     }
 }
