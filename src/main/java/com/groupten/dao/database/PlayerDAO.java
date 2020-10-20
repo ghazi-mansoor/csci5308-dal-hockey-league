@@ -1,35 +1,34 @@
 package com.groupten.dao.database;
 
-import com.groupten.dao.DatabaseConnection;
 import com.groupten.dao.IPlayerDAO;
-import com.groupten.dao.ResultSetOperation;
+import com.groupten.database.StoredProcedure;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class PlayerDAO implements IPlayerDAO {
-    DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     @Override
     public int createPlayer(int leagueId, String playerName, String position, boolean isCaptain) {
         int playerId = 0;
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL createPlayer(?,?,?,?,?)}");
-            cs.setInt(1, leagueId);
-            cs.setString(2, playerName);
-            cs.setString(3, position);
-            cs.setBoolean(4, isCaptain);
-            cs.registerOutParameter(5, java.sql.Types.INTEGER);
-            cs.executeUpdate();
-            playerId = cs.getInt(5);
-
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("createPlayer(?,?,?,?,?)");
+            storedProcedure.setParameter(1, leagueId);
+            storedProcedure.setParameter(2, playerName);
+            storedProcedure.setParameter(3, position);
+            storedProcedure.setParameter(4, isCaptain);
+            storedProcedure.registerOutputParameterInt(3);
+            storedProcedure.execute();
+            playerId = storedProcedure.getOutputParameterInt(3);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
 
         return playerId;
@@ -39,14 +38,18 @@ public class PlayerDAO implements IPlayerDAO {
     public List<HashMap<String, Object>> getPlayers(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL getPlayers(?,?)}");
-            cs.setString(1, colName);
-            cs.setString(2, colValue);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("getPlayers(?,?)");
+            storedProcedure.setParameter(1, colName);
+            storedProcedure.setParameter(2, colValue);
+            list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
 
         return list;
@@ -54,26 +57,36 @@ public class PlayerDAO implements IPlayerDAO {
 
     @Override
     public void updatePlayer(int playerId, String playerName, String position, boolean isCaptain) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL updatePlayer(?,?,?,?)}");
-            cs.setInt(1, playerId);
-            cs.setString(2, playerName);
-            cs.setString(3, position);
-            cs.setBoolean(4, isCaptain);
-            cs.executeUpdate();
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("updatePlayer(?,?,?,?)");
+            storedProcedure.setParameter(1,playerId);
+            storedProcedure.setParameter(2,playerName);
+            storedProcedure.setParameter(2,position);
+            storedProcedure.setParameter(2,isCaptain);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
     }
 
     @Override
     public void deletePlayer(int playerId) {
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL deletePlayer(?)}");
-            cs.setInt(1, playerId);
-            cs.executeUpdate();
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("deletePlayer(?)");
+            storedProcedure.setParameter(1,playerId);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
     }
 
@@ -81,15 +94,20 @@ public class PlayerDAO implements IPlayerDAO {
     public List<HashMap<String, Object>> getCaptains(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL getCaptains(?,?)}");
-            cs.setString(1, colName);
-            cs.setString(2, colValue);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("getCaptains(?,?)");
+            storedProcedure.setParameter(1, colName);
+            storedProcedure.setParameter(2, colValue);
+            list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
+
         return list;
     }
 
@@ -97,15 +115,20 @@ public class PlayerDAO implements IPlayerDAO {
     public List<HashMap<String, Object>> getFreeAgents(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
-        try(Connection con = dbConnectionObj.connect()) {
-            CallableStatement cs = con.prepareCall("{CALL getFreeAgents(?,?)}");
-            cs.setString(1, colName);
-            cs.setString(2, colValue);
-            ResultSet rs = cs.executeQuery();
-            list = ResultSetOperation.convertResultSetToList(rs);
+        StoredProcedure storedProcedure = null;
+        try{
+            storedProcedure = new StoredProcedure("getFreeAgents(?,?)");
+            storedProcedure.setParameter(1, colName);
+            storedProcedure.setParameter(2, colValue);
+            list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally{
+            if(storedProcedure != null){
+                storedProcedure.cleanup();
+            }
         }
+
         return list;
     }
 }
