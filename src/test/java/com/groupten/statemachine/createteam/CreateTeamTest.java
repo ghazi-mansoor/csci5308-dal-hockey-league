@@ -29,9 +29,9 @@ public class CreateTeamTest {
         League league = new League("Deep Test League");
         Conference conference = new Conference("Deep Test Conference");
         Division division = new Division("Deep Division Division");
-        conference.addDivisionToConference(division);
-        league.addConferenceToLeague(conference);
-        leagueModel.addLeagueToModel(league);
+        conference.addDivision(division);
+        league.addConference(conference);
+        leagueModel.addLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");
@@ -47,9 +47,9 @@ public class CreateTeamTest {
         League league = new League("Deep Test League");
         Conference conference = new Conference("Deep Test Conference");
         Division division = new Division("Deep Division Division");
-        conference.addDivisionToConference(division);
-        league.addConferenceToLeague(conference);
-        leagueModel.addLeagueToModel(league);
+        conference.addDivision(division);
+        league.addConference(conference);
+        leagueModel.addLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");

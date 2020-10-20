@@ -46,10 +46,7 @@ public class LoadTeam implements ILoadTeam {
 
     @Override
     public boolean loadExistingLeague() {
-        LeagueModel leagueModel = new LeagueModel(Injector.injector().getLeagueDatabaseObject(),
-                Injector.injector().getConferenceDatabaseObject(), Injector.injector().getDivisionDatabaseObject(),
-                Injector.injector().getTeamDatabaseObject(), Injector.injector().getPlayerDatabaseObject()
-        );
+        LeagueModel leagueModel = new LeagueModel();
         return leagueModel.loadLeagueFromDB(leagueID);
     }
 

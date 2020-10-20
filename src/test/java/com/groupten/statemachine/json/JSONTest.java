@@ -92,11 +92,4 @@ public class JSONTest {
 
     }
 
-    @Test
-    public void newTest(){
-        JSON json = new JSON();
-        String path = "src/test/java/com/groupten/statemachine/mocks/JsonDataM2.json";
-        json.importJSONData(path);
-        assertTrue(json.instantiateJSONData_1());
-    }
 }
