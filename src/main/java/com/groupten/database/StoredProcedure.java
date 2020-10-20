@@ -47,6 +47,21 @@ public class StoredProcedure
 			System.out.println("Failed to perform DB cleanup:" + e.getMessage());
 		}
 	}
+
+	public void setParameter(int paramIndex, boolean value) throws SQLException
+	{
+		statement.setBoolean(paramIndex, value);
+	}
+
+	public void registerOutputParameterBoolean(int paramIndex) throws SQLException
+	{
+		statement.registerOutParameter(paramIndex, Types.BOOLEAN);
+	}
+
+	public String getOutputParameterBoolean(int paramIndex) throws SQLException
+	{
+		return statement.getString(paramIndex);
+	}
 	
 	public void setParameter(int paramIndex, String value) throws SQLException
 	{
