@@ -57,6 +57,26 @@ public class StoredProcedure
 	{
 		statement.registerOutParameter(paramIndex, Types.VARCHAR);
 	}
+
+	public String getOutputParameterString(int paramIndex) throws SQLException
+	{
+		return statement.getString(paramIndex);
+	}
+
+	public void setParameter(int paramIndex, int value) throws SQLException
+	{
+		statement.setInt(paramIndex, value);
+	}
+
+	public void registerOutputParameterInt(int paramIndex) throws SQLException
+	{
+		statement.registerOutParameter(paramIndex, Types.BIGINT);
+	}
+
+	public int getOutputParameterInt(int paramIndex) throws SQLException
+	{
+		return statement.getInt(paramIndex);
+	}
 	
 	public void setParameter(int paramIndex, long value) throws SQLException
 	{
@@ -66,6 +86,11 @@ public class StoredProcedure
 	public void registerOutputParameterLong(int paramIndex) throws SQLException
 	{
 		statement.registerOutParameter(paramIndex, Types.BIGINT);
+	}
+
+	public long getOutputParameterLong(int paramIndex) throws SQLException
+	{
+		return statement.getLong(paramIndex);
 	}
 	
 	public ArrayList<HashMap<String,Object>> executeWithResults() throws SQLException
