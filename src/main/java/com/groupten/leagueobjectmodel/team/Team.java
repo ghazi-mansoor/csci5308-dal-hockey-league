@@ -1,7 +1,7 @@
 package com.groupten.leagueobjectmodel.team;
 
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.IPlayerDAO;
+import com.groupten.dao.ITeamDAO;
 import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.player.Player;
 

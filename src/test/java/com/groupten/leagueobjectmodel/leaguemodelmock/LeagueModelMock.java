@@ -1,8 +1,8 @@
 package com.groupten.leagueobjectmodel.leaguemodelmock;
 
-import com.groupten.jdbc.team.TeamDAO;
+import com.groupten.dao.database.TeamDAO;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;

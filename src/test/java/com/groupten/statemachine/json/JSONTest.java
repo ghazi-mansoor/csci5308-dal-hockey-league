@@ -1,6 +1,6 @@
 package com.groupten.statemachine.json;
 
-import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.dao.ILeagueDAO;
 import com.groupten.statemachine.mocks.LeagueDBMock;
 import org.junit.Test;
 

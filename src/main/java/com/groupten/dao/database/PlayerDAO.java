@@ -1,7 +1,8 @@
-package com.groupten.jdbc.player;
+package com.groupten.dao.database;
 
-import com.groupten.jdbc.DatabaseConnection;
-import com.groupten.jdbc.ResultSetOperation;
+import com.groupten.dao.DatabaseConnection;
+import com.groupten.dao.IPlayerDAO;
+import com.groupten.dao.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

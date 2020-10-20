@@ -1,10 +1,10 @@
 package com.groupten.leagueobjectmodel.league;
 
-import com.groupten.jdbc.conference.IConferenceDAO;
-import com.groupten.jdbc.division.IDivisionDAO;
-import com.groupten.jdbc.league.ILeagueDAO;
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.IConferenceDAO;
+import com.groupten.dao.IDivisionDAO;
+import com.groupten.dao.ILeagueDAO;
+import com.groupten.dao.IPlayerDAO;
+import com.groupten.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.validator.Validator;

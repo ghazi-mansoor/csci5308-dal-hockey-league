@@ -1,4 +1,4 @@
-package com.groupten.jdbc;
+package com.groupten.dao;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

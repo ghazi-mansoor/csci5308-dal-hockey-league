@@ -1,7 +1,7 @@
 package com.groupten.leagueobjectmodel.player;
 
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.IPlayerDAO;
+import com.groupten.dao.ITeamDAO;
 
 public class Player implements IPlayer {
     private int leagueID;

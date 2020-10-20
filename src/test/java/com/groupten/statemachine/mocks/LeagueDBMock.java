@@ -1,6 +1,6 @@
 package com.groupten.statemachine.mocks;
 
-import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.dao.ILeagueDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;

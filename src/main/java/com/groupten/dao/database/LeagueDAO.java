@@ -1,7 +1,8 @@
-package com.groupten.jdbc.league;
+package com.groupten.dao.database;
 
-import com.groupten.jdbc.DatabaseConnection;
-import com.groupten.jdbc.ResultSetOperation;
+import com.groupten.dao.DatabaseConnection;
+import com.groupten.dao.ILeagueDAO;
+import com.groupten.dao.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LeagueDAO implements ILeagueDAO {
-    DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
+    DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     @Override
     public int createLeague(String leagueName) {

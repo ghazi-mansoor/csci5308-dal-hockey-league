@@ -1,7 +1,8 @@
-package com.groupten.jdbc.team;
+package com.groupten.dao.database;
 
-import com.groupten.jdbc.DatabaseConnection;
-import com.groupten.jdbc.ResultSetOperation;
+import com.groupten.dao.DatabaseConnection;
+import com.groupten.dao.ITeamDAO;
+import com.groupten.dao.ResultSetOperation;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TeamDAO implements ITeamDAO {
-    DatabaseConnection  dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
+    DatabaseConnection dbConnectionObj = DatabaseConnection.getDatabaseConnectionObject();
 
     @Override
     public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {

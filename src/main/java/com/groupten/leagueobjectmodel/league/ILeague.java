@@ -1,6 +1,6 @@
 package com.groupten.leagueobjectmodel.league;
 
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.player.Player;
 
