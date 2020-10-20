@@ -29,7 +29,7 @@ public class StoredProcedure
 		connection = ConnectionManager.instance().getDBConnection();
 	}
 	
-	private void cleanup()
+	public void cleanup()
 	{
 		try
 		{
@@ -79,14 +79,12 @@ public class StoredProcedure
 		{
 			results = new ArrayList<HashMap<String,Object>>();
 		}
-		cleanup();
 		return results;
 	}
 	
 	public void execute() throws SQLException
 	{
 		statement.execute();
-		cleanup();
 	}
 
 	private ArrayList<HashMap<String,Object>> convertResultSetToList(ResultSet rs) throws SQLException
