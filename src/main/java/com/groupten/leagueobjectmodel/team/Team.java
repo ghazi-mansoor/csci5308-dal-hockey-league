@@ -1,131 +1,67 @@
 package com.groupten.leagueobjectmodel.team;
 
-import com.groupten.dao.IPlayerDAO;
-import com.groupten.dao.ITeamDAO;
-import com.groupten.validator.Validator;
 import com.groupten.leagueobjectmodel.player.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-public class Team implements ITeam {
-    private int leagueID;
-    private int divisionID;
+public class Team {
     private int teamID;
     private String teamName;
-    private String generalManager;
-    private String headCoach;
-    private List <Player> players;
-    private ITeamDAO teamPersistenceAPI;
-    private IPlayerDAO playerPersistenceAPI;
+    private List<Player> players = new ArrayList<>();
+    private final int requiredNumberOfPlayers = 20;
 
-    public Team(String tn, String gm, String hc) {
-        teamName = tn;
-        generalManager = gm;
-        headCoach = hc;
-        players = new ArrayList<Player>();
+    public Team(String tN) {
+        teamName = tN;
     }
 
-    public Team(String tn, String gm, String hc, ITeamDAO per) {
-        teamName = tn;
-        generalManager = gm;
-        headCoach = hc;
-        players = new ArrayList<Player>();
-        teamPersistenceAPI = per;
-    }
-
-    public Team(int lID, int dID, int tID, String tn, String gm, String hc, ITeamDAO tPer, IPlayerDAO pPer) {
-        leagueID = lID;
-        divisionID = dID;
+    public Team(int tID, String tN) {
+        this(tN);
         teamID = tID;
-        teamName = tn;
-        generalManager = gm;
-        headCoach = hc;
-        players = new ArrayList<Player>();
-        teamPersistenceAPI = tPer;
     }
 
-    @Override
-    public boolean addPlayerToTeam(Player player) {
-        String playerName = player.getPlayerName();
-        String playerPosition = player.getPosition();
-
-        if (Validator.areStringsValid(playerName) && Validator.isPositionValid(playerPosition)) {
-            int numberOfFreeAgents = players.size();
-            players.add(player);
-            int numberOfFreeAgentsPostAdditions = players.size();
-
-            return numberOfFreeAgentsPostAdditions == numberOfFreeAgents + 1;
-        } else {
-            return false;
-        }
+    public boolean addPlayer(Player player) {
+        int initialSize = players.size();
+        players.add(player);
+        return players.size() > initialSize;
     }
 
-    @Override
-    public boolean saveTeamToDB() {
-        teamID = teamPersistenceAPI.createTeam(divisionID, teamName, generalManager, headCoach);
-        setPlayerForeignKeys();
-        saveAllPlayers();
-        return (teamID != 0);
+    public boolean isPlayersCountValid() {
+        return players.size() == requiredNumberOfPlayers;
     }
 
-    private void setPlayerForeignKeys() {
+    public boolean doesTeamHaveOneCaptain() {
+        List<Boolean> captains = new ArrayList<>();
         for (Player player : players) {
-            player.setTeamID(teamID);
-            player.setLeagueID(leagueID);
+            captains.add(player.isCaptain());
         }
-    }
-
-    private void saveAllPlayers() {
-        for (Player player : players) {
-            player.savePlayerToDB();
-        }
-    }
-
-    @Override
-    public boolean isOnlyOnePlayerCaptain() {
-        List<Boolean> captains = new ArrayList<Boolean>();
-        int count = 0;
-
-        for (Player player : players) {
-            captains.add((player.getCaptain()));
-        }
-
-        for (Boolean captain : captains) {
-            if (captain) {
-                count++;
-            }
-        }
+        int count = Collections.frequency(captains, true);
 
         return count == 1;
-
     }
 
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
+    public static boolean isTeamNameValid(String tN) {
+        if (tN.isEmpty() || tN.isBlank() || tN.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int tID) {
+        teamID = tID;
     }
 
     public String getTeamName() {
         return teamName;
     }
 
-    public void setLeagueID(int leagueID) {
-        this.leagueID = leagueID;
+    public void setTeamName(String tN) {
+        teamName = tN;
     }
-
-    @Override
-    public void loadPlayersFromDB() {
-        List<HashMap<String, Object>> playerMaps = teamPersistenceAPI.getTeamPlayers(teamID);
-        for (Map<String, Object> playerMap : playerMaps) {
-            int playerID = (int) playerMap.get("playerId");
-            String playerName = (String) playerMap.get("playerName");
-            String position = (String) playerMap.get("position");
-            Boolean captain = (Boolean) playerMap.get("captain");
-            Player player = new Player(leagueID, teamID, playerID, playerName, position, captain, playerPersistenceAPI, teamPersistenceAPI);
-            addPlayerToTeam(player);
-        }
-    }
-
 }

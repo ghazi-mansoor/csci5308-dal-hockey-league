@@ -1,84 +1,106 @@
 package com.groupten.leagueobjectmodel.league;
 
-import com.groupten.dao.database.TeamDAO;
-import com.groupten.dao.ITeamDAO;
+import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.leagueobjectmodel.leaguemodelmock.LeagueModelMock;
+import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
+import com.groupten.leagueobjectmodel.player.Player;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class LeagueTest {
-
     @Test
-    public void addTeamToLeagueModelTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
-        ITeamDAO teamPersistenceAPI = new TeamDAO();
-
-        assertTrue(league.doEntitiesExistInMemory("L1-Conference 1", "L1-C1 Division 1"));
-        assertTrue(league.addTeamToLeagueModel("Team 1", "GM",
-                "HC", teamPersistenceAPI));
+    public void addFreeAgentTest() {
+        League league = new League(1, "First League");
+        Player player = new Player(1, "First Player", "goalie", false, 27, 5, 5, 5, 5);
+        assertTrue(league.addFreeAgent(player));
     }
 
     @Test
-    public void doEntitiesExistInMemoryTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
-
-        assertTrue(league.doEntitiesExistInMemory("L1-Conference 1", "L1-C1 Division 1"));
-        assertTrue(league.doEntitiesExistInMemory("L1-Conference 2", "L1-C2 Division 1"));
-        assertFalse(league.doEntitiesExistInMemory("L1-Conference 2", "L1-C1 Division 1"));
+    public void addCoachTest() {
+        League league = new League(1, "First League");
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        assertTrue(league.addCoach(coach));
     }
 
     @Test
-    public void addConferenceToLeagueTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
-        Conference conference = new Conference("L1-Conference 3");
-
-        assertTrue(league.addConferenceToLeague(conference));
+    public void addGeneralManagerTest() {
+        League league = new League(1, "First League");
+        GeneralManager generalManager = new GeneralManager(1, "First General Manager");
+        assertTrue(league.addGeneralManager(generalManager));
     }
 
     @Test
-    public void doesContainConferenceTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
+    public void isNumberOFConferencesEvenTest() {
+        League league = new League(1, "First League");
+        Conference conferenceOne = new Conference(1, "First Conference");
+        league.addConference(conferenceOne);
+        assertFalse(league.isNumberOfConferencesEven());
 
-        assertTrue(league.doesContainConference("L1-Conference 1"));
-        assertFalse(league.doesContainConference("L1-Conference 3"));
+        Conference conferenceTwo = new Conference(2, "Second Conference");
+        league.addConference(conferenceTwo);
+        assertTrue(league.isNumberOfConferencesEven());
     }
 
     @Test
-    public void getLeagueNameTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
+    public void addConferenceTest() {
+        League league = new League(1, "First League");
+        Conference conference = new Conference(1, "First Conference");
+        assertTrue(league.addConference(conference));
+    }
 
-        assertEquals("League 1", league.getLeagueName());
+    @Test
+    public void containsConference() {
+        League league = new League(1, "First League");
+        Conference conference = new Conference(1, "First Conference");
+        league.addConference(conference);
+        assertTrue(league.containsConference("First Conference"));
     }
 
     @Test
     public void getConferenceTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
-
-        assertEquals("L1-Conference 1", league.getConference("L1-Conference 1").getConferenceName());
+        League league = new League(1, "First League");
+        Conference conference = new Conference(1, "First Conference");
+        league.addConference(conference);
+        assertEquals("First Conference", league.getConference("First Conference").getConferenceName());
     }
 
     @Test
-    public void areNumberOfConferencesEvenTest() {
-        LeagueModelMock leagueModelMock = new LeagueModelMock();
-        LeagueModel leagueModel = leagueModelMock.getLeagueModel();
-        League league = leagueModel.getLeague("League 1");
+    public void isLeagueNameValidTest() {
+        String leagueName = "DHL";
+        assertTrue(League.isLeagueNameValid(leagueName));
+        leagueName = "";
+        assertFalse(League.isLeagueNameValid(leagueName));
+        leagueName = " ";
+        assertFalse(League.isLeagueNameValid(leagueName));
+        leagueName = "Null";
+        assertFalse(League.isLeagueNameValid(leagueName));
+    }
 
-        assertTrue(league.areNumberOfConferencesEven());
+    @Test
+    public void getLeagueIDTest() {
+        League league = new League(1, "First League");
+        assertEquals(1, league.getLeagueID());
+    }
+
+    @Test
+    public void setLeagueIDTest() {
+        League league = new League("First League");
+        league.setLeagueID(1);
+        assertEquals(1, league.getLeagueID());
+    }
+
+    @Test
+    public void setLeagueNameTest() {
+        League league = new League("First League");
+        league.setLeagueName("Updated First League");
+        assertEquals("Updated First League", league.getLeagueName());
+    }
+
+    @Test
+    public void getLeagueNameTest() {
+        League league = new League("First League");
+        assertEquals("First League", league.getLeagueName());
     }
 
 }

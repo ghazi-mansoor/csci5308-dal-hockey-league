@@ -39,17 +39,14 @@ public class LoadTeam implements ILoadTeam {
         if(teamList.size() > 0){
             leagueID = (int) teamList.get(0).get("leagueId");
             return true;
-        }else{
+        } else{
             return false;
         }
     }
 
     @Override
     public boolean loadExistingLeague() {
-        LeagueModel leagueModel = new LeagueModel(Injector.injector().getLeagueDatabaseObject(),
-                Injector.injector().getConferenceDatabaseObject(), Injector.injector().getDivisionDatabaseObject(),
-                Injector.injector().getTeamDatabaseObject(), Injector.injector().getPlayerDatabaseObject()
-        );
+        LeagueModel leagueModel = new LeagueModel();
         return leagueModel.loadLeagueFromDB(leagueID);
     }
 
