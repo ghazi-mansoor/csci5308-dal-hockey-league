@@ -34,6 +34,11 @@ public class LeagueModel implements ILeagueModel {
         return leagues.get(leagueName);
     }
 
+    @Override
+    public League getCurrentLeague() {
+        return (League) leagues.values().toArray()[0];
+    }
+
     public Map<String, League> getLeagues() {
         return leagues;
     }
