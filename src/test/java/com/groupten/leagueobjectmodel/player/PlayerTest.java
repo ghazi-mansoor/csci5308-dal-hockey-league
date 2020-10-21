@@ -1,6 +1,5 @@
-package leagueobjectmodel.player;
+package com.groupten.leagueobjectmodel.player;
 
-import com.groupten.leagueobjectmodel.player.Player;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

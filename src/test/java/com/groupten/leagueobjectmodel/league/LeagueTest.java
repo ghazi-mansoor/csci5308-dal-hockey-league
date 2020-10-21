@@ -1,9 +1,8 @@
-package leagueobjectmodel.league;
+package com.groupten.leagueobjectmodel.league;
 
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
-import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.player.Player;
 import org.junit.Test;
 

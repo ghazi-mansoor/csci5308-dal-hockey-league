@@ -1,6 +1,5 @@
-package leagueobjectmodel.division;
+package com.groupten.leagueobjectmodel.division;
 
-import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.team.Team;
 import org.junit.Test;
 

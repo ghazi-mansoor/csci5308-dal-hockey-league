@@ -1,6 +1,5 @@
-package leagueobjectmodel.generalmanager;
+package com.groupten.leagueobjectmodel.generalmanager;
 
-import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

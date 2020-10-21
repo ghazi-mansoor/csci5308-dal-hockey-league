@@ -1,6 +1,5 @@
-package leagueobjectmodel.conference;
+package com.groupten.leagueobjectmodel.conference;
 
-import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import org.junit.Test;
 

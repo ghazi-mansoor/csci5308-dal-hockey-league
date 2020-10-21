@@ -1,7 +1,6 @@
-package leagueobjectmodel.leaguemodel;
+package com.groupten.leagueobjectmodel.leaguemodel;
 
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
