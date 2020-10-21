@@ -30,9 +30,13 @@ public class League {
     private int maxPlayersPerTrade;
     private double randomAcceptanceChance;
 
+    public League(String lN) {
+        leagueName = lN;
+    }
+
     public League(String lN, double avgRA, double mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
     , double randTOC, int maxPPT, double randAC) {
-        leagueName = lN;
+        this(lN);
         averageRetirementAge = avgRA;
         maximumAge = mA;
         randomWinChance = randWC;
