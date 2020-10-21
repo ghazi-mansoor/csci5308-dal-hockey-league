@@ -7,4 +7,5 @@ public interface ILeagueModel {
     boolean containsLeague(String leagueName);
     boolean loadLeague(int leagueID);
     League getLeague(String leagueName);
+    League getCurrentLeague();
 }

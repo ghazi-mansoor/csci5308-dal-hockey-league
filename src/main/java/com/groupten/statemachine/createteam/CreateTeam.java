@@ -43,7 +43,9 @@ public class CreateTeam implements ICreateTeam {
     @Override
     public boolean ifConferenceAndDivisionExist() {
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        leagueLOM = (League) leagueModel.getLeagues().values().toArray()[0];
+        // leagueLOM = (League) leagueModel.getLeagues().values().toArray()[0];
+        leagueLOM = leagueModel.getCurrentLeague();
+
         return leagueLOM.doEntitiesExistInMemory(conferenceName, divisionName);
     }
 

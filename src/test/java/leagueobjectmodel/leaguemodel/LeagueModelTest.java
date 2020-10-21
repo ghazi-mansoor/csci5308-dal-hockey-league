@@ -35,6 +35,15 @@ public class LeagueModelTest {
     }
 
     @Test
+    public void getCurrentLeagueTest() {
+        LeagueModel leagueModel = new LeagueModel();
+        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+        leagueModel.addLeague(league);
+        assertEquals("First League", leagueModel.getCurrentLeague().getLeagueName());
+    }
+
+    @Test
     public void getLeaguesTest() {
         LeagueModel leagueModel = new LeagueModel();
         League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,

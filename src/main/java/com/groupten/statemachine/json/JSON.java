@@ -153,6 +153,8 @@ public class JSON implements IJSON {
                     coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
                     // Add method in LOM for adding manager and coach to LOM
+                    // Use leagueLOM.addGeneralManager(managerLOM) -> returns boolean
+                    // Use leagueLOM.addCoach(coachLOM) -> returns boolean
 
                     for (int l = 0; l < players.size(); l++) {
                         teamPlayer = (JsonObject) players.get(l);
@@ -160,11 +162,11 @@ public class JSON implements IJSON {
                         String position = teamPlayer.get("position").getAsString();
                         Boolean captain = teamPlayer.get("captain").getAsBoolean();
                         // Change them to double
-                        int playerAge = teamPlayer.get("age").getAsInt();
-                        int playerSkating = teamPlayer.get("skating").getAsInt();
-                        int playerShooting = teamPlayer.get("shooting").getAsInt();
-                        int playerChecking = teamPlayer.get("checking").getAsInt();
-                        int playerSaving = teamPlayer.get("saving").getAsInt();
+                        double playerAge = teamPlayer.get("age").getAsInt();
+                        double playerSkating = teamPlayer.get("skating").getAsInt();
+                        double playerShooting = teamPlayer.get("shooting").getAsInt();
+                        double playerChecking = teamPlayer.get("checking").getAsInt();
+                        double playerSaving = teamPlayer.get("saving").getAsInt();
 
                         playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
@@ -204,11 +206,11 @@ public class JSON implements IJSON {
             int playerSkating = freeAgent.get("skating").getAsInt();
             int playerShooting = freeAgent.get("shooting").getAsInt();
             // remove captain field from free agents
-            Boolean captain = false;
+            // Boolean captain = false;
             int playerChecking = freeAgent.get("checking").getAsInt();
             int playerSaving = freeAgent.get("saving").getAsInt();
 
-            playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
+            playerLOM = new Player(playerName, position, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
             if(leagueLOM.addFreeAgent(playerLOM)){
                 playerAdded = true;
             }else{
