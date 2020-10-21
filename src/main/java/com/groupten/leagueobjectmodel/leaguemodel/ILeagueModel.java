@@ -8,4 +8,5 @@ public interface ILeagueModel {
     boolean loadLeague(int leagueID);
     League getLeague(String leagueName);
     League getCurrentLeague();
+    void saveLeagueModel();
 }
