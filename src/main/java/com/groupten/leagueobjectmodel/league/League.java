@@ -17,8 +17,24 @@ public class League {
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
     private List<GeneralManager> generalManagers = new ArrayList<>();
+    
+    
 
-    public League(String lN) {
+    public League() {
+	}
+    
+
+	public Map<String, Conference> getConferences() {
+		return conferences;
+	}
+
+	public void setConferences(Map<String, Conference> conferences) {
+		this.conferences = conferences;
+	}
+
+
+
+	public League(String lN) {
         leagueName = lN;
     }
 

@@ -19,7 +19,19 @@ public class Division {
         divisionID = dID;
     }
 
-    public boolean addTeam(Team team) {
+    public Division() {
+	}
+    
+
+	public Map<String, Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Map<String, Team> teams) {
+		this.teams = teams;
+	}
+
+	public boolean addTeam(Team team) {
         String teamName = team.getTeamName();
         int initialSize = teams.size();
         teams.put(teamName, team);

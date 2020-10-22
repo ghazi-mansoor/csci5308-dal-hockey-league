@@ -14,6 +14,7 @@ public class Player {
     private int shooting;
     private int checking;
     private int saving;
+    private int playerStrength;
 
     public Player(String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
         playerName = pN;
@@ -129,4 +130,14 @@ public class Player {
     public void setSaving(int s) {
         saving = s;
     }
+
+	public int getPlayerStrength() {
+		return playerStrength;
+	}
+
+	public void setPlayerStrength(int playerStrength) {
+		this.playerStrength = playerStrength;
+	}
+    
+    
 }

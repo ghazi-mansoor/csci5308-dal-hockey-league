@@ -19,7 +19,19 @@ public class Conference {
         conferenceID = cID;
     }
 
-    public boolean addDivision(Division division) {
+    public Conference() {
+	}
+    
+
+	public Map<String, Division> getDivisions() {
+		return divisions;
+	}
+
+	public void setDivisions(Map<String, Division> divisions) {
+		this.divisions = divisions;
+	}
+
+	public boolean addDivision(Division division) {
         String divisionName = division.getDivisionName();
         int initialSize = divisions.size();
         divisions.put(divisionName, division);
