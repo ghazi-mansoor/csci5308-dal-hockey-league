@@ -18,8 +18,8 @@ public class League {
     private List<Coach> coaches = new ArrayList<>();
     private List<GeneralManager> generalManagers = new ArrayList<>();
 
-    private double averageRetirementAge;
-    private double maximumAge;
+    private int averageRetirementAge;
+    private int maximumAge;
     private double randomWinChance;
     private double randomInjuryChance;
     private int injuryDaysLow;
@@ -34,7 +34,7 @@ public class League {
         leagueName = lN;
     }
 
-    public League(String lN, double avgRA, double mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
+    public League(String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
     , double randTOC, int maxPPT, double randAC) {
         this(lN);
         averageRetirementAge = avgRA;
@@ -50,7 +50,7 @@ public class League {
         randomAcceptanceChance = randAC;
     }
 
-    public League(int lID, String lN, double avgRA, double mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
+    public League(int lID, String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
             ,double randTOC, int maxPPT, double randAC) {
         this(lN, avgRA, mA, randWC, randIC, iDL, iDH, daysUSIC, lP, randTOC, maxPPT, randAC);
         leagueID = lID;
@@ -146,7 +146,7 @@ public class League {
         return averageRetirementAge;
     }
 
-    public void setAverageRetirementAge(double avgRA) {
+    public void setAverageRetirementAge(int avgRA) {
         averageRetirementAge = avgRA;
     }
 
@@ -154,7 +154,7 @@ public class League {
         return maximumAge;
     }
 
-    public void setMaximumAge(double mA) {
+    public void setMaximumAge(int mA) {
         maximumAge = mA;
     }
 

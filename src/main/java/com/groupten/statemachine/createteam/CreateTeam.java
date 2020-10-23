@@ -46,9 +46,7 @@ public class CreateTeam implements ICreateTeam {
     @Override
     public boolean ifConferenceAndDivisionExist() {
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        // leagueLOM = (League) leagueModel.getLeagues().values().toArray()[0];
         leagueLOM = leagueModel.getCurrentLeague();
-        //return leagueLOM.doEntitiesExistInMemory(conferenceName, divisionName);
         if (leagueLOM.containsConference(conferenceName)) {
             Conference conference = leagueLOM.getConference(conferenceName);
             return conference.containsDivision(divisionName);
@@ -59,7 +57,6 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean instantiateNewTeam() {
-        // return leagueLOM.addTeamToLeagueModel(teamName, generalManager, headCoach, Injector.injector().getTeamDatabaseObject());
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         leagueLOM = leagueModel.getCurrentLeague();
         Conference conference = leagueLOM.getConference(conferenceName);
@@ -68,13 +65,6 @@ public class CreateTeam implements ICreateTeam {
         // I have added a constructor that accepts objects of GeneralManager and Coach instances
         Team team = new Team(teamName);
         return division.addTeam(team);
-    }
-
-    @Override
-    public void persistLeagueModel() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        // leagueModel.saveLeagueModelToDB();
-        leagueModel.saveLeagueModel();
     }
 
     public void setConferenceName(String conferenceName) {

@@ -6,6 +6,5 @@ public interface ICreateTeam {
     boolean validateUserInput();
     boolean ifConferenceAndDivisionExist();
     boolean instantiateNewTeam();
-    void persistLeagueModel();
 
 }

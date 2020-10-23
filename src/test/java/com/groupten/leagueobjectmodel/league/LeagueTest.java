@@ -172,7 +172,7 @@ public class LeagueTest {
     public void setAverageRetirementAgeTest() {
         League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
-        league.setAverageRetirementAge(40.0);
+        league.setAverageRetirementAge(40);
         assertEquals(40.0, league.getAverageRetirementAge(), 0.0);
     }
 
@@ -187,7 +187,7 @@ public class LeagueTest {
     public void setMaximumAgeTest() {
         League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
-        league.setMaximumAge(40.0);
+        league.setMaximumAge(40);
         assertEquals(40.0, league.getMaximumAge(), 0.0);
     }
 
