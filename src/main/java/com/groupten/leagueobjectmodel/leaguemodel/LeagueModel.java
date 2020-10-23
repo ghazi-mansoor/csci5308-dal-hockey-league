@@ -14,11 +14,15 @@ public class LeagueModel implements ILeagueModel {
 
     @Override
     public boolean addLeague(League league) {
-        String leagueName = league.getLeagueName();
-        int initialSize = leagues.size();
-        leagues.put(leagueName, league);
+        if(League.isLeagueNameValid(league.getLeagueName())){
+            String leagueName = league.getLeagueName();
+            int initialSize = leagues.size();
+            leagues.put(leagueName, league);
 
-        return leagues.size() > initialSize;
+            return leagues.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     @Override

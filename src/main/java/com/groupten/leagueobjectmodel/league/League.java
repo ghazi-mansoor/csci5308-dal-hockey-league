@@ -57,17 +57,25 @@ public class League {
     }
 
     public boolean addConference(Conference conference) {
-        String conferenceName = conference.getConferenceName();
-        int initialSize = conferences.size();
-        conferences.put(conferenceName, conference);
-
-        return conferences.size() > initialSize;
+        if(Conference.isConferenceNameValid(conference.getConferenceName())){
+            String conferenceName = conference.getConferenceName();
+            int initialSize = conferences.size();
+            conferences.put(conferenceName, conference);
+            return conferences.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean addFreeAgent(Player player) {
-        int initialSize = freeAgents.size();
-        freeAgents.add(player);
-        return freeAgents.size() > initialSize;
+        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+            int initialSize = freeAgents.size();
+            freeAgents.add(player);
+            return freeAgents.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean addCoach(Coach coach) {

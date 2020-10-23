@@ -26,9 +26,14 @@ public class Team {
     }
 
     public boolean addPlayer(Player player) {
-        int initialSize = players.size();
-        players.add(player);
-        return players.size() > initialSize;
+        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+            int initialSize = players.size();
+            players.add(player);
+            return players.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean isPlayersCountValid() {
@@ -73,16 +78,26 @@ public class Team {
         return generalManager;
     }
 
-    public void setGeneralManager(GeneralManager generalManager) {
-        this.generalManager = generalManager;
+    public boolean setGeneralManager(GeneralManager generalManager) {
+        if(GeneralManager.isManagerNameValid(generalManager.getManagerName())){
+            this.generalManager = generalManager;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public Coach getHeadCoach() {
         return headCoach;
     }
 
-    public void setHeadCoach(Coach headCoach) {
-        this.headCoach = headCoach;
+    public boolean setHeadCoach(Coach headCoach) {
+        if(Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())){
+            this.headCoach = headCoach;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public List<Player> getPlayers() { return players; }

@@ -20,11 +20,14 @@ public class Conference {
     }
 
     public boolean addDivision(Division division) {
-        String divisionName = division.getDivisionName();
-        int initialSize = divisions.size();
-        divisions.put(divisionName, division);
-
-        return divisions.size() > initialSize;
+        if(Division.isDivisionNameValid(division.getDivisionName())){
+            String divisionName = division.getDivisionName();
+            int initialSize = divisions.size();
+            divisions.put(divisionName, division);
+            return divisions.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean isNumberOfDivisionsEven() {

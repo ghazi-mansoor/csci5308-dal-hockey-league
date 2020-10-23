@@ -74,8 +74,6 @@ public class JSON implements IJSON {
 
         String leagueName = jsonData.get("leagueName").getAsString();
 
-        System.out.println(leagueName);
-
         gamePlayConfig = (JsonObject) jsonData.get("gameplayConfig");
         aging = (JsonObject) gamePlayConfig.get("aging");
         gameResolver = (JsonObject) gamePlayConfig.get("gameResolver");
@@ -86,28 +84,18 @@ public class JSON implements IJSON {
         double averageRetirementAge = aging.get("averageRetirementAge").getAsDouble();
         double maximumAge = aging.get("maximumAge").getAsDouble();
 
-        System.out.println(averageRetirementAge + " " + maximumAge);
-
         double randomWinChance = gameResolver.get("randomWinChance").getAsDouble();
-
-        System.out.println(randomWinChance);
 
         double randomInjuryChance = injuries.get("randomInjuryChance").getAsDouble();
         double injuryDaysLow = injuries.get("injuryDaysLow").getAsDouble();
         double injuryDaysHigh = injuries.get("injuryDaysHigh").getAsDouble();
 
-        System.out.println(randomInjuryChance + " " + injuryDaysLow + " " + injuryDaysHigh);
-
         double daysUntilStatIncreaseCheck = training.get("daysUntilStatIncreaseCheck").getAsDouble();
-
-        System.out.println(daysUntilStatIncreaseCheck);
 
         double lossPoint = trading.get("lossPoint").getAsDouble();
         double randomTradeOfferChance = trading.get("randomTradeOfferChance").getAsDouble();
         double maxPlayersPerTrade = trading.get("maxPlayersPerTrade").getAsDouble();
         double randomAcceptanceChance = trading.get("randomAcceptanceChance").getAsDouble();
-
-        System.out.println(lossPoint + " " + randomTradeOfferChance + " " + maxPlayersPerTrade + " " + randomAcceptanceChance);
 
         conferences = (JsonArray) jsonData.get("conferences");
 
@@ -120,8 +108,6 @@ public class JSON implements IJSON {
             divisions = (JsonArray) conference.get("divisions");
 
             String conferenceName = conference.get("conferenceName").getAsString();
-            System.out.println(conferenceName);
-
             conferenceLOM = new Conference(conferenceName);
 
             for (int j = 0; j < divisions.size(); j++) {
@@ -129,8 +115,6 @@ public class JSON implements IJSON {
                 teams = (JsonArray) division.get("teams");
 
                 String divisionName = division.get("divisionName").getAsString();
-                System.out.println(divisionName);
-
                 divisionLOM = new Division(divisionName);
 
                 for (int k = 0; k < teams.size(); k++) {
@@ -145,28 +129,32 @@ public class JSON implements IJSON {
                     double coachSaving = headCoach.get("saving").getAsDouble();
                     players = (JsonArray) team.get("players");
 
-                    System.out.println(teamName + " " + generalManager);
-                    System.out.println(coachName + " " + coachSkating + " " + coachShooting + " " + coachChecking + " " + coachSaving);
-
                     teamLOM = new Team(teamName);
                     managerLOM = new GeneralManager(generalManager);
                     coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
-                    // Add method in LOM for adding manager and coach to LOM
-                    // Use leagueLOM.addGeneralManager(managerLOM) -> returns boolean
-                    // Use leagueLOM.addCoach(coachLOM) -> returns boolean
+                    if(teamLOM.setGeneralManager(managerLOM)){
+                        managerAdded = true;
+                    }else{
+                        return false;
+                    }
+
+                    if(teamLOM.setHeadCoach(coachLOM)){
+                        coachAdded = true;
+                    }else{
+                        return false;
+                    }
 
                     for (int l = 0; l < players.size(); l++) {
                         teamPlayer = (JsonObject) players.get(l);
                         String playerName = teamPlayer.get("playerName").getAsString();
                         String position = teamPlayer.get("position").getAsString();
-                        Boolean captain = teamPlayer.get("captain").getAsBoolean();
-                        // Change them to double
-                        double playerAge = teamPlayer.get("age").getAsInt();
-                        double playerSkating = teamPlayer.get("skating").getAsInt();
-                        double playerShooting = teamPlayer.get("shooting").getAsInt();
-                        double playerChecking = teamPlayer.get("checking").getAsInt();
-                        double playerSaving = teamPlayer.get("saving").getAsInt();
+                        boolean captain = teamPlayer.get("captain").getAsBoolean();
+                        int playerAge = teamPlayer.get("age").getAsInt();
+                        int playerSkating = teamPlayer.get("skating").getAsInt();
+                        int playerShooting = teamPlayer.get("shooting").getAsInt();
+                        int playerChecking = teamPlayer.get("checking").getAsInt();
+                        int playerSaving = teamPlayer.get("saving").getAsInt();
 
                         playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
@@ -205,8 +193,6 @@ public class JSON implements IJSON {
             int playerAge = freeAgent.get("age").getAsInt();
             int playerSkating = freeAgent.get("skating").getAsInt();
             int playerShooting = freeAgent.get("shooting").getAsInt();
-            // remove captain field from free agents
-            // Boolean captain = false;
             int playerChecking = freeAgent.get("checking").getAsInt();
             int playerSaving = freeAgent.get("saving").getAsInt();
 
