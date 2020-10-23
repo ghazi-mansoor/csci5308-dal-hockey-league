@@ -11,14 +11,14 @@ public class PlayerTest {
         String playerName = "First Player";
         String position = "goalie";
         boolean captain = true;
-        int age = 15;
+        int age = 25;
         int skating = 5;
         int shooting = 5;
         int checking = 5;
         int saving = 5;
-        assertTrue(Player.arePlayerFieldsValid(playerName, position, captain, age, skating, shooting, checking, saving));
+        assertTrue(Player.arePlayerFieldsValid(playerName, position, skating, shooting, checking, saving));
         saving = -10;
-        assertFalse(Player.arePlayerFieldsValid(playerName, position, captain, age, skating, shooting, checking, saving));
+        assertFalse(Player.arePlayerFieldsValid(playerName, position, skating, shooting, checking, saving));
     }
 
     @Test
@@ -76,66 +76,66 @@ public class PlayerTest {
     @Test
     public void setAgeTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20, 5, 5, 5, 5);
-        assertEquals(20, player.getAge());
+        assertEquals(20, player.getAge(), 0);
     }
 
     @Test
     public void getAgeTest() {
         Player player = new Player("First Player", "goalie", false, 20, 5, 5, 5, 5);
         player.setAge(19);
-        assertEquals(19, player.getAge());
+        assertEquals(19, player.getAge(), 0);
     }
 
     @Test
     public void setSkatingTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20, 5, 5, 5, 5);
-        assertEquals(5, player.getSkating());
+        assertEquals(5, player.getSkating(), 0);
     }
 
     @Test
     public void getSkatingTest() {
         Player player = new Player("First Player", "goalie", false, 20, 5, 5, 5, 5);
         player.setSkating(10);
-        assertEquals(10, player.getSkating());
+        assertEquals(10, player.getSkating(), 0);
     }
 
     @Test
     public void setShootingTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20, 5, 5, 5, 5);
-        assertEquals(5, player.getShooting());
+        assertEquals(5, player.getShooting(), 0);
     }
 
     @Test
     public void getShootingTest() {
         Player player = new Player("First Player", "goalie", false, 20, 5, 5, 5, 5);
         player.setShooting(10);
-        assertEquals(10, player.getShooting());
+        assertEquals(10, player.getShooting(), 0);
     }
 
     @Test
     public void setCheckingTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20, 5, 5, 5, 5);
-        assertEquals(5, player.getChecking());
+        assertEquals(5, player.getChecking(), 0);
     }
 
     @Test
     public void getCheckingTest() {
         Player player = new Player("First Player", "goalie", false, 20, 5, 5, 5, 5);
         player.setChecking(10);
-        assertEquals(10, player.getChecking());
+        assertEquals(10, player.getChecking(), 0);
     }
 
     @Test
     public void setSavingTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20, 5, 5, 5, 5);
-        assertEquals(5, player.getSaving());
+        assertEquals(5, player.getSaving(), 0);
     }
 
     @Test
     public void getSavingTest() {
         Player player = new Player("First Player", "goalie", false, 20, 5, 5, 5, 5);
         player.setSaving(10);
-        assertEquals(10, player.getSaving());
+        assertEquals(10, player.getSaving(), 0);
     }
 
 }

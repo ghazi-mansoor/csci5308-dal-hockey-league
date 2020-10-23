@@ -20,16 +20,21 @@ public class Division {
     }
 
     public boolean addTeam(Team team) {
-        String teamName = team.getTeamName();
-        int initialSize = teams.size();
-        teams.put(teamName, team);
-
-        return teams.size() > initialSize;
+        if(Team.isTeamNameValid(team.getTeamName())){
+            String teamName = team.getTeamName();
+            int initialSize = teams.size();
+            teams.put(teamName, team);
+            return teams.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean containsTeam(String teamName) {
         return teams.containsKey(teamName);
     }
+
+    public Map<String, Team> getTeams() { return teams; }
 
     public Team getTeam(String teamName) {
         return teams.get(teamName);

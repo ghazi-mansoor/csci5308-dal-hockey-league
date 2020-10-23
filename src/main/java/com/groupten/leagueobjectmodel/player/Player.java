@@ -15,10 +15,9 @@ public class Player {
     private int checking;
     private int saving;
 
-    public Player(String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
+    public Player(String pN, String pos, int a, int sk, int sh, int ch, int sa) {
         playerName = pN;
         position = pos;
-        captain = cap;
         age = a;
         skating = sk;
         shooting = sh;
@@ -26,13 +25,23 @@ public class Player {
         saving = sa;
     }
 
+    public Player(int pID, String pN, String pos, int a, int sk, int sh, int ch, int sa) {
+        this(pN, pos, a, sk, sh, ch, sa);
+        playerID = pID;
+    }
+
+    public Player(String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
+        this(pN, pos, a, sk, sh, ch, sa);
+        captain = cap;
+    }
+
     public Player(int pID, String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
         this(pN, pos, cap, a, sk, sh, ch, sa);
         playerID = pID;
     }
 
-    public static boolean arePlayerFieldsValid(String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
-        return isPlayerNameValid(pN) && isPositionValid(pos) && areStatsValid(a, sk, sh, ch, sa);
+    public static boolean arePlayerFieldsValid(String pN, String pos, int sk, int sh, int ch, int sa) {
+        return isPlayerNameValid(pN) && isPositionValid(pos) && areStatsValid(sk, sh, ch, sa);
     }
 
     private static boolean isPlayerNameValid(String pN) {
