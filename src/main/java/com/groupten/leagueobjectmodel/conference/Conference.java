@@ -47,6 +47,8 @@ public class Conference {
         return divisions.get(divisionName);
     }
 
+    public Map<String, Division> getDivisions() { return divisions; }
+
     public int getConferenceID() {
         return conferenceID;
     }

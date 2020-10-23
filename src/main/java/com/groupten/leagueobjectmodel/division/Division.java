@@ -31,6 +31,8 @@ public class Division {
         return teams.containsKey(teamName);
     }
 
+    public Map<String, Team> getTeams() { return teams; }
+
     public Team getTeam(String teamName) {
         return teams.get(teamName);
     }
