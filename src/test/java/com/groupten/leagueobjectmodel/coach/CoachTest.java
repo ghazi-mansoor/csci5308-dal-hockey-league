@@ -19,78 +19,78 @@ public class CoachTest {
 
     @Test
     public void getCoachIDTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         assertEquals(1, coach.getCoachID());
     }
 
     @Test
     public void setCoachIDTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         coach.setCoachID(1);
         assertEquals(1, coach.getCoachID());
     }
 
     @Test
     public void getCoachNameTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         assertEquals("First Coach", coach.getCoachName());
     }
 
     @Test
     public void setCoachNameTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         coach.setCoachName("Updated First Coach");
         assertEquals("Updated First Coach", coach.getCoachName());
     }
 
     @Test
     public void setSkatingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         assertEquals(0.5, coach.getSkating(), 0.0);
     }
 
     @Test
     public void getSkatingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         coach.setSkating(1.0);
         assertEquals(1.0, coach.getSkating(), 0.0);
     }
 
     @Test
     public void setShootingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         assertEquals(0.5, coach.getShooting(), 0.0);
     }
 
     @Test
     public void getShootingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         coach.setShooting(1.0);
         assertEquals(1.0, coach.getShooting(), 0.0);
     }
 
     @Test
     public void setCheckingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         assertEquals(0.5, coach.getChecking(), 0.0);
     }
 
     @Test
     public void getCheckingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         coach.setChecking(1.0);
         assertEquals(1.0, coach.getChecking(), 0.0);
     }
 
     @Test
     public void setSavingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         assertEquals(0.5, coach.getSaving(), 0.0);
     }
 
     @Test
     public void getSavingTest() {
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
         coach.setSaving(1.0);
         assertEquals(1.0, coach.getSaving(), 0.0);
     }

@@ -3,13 +3,15 @@ package com.groupten.leagueobjectmodel.generalmanager;
 public class GeneralManager {
     private int managerID;
     private String managerName;
+    private boolean isPartOfTeam;
 
-    public GeneralManager(String mN) {
+    public GeneralManager(String mN, boolean isPartOfTeam) {
         managerName = mN;
+        this.isPartOfTeam = isPartOfTeam;
     }
 
-    public GeneralManager(int mID, String mN) {
-        this(mN);
+    public GeneralManager(int mID, String mN, boolean isPartOfTeam) {
+        this(mN, isPartOfTeam);
         managerID = mID;
     }
 
@@ -36,4 +38,13 @@ public class GeneralManager {
     public void setManagerName(String mN) {
         managerName = mN;
     }
+
+    public boolean getManagerTeamStatus() {
+        return isPartOfTeam;
+    }
+
+    public void setManagerTeamStatus(boolean partOfTeam) {
+        isPartOfTeam = partOfTeam;
+    }
+
 }
