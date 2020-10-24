@@ -39,13 +39,20 @@ public class HockeySimulationApp {
 
                             if(createTeam.validateUserInput()){
                                 if(createTeam.ifConferenceAndDivisionExist()){
-                                    console.printLine("SUCCESS: Ready to add the team.\n");
-
-                                    if(createTeam.instantiateNewTeam()){
-                                        console.printLine("SUCCESS: We can now proceed to simulation.");
-                                        startSimulation = true;
+                                    if(createTeam.selectGeneralManager()){
+                                        if(createTeam.selectHeadCoach()){
+                                            console.printLine("SUCCESS: Ready to add the team.\n");
+                                            if(createTeam.instantiateNewTeam()){
+                                                console.printLine("SUCCESS: We can now proceed to simulation.");
+                                                startSimulation = true;
+                                            }else{
+                                                console.printLine("FAILURE: Could not create new team.");
+                                            }
+                                        }else{
+                                            console.printLine("FAILURE: Invalid Input. Please try again.");
+                                        }
                                     }else{
-                                        console.printLine("FAILURE: Could not create new team.");
+                                        console.printLine("FAILURE: Invalid Input. Please try again.");
                                     }
                                 }else{
                                     console.printLine("FAILURE: Conference or Division does not exist.");

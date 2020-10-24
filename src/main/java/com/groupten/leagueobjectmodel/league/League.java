@@ -229,4 +229,13 @@ public class League {
     public void setMaxPlayersPerTrade(int maxPPT) {
         maxPlayersPerTrade = maxPPT;
     }
+
+    public void removeGeneralManager(GeneralManager generalManager){
+        generalManagers.remove(generalManager);
+    }
+
+    public void removeCoach(Coach coach){
+        coaches.remove(coach);
+    }
+
 }

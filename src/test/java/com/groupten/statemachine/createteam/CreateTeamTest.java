@@ -5,6 +5,7 @@ import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.statemachine.json.JSON;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -16,8 +17,6 @@ public class CreateTeamTest {
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("XYZ");
         createTeam.setDivisionName("ABC");
-        createTeam.setGeneralManager("PQR");
-        createTeam.setHeadCoach("DEF");
         createTeam.setTeamName("LMO");
         assertTrue(createTeam.validateUserInput());
     }
@@ -54,13 +53,10 @@ public class CreateTeamTest {
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");
         createTeam.setDivisionName("Deep Division Division");
-        createTeam.setGeneralManager("Deep Test 1");
-        createTeam.setHeadCoach("Deep Test 2");
         createTeam.setTeamName("Deep Test 3");
 
         createTeam.ifConferenceAndDivisionExist();
 
         assertTrue(createTeam.instantiateNewTeam());
     }
-
 }
