@@ -251,4 +251,15 @@ public class CreateTeam implements ICreateTeam {
         this.teamName = teamName;
     }
 
+    public void setGeneralManager(GeneralManager generalManager) {
+        this.generalManager = generalManager;
+    }
+
+    public void setHeadCoach(Coach headCoach) {
+        this.headCoach = headCoach;
+    }
+
+    public void setFreeAgents(List<Player> freeAgents) {
+        this.freeAgents = freeAgents;
+    }
 }
