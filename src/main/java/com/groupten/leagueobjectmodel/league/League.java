@@ -114,6 +114,26 @@ public class League {
         return freeAgents;
     }
 
+    public List<Player> getFreeAgentsGoalies() {
+        List<Player> goalies = new ArrayList<>();
+        for(Player freeAgent : freeAgents){
+            if(freeAgent.getPosition().equals("goalie")){
+                goalies.add(freeAgent);
+            }
+        }
+        return goalies;
+    }
+
+    public List<Player> getFreeAgentsSkaters() {
+        List<Player> skaters = new ArrayList<>();
+        for(Player freeAgent : freeAgents){
+            if(freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")){
+                skaters.add(freeAgent);
+            }
+        }
+        return skaters;
+    }
+
     public List<GeneralManager> getGeneralManagers() {
         return generalManagers;
     }
@@ -236,6 +256,10 @@ public class League {
 
     public void removeCoach(Coach coach){
         coaches.remove(coach);
+    }
+
+    public void removeFreeAgent(Player player){
+        freeAgents.remove(player);
     }
 
 }

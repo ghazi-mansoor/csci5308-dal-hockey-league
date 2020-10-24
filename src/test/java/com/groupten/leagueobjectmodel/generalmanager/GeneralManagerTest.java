@@ -19,26 +19,26 @@ public class GeneralManagerTest {
 
     @Test
     public void getManagerIDTest() {
-        GeneralManager generalManager = new GeneralManager(1, "First General Manager", true);
+        GeneralManager generalManager = new GeneralManager(1, "First General Manager");
         assertEquals(1, generalManager.getManagerID());
     }
 
     @Test
     public void setManagerIDTest() {
-        GeneralManager generalManager = new GeneralManager("First General Manager", true);
+        GeneralManager generalManager = new GeneralManager("First General Manager");
         generalManager.setManagerID(1);
         assertEquals(1, generalManager.getManagerID());
     }
 
     @Test
     public void getManagerNameTest() {
-        GeneralManager generalManager = new GeneralManager(1, "First General Manager", true);
+        GeneralManager generalManager = new GeneralManager(1, "First General Manager");
         assertEquals("First General Manager", generalManager.getManagerName());
     }
 
     @Test
     public void setManagerNameTest() {
-        GeneralManager generalManager = new GeneralManager("First General Manager", true);
+        GeneralManager generalManager = new GeneralManager("First General Manager");
         generalManager.setManagerName("Updated First General Manager");
         assertEquals("Updated First General Manager", generalManager.getManagerName());
     }

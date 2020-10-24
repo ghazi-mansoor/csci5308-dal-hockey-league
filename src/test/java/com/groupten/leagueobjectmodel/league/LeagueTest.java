@@ -24,7 +24,7 @@ public class LeagueTest {
     public void addCoachTest() {
         League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
         assertTrue(league.addCoach(coach));
     }
 
@@ -32,7 +32,7 @@ public class LeagueTest {
     public void addGeneralManagerTest() {
         League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
-        GeneralManager generalManager = new GeneralManager(1, "First General Manager", true);
+        GeneralManager generalManager = new GeneralManager(1, "First General Manager");
         assertTrue(league.addGeneralManager(generalManager));
     }
 
@@ -90,9 +90,9 @@ public class LeagueTest {
     public void getCoachesTest() {
         League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
-        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5, true);
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
         league.addCoach(coach);
-        coach = new Coach(2, "Second Coach", 0.5, 0.5, 0.5, 0.5, true);
+        coach = new Coach(2, "Second Coach", 0.5, 0.5, 0.5, 0.5);
         league.addCoach(coach);
         assertEquals(2, league.getCoaches().size());
     }
@@ -112,9 +112,9 @@ public class LeagueTest {
     public void getGeneralManagersTest() {
         League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
-        GeneralManager generalManager = new GeneralManager(1, "First General Manager", true);
+        GeneralManager generalManager = new GeneralManager(1, "First General Manager");
         league.addGeneralManager(generalManager);
-        generalManager = new GeneralManager(2, "Second General Manager", false);
+        generalManager = new GeneralManager(2, "Second General Manager");
         league.addGeneralManager(generalManager);
         assertEquals(2, league.getGeneralManagers().size());
     }

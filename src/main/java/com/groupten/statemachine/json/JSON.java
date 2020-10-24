@@ -53,7 +53,7 @@ public class JSON implements IJSON {
     public boolean instantiateJSONData(){
 
         boolean leagueAdded = false, conferenceAdded = false, divisionAdded = false, teamAdded = false,
-                managerAdded = false, coachAdded = false, playerAdded = false, isPartOfTeam = true;
+                managerAdded = false, coachAdded = false, playerAdded = false;
 
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         League leagueLOM;
@@ -124,8 +124,8 @@ public class JSON implements IJSON {
                     players = (JsonArray) team.get("players");
 
                     teamLOM = new Team(teamName);
-                    managerLOM = new GeneralManager(generalManager, isPartOfTeam);
-                    coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving, isPartOfTeam);
+                    managerLOM = new GeneralManager(generalManager);
+                    coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
                     if(teamLOM.setGeneralManager(managerLOM)){
                         managerAdded = true;
@@ -209,7 +209,7 @@ public class JSON implements IJSON {
             double coachChecking = coach.get("checking").getAsDouble();
             double coachSaving = coach.get("saving").getAsDouble();
 
-            coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving, !isPartOfTeam);
+            coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
             if(leagueLOM.addCoach(coachLOM)){
                 coachAdded = true;
@@ -223,7 +223,7 @@ public class JSON implements IJSON {
         for(int i = 0; i < generalManagers.size(); i++) {
             String generalManager = generalManagers.get(i).getAsString();
 
-            managerLOM = new GeneralManager(generalManager, !isPartOfTeam);
+            managerLOM = new GeneralManager(generalManager);
 
             if(leagueLOM.addGeneralManager(managerLOM)){
                 managerAdded = true;

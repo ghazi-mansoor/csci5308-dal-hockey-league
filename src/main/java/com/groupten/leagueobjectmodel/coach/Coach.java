@@ -11,9 +11,8 @@ public class Coach {
     private double shooting;
     private double checking;
     private double saving;
-    private boolean isPartOfTeam;
 
-    public Coach(String n, double sk, double sh, double ch, double sa, boolean isPartOfTeam) {
+    public Coach(String n, double sk, double sh, double ch, double sa) {
         coachName = n;
         skating = sk;
         shooting = sh;
@@ -21,8 +20,8 @@ public class Coach {
         saving = sa;
     }
 
-    public Coach(int cID, String cN, double sk, double sh, double ch, double sa, boolean isPartOfTeam) {
-        this(cN, sk, sh, ch, sa, isPartOfTeam);
+    public Coach(int cID, String cN, double sk, double sh, double ch, double sa) {
+        this(cN, sk, sh, ch, sa);
         coachID = cID;
     }
 
@@ -95,13 +94,4 @@ public class Coach {
     public void setSaving(double sa) {
         saving = sa;
     }
-
-    public boolean getCoachTeamStatus() {
-        return isPartOfTeam;
-    }
-
-    public void setCoachTeamStatus(boolean partOfTeam) {
-        isPartOfTeam = partOfTeam;
-    }
-
 }

@@ -82,7 +82,7 @@ public class TeamTest {
     @Test
     public void setGeneralManagerTest() {
         Team team  = new Team("First Team");
-        GeneralManager generalManager = new GeneralManager("Manager", true);
+        GeneralManager generalManager = new GeneralManager("Manager");
         team.setGeneralManager(generalManager);
         assertEquals("Manager", team.getGeneralManager().getManagerName());
     }
@@ -90,7 +90,7 @@ public class TeamTest {
     @Test
     public void getGeneralManagerTest() {
         Team team  = new Team("First Team");
-        GeneralManager generalManager = new GeneralManager("Manager", true);
+        GeneralManager generalManager = new GeneralManager("Manager");
         team.setGeneralManager(generalManager);
         assertEquals("Manager", team.getGeneralManager().getManagerName());
     }
@@ -98,7 +98,7 @@ public class TeamTest {
     @Test
     public void setHeadCoachTest() {
         Team team  = new Team("First Team");
-        Coach coach = new Coach("Coach", 0.5, 0.5, 0.5, 0.5, true);
+        Coach coach = new Coach("Coach", 0.5, 0.5, 0.5, 0.5);
         team.setHeadCoach(coach);
         assertEquals("Coach", team.getHeadCoach().getCoachName());
     }
@@ -106,7 +106,7 @@ public class TeamTest {
     @Test
     public void getHeadCoachTest() {
         Team team  = new Team("First Team");
-        Coach coach = new Coach("Coach", 0.5, 0.5, 0.5, 0.5, true);
+        Coach coach = new Coach("Coach", 0.5, 0.5, 0.5, 0.5);
         team.setHeadCoach(coach);
         assertEquals("Coach", team.getHeadCoach().getCoachName());
     }

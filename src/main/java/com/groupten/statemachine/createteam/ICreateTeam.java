@@ -5,9 +5,10 @@ public interface ICreateTeam {
     void userPromptForNewTeam();
     boolean validateUserInput();
     boolean ifConferenceAndDivisionExist();
-    boolean selectGeneralManager();
-    boolean selectHeadCoach();
-    boolean selectTeamPlayer();
+    boolean selectTeamGeneralManager();
+    boolean selectTeamHeadCoach();
+    boolean selectTeamGoalies();
+    boolean selectTeamSkaters();
     boolean instantiateNewTeam();
 
 }
