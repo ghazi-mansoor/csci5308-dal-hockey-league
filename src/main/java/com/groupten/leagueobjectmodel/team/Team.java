@@ -26,12 +26,12 @@ public class Team {
     }
 
     public boolean addPlayer(Player player) {
-        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
-                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+        if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = players.size();
             players.add(player);
             return players.size() > initialSize;
-        }else{
+        } else{
             return false;
         }
     }
@@ -79,7 +79,7 @@ public class Team {
     }
 
     public boolean setGeneralManager(GeneralManager generalManager) {
-        if(GeneralManager.isManagerNameValid(generalManager.getManagerName())){
+        if (GeneralManager.isManagerNameValid(generalManager.getManagerName())) {
             this.generalManager = generalManager;
             return true;
         }else{
@@ -92,7 +92,7 @@ public class Team {
     }
 
     public boolean setHeadCoach(Coach headCoach) {
-        if(Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())){
+        if (Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())) {
             this.headCoach = headCoach;
             return true;
         }else{
