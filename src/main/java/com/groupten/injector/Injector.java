@@ -1,15 +1,15 @@
 package com.groupten.injector;
 
-import com.groupten.jdbc.conference.ConferenceDAO;
-import com.groupten.jdbc.conference.IConferenceDAO;
-import com.groupten.jdbc.division.DivisionDAO;
-import com.groupten.jdbc.division.IDivisionDAO;
-import com.groupten.jdbc.league.LeagueDAO;
-import com.groupten.jdbc.league.ILeagueDAO;
-import com.groupten.jdbc.player.PlayerDAO;
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.TeamDAO;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.database.ConferenceDAO;
+import com.groupten.dao.IConferenceDAO;
+import com.groupten.dao.database.DivisionDAO;
+import com.groupten.dao.IDivisionDAO;
+import com.groupten.dao.database.LeagueDAO;
+import com.groupten.dao.ILeagueDAO;
+import com.groupten.dao.database.PlayerDAO;
+import com.groupten.dao.IPlayerDAO;
+import com.groupten.dao.database.TeamDAO;
+import com.groupten.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.Console;

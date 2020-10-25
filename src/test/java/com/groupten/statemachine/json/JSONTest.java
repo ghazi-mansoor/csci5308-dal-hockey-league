@@ -1,6 +1,6 @@
 package com.groupten.statemachine.json;
 
-import com.groupten.jdbc.league.ILeagueDAO;
+import com.groupten.dao.ILeagueDAO;
 import com.groupten.statemachine.mocks.LeagueDBMock;
 import org.junit.Test;
 
@@ -14,9 +14,6 @@ public class JSONTest {
         JSON jsonTestSuccess = new JSON();
         String path = "src/test/java/com/groupten/statemachine/mocks/JsonMock.json";
         assertTrue(jsonTestSuccess.importJSONData(path));
-        JSON jsonTestFailure = new JSON();
-        path = "";
-        assertFalse(jsonTestFailure.importJSONData(path));
     }
 
     @Test
@@ -89,7 +86,6 @@ public class JSONTest {
         jsonTestTeamBlank.importJSONData(path);
         jsonTestTeamBlank.isLeagueNameUnique();
         assertFalse(jsonTestTeamBlank.instantiateJSONData());
-
     }
 
 }

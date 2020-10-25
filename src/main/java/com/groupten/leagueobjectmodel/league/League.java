@@ -18,8 +18,8 @@ public class League {
     private List<Coach> coaches = new ArrayList<>();
     private List<GeneralManager> generalManagers = new ArrayList<>();
 
-    private double averageRetirementAge;
-    private double maximumAge;
+    private int averageRetirementAge;
+    private int maximumAge;
     private double randomWinChance;
     private double randomInjuryChance;
     private int injuryDaysLow;
@@ -34,7 +34,11 @@ public class League {
         leagueName = lN;
     }
 
+<<<<<<< HEAD
     public League(String lN, double avgRA, double mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
+=======
+    public League(String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
+>>>>>>> develop
     , double randTOC, int maxPPT, double randAC) {
         this(lN);
         averageRetirementAge = avgRA;
@@ -50,24 +54,32 @@ public class League {
         randomAcceptanceChance = randAC;
     }
 
-    public League(int lID, String lN, double avgRA, double mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
+    public League(int lID, String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
             ,double randTOC, int maxPPT, double randAC) {
         this(lN, avgRA, mA, randWC, randIC, iDL, iDH, daysUSIC, lP, randTOC, maxPPT, randAC);
         leagueID = lID;
     }
 
     public boolean addConference(Conference conference) {
-        String conferenceName = conference.getConferenceName();
-        int initialSize = conferences.size();
-        conferences.put(conferenceName, conference);
-
-        return conferences.size() > initialSize;
+        if(Conference.isConferenceNameValid(conference.getConferenceName())){
+            String conferenceName = conference.getConferenceName();
+            int initialSize = conferences.size();
+            conferences.put(conferenceName, conference);
+            return conferences.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean addFreeAgent(Player player) {
-        int initialSize = freeAgents.size();
-        freeAgents.add(player);
-        return freeAgents.size() > initialSize;
+        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+            int initialSize = freeAgents.size();
+            freeAgents.add(player);
+            return freeAgents.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean addCoach(Coach coach) {
@@ -106,6 +118,26 @@ public class League {
         return freeAgents;
     }
 
+    public List<Player> getFreeAgentsGoalies() {
+        List<Player> goalies = new ArrayList<>();
+        for(Player freeAgent : freeAgents){
+            if(freeAgent.getPosition().equals("goalie")){
+                goalies.add(freeAgent);
+            }
+        }
+        return goalies;
+    }
+
+    public List<Player> getFreeAgentsSkaters() {
+        List<Player> skaters = new ArrayList<>();
+        for(Player freeAgent : freeAgents){
+            if(freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")){
+                skaters.add(freeAgent);
+            }
+        }
+        return skaters;
+    }
+
     public List<GeneralManager> getGeneralManagers() {
         return generalManagers;
     }
@@ -138,7 +170,7 @@ public class League {
         return averageRetirementAge;
     }
 
-    public void setAverageRetirementAge(double avgRA) {
+    public void setAverageRetirementAge(int avgRA) {
         averageRetirementAge = avgRA;
     }
 
@@ -146,7 +178,7 @@ public class League {
         return maximumAge;
     }
 
-    public void setMaximumAge(double mA) {
+    public void setMaximumAge(int mA) {
         maximumAge = mA;
     }
 
@@ -221,4 +253,17 @@ public class League {
     public void setMaxPlayersPerTrade(int maxPPT) {
         maxPlayersPerTrade = maxPPT;
     }
+
+    public void removeGeneralManager(GeneralManager generalManager){
+        generalManagers.remove(generalManager);
+    }
+
+    public void removeCoach(Coach coach){
+        coaches.remove(coach);
+    }
+
+    public void removeFreeAgent(Player player){
+        freeAgents.remove(player);
+    }
+
 }

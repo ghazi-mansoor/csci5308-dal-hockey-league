@@ -9,13 +9,13 @@ public class Player {
     private String playerName;
     private String position;
     private boolean captain;
-    private double age;
-    private double skating;
-    private double shooting;
-    private double checking;
-    private double saving;
+    private int age;
+    private int skating;
+    private int shooting;
+    private int checking;
+    private int saving;
 
-    public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
+    public Player(String pN, String pos, int a, int sk, int sh, int ch, int sa) {
         playerName = pN;
         position = pos;
         age = a;
@@ -25,22 +25,22 @@ public class Player {
         saving = sa;
     }
 
-    public Player(int pID, String pN, String pos, double a, double sk, double sh, double ch, double sa) {
+    public Player(int pID, String pN, String pos, int a, int sk, int sh, int ch, int sa) {
         this(pN, pos, a, sk, sh, ch, sa);
         playerID = pID;
     }
 
-    public Player(String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
+    public Player(String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
         this(pN, pos, a, sk, sh, ch, sa);
         captain = cap;
     }
 
-    public Player(int pID, String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
+    public Player(int pID, String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
         this(pN, pos, cap, a, sk, sh, ch, sa);
         playerID = pID;
     }
 
-    public static boolean arePlayerFieldsValid(String pN, String pos, double sk, double sh, double ch, double sa) {
+    public static boolean arePlayerFieldsValid(String pN, String pos, int sk, int sh, int ch, int sa) {
         return isPlayerNameValid(pN) && isPositionValid(pos) && areStatsValid(sk, sh, ch, sa);
     }
 
@@ -57,11 +57,11 @@ public class Player {
         return positionLowerCased.equals("goalie") || positionLowerCased.equals("forward") || positionLowerCased.equals("defense");
     }
 
-    private static boolean areStatsValid(double ...args) {
+    private static boolean areStatsValid(int ...args) {
         List<Boolean> validChecks = new ArrayList<>();
 
-         for (double stat : args) {
-             validChecks.add(stat >= 1.0 && stat <= 20.0);
+         for (int stat : args) {
+             validChecks.add(stat >= 1 && stat <= 20);
          }
 
          return Collections.frequency(validChecks, false) == 0;
@@ -99,43 +99,43 @@ public class Player {
         captain = cap;
     }
 
-    public double getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(double a) {
+    public void setAge(int a) {
         age = a;
     }
 
-    public double getSkating() {
+    public int getSkating() {
         return skating;
     }
 
-    public void setSkating(double sk) {
+    public void setSkating(int sk) {
         skating = sk;
     }
 
-    public double getShooting() {
+    public int getShooting() {
         return shooting;
     }
 
-    public void setShooting(double sh) {
+    public void setShooting(int sh) {
         shooting = sh;
     }
 
-    public double getChecking() {
+    public int getChecking() {
         return checking;
     }
 
-    public void setChecking(double ch) {
+    public void setChecking(int ch) {
         checking = ch;
     }
 
-    public double getSaving() {
+    public int getSaving() {
         return saving;
     }
 
-    public void setSaving(double s) {
+    public void setSaving(int s) {
         saving = s;
     }
 }

@@ -1,6 +1,6 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.statemachine.console.IConsole;
 import com.groupten.injector.Injector;
@@ -47,7 +47,7 @@ public class LoadTeam implements ILoadTeam {
     @Override
     public boolean loadExistingLeague() {
         LeagueModel leagueModel = new LeagueModel();
-        return leagueModel.loadLeagueFromDB(leagueID);
+        return leagueModel.loadLeague(leagueID);
     }
 
     public void setTeamName(String teamName) {
