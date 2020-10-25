@@ -34,11 +34,7 @@ public class League {
         leagueName = lN;
     }
 
-<<<<<<< HEAD
-    public League(String lN, double avgRA, double mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
-=======
     public League(String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
->>>>>>> develop
     , double randTOC, int maxPPT, double randAC) {
         this(lN);
         averageRetirementAge = avgRA;
