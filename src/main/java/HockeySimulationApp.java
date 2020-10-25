@@ -104,13 +104,6 @@ public class HockeySimulationApp {
 
             for(int i = 1; i <= numberOfSeasons; i++){
                 console.printLine("Season " + i);
-                simulation.beginSimulation();
-                simulation.fakeState_1();
-                simulation.fakeState_2();
-                simulation.simulate();
-                simulation.fakeState_3();
-                simulation.fakeState_4();
-                simulation.endSimulation();
                 console.printLine("\n");
             }
         }
