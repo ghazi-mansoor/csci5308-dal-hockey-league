@@ -3,32 +3,34 @@ package com.groupten.leagueobjectmodel.season;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Season {
-    private Calendar currentDate;
-    private Map<Integer,TeamStanding> teamStandings;
+
+    private Calendar currentDate = Calendar.getInstance();
+    private Map<Integer,TeamStanding> teamStandings  = new HashMap<Integer, TeamStanding>();;
 
     public Season(){
-        currentDate = Calendar.getInstance();
-        teamStandings = new HashMap<Integer, TeamStanding>();
+        Date today = new Date();
+        Calendar now = Calendar.getInstance();
+        now.setTime(today);
+        this.currentDate.set(now.get(Calendar.YEAR), Calendar.SEPTEMBER,30);
     }
 
     public Calendar getCurrentDate() {
         return currentDate;
     }
 
-    public void setCurrentDate(Calendar currentDate) {
-        this.currentDate = currentDate;
+    public boolean addTeamStanding(int teamId, TeamStanding teamStanding) {
+        if(teamStandings.containsKey(teamId)){
+            return false;
+        }else{
+            teamStandings.put(teamId,teamStanding);
+            return true;
+        }
     }
 
     public Map<Integer,TeamStanding> getTeamStandings() {
         return teamStandings;
-    }
-
-    public void setTeamStandings(Map<Integer,TeamStanding> teamStandings) {
-        this.teamStandings = teamStandings;
     }
 
     public void advanceTime(){
@@ -45,35 +47,13 @@ public class Season {
     private void updateRanks(){
         TreeMap<Integer, TeamStanding> sortedTeamStandings = new TreeMap<>(teamStandings);
 
-        for(int i=0;i< sortedTeamStandings.size(); i++){
-            TeamStanding teamStanding = sortedTeamStandings.get(i);
-            teamStanding.setLeagueRank(i+1);
-        }
-
-        List<Integer> conferenceTeamIds = new ArrayList<>();
-        //ToDo Populate conferenceTeamIds
-        Map<Integer,TeamStanding> conferenceTeamStandings = conferenceTeamIds.stream()
-                .filter(teamStandings::containsKey)
-                .collect(Collectors.toMap(Function.identity(), teamStandings::get));
-
-        TreeMap<Integer, TeamStanding> sortedConferenceTeamStandings = new TreeMap<>(teamStandings);
-
-        for(int i=0;i< sortedConferenceTeamStandings.size(); i++){
-            TeamStanding teamStanding = sortedConferenceTeamStandings.get(i);
-            teamStanding.setLeagueRank(i+1);
-        }
-
-        List<Integer> divisionTeamIds = new ArrayList<>();
-        //ToDo Populate divisionTeamIds
-        Map<Integer,TeamStanding> divisionTeamStandings = divisionTeamIds.stream()
-                .filter(teamStandings::containsKey)
-                .collect(Collectors.toMap(Function.identity(), teamStandings::get));
-
-        TreeMap<Integer, TeamStanding> sortedDivisionTeamStandings = new TreeMap<>(teamStandings);
-
-        for(int i=0;i< sortedDivisionTeamStandings.size(); i++){
-            TeamStanding teamStanding = sortedDivisionTeamStandings.get(i);
-            teamStanding.setLeagueRank(i+1);
+        Iterator iterator = sortedTeamStandings.entrySet().iterator();
+        int i = 1;
+        while(iterator.hasNext()){
+            Map.Entry me = (Map.Entry) iterator.next();
+            TeamStanding teamStanding = (TeamStanding) me.getValue();
+            teamStanding.setLeagueRank(i);
+            i++;
         }
     }
 }
