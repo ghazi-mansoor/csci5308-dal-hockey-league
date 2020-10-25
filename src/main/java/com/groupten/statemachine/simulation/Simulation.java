@@ -10,11 +10,12 @@ public class Simulation implements ISimulation {
     private IConsole console;
 
     @Override
-    public void init(){
+    public boolean init(){
         Calendar currentDate = Calendar.getInstance();
         currentDate.set(Calendar.YEAR, Calendar.SEPTEMBER,30);
 
         season.setCurrentDate(currentDate);
         season.advanceTime();
+        return true;
     }
 }
