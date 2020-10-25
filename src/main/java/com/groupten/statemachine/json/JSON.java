@@ -144,11 +144,11 @@ public class JSON implements IJSON {
                         String playerName = teamPlayer.get("playerName").getAsString();
                         String position = teamPlayer.get("position").getAsString();
                         boolean captain = teamPlayer.get("captain").getAsBoolean();
-                        int playerAge = teamPlayer.get("age").getAsInt();
-                        int playerSkating = teamPlayer.get("skating").getAsInt();
-                        int playerShooting = teamPlayer.get("shooting").getAsInt();
-                        int playerChecking = teamPlayer.get("checking").getAsInt();
-                        int playerSaving = teamPlayer.get("saving").getAsInt();
+                        double playerAge = teamPlayer.get("age").getAsDouble();
+                        double playerSkating = teamPlayer.get("skating").getAsDouble();
+                        double playerShooting = teamPlayer.get("shooting").getAsDouble();
+                        double playerChecking = teamPlayer.get("checking").getAsDouble();
+                        double playerSaving = teamPlayer.get("saving").getAsDouble();
 
                         playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
@@ -184,11 +184,11 @@ public class JSON implements IJSON {
             freeAgent = (JsonObject) freeAgents.get(i);
             String playerName = freeAgent.get("playerName").getAsString();
             String position = freeAgent.get("position").getAsString();
-            int playerAge = freeAgent.get("age").getAsInt();
-            int playerSkating = freeAgent.get("skating").getAsInt();
-            int playerShooting = freeAgent.get("shooting").getAsInt();
-            int playerChecking = freeAgent.get("checking").getAsInt();
-            int playerSaving = freeAgent.get("saving").getAsInt();
+            double playerAge = freeAgent.get("age").getAsDouble();
+            double playerSkating = freeAgent.get("skating").getAsDouble();
+            double playerShooting = freeAgent.get("shooting").getAsDouble();
+            double playerChecking = freeAgent.get("checking").getAsDouble();
+            double playerSaving = freeAgent.get("saving").getAsDouble();
 
             playerLOM = new Player(playerName, position, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
