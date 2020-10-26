@@ -1,8 +1,13 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.Team;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LeagueModel implements ILeagueModel {
@@ -14,7 +19,7 @@ public class LeagueModel implements ILeagueModel {
 
     @Override
     public boolean addLeague(League league) {
-        if(League.isLeagueNameValid(league.getLeagueName())){
+        if (League.isLeagueNameValid(league.getLeagueName())) {
             String leagueName = league.getLeagueName();
             int initialSize = leagues.size();
             leagues.put(leagueName, league);

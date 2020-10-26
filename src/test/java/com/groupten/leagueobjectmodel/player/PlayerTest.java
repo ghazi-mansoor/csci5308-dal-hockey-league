@@ -22,10 +22,13 @@ public class PlayerTest {
     }
 
     @Test
-    public void increasePlayerAgeTest() {
+    public void increaseAgeAndCheckIfPlayerShouldRetire() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        player.increaseAge();
-        assertEquals(20.0 + (1.0 / 365.0), player.getAge(), 0.0);
+        assertFalse(player.increaseAgeAndCheckIfPlayerShouldBeRetired(1));
+        player = new Player(2, "Second Player", "goalie", false, 50.0, 5.0, 5.0, 5.0, 5.0);
+        assertTrue(player.increaseAgeAndCheckIfPlayerShouldBeRetired(10));
+        player = new Player(3, "Third Player", "goalie", false, 43, 5.0, 5.0, 5.0, 5.0);
+        assertTrue(player.increaseAgeAndCheckIfPlayerShouldBeRetired(365));
     }
 
     @Test
