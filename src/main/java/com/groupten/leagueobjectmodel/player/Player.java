@@ -15,6 +15,9 @@ public class Player {
     private double checking;
     private double saving;
 
+    private final double gameConfigAverageRetirementAge = 35.0;
+    private final double gameConfigMaxRetirementAge = 50.0;
+
     public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
         playerName = pN;
         position = pos;
@@ -40,8 +43,24 @@ public class Player {
         playerID = pID;
     }
 
-    public void increaseAge() {
-        age += (1.0 / 365.0);
+    public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
+        age += (days / 365.0);
+        return shouldPlayerBeRetired();
+    }
+
+    private boolean shouldPlayerBeRetired() {
+        double probabilityOfRetirement = calculateProbabilityOfRetirement();
+        return age > gameConfigMaxRetirementAge || probabilityOfRetirement > 70;
+    }
+
+    private double calculateProbabilityOfRetirement() {
+        double probability;
+        if (age <= gameConfigAverageRetirementAge) {
+            probability = 0.8571 * age;
+        } else {
+            probability = 4.6666 * age - 133.3;
+        }
+        return probability;
     }
 
     public static boolean arePlayerFieldsValid(String pN, String pos, double sk, double sh, double ch, double sa) {
@@ -141,5 +160,23 @@ public class Player {
 
     public void setSaving(double s) {
         saving = s;
+    }
+
+    public double calculateStrength(String position) {
+        double strength = 0.0;
+
+        switch (position) {
+            case "forward":
+                strength = skating + shooting + (checking / 2);
+                break;
+            case "defense":
+                strength = skating + shooting + (shooting / 2);
+                break;
+            case "goalie":
+                strength = skating + saving;
+                break;
+        }
+
+        return strength;
     }
 }
