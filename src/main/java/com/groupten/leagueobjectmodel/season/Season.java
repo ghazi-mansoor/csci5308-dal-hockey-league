@@ -1,11 +1,11 @@
 package com.groupten.leagueobjectmodel.season;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Season {
@@ -107,11 +107,15 @@ public class Season {
         updateRanks();
     }
 
-    public void generateSchedule(){
-//        ToDo populate regularSchedule
-//        ToDo populate playoffSchedule
+    public void generateRegularSchedule(){
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        League leagueLOM = leagueModel.getCurrentLeague();
+        System.out.println(leagueLOM.toString());
     }
 
+    public void generatePlayoffSchedule(){
+//        ToDo populate playoffSchedule
+    }
 
     private void updateRanks(){
         TreeMap<String, TeamStanding> sortedTeamStandings = new TreeMap<>(teamStandings);
