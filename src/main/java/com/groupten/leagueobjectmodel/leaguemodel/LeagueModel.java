@@ -6,55 +6,38 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class LeagueModel implements ILeagueModel {
-    private final Map<String, League> leagues;
+    private League currentLeague;
 
-    public LeagueModel() {
-        leagues = new HashMap<>();
+    @Override
+    public boolean loadLeague(int leagueID) {
+        // TODO: Load league, conferences, divisions, teams, and players from DB via league's ID
+        return true;
     }
 
     @Override
-    public boolean addLeague(League league) {
-        if (League.isLeagueNameValid(league.getLeagueName())) {
-            String leagueName = league.getLeagueName();
-            int initialSize = leagues.size();
-            leagues.put(leagueName, league);
-
-            return leagues.size() > initialSize;
-        }else{
-            return false;
-        }
+    public boolean loadLeague(String teamName) {
+        // TODO: Load league, conferences, divisions, teams, and players from DB via team's name
+        return true;
     }
 
     @Override
-    public boolean containsLeague(String leagueName) {
-        return leagues.containsKey(leagueName);
-    }
-
-    @Override
-    public boolean loadLeague(int leagueID) { return true; }
-
-    @Override
-    public void saveLeagueModel() {
-        // Save league model via persistence API(s)
-    }
-
-    @Override
-    public League getLeague(String leagueName) {
-        return leagues.get(leagueName);
+    public void saveLeague() {
+        // TODO: Save current league, conferences, divisions, teams, and players to DB
     }
 
     @Override
     public League getCurrentLeague() {
-        return (League) leagues.values().toArray()[0];
+        return currentLeague;
     }
 
-    public Map<String, League> getLeagues() {
-        return leagues;
+    @Override
+    public boolean setCurrentLeague(League currentLeague) {
+        if (League.isLeagueNameValid(currentLeague.getLeagueName())) {
+            this.currentLeague = currentLeague;
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }

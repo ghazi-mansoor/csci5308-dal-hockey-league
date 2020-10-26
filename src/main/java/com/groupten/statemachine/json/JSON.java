@@ -232,7 +232,7 @@ public class JSON implements IJSON {
             }
         }
 
-        if(leagueModel.addLeague(leagueLOM)){
+        if(leagueModel.setCurrentLeague(leagueLOM)){
             leagueAdded = true;
         }else{
             return false;

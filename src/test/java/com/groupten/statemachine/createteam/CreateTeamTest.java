@@ -36,7 +36,7 @@ public class CreateTeamTest {
         Division division = new Division("Deep Division Division");
         conference.addDivision(division);
         league.addConference(conference);
-        leagueModel.addLeague(league);
+        leagueModel.setCurrentLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");
@@ -56,7 +56,7 @@ public class CreateTeamTest {
         Division division = new Division("Deep Division Division");
         conference.addDivision(division);
         league.addConference(conference);
-        leagueModel.addLeague(league);
+        leagueModel.setCurrentLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");

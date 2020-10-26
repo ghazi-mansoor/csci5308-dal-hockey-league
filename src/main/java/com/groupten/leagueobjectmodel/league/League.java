@@ -57,12 +57,12 @@ public class League {
     }
 
     public boolean addConference(Conference conference) {
-        if(Conference.isConferenceNameValid(conference.getConferenceName())){
+        if (Conference.isConferenceNameValid(conference.getConferenceName())){
             String conferenceName = conference.getConferenceName();
             int initialSize = conferences.size();
             conferences.put(conferenceName, conference);
             return conferences.size() > initialSize;
-        }else{
+        } else{
             return false;
         }
     }
