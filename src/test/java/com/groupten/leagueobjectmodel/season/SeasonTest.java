@@ -3,6 +3,8 @@ package com.groupten.leagueobjectmodel.season;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,63 +15,78 @@ public class SeasonTest {
 
     @Test
     public void getCurrentDateTest(){
-        Season season = new Season();
-        Calendar currentDate = season.getCurrentDate();
+        Season season = new Season(2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("30/09/2020", dateFormat.format(season.getCurrentDate()));
+    }
 
-        Date today = new Date();
-        Calendar now = Calendar.getInstance();
-        now.setTime(today);
+    @Test
+    public void getRegularSeasonStartsAtTest(){
+        Season season = new Season(2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("01/10/2020", dateFormat.format(season.getRegularSeasonStartsAt()));
+    }
 
-        Calendar expected = Calendar.getInstance();
-        expected.set(now.get(Calendar.YEAR), Calendar.SEPTEMBER,30);
+    @Test
+    public void getTradeEndsAtTest(){
+        Season season = new Season(2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("22/02/2021", dateFormat.format(season.getTradeEndsAt()));
+    }
 
-        assertEquals(expected.get(Calendar.YEAR), currentDate.get(Calendar.YEAR));
-        assertEquals(expected.get(Calendar.MONTH), currentDate.get(Calendar.MONTH));
-        assertEquals(expected.get(Calendar.DATE), currentDate.get(Calendar.DATE));
+    @Test
+    public void getRegularSeasonEndsAtTest(){
+        Season season = new Season(2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("03/04/2021", dateFormat.format(season.getRegularSeasonEndsAt()));
+    }
+
+    @Test
+    public void getPlayoffStartsAtTest(){
+        Season season = new Season(2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("14/04/2021", dateFormat.format(season.getPlayoffStartsAt()));
+    }
+
+    @Test
+    public void getPlayoffEndsByTest(){
+        Season season = new Season(2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("01/06/2021", dateFormat.format(season.getPlayoffEndsBy()));
     }
 
     @Test
     public void addTeamStandingTest(){
-        int teamId = 1;
+        String teamName = "A";
         TeamStanding teamStanding= new TeamStanding();
 
         Season season = new Season();
-        assertTrue(season.addTeamStanding(teamId,teamStanding));
+        assertTrue(season.addTeamStanding(teamName,teamStanding));
     }
 
     @Test
     public void getTeamStandingsTest(){
         Season season = new Season();
-        season.addTeamStanding(1,new TeamStanding());
-        season.addTeamStanding(2,new TeamStanding());
+        season.addTeamStanding("A",new TeamStanding());
+        season.addTeamStanding("B",new TeamStanding());
         assertEquals(2, season.getTeamStandings().size());
     }
 
     @Test
     public void advanceTimeTest(){
-        Date today = new Date();
-        Calendar now = Calendar.getInstance();
-        now.setTime(today);
-
-        Calendar expected = Calendar.getInstance();
-        expected.set(now.get(Calendar.YEAR), Calendar.OCTOBER,1);
-
-        Season season = new Season();
+        Season season = new Season(2020);
         season.advanceTime();
-        Calendar currentDate = season.getCurrentDate();
-
-        assertEquals(expected.get(Calendar.YEAR), currentDate.get(Calendar.YEAR));
-        assertEquals(expected.get(Calendar.MONTH), currentDate.get(Calendar.MONTH));
-        assertEquals(expected.get(Calendar.DATE), currentDate.get(Calendar.DATE));
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("01/10/2020", dateFormat.format(season.getCurrentDate()));
     }
 
     @Test
     public void recordWinTest(){
         Season season = new Season();
-        season.addTeamStanding(1,new TeamStanding());
-        season.addTeamStanding(2,new TeamStanding());
-        season.recordWin(1);
+        season.addTeamStanding("A",new TeamStanding());
+        season.addTeamStanding("B",new TeamStanding());
+        season.recordWin("A");
 
-        assertEquals(2, season.getTeamStandings().get((Integer) 1).getPoints());
+        assertEquals(2, season.getTeamStandings().get("A").getPoints());
     }
 }
