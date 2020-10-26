@@ -1,39 +1,38 @@
 package com.groupten.leagueobjectmodel.schedule;
 
 import java.util.Date;
+import java.util.HashSet;
 
 public class Schedule {
     private Date gameDate;
-    private String teamName1;
-    private String  teamName2;
+    private HashSet<String> teamNames = new HashSet<>();
 
-    public Schedule(Date gameDate, String teamName1, String  teamName2) {
-        this.gameDate = gameDate;
-        this.teamName1 = teamName1;
-        this.teamName2 = teamName2;
+    public Schedule(){
+        gameDate = null;
     }
 
-    public Date getGameDate() {
-        return gameDate;
+    public Schedule(Date date){
+        gameDate = new Date();
     }
 
     public void setGameDate(Date gameDate) {
         this.gameDate = gameDate;
     }
 
-    public String getTeamName1() {
-        return teamName1;
+    public Date getGameDate() {
+        return gameDate;
     }
 
-    public void setTeamName1(String teamName1) {
-        this.teamName1 = teamName1;
+    public boolean addTeamName(String teamName){
+        if(teamNames.size() <=2){
+            teamNames.add(teamName);
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public String getTeamName2() {
-        return teamName2;
-    }
-
-    public void setTeamName2(String teamName2) {
-        this.teamName2 = teamName2;
+    public HashSet<String> getTeamNames() {
+        return teamNames;
     }
 }

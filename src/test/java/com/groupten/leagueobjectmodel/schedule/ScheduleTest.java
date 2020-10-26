@@ -3,6 +3,9 @@ package com.groupten.leagueobjectmodel.schedule;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ScheduleTest {
@@ -10,46 +13,32 @@ public class ScheduleTest {
     @Test
     public void getGameDateTest() {
         Date date = new Date();
-        Schedule schedule = new Schedule(date,"Team1", "Team2");
-        assertEquals(date,schedule.getGameDate());
+        Schedule schedule = new Schedule(date);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        assertEquals(dateFormat.format(date), dateFormat.format(schedule.getGameDate()));
     }
 
     @Test
     public void setGameDateTest() {
+        Schedule schedule = new Schedule();
         Date date = new Date();
-        Schedule schedule = new Schedule(date,"Team1", "Team2");
-        Date date2 = new Date();
-        schedule.setGameDate(date2);
-        assertEquals(date2,schedule.getGameDate());
+        schedule.setGameDate(date);
+        assertEquals(date, schedule.getGameDate());
     }
 
     @Test
-    public void getTeamName1Test() {
-        Date date = new Date();
-        Schedule schedule = new Schedule(date,"Team1", "Team2");
-        assertEquals("Team1",schedule.getTeamName1());
+    public void addTeamNameTest() {
+        Schedule schedule = new Schedule();
+        schedule.addTeamName("Team1");
+        assertTrue(schedule.getTeamNames().contains("Team1"));
     }
 
     @Test
-    public void setTeamName1Test() {
-        Date date = new Date();
-        Schedule schedule = new Schedule(date,"Team1", "Team2");
-        schedule.setTeamName1("Team11");
-        assertEquals("Team11",schedule.getTeamName1());
-    }
-
-    @Test
-    public void getTeamName2Test() {
-        Date date = new Date();
-        Schedule schedule = new Schedule(date,"Team1", "Team2");
-        assertEquals("Team2",schedule.getTeamName2());
-    }
-
-    @Test
-    public void setTeamName2Test() {
-        Date date = new Date();
-        Schedule schedule = new Schedule(date,"Team1", "Team2");
-        schedule.setTeamName2("Team22");
-        assertEquals("Team22",schedule.getTeamName2());
+    public void getTeamNamesTest() {
+        Schedule schedule = new Schedule();
+        schedule.addTeamName("Team1");
+        schedule.addTeamName("Team2");
+        schedule.addTeamName("Team3");
+        assertEquals(3, schedule.getTeamNames().size());
     }
 }
