@@ -3,6 +3,7 @@ package com.groupten.leagueobjectmodel.player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
     private int playerID;
@@ -14,9 +15,14 @@ public class Player {
     private double shooting;
     private double checking;
     private double saving;
+    private boolean injured;
+    private int injuryPeriod;
 
     private final double gameConfigAverageRetirementAge = 35.0;
     private final double gameConfigMaxRetirementAge = 50.0;
+    private final double randomInjuryChance = 0.05;
+    private final int injuryDaysLow = 1;
+    private final int injuryDaysHigh = 260;
 
     public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
         playerName = pN;
@@ -45,6 +51,11 @@ public class Player {
 
     public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
         age += (days / 365.0);
+
+        if (days > injuryPeriod) {
+            removeInjury();
+        }
+
         return shouldPlayerBeRetired();
     }
 
@@ -61,6 +72,45 @@ public class Player {
             probability = 4.6666 * age - 133.3;
         }
         return probability;
+    }
+
+    public boolean checkInjury() {
+        if (Math.random() < randomInjuryChance) {
+            injured = true;
+            setInjuryPeriod();
+        } else {
+            injured = false;
+        }
+
+        return injured;
+    }
+
+    private void setInjuryPeriod() {
+        Random ran = new Random();
+        injuryPeriod = ran.nextInt(injuryDaysHigh) + injuryDaysLow;
+    }
+
+    private void removeInjury() {
+        injured = false;
+        injuryPeriod = 0;
+    }
+
+    public double calculateStrength(String position) {
+        double strength = 0.0;
+
+        switch (position) {
+            case "forward":
+                strength = skating + shooting + (checking / 2);
+                break;
+            case "defense":
+                strength = skating + shooting + (shooting / 2);
+                break;
+            case "goalie":
+                strength = skating + saving;
+                break;
+        }
+
+        return strength;
     }
 
     public static boolean arePlayerFieldsValid(String pN, String pos, double sk, double sh, double ch, double sa) {
@@ -162,21 +212,9 @@ public class Player {
         saving = s;
     }
 
-    public double calculateStrength(String position) {
-        double strength = 0.0;
+    public boolean isInjured() { return injured; }
 
-        switch (position) {
-            case "forward":
-                strength = skating + shooting + (checking / 2);
-                break;
-            case "defense":
-                strength = skating + shooting + (shooting / 2);
-                break;
-            case "goalie":
-                strength = skating + saving;
-                break;
-        }
+    public void setInjured(boolean in) { injured = in; }
 
-        return strength;
-    }
 }
+

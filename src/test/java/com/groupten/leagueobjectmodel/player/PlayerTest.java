@@ -32,6 +32,14 @@ public class PlayerTest {
     }
 
     @Test
+    public void checkInjuryTest() {
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        while (player.checkInjury()) {
+            assertTrue(player.isInjured());
+        }
+    }
+
+    @Test
     public void getPlayerIDTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         assertEquals(1, player.getPlayerID());
@@ -146,6 +154,13 @@ public class PlayerTest {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setSaving(10.0);
         assertEquals(10.0, player.getSaving(), 0);
+    }
+
+    @Test
+    public void setInjuredTest() {
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setInjured(true);
+        assertTrue(player.isInjured());
     }
 
 }
