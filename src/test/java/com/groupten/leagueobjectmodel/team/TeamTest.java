@@ -5,6 +5,9 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TeamTest {
@@ -119,7 +122,18 @@ public class TeamTest {
             team.addPlayer(player);
         }
         assertEquals(20, team.getPlayers().size());
+    }
 
+    @Test
+    public void setPlayersTest() {
+        Team team  = new Team(1, "First Team");
+        List<Player> players = new ArrayList<Player>();
+        for (int i = 0; i < 20; i++) {
+            Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
+            players.add(player);
+        }
+        team.setPlayers(players);
+        assertEquals(20,team.getPlayers().size());
     }
 
 }
