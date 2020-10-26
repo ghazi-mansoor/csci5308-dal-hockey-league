@@ -1,22 +1,21 @@
 package com.groupten.leagueobjectmodel.team;
 
+import com.groupten.leagueobjectmodel.coach.Coach;
+import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class Team {
     private int teamID;
     private String teamName;
-    boolean AITeam;
-    int lossPoint;
-   
-
-	private List<Player> players = new ArrayList<>();
-	private HashMap<String, Integer> playerStrength = new HashMap<String, Integer>();
+    private List<Player> players = new ArrayList<>();
+    private GeneralManager generalManager;
+    private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
+    private double teamStrength;
 
     public Team(String tN) {
         teamName = tN;
@@ -27,13 +26,15 @@ public class Team {
         teamID = tID;
     }
 
-    public Team() {
-	}
-
-	public boolean addPlayer(Player player) {
-        int initialSize = players.size();
-        players.add(player);
-        return players.size() > initialSize;
+    public boolean addPlayer(Player player) {
+        if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
+            int initialSize = players.size();
+            players.add(player);
+            return players.size() > initialSize;
+        } else{
+            return false;
+        }
     }
 
     public boolean isPlayersCountValid() {
@@ -58,6 +59,18 @@ public class Team {
         }
     }
 
+    public void calculateTeamStrength() {
+        for (Player player : players) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength(pos);
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+    }
+
     public int getTeamID() {
         return teamID;
     }
@@ -73,38 +86,44 @@ public class Team {
     public void setTeamName(String tN) {
         teamName = tN;
     }
-    
-    public List<Player> getPlayers() {
-		return players;
-	}
 
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
+    public GeneralManager getGeneralManager() {
+        return generalManager;
+    }
 
-	public HashMap<String, Integer> getPlayerStrength() {
-		return playerStrength;
-	}
+    public boolean setGeneralManager(GeneralManager generalManager) {
+        if (GeneralManager.isManagerNameValid(generalManager.getManagerName())) {
+            this.generalManager = generalManager;
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-	public void setPlayerStrength(HashMap<String, Integer> playerStrength) {
-		this.playerStrength = playerStrength;
-	}
+    public Coach getHeadCoach() {
+        return headCoach;
+    }
 
-	public boolean isAITeam() {
-		return AITeam;
-	}
+    public boolean setHeadCoach(Coach headCoach) {
+        if (Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())) {
+            this.headCoach = headCoach;
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-	public void setAITeam(boolean aITeam) {
-		AITeam = aITeam;
-	}
+    public List<Player> getPlayers() { return players; }
 
-	public int getLossPoint() {
-		return lossPoint;
-	}
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 
-	public void setLossPoint(int lossPoint) {
-		this.lossPoint = lossPoint;
-	}
-	
-	
+    public double getTeamStrength() {
+        return teamStrength;
+    }
+
+    public void setTeamStrength(double teamStrength) {
+        this.teamStrength = teamStrength;
+    }
 }

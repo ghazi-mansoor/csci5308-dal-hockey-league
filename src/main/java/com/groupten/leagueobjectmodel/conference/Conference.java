@@ -19,24 +19,15 @@ public class Conference {
         conferenceID = cID;
     }
 
-    public Conference() {
-	}
-    
-
-	public Map<String, Division> getDivisions() {
-		return divisions;
-	}
-
-	public void setDivisions(Map<String, Division> divisions) {
-		this.divisions = divisions;
-	}
-
-	public boolean addDivision(Division division) {
-        String divisionName = division.getDivisionName();
-        int initialSize = divisions.size();
-        divisions.put(divisionName, division);
-
-        return divisions.size() > initialSize;
+    public boolean addDivision(Division division) {
+        if(Division.isDivisionNameValid(division.getDivisionName())){
+            String divisionName = division.getDivisionName();
+            int initialSize = divisions.size();
+            divisions.put(divisionName, division);
+            return divisions.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
     public boolean isNumberOfDivisionsEven() {
@@ -58,6 +49,8 @@ public class Conference {
     public Division getDivision(String divisionName) {
         return divisions.get(divisionName);
     }
+
+    public Map<String, Division> getDivisions() { return divisions; }
 
     public int getConferenceID() {
         return conferenceID;
