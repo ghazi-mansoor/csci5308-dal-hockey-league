@@ -15,6 +15,7 @@ public class Team {
     private GeneralManager generalManager;
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
+    private double teamStrength;
 
     public Team(String tN) {
         teamName = tN;
@@ -55,6 +56,18 @@ public class Team {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public void calculateTeamStrength() {
+        for (Player player : players) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength(pos);
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
         }
     }
 
@@ -106,4 +119,11 @@ public class Team {
         this.players = players;
     }
 
+    public double getTeamStrength() {
+        return teamStrength;
+    }
+
+    public void setTeamStrength(double teamStrength) {
+        this.teamStrength = teamStrength;
+    }
 }

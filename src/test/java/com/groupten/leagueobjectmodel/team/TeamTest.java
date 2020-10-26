@@ -57,6 +57,17 @@ public class TeamTest {
     }
 
     @Test
+    public void calculateTeamStrengthTest() {
+        Team team  = new Team(1, "First Team");
+        for (int i = 0; i < 20; i++) {
+            Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
+            team.addPlayer(player);
+        }
+        team.calculateTeamStrength();
+        assertEquals(200.0, team.getTeamStrength(), 0.0);
+    }
+
+    @Test
     public void setTeamIDTest() {
         Team team  = new Team("First Team");
         team.setTeamID(1);
@@ -134,6 +145,13 @@ public class TeamTest {
         }
         team.setPlayers(players);
         assertEquals(20,team.getPlayers().size());
+    }
+
+    @Test
+    public void setTeamStrengthTest() {
+        Team team  = new Team(1, "First Team");
+        team.setTeamStrength(100.0);
+        assertEquals(100.0, team.getTeamStrength(), 0.0);
     }
 
 }
