@@ -23,14 +23,17 @@ public class Season {
     private List<Schedule> regularSchedules  = new ArrayList<>();
     private List<TeamIndex> teamIndices = null;
 
-    public Season(){
+    public Season(League league){
+        this.league = league;
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         int year = cal.get(Calendar.YEAR);
         this.initDates(year);
     }
 
-    public Season(int year){
+    public Season(League league,int year){
+        this.league = league;
         this.initDates(year);
     }
 
@@ -66,10 +69,6 @@ public class Season {
         return regularSchedules;
     }
 
-    public void setLeague(League league) {
-        this.league = league;
-    }
-
     public boolean addTeamStanding(String teamName, TeamStanding teamStanding) {
         if(teamStandings.containsKey(teamName)){
             return false;
@@ -94,7 +93,9 @@ public class Season {
         TeamStanding teamStanding = teamStandings.get(teamName);
         int points = teamStanding.getPoints();
         teamStanding.setPoints(points + 2);
-//        updateRanks();
+        if(league != null){
+            updateRanks();
+        }
     }
 
     private void generateTeamIndices(){
@@ -116,7 +117,7 @@ public class Season {
     }
 
     public void generateRegularSchedule(){
-        if(teamIndices == null){
+        if(league != null && teamIndices == null){
             generateTeamIndices();
         }
 

@@ -6,12 +6,12 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.season.Season;
 
 public class InitializeSeason implements IInitializeSeason{
-    private final Season season = new Season();
+    private final Season season;
 
     public InitializeSeason(){
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
-        season.setLeague(leagueLOM);
+        season = new Season(leagueLOM);
     }
 
     @Override

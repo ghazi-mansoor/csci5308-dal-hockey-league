@@ -1,5 +1,6 @@
 package com.groupten.leagueobjectmodel.season;
 
+import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import org.junit.Test;
 
@@ -15,42 +16,48 @@ public class SeasonTest {
 
     @Test
     public void getCurrentDateTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("30/09/2020", dateFormat.format(season.getCurrentDate()));
     }
 
     @Test
     public void getRegularSeasonStartsAtTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("01/10/2020", dateFormat.format(season.getRegularSeasonStartsAt()));
     }
 
     @Test
     public void getTradeEndsAtTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("22/02/2021", dateFormat.format(season.getTradeEndsAt()));
     }
 
     @Test
     public void getRegularSeasonEndsAtTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("03/04/2021", dateFormat.format(season.getRegularSeasonEndsAt()));
     }
 
     @Test
     public void getPlayoffStartsAtTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("14/04/2021", dateFormat.format(season.getPlayoffStartsAt()));
     }
 
     @Test
     public void getPlayoffEndsByTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("01/06/2021", dateFormat.format(season.getPlayoffEndsBy()));
     }
@@ -60,13 +67,15 @@ public class SeasonTest {
         String teamName = "A";
         TeamStanding teamStanding= new TeamStanding();
 
-        Season season = new Season();
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         assertTrue(season.addTeamStanding(teamName,teamStanding));
     }
 
     @Test
     public void getTeamStandingsTest(){
-        Season season = new Season();
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         season.addTeamStanding("A",new TeamStanding());
         season.addTeamStanding("B",new TeamStanding());
         assertEquals(2, season.getTeamStandings().size());
@@ -74,7 +83,8 @@ public class SeasonTest {
 
     @Test
     public void advanceTimeTest(){
-        Season season = new Season(2020);
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
         season.advanceTime();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("01/10/2020", dateFormat.format(season.getCurrentDate()));
@@ -82,7 +92,8 @@ public class SeasonTest {
 
     @Test
     public void recordWinTest(){
-        Season season = new Season();
+        League league = null;
+        Season season = new Season(league,2020);
         season.addTeamStanding("A",new TeamStanding());
         season.addTeamStanding("B",new TeamStanding());
         season.recordWin("A");
