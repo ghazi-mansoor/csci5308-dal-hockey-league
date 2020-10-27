@@ -1,9 +1,9 @@
-package com.groupten.statemachine.json;
+package com.groupten.statemachine.jsonimport;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.groupten.dao.ILeagueDAO;
+import com.groupten.persistence.dao.ILeagueDAO;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
@@ -18,13 +18,13 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 
-public class JSON implements IJSON {
+public class JSONImport implements IJSONImport {
 
     private JsonObject jsonData;
 
-    public JSON(){ }
+    public JSONImport(){ }
 
-    public JSON(ILeagueDAO leagueDBMockObj){
+    public JSONImport(ILeagueDAO leagueDBMockObj){
         Injector.injector().setLeagueDatabaseObject(leagueDBMockObj);
     }
 

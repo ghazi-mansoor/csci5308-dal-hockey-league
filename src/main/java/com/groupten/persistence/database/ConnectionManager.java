@@ -1,4 +1,4 @@
-package com.groupten.database;
+package com.groupten.persistence.database;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

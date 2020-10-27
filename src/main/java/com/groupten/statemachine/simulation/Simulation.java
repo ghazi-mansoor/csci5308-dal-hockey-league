@@ -1,7 +1,6 @@
 package com.groupten.statemachine.simulation;
 
-import com.groupten.leagueobjectmodel.season.Season;
-import com.groupten.statemachine.console.IConsole;
+import com.groupten.IO.console.IConsole;
 
 public class Simulation implements ISimulation {
     private IConsole console;

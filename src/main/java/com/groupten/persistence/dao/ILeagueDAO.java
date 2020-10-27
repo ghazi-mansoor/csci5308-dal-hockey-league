@@ -1,4 +1,4 @@
-package com.groupten.dao;
+package com.groupten.persistence.dao;
 
 import java.util.HashMap;
 import java.util.List;

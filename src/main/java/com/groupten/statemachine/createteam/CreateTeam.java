@@ -8,7 +8,7 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.console.IConsole;
+import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 
 import java.util.ArrayList;

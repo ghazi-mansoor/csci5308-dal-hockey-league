@@ -8,7 +8,6 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.statemachine.json.JSON;
 import org.junit.Test;
 
 import java.util.ArrayList;
