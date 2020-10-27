@@ -10,13 +10,13 @@ public class Conference {
     private String conferenceName;
     private Map<String, Division> divisions = new HashMap<>();
 
-    public Conference(String cN) {
-        conferenceName = cN;
+    public Conference(String conferenceName) {
+        this.conferenceName = conferenceName;
     }
 
-    public Conference(int cID, String cN) {
-        this(cN);
-        conferenceID = cID;
+    public Conference(int conferenceID, String conferenceName) {
+        this(conferenceName);
+        this.conferenceID = conferenceID;
     }
 
     public boolean addDivision(Division division) {
