@@ -24,29 +24,32 @@ public class Player {
     private final int injuryDaysLow = 1;
     private final int injuryDaysHigh = 260;
 
-    public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
-        playerName = pN;
-        position = pos;
-        age = a;
-        skating = sk;
-        shooting = sh;
-        checking = ch;
-        saving = sa;
+    public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
+        this.playerName = playerName;
+        this.position = position;
+        this.age = age;
+        this.skating = skating;
+        this.shooting = shooting;
+        this.checking = checking;
+        this.saving = saving;
     }
 
-    public Player(int pID, String pN, String pos, double a, double sk, double sh, double ch, double sa) {
-        this(pN, pos, a, sk, sh, ch, sa);
-        playerID = pID;
+    public Player(int playerID, String playerName, String position, double age, double skating, double shooting,
+                  double checking, double saving) {
+        this(playerName, position, age, skating, shooting, checking, saving);
+        this.playerID = playerID;
     }
 
-    public Player(String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
-        this(pN, pos, a, sk, sh, ch, sa);
-        captain = cap;
+    public Player(String playerName, String position, boolean captain, double age, double skating, double shooting,
+                  double checking, double saving) {
+        this(playerName, position, age, skating, shooting, checking, saving);
+        this.captain = captain;
     }
 
-    public Player(int pID, String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
-        this(pN, pos, cap, a, sk, sh, ch, sa);
-        playerID = pID;
+    public Player(int playerID, String playerName, String position, boolean captain, double age, double skating, double shooting,
+                  double checking, double saving) {
+        this(playerName, position, captain, age, skating, shooting, checking, saving);
+        this.playerID = playerID;
     }
 
     public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
