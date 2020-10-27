@@ -154,4 +154,10 @@ public class TeamTest {
         assertEquals(100.0, team.getTeamStrength(), 0.0);
     }
 
+    @Test
+    public void setaITeamTest() {
+        Team team  = new Team(1, "First Team");
+        team.setaITeam(true);
+        assertTrue(team.isaITeam());
+    }
 }
