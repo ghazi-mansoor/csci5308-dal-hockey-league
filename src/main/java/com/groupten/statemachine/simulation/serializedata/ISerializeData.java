@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation.serializeData;
+package com.groupten.statemachine.simulation.serializedata;
 
 public interface ISerializeData {
 
