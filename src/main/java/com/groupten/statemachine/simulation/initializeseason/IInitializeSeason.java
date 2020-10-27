@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation.initializeSeason;
+package com.groupten.statemachine.simulation.initializeseason;
 
 import com.groupten.leagueobjectmodel.season.Season;
 

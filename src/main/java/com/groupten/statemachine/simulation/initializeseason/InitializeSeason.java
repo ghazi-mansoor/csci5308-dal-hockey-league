@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation.initializeSeason;
+package com.groupten.statemachine.simulation.initializeseason;
 
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
@@ -11,6 +11,10 @@ public class InitializeSeason implements IInitializeSeason{
     public InitializeSeason(){
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
+        season = new Season(leagueLOM);
+    }
+
+    public InitializeSeason(League leagueLOM){
         season = new Season(leagueLOM);
     }
 

@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation;
+package com.groupten.statemachine.simulation.aging;
 
 import com.groupten.leagueobjectmodel.league.League;
 
