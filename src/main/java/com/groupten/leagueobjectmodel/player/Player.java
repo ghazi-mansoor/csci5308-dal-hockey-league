@@ -71,18 +71,23 @@ public class Player {
         } else {
             probability = 4.6666 * age - 133.3;
         }
+
         return probability;
     }
 
     public boolean checkInjury() {
-        if (Math.random() < randomInjuryChance) {
-            injured = true;
-            setInjuryPeriod();
+        if (injured) {
+            return true;
         } else {
-            injured = false;
-        }
+            if (Math.random() < randomInjuryChance) {
+                injured = true;
+                setInjuryPeriod();
+            } else {
+                injured = false;
+            }
 
-        return injured;
+            return injured;
+        }
     }
 
     private void setInjuryPeriod() {
@@ -95,7 +100,7 @@ public class Player {
         injuryPeriod = 0;
     }
 
-    public double calculateStrength(String position) {
+    public double calculateStrength() {
         double strength = 0.0;
 
         switch (position) {
@@ -118,11 +123,14 @@ public class Player {
     }
 
     private static boolean isPlayerNameValid(String pN) {
+        boolean isValid;
         if (pN.isEmpty() || pN.isBlank() || pN.toLowerCase().equals("null")) {
-           return false;
+           isValid = false;
         } else {
-            return true;
+            isValid = true;
         }
+
+        return isValid;
     }
 
     private static boolean isPositionValid(String pos) {

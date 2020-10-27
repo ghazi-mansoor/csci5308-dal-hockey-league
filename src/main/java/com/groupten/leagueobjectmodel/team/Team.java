@@ -11,6 +11,7 @@ import java.util.List;
 public class Team {
     private int teamID;
     private String teamName;
+    private boolean aITeam;
     private List<Player> players = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
@@ -62,7 +63,7 @@ public class Team {
     public void calculateTeamStrength() {
         for (Player player : players) {
             String pos = player.getPosition();
-            double playerStrength = player.calculateStrength(pos);
+            double playerStrength = player.calculateStrength();
             if (player.isInjured()) {
                 teamStrength += (playerStrength / 2);
             } else {
@@ -125,5 +126,13 @@ public class Team {
 
     public void setTeamStrength(double teamStrength) {
         this.teamStrength = teamStrength;
+    }
+
+    public boolean isaITeam() {
+        return aITeam;
+    }
+
+    public void setaITeam(boolean aITeam) {
+        this.aITeam = aITeam;
     }
 }
