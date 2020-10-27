@@ -90,152 +90,188 @@ public class Season {
     }
 
     public void recordWin(String teamName){
-        TeamStanding teamStanding = teamStandings.get(teamName);
-        int points = teamStanding.getPoints();
-        teamStanding.setPoints(points + 2);
-        if(league != null){
+        if(teamStandings.size() <=0){
+            generateTeamStandings();
+        }
+        if(teamStandings.containsKey(teamName)){
+            TeamStanding teamStanding = teamStandings.get(teamName);
+            int points = teamStanding.getPoints();
+            teamStanding.setPoints(points + 2);
             updateRanks();
         }
     }
 
-    private void generateTeamIndices(){
-        Map<String, Conference> conferences = league.getConferences();
-        conferences.forEach((conferenceName,conference) ->{
-            Map<String, Division> divisions = conference.getDivisions();
-            divisions.forEach((divisionName, division) -> {
-                Map<String, Team> teams = division.getTeams();
-                teams.forEach((teamName, team) -> {
-                    TeamIndex teamIndex = new TeamIndex();
-                    teamIndex.setLeagueName(league.getLeagueName());
-                    teamIndex.setConferenceName(conference.getConferenceName());
-                    teamIndex.setDivisionName(division.getDivisionName());
-                    teamIndex.setTeamName(team.getTeamName());
-                    teamIndices.add(teamIndex);
+    public boolean generateRegularSchedule(){
+        try{
+            if(league != null && teamIndices == null){
+                generateTeamIndices();
+            }
+            teamIndices.forEach(teamIndex ->{
+                //Same Division
+                ArrayList<TeamIndex> sameDivisionTeams = (ArrayList<TeamIndex>) teamIndices.stream()
+                        .filter(tI -> tI.getDivisionName().equals(teamIndex.getDivisionName()))
+                        .collect(Collectors.toList());
+                sameDivisionTeams.forEach(sameDivisionTeam -> {
+                    if(!teamIndex.getTeamName().equals(sameDivisionTeam.getTeamName())){
+                        for(int i =0; i<4; i++){
+                            Schedule schedule = new Schedule();
+                            schedule.addTeamName(teamIndex.getTeamName());
+                            schedule.addTeamName(sameDivisionTeam.getTeamName());
+                            regularSchedules.add(schedule);
+                        }
+                    }
+                });
+                //Same Conference Different Division
+                ArrayList<TeamIndex> sameConferenceTeams = (ArrayList<TeamIndex>) teamIndices.stream()
+                        .filter(tI -> !tI.getDivisionName().equals(teamIndex.getDivisionName()) && tI.getConferenceName().equals(teamIndex.getConferenceName()))
+                        .collect(Collectors.toList());
+                sameConferenceTeams.forEach(sameConferenceTeam -> {
+                    if(!teamIndex.getTeamName().equals(sameConferenceTeam.getTeamName())){
+                        for(int i =0; i<3; i++) {
+                            Schedule schedule = new Schedule();
+                            schedule.addTeamName(teamIndex.getTeamName());
+                            schedule.addTeamName(sameConferenceTeam.getTeamName());
+                            regularSchedules.add(schedule);
+                        }
+                    }
+                });
+                //Same League Different Conference
+                ArrayList<TeamIndex> sameLeagueTeams = (ArrayList<TeamIndex>) teamIndices.stream()
+                        .filter(tI -> !tI.getConferenceName().equals(teamIndex.getConferenceName()))
+                        .collect(Collectors.toList());
+                sameLeagueTeams.forEach(sameLeagueTeam -> {
+                    if(!teamIndex.getTeamName().equals(sameLeagueTeam.getTeamName())){
+                        for(int i =0; i<2; i++) {
+                            Schedule schedule = new Schedule();
+                            schedule.addTeamName(teamIndex.getTeamName());
+                            schedule.addTeamName(sameLeagueTeam.getTeamName());
+                            regularSchedules.add(schedule);
+                        }
+                    }
                 });
             });
-        });
-    }
-
-    public void generateRegularSchedule(){
-        if(league != null && teamIndices == null){
-            generateTeamIndices();
+            return true;
+        }catch (Exception e){
+            return false;
         }
-
-        teamIndices.forEach(teamIndex ->{
-            //Same Division
-            ArrayList<TeamIndex> sameDivisionTeams = (ArrayList<TeamIndex>) teamIndices.stream()
-                    .filter(tI -> tI.getDivisionName().equals(teamIndex.getDivisionName()))
-                    .collect(Collectors.toList());
-            sameDivisionTeams.forEach(sameDivisionTeam -> {
-                if(!teamIndex.getTeamName().equals(sameDivisionTeam.getTeamName())){
-                    for(int i =0; i<4; i++){
-                        Schedule schedule = new Schedule();
-                        schedule.addTeamName(teamIndex.getTeamName());
-                        schedule.addTeamName(sameDivisionTeam.getTeamName());
-                        regularSchedules.add(schedule);
-                    }
-                }
-            });
-            //Same Conference Different Division
-            ArrayList<TeamIndex> sameConferenceTeams = (ArrayList<TeamIndex>) teamIndices.stream()
-                    .filter(tI -> !tI.getDivisionName().equals(teamIndex.getDivisionName()) && tI.getConferenceName().equals(teamIndex.getConferenceName()))
-                    .collect(Collectors.toList());
-            sameConferenceTeams.forEach(sameConferenceTeam -> {
-                if(!teamIndex.getTeamName().equals(sameConferenceTeam.getTeamName())){
-                    for(int i =0; i<3; i++) {
-                        Schedule schedule = new Schedule();
-                        schedule.addTeamName(teamIndex.getTeamName());
-                        schedule.addTeamName(sameConferenceTeam.getTeamName());
-                        regularSchedules.add(schedule);
-                    }
-                }
-            });
-            //Same League Different Conference
-            ArrayList<TeamIndex> sameLeagueTeams = (ArrayList<TeamIndex>) teamIndices.stream()
-                    .filter(tI -> !tI.getConferenceName().equals(teamIndex.getConferenceName()))
-                    .collect(Collectors.toList());
-            sameLeagueTeams.forEach(sameLeagueTeam -> {
-                if(!teamIndex.getTeamName().equals(sameLeagueTeam.getTeamName())){
-                    for(int i =0; i<2; i++) {
-                        Schedule schedule = new Schedule();
-                        schedule.addTeamName(teamIndex.getTeamName());
-                        schedule.addTeamName(sameLeagueTeam.getTeamName());
-                        regularSchedules.add(schedule);
-                    }
-                }
-            });
-        });
     };
 
-    private void updateRanks(){
-        if(teamIndices == null){
-            generateTeamIndices();
+    private boolean generateTeamIndices(){
+        try{
+            Map<String, Conference> conferences = league.getConferences();
+            conferences.forEach((conferenceName,conference) ->{
+                Map<String, Division> divisions = conference.getDivisions();
+                divisions.forEach((divisionName, division) -> {
+                    Map<String, Team> teams = division.getTeams();
+                    teams.forEach((teamName, team) -> {
+                        TeamIndex teamIndex = new TeamIndex();
+                        teamIndex.setLeagueName(league.getLeagueName());
+                        teamIndex.setConferenceName(conference.getConferenceName());
+                        teamIndex.setDivisionName(division.getDivisionName());
+                        teamIndex.setTeamName(team.getTeamName());
+                        teamIndices.add(teamIndex);
+                    });
+                });
+            });
+            return true;
+        }catch (Exception e){
+            return false;
         }
+    }
 
-        HashSet<String> conferences = new HashSet<>();
-        HashSet<String> divisions = new HashSet<>();
-        teamIndices.forEach(teamIndex ->{
-            conferences.add(teamIndex.getConferenceName());
-            divisions.add(teamIndex.getDivisionName());
-        });
-
-        conferences.forEach(conference -> {
-            List<String> conferenceTeamNames = new ArrayList<>();
-
-            teamIndices.forEach(teamIndex -> {
-                if(teamIndex.getConferenceName().equals(conference)){
-                    conferenceTeamNames.add(teamIndex.getTeamName());
+    private boolean generateTeamStandings(){
+        try{
+            if(league != null && teamIndices == null){
+                generateTeamIndices();
+            }
+            teamIndices.forEach(teamIndex ->{
+                if(!teamStandings.containsKey(teamIndex.getTeamName())){
+                    TeamStanding teamStanding = new TeamStanding();
+                    teamStanding.setTeamName(teamIndex.getTeamName());
+                    teamStandings.put(teamIndex.getTeamName(),teamStanding);
                 }
             });
-            Map<String,TeamStanding> conferenceTeamStandings = teamStandings.entrySet().stream()
-                    .filter(map -> conferenceTeamNames.contains(map.getKey() ))
-                    .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+            return true;
+        }catch  (Exception e){
+            return false;
+        }
+    }
 
-            TreeMap<String, TeamStanding> sortedConferenceTeamStandings = new TreeMap<>(teamStandings);
+    private boolean updateRanks(){
+        try{
+            if(league != null && teamIndices == null){
+                generateTeamIndices();
+            }
+            HashSet<String> conferences = new HashSet<>();
+            HashSet<String> divisions = new HashSet<>();
+            teamIndices.forEach(teamIndex ->{
+                conferences.add(teamIndex.getConferenceName());
+                divisions.add(teamIndex.getDivisionName());
+            });
 
-            Iterator iterator = sortedConferenceTeamStandings.entrySet().iterator();
+            //Update Conference Ranks
+            conferences.forEach(conference -> {
+                List<String> conferenceTeamNames = new ArrayList<>();
+
+                teamIndices.forEach(teamIndex -> {
+                    if(teamIndex.getConferenceName().equals(conference)){
+                        conferenceTeamNames.add(teamIndex.getTeamName());
+                    }
+                });
+                Map<String,TeamStanding> conferenceTeamStandings = teamStandings.entrySet().stream()
+                        .filter(map -> conferenceTeamNames.contains(map.getKey() ))
+                        .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+
+                TreeMap<String, TeamStanding> sortedConferenceTeamStandings = new TreeMap<>(teamStandings);
+
+                Iterator iterator = sortedConferenceTeamStandings.entrySet().iterator();
+                int i = 1;
+                while(iterator.hasNext()){
+                    Map.Entry me = (Map.Entry) iterator.next();
+                    TeamStanding teamStanding = (TeamStanding) me.getValue();
+                    teamStanding.setConferenceRank(i);
+                    i++;
+                }
+            });
+
+            //Update Division Ranks
+            divisions.forEach(division -> {
+                List<String> divisionTeamNames = new ArrayList<>();
+
+                teamIndices.forEach(teamIndex -> {
+                    if(teamIndex.getDivisionName().equals(division)){
+                        divisionTeamNames.add(teamIndex.getTeamName());
+                    }
+                });
+                Map<String,TeamStanding> divisionTeamStandings = teamStandings.entrySet().stream()
+                        .filter(map -> divisionTeamNames.contains(map.getKey() ))
+                        .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+
+                TreeMap<String, TeamStanding> sortedDivisionTeamStandings = new TreeMap<>(teamStandings);
+
+                Iterator iterator = sortedDivisionTeamStandings.entrySet().iterator();
+                int i = 1;
+                while(iterator.hasNext()){
+                    Map.Entry me = (Map.Entry) iterator.next();
+                    TeamStanding teamStanding = (TeamStanding) me.getValue();
+                    teamStanding.setDivisionRank(i);
+                    i++;
+                }
+            });
+
+            //Update League Ranks
+            TreeMap<String, TeamStanding> sortedTeamStandings = new TreeMap<>(teamStandings);
+            Iterator iterator = sortedTeamStandings.entrySet().iterator();
             int i = 1;
             while(iterator.hasNext()){
                 Map.Entry me = (Map.Entry) iterator.next();
                 TeamStanding teamStanding = (TeamStanding) me.getValue();
-                teamStanding.setConferenceRank(i);
+                teamStanding.setLeagueRank(i);
                 i++;
             }
-        });
-
-        divisions.forEach(division -> {
-            List<String> divisionTeamNames = new ArrayList<>();
-
-            teamIndices.forEach(teamIndex -> {
-                if(teamIndex.getDivisionName().equals(division)){
-                    divisionTeamNames.add(teamIndex.getTeamName());
-                }
-            });
-            Map<String,TeamStanding> divisionTeamStandings = teamStandings.entrySet().stream()
-                    .filter(map -> divisionTeamNames.contains(map.getKey() ))
-                    .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
-
-            TreeMap<String, TeamStanding> sortedDivisionTeamStandings = new TreeMap<>(teamStandings);
-
-            Iterator iterator = sortedDivisionTeamStandings.entrySet().iterator();
-            int i = 1;
-            while(iterator.hasNext()){
-                Map.Entry me = (Map.Entry) iterator.next();
-                TeamStanding teamStanding = (TeamStanding) me.getValue();
-                teamStanding.setDivisionRank(i);
-                i++;
-            }
-        });
-
-        TreeMap<String, TeamStanding> sortedTeamStandings = new TreeMap<>(teamStandings);
-
-        Iterator iterator = sortedTeamStandings.entrySet().iterator();
-        int i = 1;
-        while(iterator.hasNext()){
-            Map.Entry me = (Map.Entry) iterator.next();
-            TeamStanding teamStanding = (TeamStanding) me.getValue();
-            teamStanding.setLeagueRank(i);
-            i++;
+            return true;
+        }catch (Exception e){
+            return false;
         }
     }
 

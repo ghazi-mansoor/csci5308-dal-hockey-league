@@ -9,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SeasonTest {
 
@@ -99,5 +98,12 @@ public class SeasonTest {
         season.recordWin("A");
 
         assertEquals(2, season.getTeamStandings().get("A").getPoints());
+    }
+
+    @Test
+    public void generateRegularScheduleTest(){
+        League league = null;
+        Season season = new Season(league,2020);
+        assertFalse(season.generateRegularSchedule());
     }
 }

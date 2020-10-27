@@ -24,7 +24,7 @@ public class InitializeSeason implements IInitializeSeason{
     }
 
     @Override
-    public void generateRegularSchedule() {
-        season.generateRegularSchedule();
+    public boolean generateRegularSchedule() {
+        return season.generateRegularSchedule();
     }
 }
