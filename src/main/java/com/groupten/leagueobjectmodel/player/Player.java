@@ -3,19 +3,28 @@ package com.groupten.leagueobjectmodel.player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
     private int playerID;
     private String playerName;
     private String position;
     private boolean captain;
-    private int age;
-    private int skating;
-    private int shooting;
-    private int checking;
-    private int saving;
+    private double age;
+    private double skating;
+    private double shooting;
+    private double checking;
+    private double saving;
+    private boolean injured;
+    private int injuryPeriod;
 
-    public Player(String pN, String pos, int a, int sk, int sh, int ch, int sa) {
+    private final double gameConfigAverageRetirementAge = 35.0;
+    private final double gameConfigMaxRetirementAge = 50.0;
+    private final double randomInjuryChance = 0.05;
+    private final int injuryDaysLow = 1;
+    private final int injuryDaysHigh = 260;
+
+    public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
         playerName = pN;
         position = pos;
         age = a;
@@ -25,22 +34,86 @@ public class Player {
         saving = sa;
     }
 
-    public Player(int pID, String pN, String pos, int a, int sk, int sh, int ch, int sa) {
+    public Player(int pID, String pN, String pos, double a, double sk, double sh, double ch, double sa) {
         this(pN, pos, a, sk, sh, ch, sa);
         playerID = pID;
     }
 
-    public Player(String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
+    public Player(String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
         this(pN, pos, a, sk, sh, ch, sa);
         captain = cap;
     }
 
-    public Player(int pID, String pN, String pos, boolean cap, int a, int sk, int sh, int ch, int sa) {
+    public Player(int pID, String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
         this(pN, pos, cap, a, sk, sh, ch, sa);
         playerID = pID;
     }
 
-    public static boolean arePlayerFieldsValid(String pN, String pos, int sk, int sh, int ch, int sa) {
+    public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
+        age += (days / 365.0);
+
+        if (days > injuryPeriod) {
+            removeInjury();
+        }
+
+        return shouldPlayerBeRetired();
+    }
+
+    private boolean shouldPlayerBeRetired() {
+        double probabilityOfRetirement = calculateProbabilityOfRetirement();
+        return age > gameConfigMaxRetirementAge || probabilityOfRetirement > 70;
+    }
+
+    private double calculateProbabilityOfRetirement() {
+        double probability;
+        if (age <= gameConfigAverageRetirementAge) {
+            probability = 0.8571 * age;
+        } else {
+            probability = 4.6666 * age - 133.3;
+        }
+        return probability;
+    }
+
+    public boolean checkInjury() {
+        if (Math.random() < randomInjuryChance) {
+            injured = true;
+            setInjuryPeriod();
+        } else {
+            injured = false;
+        }
+
+        return injured;
+    }
+
+    private void setInjuryPeriod() {
+        Random ran = new Random();
+        injuryPeriod = ran.nextInt(injuryDaysHigh) + injuryDaysLow;
+    }
+
+    private void removeInjury() {
+        injured = false;
+        injuryPeriod = 0;
+    }
+
+    public double calculateStrength(String position) {
+        double strength = 0.0;
+
+        switch (position) {
+            case "forward":
+                strength = skating + shooting + (checking / 2);
+                break;
+            case "defense":
+                strength = skating + shooting + (shooting / 2);
+                break;
+            case "goalie":
+                strength = skating + saving;
+                break;
+        }
+
+        return strength;
+    }
+
+    public static boolean arePlayerFieldsValid(String pN, String pos, double sk, double sh, double ch, double sa) {
         return isPlayerNameValid(pN) && isPositionValid(pos) && areStatsValid(sk, sh, ch, sa);
     }
 
@@ -57,10 +130,10 @@ public class Player {
         return positionLowerCased.equals("goalie") || positionLowerCased.equals("forward") || positionLowerCased.equals("defense");
     }
 
-    private static boolean areStatsValid(int ...args) {
+    private static boolean areStatsValid(double ...args) {
         List<Boolean> validChecks = new ArrayList<>();
 
-         for (int stat : args) {
+         for (double stat : args) {
              validChecks.add(stat >= 1 && stat <= 20);
          }
 
@@ -99,43 +172,49 @@ public class Player {
         captain = cap;
     }
 
-    public int getAge() {
+    public double getAge() {
         return age;
     }
 
-    public void setAge(int a) {
+    public void setAge(double a) {
         age = a;
     }
 
-    public int getSkating() {
+    public double getSkating() {
         return skating;
     }
 
-    public void setSkating(int sk) {
+    public void setSkating(double sk) {
         skating = sk;
     }
 
-    public int getShooting() {
+    public double getShooting() {
         return shooting;
     }
 
-    public void setShooting(int sh) {
+    public void setShooting(double sh) {
         shooting = sh;
     }
 
-    public int getChecking() {
+    public double getChecking() {
         return checking;
     }
 
-    public void setChecking(int ch) {
+    public void setChecking(double ch) {
         checking = ch;
     }
 
-    public int getSaving() {
+    public double getSaving() {
         return saving;
     }
 
-    public void setSaving(int s) {
+    public void setSaving(double s) {
         saving = s;
     }
+
+    public boolean isInjured() { return injured; }
+
+    public void setInjured(boolean in) { injured = in; }
+
 }
+

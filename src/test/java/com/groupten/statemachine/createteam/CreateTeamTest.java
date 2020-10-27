@@ -36,7 +36,7 @@ public class CreateTeamTest {
         Division division = new Division("Deep Division Division");
         conference.addDivision(division);
         league.addConference(conference);
-        leagueModel.addLeague(league);
+        leagueModel.setCurrentLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");
@@ -56,7 +56,7 @@ public class CreateTeamTest {
         Division division = new Division("Deep Division Division");
         conference.addDivision(division);
         league.addConference(conference);
-        leagueModel.addLeague(league);
+        leagueModel.setCurrentLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");
@@ -65,15 +65,15 @@ public class CreateTeamTest {
         createTeam.setGeneralManager(new GeneralManager("First General Manager"));
         createTeam.setHeadCoach(new Coach("First Coach", 0.5, 0.5, 0.5, 0.5));
 
-        player = new Player("First Player", "goalie", false, 20, 5, 5, 5, 5);
+        player = new Player("First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         listOfPlayer.add(player);
-        player = new Player("Second Player", "goalie", false, 20, 5, 5, 5, 5);
+        player = new Player("Second Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         listOfPlayer.add(player);
-        player = new Player("Third Player", "forward", false, 20, 5, 5, 5, 5);
+        player = new Player("Third Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         listOfPlayer.add(player);
-        player = new Player("Forth Player", "forward", false, 20, 5, 5, 5, 5);
+        player = new Player("Forth Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         listOfPlayer.add(player);
-        player = new Player("Fifth Player", "defense", false, 20, 5, 5, 5, 5);
+        player = new Player("Fifth Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         listOfPlayer.add(player);
 
         createTeam.setFreeAgents(listOfPlayer);

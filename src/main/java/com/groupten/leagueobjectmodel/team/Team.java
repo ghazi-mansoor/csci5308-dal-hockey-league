@@ -15,6 +15,7 @@ public class Team {
     private GeneralManager generalManager;
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
+    private double teamStrength;
 
     public Team(String tN) {
         teamName = tN;
@@ -26,12 +27,12 @@ public class Team {
     }
 
     public boolean addPlayer(Player player) {
-        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
-                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+        if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = players.size();
             players.add(player);
             return players.size() > initialSize;
-        }else{
+        } else{
             return false;
         }
     }
@@ -58,6 +59,18 @@ public class Team {
         }
     }
 
+    public void calculateTeamStrength() {
+        for (Player player : players) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength(pos);
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+    }
+
     public int getTeamID() {
         return teamID;
     }
@@ -79,7 +92,7 @@ public class Team {
     }
 
     public boolean setGeneralManager(GeneralManager generalManager) {
-        if(GeneralManager.isManagerNameValid(generalManager.getManagerName())){
+        if (GeneralManager.isManagerNameValid(generalManager.getManagerName())) {
             this.generalManager = generalManager;
             return true;
         }else{
@@ -92,7 +105,7 @@ public class Team {
     }
 
     public boolean setHeadCoach(Coach headCoach) {
-        if(Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())){
+        if (Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())) {
             this.headCoach = headCoach;
             return true;
         }else{
@@ -102,4 +115,15 @@ public class Team {
 
     public List<Player> getPlayers() { return players; }
 
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public double getTeamStrength() {
+        return teamStrength;
+    }
+
+    public void setTeamStrength(double teamStrength) {
+        this.teamStrength = teamStrength;
+    }
 }
