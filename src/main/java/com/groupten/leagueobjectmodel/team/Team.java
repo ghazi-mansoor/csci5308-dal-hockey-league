@@ -18,13 +18,13 @@ public class Team {
     private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
 
-    public Team(String tN) {
-        teamName = tN;
+    public Team(String teamName) {
+        this.teamName = teamName;
     }
 
-    public Team(int tID, String tN) {
-        this(tN);
-        teamID = tID;
+    public Team(int teamID, String teamName) {
+        this(teamName);
+        this.teamID = teamID;
     }
 
     public boolean addPlayer(Player player) {
