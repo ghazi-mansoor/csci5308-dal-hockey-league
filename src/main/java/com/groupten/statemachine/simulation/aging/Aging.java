@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class Aging implements IAging {
 
     @Override
-     public void advanceEveryPlayersAge(League league, int days) {
+    public void advanceEveryPlayersAge(League league, int days) {
         advanceTeamPlayerAges(league, days);
         advanceFreeAgentAges(league, days);
     }

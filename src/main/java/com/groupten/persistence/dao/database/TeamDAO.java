@@ -1,25 +1,29 @@
-package com.groupten.dao.database;
+package com.groupten.persistence.dao.database;
 
-import com.groupten.dao.ILeagueDAO;
-import com.groupten.database.StoredProcedure;
+import com.groupten.persistence.dao.ITeamDAO;
+import com.groupten.persistence.database.StoredProcedure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class LeagueDAO implements ILeagueDAO {
+public class TeamDAO implements ITeamDAO {
 
     @Override
-    public int createLeague(String leagueName) {
-        long leagueId = 0;
+    public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {
+        int teamId = 0;
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("createLeague(?,?)");
-            storedProcedure.setParameter(1,leagueName);
-            storedProcedure.registerOutputParameterInt(2);
+            storedProcedure = new StoredProcedure("createTeam(?,?,?,?,?)");
+            storedProcedure.setParameter(1, divisionId);
+            storedProcedure.setParameter(2, teamName);
+            storedProcedure.setParameter(3, generalManager);
+            storedProcedure.setParameter(4, headCoach);
+
+            storedProcedure.registerOutputParameterInt(5);
             storedProcedure.execute();
-            leagueId = storedProcedure.getOutputParameterInt(2);
+            teamId = storedProcedure.getOutputParameterInt(5);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -28,16 +32,16 @@ public class LeagueDAO implements ILeagueDAO {
             }
         }
 
-        return (int)leagueId;
-    };
+        return teamId;
+    }
 
     @Override
-    public List<HashMap<String, Object>> getLeagues(String colName, String colValue) {
+    public List<HashMap<String, Object>> getTeams(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("getLeagues(?,?)");
+            storedProcedure = new StoredProcedure("getTeams(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();
@@ -53,12 +57,14 @@ public class LeagueDAO implements ILeagueDAO {
     }
 
     @Override
-    public void updateLeague(int leagueId, String leagueName){
+    public void updateTeam(int teamId, String teamName, String generalManager, String headCoach) {
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("updateLeague(?,?)");
-            storedProcedure.setParameter(1,leagueId);
-            storedProcedure.setParameter(2,leagueName);
+            storedProcedure = new StoredProcedure("updateTeam(?,?,?,?)");
+            storedProcedure.setParameter(1, teamId);
+            storedProcedure.setParameter(2, teamName);
+            storedProcedure.setParameter(3, generalManager);
+            storedProcedure.setParameter(4, headCoach);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,14 +73,14 @@ public class LeagueDAO implements ILeagueDAO {
                 storedProcedure.cleanup();
             }
         }
-    };
+    }
 
     @Override
-    public void deleteLeague(int leagueId){
+    public void deleteTeam(int teamId) {
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("deleteLeague(?)");
-            storedProcedure.setParameter(1,leagueId);
+            storedProcedure = new StoredProcedure("deleteTeam(?)");
+            storedProcedure.setParameter(1,teamId);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,16 +89,16 @@ public class LeagueDAO implements ILeagueDAO {
                 storedProcedure.cleanup();
             }
         }
-    };
+    }
 
     @Override
-    public List<HashMap<String, Object>> getLeagueConferences(int leagueId) {
+    public List<HashMap<String, Object>> getTeamPlayers(int teamId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("getLeagueConferences(?)");
-            storedProcedure.setParameter(1, leagueId);
+            storedProcedure = new StoredProcedure("getTeamPlayers(?)");
+            storedProcedure.setParameter(1, teamId);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,14 +112,13 @@ public class LeagueDAO implements ILeagueDAO {
     }
 
     @Override
-    public List<HashMap<String, Object>> getLeaguePlayers(int leagueId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
+    public void attachTeamPlayer(int teamId, int playerId) {
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("getLeaguePlayers(?)");
-            storedProcedure.setParameter(1, leagueId);
-            list = storedProcedure.executeWithResults();
+            storedProcedure = new StoredProcedure("attachTeamPlayer(?,?)");
+            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(2, playerId);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -121,19 +126,16 @@ public class LeagueDAO implements ILeagueDAO {
                 storedProcedure.cleanup();
             }
         }
-
-        return list;
     }
 
     @Override
-    public List<HashMap<String, Object>> getLeagueFreeAgents(int leagueId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
-
+    public void detachTeamPlayer(int teamId, int playerId) {
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("getLeagueFreeAgents(?)");
-            storedProcedure.setParameter(1, leagueId);
-            list = storedProcedure.executeWithResults();
+            storedProcedure = new StoredProcedure("attachTeamPlayer(?,?)");
+            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(2, playerId);
+            storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -141,6 +143,5 @@ public class LeagueDAO implements ILeagueDAO {
                 storedProcedure.cleanup();
             }
         }
-        return list;
     }
 }

@@ -1,9 +1,8 @@
-package com.groupten.database;
+package com.groupten.persistence.database;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class DefaultDatabaseConfiguration implements IDatabaseConfiguration
