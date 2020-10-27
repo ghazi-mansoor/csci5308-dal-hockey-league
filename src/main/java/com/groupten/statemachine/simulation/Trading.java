@@ -2,6 +2,7 @@ package com.groupten.statemachine.simulation;
 
 import java.util.*;
 
+import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
@@ -9,8 +10,6 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.console.IConsole;
-import com.groupten.statemachine.json.JSON;
 
 public class Trading implements ITrading {
 
@@ -44,15 +43,14 @@ public class Trading implements ITrading {
 				 
 				 for(Team initializingTeam : teams)
 				 {
-					 if(tradeInitializingTeam.isAITeam()) {
+					 if(tradeInitializingTeam.isaITeam()) {
 						 if(tradeInitializingTeam.getLossPoint() >= leagueLOM.getLossPoint())
 						 {
 							 tradeInitializingTeam = initializingTeam;
 							 HashMap<Player, Double> initialPlayerStrength = new HashMap<Player, Double>();
 							 for(Player players : tradeInitializingTeam.getPlayers())
 							 {
-								 String playerPosition = players.getPosition();
-								 double playerStrength = players.calculateStrength(playerPosition);
+								 double playerStrength = players.calculateStrength();
 								 
 								 initialPlayerStrength.put(players, playerStrength);
 							 }
@@ -136,8 +134,7 @@ public class Trading implements ITrading {
 					 HashMap<Player, Double> finalPlayerStrength = new HashMap<Player, Double>();
 					 for(Player players : tradeFinalizingTeam.getPlayers())
 					 {
-						 String playerPosition = players.getPosition();
-						 double playersStrength = players.calculateStrength(playerPosition);
+						 double playersStrength = players.calculateStrength();
 
 						 finalPlayerStrength.put(players, playersStrength);
 					 }
@@ -172,7 +169,7 @@ public class Trading implements ITrading {
 						 }
 					 }
 
-					 if(tradeFinalizingTeam.isAITeam())
+					 if(tradeFinalizingTeam.isaITeam())
 					 {
 						 UITradeAccept(tradingPlayers);
 					 }

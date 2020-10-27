@@ -3,9 +3,9 @@ package com.groupten.statemachine.simulation;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.simulation.aging.Aging;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

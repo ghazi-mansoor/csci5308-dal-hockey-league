@@ -1,21 +1,21 @@
 package com.groupten.injector;
 
-import com.groupten.dao.database.ConferenceDAO;
-import com.groupten.dao.IConferenceDAO;
-import com.groupten.dao.database.DivisionDAO;
-import com.groupten.dao.IDivisionDAO;
-import com.groupten.dao.database.LeagueDAO;
-import com.groupten.dao.ILeagueDAO;
-import com.groupten.dao.database.PlayerDAO;
-import com.groupten.dao.IPlayerDAO;
-import com.groupten.dao.database.TeamDAO;
-import com.groupten.dao.ITeamDAO;
+import com.groupten.persistence.dao.database.ConferenceDAO;
+import com.groupten.persistence.dao.IConferenceDAO;
+import com.groupten.persistence.dao.database.DivisionDAO;
+import com.groupten.persistence.dao.IDivisionDAO;
+import com.groupten.persistence.dao.database.LeagueDAO;
+import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.database.PlayerDAO;
+import com.groupten.persistence.dao.IPlayerDAO;
+import com.groupten.persistence.dao.database.TeamDAO;
+import com.groupten.persistence.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.statemachine.console.Console;
-import com.groupten.statemachine.console.IConsole;
-import com.groupten.statemachine.json.JSON;
-import com.groupten.statemachine.json.IJSON;
+import com.groupten.IO.console.Console;
+import com.groupten.IO.console.IConsole;
+import com.groupten.statemachine.jsonimport.JSONImport;
+import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.createteam.CreateTeam;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.LoadTeam;
@@ -28,7 +28,7 @@ public class Injector {
     private static Injector injector = null;
     private IConsole consoleInterface;
 
-    private IJSON jsonInterface;
+    private IJSONImport jsonInterface;
     private ICreateTeam createTeamInterface;
     private ILoadTeam loadTeamInterface;
     private ISimulation simulationInterface;
@@ -44,7 +44,7 @@ public class Injector {
     private Injector() {
         consoleInterface = new Console();
 
-        jsonInterface = new JSON();
+        jsonInterface = new JSONImport();
         createTeamInterface = new CreateTeam();
         loadTeamInterface = new LoadTeam();
         simulationInterface = new Simulation();
@@ -78,11 +78,11 @@ public class Injector {
         return consoleInterface;
     }
 
-    public void setJSONObject(IJSON jsonInterface) {
+    public void setJSONObject(IJSONImport jsonInterface) {
         this.jsonInterface = jsonInterface;
     }
 
-    public IJSON getJSONObject() {
+    public IJSONImport getJSONObject() {
         return jsonInterface;
     }
 

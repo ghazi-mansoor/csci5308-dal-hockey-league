@@ -1,7 +1,7 @@
 package com.groupten.statemachine.simulate.serialize;
 
-import com.groupten.statemachine.json.JSON;
-import com.groupten.statemachine.simulation.serializeData.SerializeData;
+import com.groupten.statemachine.jsonimport.JSONImport;
+import com.groupten.IO.serializedata.SerializeData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class SerializeDataTest {
 
     @BeforeClass
     public static void setup(){
-        JSON json = new JSON();
+        JSONImport json = new JSONImport();
         json.importJSONData("src/test/java/com/groupten/statemachine/mocks/JsonMockCopy.json");
         json.instantiateJSONData();
     }

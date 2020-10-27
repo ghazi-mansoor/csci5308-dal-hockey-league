@@ -11,24 +11,24 @@ import java.util.List;
 public class Team {
     private int teamID;
     private String teamName;
+    private boolean aITeam;
     private List<Player> players = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
-    private boolean isAITeam;
     private int lossPoint;
 
     public Team() {
     }
 
-    public Team(String tN) {
-        teamName = tN;
+    public Team(String teamName) {
+        this.teamName = teamName;
     }
 
-    public Team(int tID, String tN) {
-        this(tN);
-        teamID = tID;
+    public Team(int teamID, String teamName) {
+        this(teamName);
+        this.teamID = teamID;
     }
 
     public boolean addPlayer(Player player) {
@@ -67,7 +67,7 @@ public class Team {
     public void calculateTeamStrength() {
         for (Player player : players) {
             String pos = player.getPosition();
-            double playerStrength = player.calculateStrength(pos);
+            double playerStrength = player.calculateStrength();
             if (player.isInjured()) {
                 teamStrength += (playerStrength / 2);
             } else {
@@ -132,20 +132,19 @@ public class Team {
         this.teamStrength = teamStrength;
     }
 
-	public boolean isAITeam() {
-		return isAITeam;
-	}
+    public boolean isaITeam() {
+        return aITeam;
+    }
 
-	public void setAITeam(boolean isAITeam) {
-		this.isAITeam = isAITeam;
-	}
+    public void setaITeam(boolean aITeam) {
+        this.aITeam = aITeam;
+    }
 
-	public int getLossPoint() {
-		return lossPoint;
-	}
+    public int getLossPoint() {
+        return lossPoint;
+    }
 
-	public void setLossPoint(int lossPoint) {
-		this.lossPoint = lossPoint;
-	}
-	
+    public void setLossPoint(int lossPoint) {
+        this.lossPoint = lossPoint;
+    }
 }

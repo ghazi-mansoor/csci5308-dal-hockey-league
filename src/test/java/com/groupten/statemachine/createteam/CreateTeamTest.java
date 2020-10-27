@@ -8,7 +8,6 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.statemachine.json.JSON;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class CreateTeamTest {
         Division division = new Division("Deep Division Division");
         conference.addDivision(division);
         league.addConference(conference);
-        leagueModel.addLeague(league);
+        leagueModel.setCurrentLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");
@@ -56,7 +55,7 @@ public class CreateTeamTest {
         Division division = new Division("Deep Division Division");
         conference.addDivision(division);
         league.addConference(conference);
-        leagueModel.addLeague(league);
+        leagueModel.setCurrentLeague(league);
 
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("Deep Test Conference");

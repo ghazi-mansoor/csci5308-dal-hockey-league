@@ -1,6 +1,6 @@
 package com.groupten.statemachine.mocks;
 
-import com.groupten.dao.ITeamDAO;
+import com.groupten.persistence.dao.ITeamDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;

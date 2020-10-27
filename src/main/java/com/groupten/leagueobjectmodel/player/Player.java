@@ -27,29 +27,32 @@ public class Player {
     public Player() {
     }
 
-    public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
-        playerName = pN;
-        position = pos;
-        age = a;
-        skating = sk;
-        shooting = sh;
-        checking = ch;
-        saving = sa;
+    public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
+        this.playerName = playerName;
+        this.position = position;
+        this.age = age;
+        this.skating = skating;
+        this.shooting = shooting;
+        this.checking = checking;
+        this.saving = saving;
     }
 
-    public Player(int pID, String pN, String pos, double a, double sk, double sh, double ch, double sa) {
-        this(pN, pos, a, sk, sh, ch, sa);
-        playerID = pID;
+    public Player(int playerID, String playerName, String position, double age, double skating, double shooting,
+                  double checking, double saving) {
+        this(playerName, position, age, skating, shooting, checking, saving);
+        this.playerID = playerID;
     }
 
-    public Player(String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
-        this(pN, pos, a, sk, sh, ch, sa);
-        captain = cap;
+    public Player(String playerName, String position, boolean captain, double age, double skating, double shooting,
+                  double checking, double saving) {
+        this(playerName, position, age, skating, shooting, checking, saving);
+        this.captain = captain;
     }
 
-    public Player(int pID, String pN, String pos, boolean cap, double a, double sk, double sh, double ch, double sa) {
-        this(pN, pos, cap, a, sk, sh, ch, sa);
-        playerID = pID;
+    public Player(int playerID, String playerName, String position, boolean captain, double age, double skating, double shooting,
+                  double checking, double saving) {
+        this(playerName, position, captain, age, skating, shooting, checking, saving);
+        this.playerID = playerID;
     }
 
     public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
@@ -74,18 +77,23 @@ public class Player {
         } else {
             probability = 4.6666 * age - 133.3;
         }
+
         return probability;
     }
 
     public boolean checkInjury() {
-        if (Math.random() < randomInjuryChance) {
-            injured = true;
-            setInjuryPeriod();
+        if (injured) {
+            return true;
         } else {
-            injured = false;
-        }
+            if (Math.random() < randomInjuryChance) {
+                injured = true;
+                setInjuryPeriod();
+            } else {
+                injured = false;
+            }
 
-        return injured;
+            return injured;
+        }
     }
 
     private void setInjuryPeriod() {
@@ -98,7 +106,7 @@ public class Player {
         injuryPeriod = 0;
     }
 
-    public double calculateStrength(String position) {
+    public double calculateStrength() {
         double strength = 0.0;
 
         switch (position) {
@@ -121,11 +129,14 @@ public class Player {
     }
 
     private static boolean isPlayerNameValid(String pN) {
+        boolean isValid;
         if (pN.isEmpty() || pN.isBlank() || pN.toLowerCase().equals("null")) {
-           return false;
+            isValid = false;
         } else {
-            return true;
+            isValid = true;
         }
+
+        return isValid;
     }
 
     private static boolean isPositionValid(String pos) {
@@ -136,13 +147,13 @@ public class Player {
     private static boolean areStatsValid(double ...args) {
         List<Boolean> validChecks = new ArrayList<>();
 
-         for (double stat : args) {
-             validChecks.add(stat >= 1 && stat <= 20);
-         }
+        for (double stat : args) {
+            validChecks.add(stat >= 1 && stat <= 20);
+        }
 
-         return Collections.frequency(validChecks, false) == 0;
+        return Collections.frequency(validChecks, false) == 0;
     }
-    
+
     public int getPlayerID() {
         return playerID;
     }
@@ -214,11 +225,10 @@ public class Player {
     public void setSaving(double s) {
         saving = s;
     }
-    
+
     public boolean isInjured() { return injured; }
 
     public void setInjured(boolean in) { injured = in; }
 
-    
 }
 

@@ -30,39 +30,42 @@ public class League {
     private int maxPlayersPerTrade;
     private double randomAcceptanceChance;
 
-    public League(String lN) {
-        leagueName = lN;
+    public League(String leagueName) {
+        this.leagueName = leagueName;
     }
 
-    public League(String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
-    , double randTOC, int maxPPT, double randAC) {
-        this(lN);
-        averageRetirementAge = avgRA;
-        maximumAge = mA;
-        randomWinChance = randWC;
-        randomInjuryChance = randIC;
-        injuryDaysLow = iDL;
-        injuryDaysHigh = iDH;
-        daysUntilStatIncreaseCheck = daysUSIC;
-        lossPoint = lP;
-        randomTradeOfferChance = randTOC;
-        maxPlayersPerTrade = maxPPT;
-        randomAcceptanceChance = randAC;
+    public League(String leagueName, int averageRetirementAge, int maximumAge, double randomWinChance, double randomInjuryChance,
+                  int injuryDaysLow, int injuryDaysHigh, int daysUntilStatIncreaseCheck, int lossPoint, double randomTradeOfferChance,
+                  int maxPlayersPerTrade, double randomAcceptanceChance) {
+        this(leagueName);
+        this.averageRetirementAge = averageRetirementAge;
+        this.maximumAge = maximumAge;
+        this.randomWinChance = randomWinChance;
+        this.randomInjuryChance = randomInjuryChance;
+        this.injuryDaysLow = injuryDaysLow;
+        this.injuryDaysHigh = injuryDaysHigh;
+        this.daysUntilStatIncreaseCheck = daysUntilStatIncreaseCheck;
+        this.lossPoint = lossPoint;
+        this.randomTradeOfferChance = randomTradeOfferChance;
+        this.maxPlayersPerTrade = maxPlayersPerTrade;
+        this.randomAcceptanceChance = randomAcceptanceChance;
     }
 
-    public League(int lID, String lN, int avgRA, int mA, double randWC, double randIC ,int iDL, int iDH, int daysUSIC, int lP
-            ,double randTOC, int maxPPT, double randAC) {
-        this(lN, avgRA, mA, randWC, randIC, iDL, iDH, daysUSIC, lP, randTOC, maxPPT, randAC);
-        leagueID = lID;
+    public League(int leagueID, String leagueName, int averageRetirementAge, int maximumAge, double randomWinChance, double randomInjuryChance,
+                  int injuryDaysLow, int injuryDaysHigh, int daysUntilStatIncreaseCheck, int lossPoint, double randomTradeOfferChance,
+                  int maxPlayersPerTrade, double randomAcceptanceChance) {
+        this(leagueName, averageRetirementAge, maximumAge, randomWinChance, randomInjuryChance, injuryDaysLow, injuryDaysHigh,
+                daysUntilStatIncreaseCheck, lossPoint, randomTradeOfferChance, maxPlayersPerTrade, randomAcceptanceChance);
+        this.leagueID = leagueID;
     }
 
     public boolean addConference(Conference conference) {
-        if(Conference.isConferenceNameValid(conference.getConferenceName())){
+        if (Conference.isConferenceNameValid(conference.getConferenceName())){
             String conferenceName = conference.getConferenceName();
             int initialSize = conferences.size();
             conferences.put(conferenceName, conference);
             return conferences.size() > initialSize;
-        }else{
+        } else{
             return false;
         }
     }
