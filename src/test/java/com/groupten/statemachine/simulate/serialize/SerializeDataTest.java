@@ -1,7 +1,7 @@
 package com.groupten.statemachine.simulate.serialize;
 
 import com.groupten.statemachine.json.JSON;
-import com.groupten.statemachine.simulation.serializeData.SerializeData;
+import com.groupten.statemachine.simulation.serializedata.SerializeData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
