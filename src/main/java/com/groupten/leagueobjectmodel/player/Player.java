@@ -24,6 +24,9 @@ public class Player {
     private final int injuryDaysLow = 1;
     private final int injuryDaysHigh = 260;
 
+    public Player() {
+    }
+
     public Player(String pN, String pos, double a, double sk, double sh, double ch, double sa) {
         playerName = pN;
         position = pos;
@@ -211,10 +214,11 @@ public class Player {
     public void setSaving(double s) {
         saving = s;
     }
-
+    
     public boolean isInjured() { return injured; }
 
     public void setInjured(boolean in) { injured = in; }
 
+    
 }
 

@@ -1,4 +1,4 @@
-package com.groupten.jdbc.player;
+package com.groupten.dao;
 
 import java.util.HashMap;
 import java.util.List;

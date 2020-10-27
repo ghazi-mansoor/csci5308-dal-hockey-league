@@ -30,6 +30,16 @@ public class DivisionTest {
     }
 
     @Test
+    public void getTeamsTest() {
+        Division division = new Division(1, "First Division");
+        Team team = new Team(1, "First Team");
+        division.addTeam(team);
+        team = new Team(2, "Second Team");
+        division.addTeam(team);
+        assertEquals(2, division.getTeams().size());
+    }
+
+    @Test
     public void isDivisionNameValidTest() {
         String divisionName = "First Division";
         assertTrue(Division.isDivisionNameValid(divisionName));

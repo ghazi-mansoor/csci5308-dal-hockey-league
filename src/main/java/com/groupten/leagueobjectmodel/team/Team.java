@@ -16,6 +16,11 @@ public class Team {
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
+    private boolean isAITeam;
+    private int lossPoint;
+
+    public Team() {
+    }
 
     public Team(String tN) {
         teamName = tN;
@@ -126,4 +131,21 @@ public class Team {
     public void setTeamStrength(double teamStrength) {
         this.teamStrength = teamStrength;
     }
+
+	public boolean isAITeam() {
+		return isAITeam;
+	}
+
+	public void setAITeam(boolean isAITeam) {
+		this.isAITeam = isAITeam;
+	}
+
+	public int getLossPoint() {
+		return lossPoint;
+	}
+
+	public void setLossPoint(int lossPoint) {
+		this.lossPoint = lossPoint;
+	}
+	
 }

@@ -74,6 +74,155 @@
               ]
             }
           ]
+        },
+        {
+          "divisionName":"Blah",
+          "teams":[
+            {
+              "teamName":"Boston",
+              "generalManager":"Mister Fred",
+              "headCoach":{
+                "name":"Mary Smith",
+                "skating":0.5,
+                "shooting":0.8,
+                "checking":0.3,
+                "saving":0.5
+              },
+              "players":[
+                {
+                  "playerName":"Player One",
+                  "position":"forward",
+                  "captain":true,
+                  "age":27,
+                  "skating":15,
+                  "shooting":18,
+                  "checking":12,
+                  "saving":1
+                },
+                {
+                  "playerName":"Player Two",
+                  "position":"defense",
+                  "captain":false,
+                  "age":20,
+                  "skating":10,
+                  "shooting":10,
+                  "checking":10,
+                  "saving":1
+                },
+                {
+                  "playerName":"Player Three",
+                  "position":"goalie",
+                  "captain":false,
+                  "age":33,
+                  "skating":10,
+                  "shooting":4,
+                  "checking":9,
+                  "saving":18
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conferenceName":"Western Conference",
+      "divisions":[
+        {
+          "divisionName":"Pacific",
+          "teams":[
+            {
+              "teamName":"Boston",
+              "generalManager":"Mister Fred",
+              "headCoach":{
+                "name":"Mary Smith",
+                "skating":0.5,
+                "shooting":0.8,
+                "checking":0.3,
+                "saving":0.5
+              },
+              "players":[
+                {
+                  "playerName":"Player One",
+                  "position":"forward",
+                  "captain":true,
+                  "age":27,
+                  "skating":15,
+                  "shooting":18,
+                  "checking":12,
+                  "saving":1
+                },
+                {
+                  "playerName":"Player Two",
+                  "position":"defense",
+                  "captain":false,
+                  "age":20,
+                  "skating":10,
+                  "shooting":10,
+                  "checking":10,
+                  "saving":1
+                },
+                {
+                  "playerName":"Player Three",
+                  "position":"goalie",
+                  "captain":false,
+                  "age":33,
+                  "skating":10,
+                  "shooting":4,
+                  "checking":9,
+                  "saving":18
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "divisionName":"Zoom",
+          "teams":[
+            {
+              "teamName":"Boston",
+              "generalManager":"Mister Fred",
+              "headCoach":{
+                "name":"Mary Smith",
+                "skating":0.5,
+                "shooting":0.8,
+                "checking":0.3,
+                "saving":0.5
+              },
+              "players":[
+                {
+                  "playerName":"Player One",
+                  "position":"forward",
+                  "captain":true,
+                  "age":27,
+                  "skating":15,
+                  "shooting":18,
+                  "checking":12,
+                  "saving":1
+                },
+                {
+                  "playerName":"Player Two",
+                  "position":"defense",
+                  "captain":false,
+                  "age":20,
+                  "skating":10,
+                  "shooting":10,
+                  "checking":10,
+                  "saving":1
+                },
+                {
+                  "playerName":"Player Three",
+                  "position":"goalie",
+                  "captain":false,
+                  "age":33,
+                  "skating":10,
+                  "shooting":4,
+                  "checking":9,
+                  "saving":18
+                }
+              ]
+            }
+          ]
         }
       ]
     }

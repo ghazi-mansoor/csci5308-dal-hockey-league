@@ -42,6 +42,16 @@ public class ConferenceTest {
     }
 
     @Test
+    public void getDivisionsTest() {
+        Conference conference = new Conference("First Conference");
+        Division division = new Division("First Division");
+        conference.addDivision(division);
+        division = new Division("Second Division");
+        conference.addDivision(division);
+        assertEquals(2, conference.getDivisions().size());
+    }
+
+    @Test
     public void isConferenceNameValidTest() {
         String conferenceName = "First Conference";
         assertTrue(Conference.isConferenceNameValid(conferenceName));
