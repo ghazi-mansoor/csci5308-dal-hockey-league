@@ -41,7 +41,7 @@ public class Training implements ITraining {
                                 player.setSkating(player.getSkating() + 1);
                             }
                         }else{
-                            // Injury Check
+                            player.checkInjury();
                         }
 
                         if(compareStatisticWithRandomValue(shooting)){
@@ -49,7 +49,7 @@ public class Training implements ITraining {
                                 player.setShooting(player.getShooting() + 1);
                             }
                         }else{
-                            // Injury Check
+                            player.checkInjury();
                         }
 
                         if(compareStatisticWithRandomValue(checking)){
@@ -57,7 +57,7 @@ public class Training implements ITraining {
                                 player.setChecking(player.getChecking() + 1);
                             }
                         }else{
-                            // Injury Check
+                            player.checkInjury();
                         }
 
                         if(compareStatisticWithRandomValue(saving)){
@@ -65,7 +65,7 @@ public class Training implements ITraining {
                                 player.setSaving(player.getSaving() + 1);
                             }
                         }else{
-                            // Injury Check
+                            player.checkInjury();
                         }
                     }
                 }

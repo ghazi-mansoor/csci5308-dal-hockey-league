@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulate.serialize;
+package com.groupten.statemachine.simulation;
 
 import com.groupten.statemachine.json.JSON;
 import com.groupten.statemachine.simulation.serializedata.SerializeData;

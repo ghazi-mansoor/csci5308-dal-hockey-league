@@ -100,6 +100,7 @@ public class SerializeData implements ISerializeData{
                 for(Team team: teams.values()){
                     JsonObject leagueTeam = new JsonObject();
                     leagueTeam.addProperty("teamName", team.getTeamName());
+                    leagueTeam.addProperty("teamStrength", team.getTeamStrength());
 
                     leagueTeam.addProperty("generalManager", team.getGeneralManager().getManagerName());
 
@@ -125,6 +126,7 @@ public class SerializeData implements ISerializeData{
                         teamPlayer.addProperty("shooting", player.getShooting());
                         teamPlayer.addProperty("checking", player.getChecking());
                         teamPlayer.addProperty("saving", player.getSaving());
+                        teamPlayer.addProperty("injury", player.isInjured());
                         teamPlayers.add(teamPlayer);
                     }
                     leagueTeams.add(leagueTeam);
@@ -146,6 +148,7 @@ public class SerializeData implements ISerializeData{
             agents.addProperty("shooting", player.getShooting());
             agents.addProperty("checking", player.getChecking());
             agents.addProperty("saving", player.getSaving());
+            agents.addProperty("injury", player.isInjured());
             freeAgents.add(agents);
         }
 

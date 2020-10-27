@@ -11,6 +11,9 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+main.iml
+test.iml
+
 # Generated files
 .idea/**/contentModel.xml
 
@@ -502,3 +505,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+src/main/main.iml
+src/test/resources/
+src/test/test.iml
