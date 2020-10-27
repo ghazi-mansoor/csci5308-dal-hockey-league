@@ -10,13 +10,13 @@ public class Division {
     private String divisionName;
     private Map<String, Team> teams = new HashMap<>();
 
-    public Division(String dN) {
-        divisionName = dN;
+    public Division(String divisionName) {
+        this.divisionName = divisionName;
     }
 
-    public Division(int dID, String dN) {
-        this(dN);
-        divisionID = dID;
+    public Division(int divisionID, String divisionName) {
+        this(divisionName);
+        this.divisionID = divisionID;
     }
 
     public boolean addTeam(Team team) {
