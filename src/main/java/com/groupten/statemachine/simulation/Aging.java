@@ -63,7 +63,7 @@ public class Aging implements IAging {
          TreeMap<Double, Player> freeAgentsRanked = new TreeMap<Double, Player>();
 
          for (Player pl : freeAgentsWithSamePosition) {
-             double strength = pl.calculateStrength(playerPosition);
+             double strength = pl.calculateStrength();
              freeAgentsRanked.put(strength, pl);
          }
 
