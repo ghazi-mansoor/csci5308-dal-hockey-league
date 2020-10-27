@@ -1,6 +1,6 @@
-import com.groupten.statemachine.console.IConsole;
+import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
-import com.groupten.statemachine.json.IJSON;
+import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.ISimulation;
@@ -13,7 +13,7 @@ public class HockeySimulationApp {
 
         boolean startSimulation = false;
         IConsole console = Injector.injector().getConsoleObject();
-        IJSON json = Injector.injector().getJSONObject();
+        IJSONImport json = Injector.injector().getJSONObject();
         ICreateTeam createTeam = Injector.injector().getCreateTeamObject();
         ILoadTeam loadTeam = Injector.injector().getLoadTeamObject();
         ISimulation simulation = Injector.injector().getSimulationObject();

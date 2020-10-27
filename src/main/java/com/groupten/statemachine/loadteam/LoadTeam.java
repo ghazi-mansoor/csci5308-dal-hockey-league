@@ -1,8 +1,8 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.dao.ITeamDAO;
+import com.groupten.persistence.dao.ITeamDAO;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.statemachine.console.IConsole;
+import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 
 import java.util.HashMap;

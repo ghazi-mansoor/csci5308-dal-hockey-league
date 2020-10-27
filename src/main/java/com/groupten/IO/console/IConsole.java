@@ -1,4 +1,4 @@
-package com.groupten.statemachine.console;
+package com.groupten.IO.console;
 
 public interface IConsole {
 

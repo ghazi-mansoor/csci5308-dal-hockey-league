@@ -1,7 +1,7 @@
-package com.groupten.dao.database;
+package com.groupten.persistence.dao.database;
 
-import com.groupten.dao.IPlayerDAO;
-import com.groupten.database.StoredProcedure;
+import com.groupten.persistence.dao.IPlayerDAO;
+import com.groupten.persistence.database.StoredProcedure;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,7 +1,7 @@
-package com.groupten.statemachine.json;
+package com.groupten.statemachine.jsonimport;
 import java.io.IOException;
 
-public interface IJSON {
+public interface IJSONImport {
 
     boolean importJSONData(String path) throws IOException;
     boolean isLeagueNameUnique();

@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation.serializedata;
+package com.groupten.IO.serializedata;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
