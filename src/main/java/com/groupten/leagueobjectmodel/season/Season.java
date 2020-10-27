@@ -94,7 +94,7 @@ public class Season {
         TeamStanding teamStanding = teamStandings.get(teamName);
         int points = teamStanding.getPoints();
         teamStanding.setPoints(points + 2);
-        updateRanks();
+//        updateRanks();
     }
 
     private void generateTeamIndices(){
