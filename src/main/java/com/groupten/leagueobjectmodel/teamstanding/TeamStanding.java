@@ -12,18 +12,6 @@ public class TeamStanding implements Comparable<TeamStanding>{
     private int conferenceRank;
     private int divisionRank;
 
-    public TeamStanding() {
-        this.teamName = "";
-        this.divisionName = "";
-        this.conferenceName = "";
-        this.wins = 0;
-        this.losses = 0;
-        this.points = 0;
-        this.leagueRank = 0;
-        this.conferenceRank = 0;
-        this.divisionRank = 0;
-    }
-
     public TeamStanding(String teamName,String divisionName,String conferenceName, int points, int leagueRank, int conferenceRank,int divisionRank, int wins, int losses){
         this.teamName = teamName;
         this.divisionName = divisionName;

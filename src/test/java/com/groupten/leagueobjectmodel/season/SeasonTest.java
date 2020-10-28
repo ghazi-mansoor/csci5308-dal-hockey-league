@@ -65,7 +65,7 @@ public class SeasonTest {
     public void addTeamStandingTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        season.addTeamStanding(new TeamStanding());
+        season.addTeamStanding(new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0));
         assertEquals(1, season.getTeamStandings().size());
     }
 
@@ -73,8 +73,8 @@ public class SeasonTest {
     public void getTeamStandingsTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        season.addTeamStanding(new TeamStanding());
-        season.addTeamStanding(new TeamStanding());
+        season.addTeamStanding(new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0));
+        season.addTeamStanding(new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0));
         assertEquals(2, season.getTeamStandings().size());
     }
 
@@ -91,15 +91,13 @@ public class SeasonTest {
     public void recordWinTest(){
         League league = null;
         Season season = new Season(league,2020);
-        TeamStanding A = new TeamStanding();
-        A.setTeamName("A");
-        TeamStanding B = new TeamStanding();
-        B.setTeamName("B");
-        season.addTeamStanding(A);
-        season.addTeamStanding(B);
-        season.recordWin("A");
+        TeamStanding Team1 = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        TeamStanding Team2 = new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0);
+        season.addTeamStanding(Team1);
+        season.addTeamStanding(Team2);
+        season.recordWin("Team1");
 
-        assertEquals(2, A.getPoints());
+        assertEquals(3, Team1.getPoints());
     }
 
     @Test

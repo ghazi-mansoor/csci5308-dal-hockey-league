@@ -93,21 +93,24 @@ public class Season {
         teamStandings.forEach(teamStanding -> {
             if(teamStanding.getTeamName().equals(teamName)){
                 teamStanding.addWin();
-                updateRanks();
             }
         });
+        updateRanks();
     }
 
     public void recordLoss(String teamName){
         teamStandings.forEach(teamStanding -> {
             if(teamStanding.getTeamName().equals(teamName)){
                 teamStanding.addLoss();
-                updateRanks();
             }
         });
+        updateRanks();
     }
 
     public boolean generateRegularSchedule(){
+        if(teamStandings.size() <= 0){
+            return false;
+        }
         HashSet<String> conferenceNames = new HashSet<>();
         HashSet<String> divisionNames = new HashSet<>();
         teamStandings.forEach(teamStanding -> {
@@ -156,7 +159,6 @@ public class Season {
                 });
             });
         });
-
 
         teamStandings.forEach(teamStanding1 -> {
             teamStandings.forEach(teamStanding2 -> {
@@ -374,20 +376,19 @@ public class Season {
     }
 
     private void generateTeamStandings(){
-        Map<String, Conference> conferences = league.getConferences();
-        conferences.forEach((conferenceName,conference) ->{
-            Map<String, Division> divisions = conference.getDivisions();
-            divisions.forEach((divisionName, division) -> {
-                Map<String, Team> teams = division.getTeams();
-                teams.forEach((teamName, team) -> {
-                    TeamStanding teamStanding = new TeamStanding();
-                    teamStanding.setConferenceName(conference.getConferenceName());
-                    teamStanding.setDivisionName(division.getDivisionName());
-                    teamStanding.setTeamName(team.getTeamName());
-                    this.teamStandings.add(teamStanding);
+        if(league != null){
+            Map<String, Conference> conferences = league.getConferences();
+            conferences.forEach((conferenceName,conference) ->{
+                Map<String, Division> divisions = conference.getDivisions();
+                divisions.forEach((divisionName, division) -> {
+                    Map<String, Team> teams = division.getTeams();
+                    teams.forEach((teamName, team) -> {
+                        TeamStanding teamStanding = new TeamStanding(team.getTeamName(),division.getDivisionName(),conference.getConferenceName(),0,0,0,0,0,0);
+                        this.teamStandings.add(teamStanding);
+                    });
                 });
             });
-        });
+        }
     }
 
     //Based on: https://www.baeldung.com/java-random-dates

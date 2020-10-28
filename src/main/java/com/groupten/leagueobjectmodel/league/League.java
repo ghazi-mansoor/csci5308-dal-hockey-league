@@ -5,6 +5,7 @@ import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.sun.source.tree.Tree;
 
@@ -17,6 +18,7 @@ public class League {
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
     private List<GeneralManager> generalManagers = new ArrayList<>();
+    private List<Season> seasons = new ArrayList<>();
 
     private int averageRetirementAge;
     private int maximumAge;
@@ -93,6 +95,12 @@ public class League {
         return generalManagers.size() > initialSize;
     }
 
+    public boolean addSeason(Season season) {
+        int initialSize = seasons.size();
+        this.seasons.add(season);
+        return seasons.size() > initialSize;
+    }
+
     public boolean isNumberOfConferencesEven() {
         return conferences.size() % 2 == 0;
     }
@@ -139,6 +147,10 @@ public class League {
 
     public List<GeneralManager> getGeneralManagers() {
         return generalManagers;
+    }
+
+    public List<Season> getSeasons() {
+        return seasons;
     }
 
     public static boolean isLeagueNameValid(String lN) {
