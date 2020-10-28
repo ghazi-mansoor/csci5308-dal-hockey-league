@@ -18,6 +18,8 @@ public class Trading implements ITrading {
 	League leagueLOM = leagueModel.getCurrentLeague();
 	Team tradeInitializingTeam = new Team();
 	Team tradeFinalizingTeam = new Team();
+	int maxPlayersPerTrade = leagueLOM.getMaxPlayersPerTrade();
+	final int teamSize = 20;
 	
 	public void startTrading() {
 		
@@ -51,36 +53,19 @@ public class Trading implements ITrading {
 							 for(Player players : tradeInitializingTeam.getPlayers())
 							 {
 								 double playerStrength = players.calculateStrength();
-								 
 								 initialPlayerStrength.put(players, playerStrength);
 							 }
 
 							 
 							 LinkedList strength = new LinkedList(initialPlayerStrength.entrySet());
-						       // Defined Custom Comparator here
-						       Collections.sort(strength, new Comparator() {
-						            public int compare(Object o1, Object o2) {
-						               return ((Comparable) ((Map.Entry) (o1)).getValue())
-						                  .compareTo(((Map.Entry) (o2)).getValue());
-						            }
-						       });
 
-						       HashMap<Player,Double> initializingWeakestPlayers = new HashMap<Player,Double>();
-						       for(int i=1; i < leagueLOM.getMaxPlayersPerTrade();i++)
-								{
-									if(i > 20 - leagueLOM.getMaxPlayersPerTrade() )
-									{
-										  initializingWeakestPlayers = new LinkedHashMap();
-									       for (Iterator it = strength.iterator(); it.hasNext();) {
-									              Map.Entry entry = (Map.Entry) it.next();
-									              initializingWeakestPlayers.put((Player)entry.getKey(), (Double) entry.getValue());
-									       }
-									}
+							 LinkedList orderedStrength = sortByPlayerStrength(strength);
 
-								}
+							 HashMap<Player,Double> initializingWeakestPlayers = getWeakestPlayers(orderedStrength);
+
 							 if(UITradeOffer())
 							 {
-								 initiateTrading(tradeInitializingTeam , initializingWeakestPlayers);
+								 initiateTrading(initializingWeakestPlayers);
 							 }
 
 						 }
@@ -93,8 +78,9 @@ public class Trading implements ITrading {
 		 }
 		        
 	}
+
 	
-	public void initiateTrading(Team tradeInitializingTeam , HashMap<Player, Double> initializingWeakestPlayers ) {
+	public void initiateTrading(HashMap<Player, Double> initializingWeakestPlayers ) {
 
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
 		
@@ -119,7 +105,7 @@ public class Trading implements ITrading {
 				 for(Team finalizingTeam : teams)
 				 {
 					 ArrayList<String> weakestplayerPositions = new ArrayList<String>();
-					 ArrayList<Player> strongestplayerPositions = new ArrayList<Player>();
+
 					 tradeFinalizingTeam = finalizingTeam;
 					if(tradeFinalizingTeam != tradeInitializingTeam ) 
 					{
@@ -140,18 +126,12 @@ public class Trading implements ITrading {
 					 }
 
 					 LinkedList strength = new LinkedList(finalPlayerStrength.entrySet());
-					 // Defined Custom Comparator here
-					 Collections.sort(strength, new Comparator() {
-						 public int compare(Object o1, Object o2) {
-							 return ((Comparable) ((Map.Entry) (o1)).getValue())
-									 .compareTo(((Map.Entry) (o2)).getValue());
-						 }
-					 });
+					 LinkedList orderedStrength = sortByPlayerStrength(strength);
 
 					 // Here I am copying the sorted list in HashMap
 					 // using LinkedHashMap to preserve the insertion order
 					 HashMap<Player,Double> finalizingPlayerStrength = new LinkedHashMap<Player,Double> ();
-					 for (Iterator it = strength.iterator(); it.hasNext();) {
+					 for (Iterator it = orderedStrength.iterator(); it.hasNext();) {
 						 Map.Entry entry = (Map.Entry) it.next();
 						 finalizingPlayerStrength.put((Player) entry.getKey(), (Double) entry.getValue());
 					 }
@@ -275,6 +255,34 @@ public class Trading implements ITrading {
 
 		}
 
+	}
+
+	public LinkedList sortByPlayerStrength(LinkedList strength){
+
+		Collections.sort(strength, new Comparator() {
+			public int compare(Object o1, Object o2) {
+				return ((Comparable) ((Map.Entry) (o1)).getValue())
+						.compareTo(((Map.Entry) (o2)).getValue());
+			}
+		});
+		return strength;
+	}
+
+	public HashMap<Player,Double> getWeakestPlayers(LinkedList orderedStrength){
+
+		int i = 0;
+		HashMap<Player,Double> initializingWeakestPlayers = new LinkedHashMap<Player,Double>();
+		for (Iterator it = orderedStrength.descendingIterator(); it.hasNext();)
+		{
+			Map.Entry entry = (Map.Entry) it.next();
+			if(i < maxPlayersPerTrade)
+			{
+				initializingWeakestPlayers.put((Player)entry.getKey(), (Double) entry.getValue());
+				i++;
+			}
+
+		}
+		return initializingWeakestPlayers;
 	}
 }
 	
