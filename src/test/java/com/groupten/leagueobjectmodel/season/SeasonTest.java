@@ -63,20 +63,18 @@ public class SeasonTest {
 
     @Test
     public void addTeamStandingTest(){
-        String teamName = "A";
-        TeamStanding teamStanding= new TeamStanding();
-
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        assertTrue(season.addTeamStanding(teamName,teamStanding));
+        season.addTeamStanding(new TeamStanding());
+        assertEquals(1, season.getTeamStandings().size());
     }
 
     @Test
     public void getTeamStandingsTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        season.addTeamStanding("A",new TeamStanding());
-        season.addTeamStanding("B",new TeamStanding());
+        season.addTeamStanding(new TeamStanding());
+        season.addTeamStanding(new TeamStanding());
         assertEquals(2, season.getTeamStandings().size());
     }
 
@@ -93,11 +91,15 @@ public class SeasonTest {
     public void recordWinTest(){
         League league = null;
         Season season = new Season(league,2020);
-        season.addTeamStanding("A",new TeamStanding());
-        season.addTeamStanding("B",new TeamStanding());
+        TeamStanding A = new TeamStanding();
+        A.setTeamName("A");
+        TeamStanding B = new TeamStanding();
+        B.setTeamName("B");
+        season.addTeamStanding(A);
+        season.addTeamStanding(B);
         season.recordWin("A");
 
-        assertEquals(2, season.getTeamStandings().get("A").getPoints());
+        assertEquals(2, A.getPoints());
     }
 
     @Test
