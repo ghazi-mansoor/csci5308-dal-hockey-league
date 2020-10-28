@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Player {
     private int playerID;
+    private int teamID;
     private String playerName;
     private String position;
     private boolean captain;
@@ -226,6 +227,19 @@ public class Player {
     public boolean isInjured() { return injured; }
 
     public void setInjured(boolean in) { injured = in; }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
+    }
+
+    public boolean savePlayer() {
+        System.out.println("Player saved to DB. playerID set to 1.");
+        return true;
+    }
 
 }
 
