@@ -95,8 +95,18 @@ public class Season {
         }
         if(teamStandings.containsKey(teamName)){
             TeamStanding teamStanding = teamStandings.get(teamName);
-            int points = teamStanding.getPoints();
-            teamStanding.setPoints(points + 2);
+            teamStanding.addWin();
+            updateRanks();
+        }
+    }
+
+    public void recordLoss(String teamName){
+        if(teamStandings.size() <=0){
+            generateTeamStandings();
+        }
+        if(teamStandings.containsKey(teamName)){
+            TeamStanding teamStanding = teamStandings.get(teamName);
+            teamStanding.addLoss();
             updateRanks();
         }
     }
