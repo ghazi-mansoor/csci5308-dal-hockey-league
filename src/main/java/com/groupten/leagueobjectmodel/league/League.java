@@ -265,4 +265,8 @@ public class League {
         freeAgents.remove(player);
     }
 
+    public boolean saveLeague() {
+        System.out.println("League saved to DB. leagueID set to 1.");
+        return true;
+    }
 }

@@ -24,27 +24,37 @@ public class Aging implements IAging {
     private void advanceTeamPlayerAges(League league, int days) {
         Map<String, Conference> conferences = league.getConferences();
         List<Player> freeAgents = league.getFreeAgents();
-        List<Player> updatedPlayersList = new ArrayList<Player>();
 
         for (Conference conference : conferences.values()) {
             Map<String, Division> divisions = conference.getDivisions();
+
             for (Division division : divisions.values()) {
                 Map<String, Team> teams = division.getTeams();
-                for (Team team : teams.values()) {
-                    List<Player> players = team.getPlayers();
-                    for (Player player : players) {
-                        boolean playerShouldRetire = player.increaseAgeAndCheckIfPlayerShouldBeRetired(days);
-                        if (playerShouldRetire) {
-                            Player bestFreeAgent = findBestFreeAgent(freeAgents, player);
-                            updatedPlayersList.add(bestFreeAgent);
-                            freeAgents.remove(bestFreeAgent);
-                        } else {
-                            updatedPlayersList.add(player);
-                        }
-                    }
-                    team.setPlayers(updatedPlayersList);
-                }
+                traverseTeamsMapAndAdvancePlayerAges(teams, freeAgents, days);
             }
+        }
+    }
+
+    private void traverseTeamsMapAndAdvancePlayerAges(Map<String, Team> teams, List<Player> freeAgents, int days) {
+        List<Player> updatedPlayersList = new ArrayList<Player>();
+
+        for (Team team : teams.values()) {
+            List<Player> players = team.getPlayers();
+
+            for (Player player : players) {
+                boolean playerShouldRetire = player.increaseAgeAndCheckIfPlayerShouldBeRetired(days);
+
+                if (playerShouldRetire) {
+                    Player bestFreeAgent = findBestFreeAgent(freeAgents, player);
+                    updatedPlayersList.add(bestFreeAgent);
+                    freeAgents.remove(bestFreeAgent);
+                } else {
+                    updatedPlayersList.add(player);
+                }
+
+            }
+
+            team.setPlayers(updatedPlayersList);
         }
     }
 
@@ -62,9 +72,9 @@ public class Aging implements IAging {
 
          TreeMap<Double, Player> freeAgentsRanked = new TreeMap<Double, Player>();
 
-         for (Player pl : freeAgentsWithSamePosition) {
-             double strength = pl.calculateStrength();
-             freeAgentsRanked.put(strength, pl);
+         for (Player freeAgentPlayer : freeAgentsWithSamePosition) {
+             double strength = freeAgentPlayer.calculateStrength();
+             freeAgentsRanked.put(strength, freeAgentPlayer);
          }
 
          Map.Entry<Double, Player> bestFreeAgentEntry = freeAgentsRanked.lastEntry();

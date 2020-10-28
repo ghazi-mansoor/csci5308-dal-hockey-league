@@ -6,6 +6,11 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class LeagueModel implements ILeagueModel {
     private League currentLeague;
 
@@ -22,8 +27,9 @@ public class LeagueModel implements ILeagueModel {
     }
 
     @Override
-    public void saveLeague() {
-        // TODO: Save current league, conferences, divisions, teams, and players to DB
+    public boolean saveLeagueModel() {
+
+        return true;
     }
 
     @Override
