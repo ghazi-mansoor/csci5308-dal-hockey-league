@@ -11,6 +11,7 @@ public class TeamIndex {
     public TeamIndex(){
 
     }
+
     public TeamIndex(String leagueName, String conferenceName, String divisionName, String teamName){
         this.leagueName = leagueName;
         this.conferenceName = conferenceName;

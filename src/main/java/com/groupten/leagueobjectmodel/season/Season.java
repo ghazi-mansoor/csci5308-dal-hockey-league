@@ -9,6 +9,7 @@ import com.groupten.leagueobjectmodel.teamindex.TeamIndex;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class Season {
@@ -21,7 +22,7 @@ public class Season {
     private Date playoffEndsBy;
     private Map<String,TeamStanding> teamStandings  = new HashMap<>();
     private List<Schedule> regularSchedules  = new ArrayList<>();
-    private List<TeamIndex> teamIndices = null;
+    private List<TeamIndex> teamIndices = new ArrayList<>();;
 
     public Season(League league){
         this.league = league;
@@ -112,58 +113,62 @@ public class Season {
     }
 
     public boolean generateRegularSchedule(){
-        try{
-            if(league != null && teamIndices == null){
-                generateTeamIndices();
-            }
-            teamIndices.forEach(teamIndex ->{
-                //Same Division
-                ArrayList<TeamIndex> sameDivisionTeams = (ArrayList<TeamIndex>) teamIndices.stream()
-                        .filter(tI -> tI.getDivisionName().equals(teamIndex.getDivisionName()))
-                        .collect(Collectors.toList());
-                sameDivisionTeams.forEach(sameDivisionTeam -> {
-                    if(!teamIndex.getTeamName().equals(sameDivisionTeam.getTeamName())){
-                        for(int i =0; i<4; i++){
-                            Schedule schedule = new Schedule();
-                            schedule.addTeamName(teamIndex.getTeamName());
-                            schedule.addTeamName(sameDivisionTeam.getTeamName());
-                            regularSchedules.add(schedule);
-                        }
-                    }
-                });
-                //Same Conference Different Division
-                ArrayList<TeamIndex> sameConferenceTeams = (ArrayList<TeamIndex>) teamIndices.stream()
-                        .filter(tI -> !tI.getDivisionName().equals(teamIndex.getDivisionName()) && tI.getConferenceName().equals(teamIndex.getConferenceName()))
-                        .collect(Collectors.toList());
-                sameConferenceTeams.forEach(sameConferenceTeam -> {
-                    if(!teamIndex.getTeamName().equals(sameConferenceTeam.getTeamName())){
-                        for(int i =0; i<3; i++) {
-                            Schedule schedule = new Schedule();
-                            schedule.addTeamName(teamIndex.getTeamName());
-                            schedule.addTeamName(sameConferenceTeam.getTeamName());
-                            regularSchedules.add(schedule);
-                        }
-                    }
-                });
-                //Same League Different Conference
-                ArrayList<TeamIndex> sameLeagueTeams = (ArrayList<TeamIndex>) teamIndices.stream()
-                        .filter(tI -> !tI.getConferenceName().equals(teamIndex.getConferenceName()))
-                        .collect(Collectors.toList());
-                sameLeagueTeams.forEach(sameLeagueTeam -> {
-                    if(!teamIndex.getTeamName().equals(sameLeagueTeam.getTeamName())){
-                        for(int i =0; i<2; i++) {
-                            Schedule schedule = new Schedule();
-                            schedule.addTeamName(teamIndex.getTeamName());
-                            schedule.addTeamName(sameLeagueTeam.getTeamName());
-                            regularSchedules.add(schedule);
-                        }
-                    }
-                });
-            });
-            return true;
-        }catch (Exception e){
-            return false;
+        if(league != null && teamIndices.size() <= 0){
+            generateTeamIndices();
         }
+        teamIndices.forEach(teamIndex ->{
+            //Same Division
+            ArrayList<TeamIndex> sameDivisionTeams = (ArrayList<TeamIndex>) teamIndices.stream()
+                    .filter(tI -> tI.getDivisionName().equals(teamIndex.getDivisionName()))
+                    .collect(Collectors.toList());
+
+            sameDivisionTeams.forEach(sameDivisionTeam -> {
+                if(!teamIndex.getTeamName().equals(sameDivisionTeam.getTeamName())){
+
+                    for(int i =0; i<4; i++){
+                        Schedule schedule = new Schedule();
+                        schedule.addTeamName(teamIndex.getTeamName());
+                        schedule.addTeamName(sameDivisionTeam.getTeamName());
+                        regularSchedules.add(schedule);
+                    }
+                }
+            });
+
+
+            //Same Conference Different Division
+            ArrayList<TeamIndex> sameConferenceTeams = (ArrayList<TeamIndex>) teamIndices.stream()
+                    .filter(tI -> !tI.getDivisionName().equals(teamIndex.getDivisionName()) && tI.getConferenceName().equals(teamIndex.getConferenceName()))
+                    .collect(Collectors.toList());
+            sameConferenceTeams.forEach(sameConferenceTeam -> {
+                if(!teamIndex.getTeamName().equals(sameConferenceTeam.getTeamName())){
+                    for(int i =0; i<3; i++) {
+                        Schedule schedule = new Schedule();
+                        schedule.addTeamName(teamIndex.getTeamName());
+                        schedule.addTeamName(sameConferenceTeam.getTeamName());
+                        regularSchedules.add(schedule);
+                    }
+                }
+            });
+            //Same League Different Conference
+            ArrayList<TeamIndex> sameLeagueTeams = (ArrayList<TeamIndex>) teamIndices.stream()
+                    .filter(tI -> !tI.getConferenceName().equals(teamIndex.getConferenceName()))
+                    .collect(Collectors.toList());
+            sameLeagueTeams.forEach(sameLeagueTeam -> {
+                if(!teamIndex.getTeamName().equals(sameLeagueTeam.getTeamName())){
+                    for(int i =0; i<2; i++) {
+                        Schedule schedule = new Schedule();
+                        schedule.addTeamName(teamIndex.getTeamName());
+                        schedule.addTeamName(sameLeagueTeam.getTeamName());
+                        regularSchedules.add(schedule);
+                    }
+                }
+            });
+        });
+        Collections.shuffle(regularSchedules, new Random());
+        regularSchedules.forEach(regularSchedule -> {
+            regularSchedule.setGameDate(randomDateBetween(this.regularSeasonStartsAt,this.regularSeasonEndsAt));
+        });
+        return true;
     };
 
     private boolean generateTeamIndices(){
@@ -179,12 +184,12 @@ public class Season {
                         teamIndex.setConferenceName(conference.getConferenceName());
                         teamIndex.setDivisionName(division.getDivisionName());
                         teamIndex.setTeamName(team.getTeamName());
-                        teamIndices.add(teamIndex);
+                        this.teamIndices.add(teamIndex);
                     });
                 });
             });
             return true;
-        }catch (Exception e){
+        }catch  (Exception e){
             return false;
         }
     }
@@ -340,5 +345,16 @@ public class Season {
             }
         }
         return cal.getTime();
+    }
+
+    //Based on: https://www.baeldung.com/java-random-dates
+    public  Date randomDateBetween(Date startInclusive, Date endExclusive) {
+        long startMillis = startInclusive.getTime();
+        long endMillis = endExclusive.getTime();
+        long randomMillisSinceEpoch = ThreadLocalRandom
+                .current()
+                .nextLong(startMillis, endMillis);
+
+        return new Date(randomMillisSinceEpoch);
     }
 }
