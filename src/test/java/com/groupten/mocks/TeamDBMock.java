@@ -1,4 +1,4 @@
-package com.groupten.statemachine.mocks;
+package com.groupten.mocks;
 
 import com.groupten.persistence.dao.ITeamDAO;
 
@@ -14,7 +14,7 @@ public class TeamDBMock implements ITeamDAO {
 
     @Override
     public List<HashMap<String, Object>> getTeams(String colName, String colValue) {
-        List<HashMap<String,Object>> mockList = new ArrayList<HashMap<String,Object>>();
+        List<HashMap<String, Object>> mockList = new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> mockMap = new HashMap<>();
 
         mockMap.put("teamID", 1);

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class HockeySimulationApp {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         StateMachine stateMachine = new StateMachine();
         stateMachine.init();
     }

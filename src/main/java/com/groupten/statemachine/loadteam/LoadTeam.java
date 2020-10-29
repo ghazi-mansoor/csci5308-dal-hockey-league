@@ -14,7 +14,8 @@ public class LoadTeam implements ILoadTeam {
     private String teamName;
     private int leagueID;
 
-    public LoadTeam() {}
+    public LoadTeam() {
+    }
 
     public LoadTeam(ITeamDAO teamDBObj) {
         Injector.injector().setTeamDatabaseObject(teamDBObj);
@@ -36,10 +37,10 @@ public class LoadTeam implements ILoadTeam {
     public boolean doesTeamExist() {
         ITeamDAO teamDB = Injector.injector().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
-        if(teamList.size() > 0){
+        if (teamList.size() > 0) {
             leagueID = (int) teamList.get(0).get("leagueId");
             return true;
-        } else{
+        } else {
             return false;
         }
     }
