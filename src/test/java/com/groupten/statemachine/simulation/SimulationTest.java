@@ -8,7 +8,6 @@ public class SimulationTest {
 
     @Test
     public void initTest(){
-        Simulation simulation = new Simulation();
-        assertTrue(simulation.init(1));
+        //
     }
 }
