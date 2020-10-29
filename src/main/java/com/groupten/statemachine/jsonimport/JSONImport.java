@@ -3,7 +3,6 @@ package com.groupten.statemachine.jsonimport;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.groupten.persistence.dao.ILeagueDAO;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
@@ -13,6 +12,7 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.ILeagueDAO;
 
 import java.io.FileReader;
 import java.util.HashMap;

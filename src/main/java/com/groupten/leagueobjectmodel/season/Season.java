@@ -7,9 +7,11 @@ import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.TimeUnit;
 
 public class Season {
     private League league = null;
@@ -87,6 +89,47 @@ public class Season {
         cal.setTime(this.currentDate);
         cal.add(Calendar.DATE,1);
         this.currentDate = cal.getTime();
+    }
+
+    public boolean isTodayRegularSeasonEnd(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(regularSeasonEndsAt).equals(dateFormat.format(currentDate));
+    }
+
+    public List<Schedule> schedulesToday(){
+        List<Schedule> scheduleList = new ArrayList<>();
+        regularSchedules.forEach(regularSchedule -> {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            if(dateFormat.format(regularSchedule.getGameDate()).equals(dateFormat.format(currentDate))) {
+                scheduleList.add(regularSchedule);
+            }
+        });
+        playoffSchedules.forEach(playoffSchedule -> {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            if(dateFormat.format(playoffSchedule.getGameDate()).equals(dateFormat.format(currentDate))){
+                scheduleList.add(playoffSchedule);
+            }
+        });
+        return scheduleList;
+    }
+
+    public boolean isTradeEnded(){
+        long diffInMillies = Math.abs(tradeEndsAt.getTime() - currentDate.getTime());
+        long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
+        return diff > 0;
+    }
+
+    public boolean isWinnerDetermined(){
+        int schedulesPending = 0;
+        for(int i=0; i < playoffSchedules.size(); i++){
+            Schedule schedule = playoffSchedules.get(i);
+            long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
+            long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
+            if(diff <= 0){
+                schedulesPending++;
+            }
+        };
+        return schedulesPending == 0;
     }
 
     public void recordWin(String teamName){
@@ -401,4 +444,6 @@ public class Season {
 
         return new Date(randomMillisSinceEpoch);
     }
+
+
 }

@@ -1,7 +1,5 @@
 package com.groupten.leagueobjectmodel.teamindex;
 
-import com.groupten.leagueobjectmodel.team.Team;
-
 public class TeamIndex {
     private String leagueName;
     private String conferenceName;
