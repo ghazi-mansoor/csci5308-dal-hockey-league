@@ -11,20 +11,14 @@ import java.io.IOException;
 
 public class SerializeData implements ISerializeData{
 
-    League leagueLOM;
+    public SerializeData(){ }
 
-    public SerializeData(){
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        leagueLOM = leagueModel.getCurrentLeague();
-        System.out.println(leagueLOM);
-    }
-
-    public boolean exportData(){
+    public boolean exportData(League leagueLOM){
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try {
-            FileWriter fileWriter = new FileWriter("SerializedData.json");
+            FileWriter fileWriter = new FileWriter("src/main/resources/SerializedData.json");
             gson.toJson(leagueLOM, fileWriter);
             fileWriter.close();
             return true;

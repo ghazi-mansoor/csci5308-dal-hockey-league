@@ -1,7 +1,9 @@
 package com.groupten.IO.serializedata;
 
+import com.groupten.leagueobjectmodel.league.League;
+
 public interface ISerializeData {
 
-    boolean exportData();
+    boolean exportData(League leagueLOM);
 
 }

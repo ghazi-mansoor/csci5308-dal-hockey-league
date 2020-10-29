@@ -15,7 +15,7 @@ public class Training implements ITraining {
 
     @Override
     public void train() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
         int daysUntilStatIncreaseCheck = leagueLOM.getDaysUntilStatIncreaseCheck();
 

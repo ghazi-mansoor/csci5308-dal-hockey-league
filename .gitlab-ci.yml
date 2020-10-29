@@ -52,6 +52,7 @@ deploy_develop:
     - |
       echo "{\"DB_HOST\": \"$DB_HOST\",\"DB_PORT\": \"$DB_PORT\",\"DB_NAME\": \"$TEST_DB_NAME\",\"DB_USER\": \"$TEST_DB_USER\",\"DB_PASS\": \"$TEST_DB_PASS\"}" > configuration.json
     - mv configuration.json build/libs
+    - cp -avr build/reports build/libs
     - zip -r ${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip build/libs
     - scp -r -o StrictHostKeyChecking=no -i "${TEST_DEPLOY_SSH_KEY}" ${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip "${TEST_DEPLOY_USER}@${TEST_DEPLOY_HOST}:${TEST_DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.zip"
 

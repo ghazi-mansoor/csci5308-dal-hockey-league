@@ -3,7 +3,6 @@ import com.groupten.injector.Injector;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.ILoadTeam;
-import com.groupten.statemachine.simulation.ISimulation;
 
 import java.io.IOException;
 
@@ -12,11 +11,10 @@ public class HockeySimulationApp {
     public static void main(String[] args) throws IOException {
 
         boolean startSimulation = false;
-        IConsole console = Injector.injector().getConsoleObject();
-        IJSONImport json = Injector.injector().getJSONObject();
-        ICreateTeam createTeam = Injector.injector().getCreateTeamObject();
-        ILoadTeam loadTeam = Injector.injector().getLoadTeamObject();
-        ISimulation simulation = Injector.injector().getSimulationObject();
+        IConsole console = Injector.instance().getConsoleObject();
+        IJSONImport json = Injector.instance().getJSONObject();
+        ICreateTeam createTeam = Injector.instance().getCreateTeamObject();
+        ILoadTeam loadTeam = Injector.instance().getLoadTeamObject();
 
         console.printLine("\t\t\t\t\t\t\t\t##############################\n\t\t\t\t\t\t\t\t### Hockey Game Simulation ###\n\t\t\t\t\t\t\t\t##############################");
 
