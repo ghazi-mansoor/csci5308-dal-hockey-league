@@ -23,73 +23,73 @@ public class HockeySimulationApp {
         console.printLine("\nDo you want to import JSON file? (y/n)");
         String choice = console.readLine().toLowerCase();
 
-        switch(choice) {
+        switch (choice) {
             case "y":
                 console.printLine("Please enter the file path:");
                 String path = console.readLine();
 
-                if(json.importJSONData(path)){
+                if (json.importJSONData(path)) {
                     console.printLine("SUCCESS: Reading JSON file.\n");
 
-                    if(json.isLeagueNameUnique()){
+                    if (json.isLeagueNameUnique()) {
 
-                        if(json.instantiateJSONData()){
+                        if (json.instantiateJSONData()) {
                             console.printLine("Proceeding to team creation. Please answer the below questions.");
                             createTeam.userPromptForNewTeam();
 
-                            if(createTeam.validateUserInput()){
-                                if(createTeam.ifConferenceAndDivisionExist()){
-                                    if(createTeam.selectTeamGeneralManager()){
-                                        if(createTeam.selectTeamHeadCoach()){
-                                            if(createTeam.selectTeamGoalies()){
-                                                if(createTeam.selectTeamSkaters()){
+                            if (createTeam.validateUserInput()) {
+                                if (createTeam.ifConferenceAndDivisionExist()) {
+                                    if (createTeam.selectTeamGeneralManager()) {
+                                        if (createTeam.selectTeamHeadCoach()) {
+                                            if (createTeam.selectTeamGoalies()) {
+                                                if (createTeam.selectTeamSkaters()) {
                                                     console.printLine("SUCCESS: Ready to add the team.\n");
-                                                    if(createTeam.instantiateNewTeam()){
+                                                    if (createTeam.instantiateNewTeam()) {
                                                         console.printLine("SUCCESS: We can now proceed to simulation.");
                                                         startSimulation = true;
-                                                    }else{
+                                                    } else {
                                                         console.printLine("FAILURE: Could not create new team.");
                                                     }
-                                                }else{
+                                                } else {
                                                     console.printLine("FAILURE: Invalid Input. Please try again.");
                                                 }
-                                            }else{
+                                            } else {
                                                 console.printLine("FAILURE: Invalid Input. Please try again.");
                                             }
-                                        }else{
+                                        } else {
                                             console.printLine("FAILURE: Invalid Input. Please try again.");
                                         }
-                                    }else{
+                                    } else {
                                         console.printLine("FAILURE: Invalid Input. Please try again.");
                                     }
-                                }else{
+                                } else {
                                     console.printLine("FAILURE: Conference or Division does not exist.");
                                 }
-                            }else{
+                            } else {
                                 console.printLine("FAILURE: Issue in the input.");
                             }
-                        }else{
+                        } else {
                             console.printLine("FAILURE: Issue in JSON Data. Please try again.");
                         }
-                    }else{
+                    } else {
                         console.printLine("FAILURE: League already exist.");
                     }
-                }else{
+                } else {
                     console.printLine("FAILURE: Reading JSON file.");
                 }
                 break;
             case "n":
                 loadTeam.userPromptForLoadingTeam();
-                if(loadTeam.doesTeamExist()){
+                if (loadTeam.doesTeamExist()) {
                     console.printLine("\nSUCCESS: The team exist.");
-                    if(loadTeam.loadExistingLeague()){
+                    if (loadTeam.loadExistingLeague()) {
                         console.printLine("SUCCESS: Loading League Successful.");
                         console.printLine("SUCCESS: We can now proceed to simulation.");
                         startSimulation = true;
-                    }else{
+                    } else {
                         console.printLine("FAILURE: Loading league failed.");
                     }
-                }else{
+                } else {
                     console.printLine("FAILURE: Team does not exist. Please try again");
                 }
                 break;
@@ -98,11 +98,11 @@ public class HockeySimulationApp {
                 break;
         }
 
-        if(startSimulation){
+        if (startSimulation) {
             console.printLine("\nHow many seasons do you want to simulate?");
             int numberOfSeasons = console.readInteger();
 
-            for(int i = 1; i <= numberOfSeasons; i++){
+            for (int i = 1; i <= numberOfSeasons; i++) {
                 console.printLine("Season " + i);
                 console.printLine("\n");
             }

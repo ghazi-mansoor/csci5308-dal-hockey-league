@@ -58,8 +58,8 @@ public class Injector {
         leagueModel = new LeagueModel();
     }
 
-    public static Injector injector(){
-        if(injector == null) {
+    public static Injector injector() {
+        if (injector == null) {
             injector = new Injector();
         }
 
