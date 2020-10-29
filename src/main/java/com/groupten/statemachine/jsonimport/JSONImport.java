@@ -22,9 +22,10 @@ public class JSONImport implements IJSONImport {
 
     private JsonObject jsonData;
 
-    public JSONImport(){ }
+    public JSONImport() {
+    }
 
-    public JSONImport(ILeagueDAO leagueDBMockObj){
+    public JSONImport(ILeagueDAO leagueDBMockObj) {
         Injector.injector().setLeagueDatabaseObject(leagueDBMockObj);
     }
 
@@ -32,25 +33,25 @@ public class JSONImport implements IJSONImport {
     public boolean importJSONData(String path) {
         JsonParser parser = new JsonParser();
 
-        try{
+        try {
             jsonData = (JsonObject) parser.parse(new FileReader(path));
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     @Override
-    public boolean isLeagueNameUnique(){
+    public boolean isLeagueNameUnique() {
         ILeagueDAO leagueDB = Injector.injector().getLeagueDatabaseObject();
         String columnName = "leagueName";
         String leagueName = jsonData.get("leagueName").getAsString();
-        List<HashMap<String,Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
+        List<HashMap<String, Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
         return leagues.size() == 0;
     }
 
     @Override
-    public boolean instantiateJSONData(){
+    public boolean instantiateJSONData() {
 
         boolean leagueAdded = false, conferenceAdded = false, divisionAdded = false, teamAdded = false,
                 managerAdded = false, coachAdded = false, playerAdded = false;
@@ -97,7 +98,7 @@ public class JSONImport implements IJSONImport {
         leagueLOM = new League(leagueName, averageRetirementAge, maximumAge, randomWinChance, randomInjuryChance, injuryDaysLow,
                 injuryDaysHigh, daysUntilStatIncreaseCheck, lossPoint, randomTradeOfferChance, maxPlayersPerTrade, randomAcceptanceChance);
 
-        for(int i = 0; i < conferences.size(); i++) {
+        for (int i = 0; i < conferences.size(); i++) {
             conference = (JsonObject) conferences.get(i);
             divisions = (JsonArray) conference.get("divisions");
             String conferenceName = conference.get("conferenceName").getAsString();
@@ -127,15 +128,15 @@ public class JSONImport implements IJSONImport {
                     managerLOM = new GeneralManager(generalManager);
                     coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
-                    if(teamLOM.setGeneralManager(managerLOM)){
+                    if (teamLOM.setGeneralManager(managerLOM)) {
                         managerAdded = true;
-                    }else{
+                    } else {
                         return false;
                     }
 
-                    if(teamLOM.setHeadCoach(coachLOM)){
+                    if (teamLOM.setHeadCoach(coachLOM)) {
                         coachAdded = true;
-                    }else{
+                    } else {
                         return false;
                     }
 
@@ -152,35 +153,35 @@ public class JSONImport implements IJSONImport {
 
                         playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
-                        if(teamLOM.addPlayer(playerLOM)){
+                        if (teamLOM.addPlayer(playerLOM)) {
                             playerAdded = true;
-                        }else{
+                        } else {
                             return false;
                         }
                     }
 
-                    if(divisionLOM.addTeam(teamLOM)){
+                    if (divisionLOM.addTeam(teamLOM)) {
                         teamAdded = true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
-                if(conferenceLOM.addDivision(divisionLOM)){
+                if (conferenceLOM.addDivision(divisionLOM)) {
                     divisionAdded = true;
-                }else{
+                } else {
                     return false;
                 }
             }
-            if(leagueLOM.addConference(conferenceLOM)){
+            if (leagueLOM.addConference(conferenceLOM)) {
                 conferenceAdded = true;
-            } else{
+            } else {
                 return false;
             }
 
         }
 
         JsonArray freeAgents = (JsonArray) jsonData.get("freeAgents");
-        for(int i = 0; i < freeAgents.size(); i++) {
+        for (int i = 0; i < freeAgents.size(); i++) {
             freeAgent = (JsonObject) freeAgents.get(i);
             String playerName = freeAgent.get("playerName").getAsString();
             String position = freeAgent.get("position").getAsString();
@@ -192,16 +193,16 @@ public class JSONImport implements IJSONImport {
 
             playerLOM = new Player(playerName, position, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
-            if(leagueLOM.addFreeAgent(playerLOM)){
+            if (leagueLOM.addFreeAgent(playerLOM)) {
                 playerAdded = true;
-            }else{
+            } else {
                 return false;
             }
         }
 
         JsonArray coaches = (JsonArray) jsonData.get("coaches");
 
-        for(int i = 0; i < coaches.size(); i++) {
+        for (int i = 0; i < coaches.size(); i++) {
             coach = (JsonObject) coaches.get(i);
             String coachName = coach.get("name").getAsString();
             double coachSkating = coach.get("skating").getAsDouble();
@@ -211,30 +212,30 @@ public class JSONImport implements IJSONImport {
 
             coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
-            if(leagueLOM.addCoach(coachLOM)){
+            if (leagueLOM.addCoach(coachLOM)) {
                 coachAdded = true;
-            }else{
+            } else {
                 return false;
             }
         }
 
         JsonArray generalManagers = (JsonArray) jsonData.get("generalManagers");
 
-        for(int i = 0; i < generalManagers.size(); i++) {
+        for (int i = 0; i < generalManagers.size(); i++) {
             String generalManager = generalManagers.get(i).getAsString();
 
             managerLOM = new GeneralManager(generalManager);
 
-            if(leagueLOM.addGeneralManager(managerLOM)){
+            if (leagueLOM.addGeneralManager(managerLOM)) {
                 managerAdded = true;
-            }else{
+            } else {
                 return false;
             }
         }
 
-        if(leagueModel.setCurrentLeague(leagueLOM)){
+        if (leagueModel.setCurrentLeague(leagueLOM)) {
             leagueAdded = true;
-        }else{
+        } else {
             return false;
         }
 

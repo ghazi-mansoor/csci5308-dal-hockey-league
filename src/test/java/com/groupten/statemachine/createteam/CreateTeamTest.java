@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class CreateTeamTest {
 
     @Test
-    public void validateUserInputTest(){
+    public void validateUserInputTest() {
         CreateTeam createTeam = new CreateTeam();
         createTeam.setConferenceName("XYZ");
         createTeam.setDivisionName("ABC");
@@ -27,7 +27,7 @@ public class CreateTeamTest {
     }
 
     @Test
-    public void ifConferenceAndDivisionExistTest(){
+    public void ifConferenceAndDivisionExistTest() {
 
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         League league = new League("Deep Test League");
@@ -46,7 +46,7 @@ public class CreateTeamTest {
     }
 
     @Test
-    public void instantiateNewTeamTest(){
+    public void instantiateNewTeamTest() {
         Player player;
         List<Player> listOfPlayer = new ArrayList<>();
         ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
