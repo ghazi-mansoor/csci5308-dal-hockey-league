@@ -10,13 +10,10 @@ import com.groupten.statemachine.simulation.ISimulation;
 import java.io.IOException;
 
 public class StateMachine {
-    IConsole console = Injector.injector().getConsoleObject();
-    IJSONImport json = Injector.injector().getJSONObject();
-    ICreateTeam createTeam = Injector.injector().getCreateTeamObject();
-    ILoadTeam loadTeam = Injector.injector().getLoadTeamObject();
-    ISimulation simulation = Injector.injector().getSimulationObject();
 
     public void init() {
+        IConsole console = Injector.injector().getConsoleObject();
+
         console.printLine("\t\t\t\t\t\t\t\t##############################\n\t\t\t\t\t\t\t\t### Hockey Game Simulation ###\n\t\t\t\t\t\t\t\t##############################");
         console.printLine("\nDo you want to import JSON file? (y/n)");
         String choice = console.readLine().toLowerCase();
@@ -32,6 +29,9 @@ public class StateMachine {
     }
 
     private void importJson() {
+        IConsole console = Injector.injector().getConsoleObject();
+        IJSONImport json = Injector.injector().getJSONObject();
+
         console.printLine("Please enter the file path:");
 
         String path = console.readLine();
@@ -61,6 +61,9 @@ public class StateMachine {
     }
 
     private void createTeam() {
+        IConsole console = Injector.injector().getConsoleObject();
+        ICreateTeam createTeam = Injector.injector().getCreateTeamObject();
+
         console.printLine("Proceeding to team creation. Please answer the below questions.");
         createTeam.userPromptForNewTeam();
 
@@ -101,6 +104,9 @@ public class StateMachine {
     }
 
     private void loadTeam() {
+        IConsole console = Injector.injector().getConsoleObject();
+        ILoadTeam loadTeam = Injector.injector().getLoadTeamObject();
+
         console.printLine("Proceeding to team load. Please answer the below questions.");
         loadTeam.userPromptForLoadingTeam();
         if (loadTeam.doesTeamExist()) {
@@ -118,18 +124,25 @@ public class StateMachine {
     }
 
     private void playerChoice() {
+        IConsole console = Injector.injector().getConsoleObject();
+
         console.printLine("\nHow many seasons do you want to simulate?");
         int numberOfSeasons = console.readInteger();
         simulate(numberOfSeasons);
     }
 
     private void simulate(int numberOfSeasons) {
+        IConsole console = Injector.injector().getConsoleObject();
+        ISimulation simulation = Injector.injector().getSimulationObject();
+
         console.printLine("Simulating " + numberOfSeasons + " Seasons.");
         simulation.init(numberOfSeasons);
         end();
     }
 
     private void continueOrExit() {
+        IConsole console = Injector.injector().getConsoleObject();
+
         console.printLine("\nDo you want to Retry? (y/n)");
         String choice = console.readLine().toLowerCase();
         if(choice.equals("y")){
@@ -142,6 +155,7 @@ public class StateMachine {
     }
 
     private void end() {
+        IConsole console = Injector.injector().getConsoleObject();
         console.printLine("Good Bye!");
         System.exit(0);
     }

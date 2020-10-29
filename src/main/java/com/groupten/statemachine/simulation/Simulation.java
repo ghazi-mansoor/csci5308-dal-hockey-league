@@ -17,25 +17,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Simulation implements ISimulation {
-    private League leagueLOM;
     private Season season;
     private int numberOfSeasons;
     private int year;
-
-    IConsole console = Injector.injector().getConsoleObject();
-    IInitializeSeason initializeSeason = Injector.injector().getInitializeSeasonsObject();
-    IAdvanceTime advanceTime = Injector.injector().getAdvanceTimeObject();
-    IGeneratePlayoffSchedule generatePlayoffSchedule = Injector.injector().getGeneratePlayoffScheduleeObject();
-    ITraining training = Injector.injector().getTrainingObject();
-    IAging aging = Injector.injector().getAgingObject();
-    ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-
 
     public Simulation(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         this.year = cal.get(Calendar.YEAR);
-        this.leagueLOM = leagueModel.getCurrentLeague();
     }
 
     @Override
@@ -47,6 +36,10 @@ public class Simulation implements ISimulation {
     }
 
     private void initializeSeason(){
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        League leagueLOM = leagueModel.getCurrentLeague();
+        IConsole console = Injector.injector().getConsoleObject();
+        IInitializeSeason initializeSeason = Injector.injector().getInitializeSeasonsObject();
         console.printLine("Initializing season");
         numberOfSeasons--;
         this.season = new Season(leagueLOM,year);
@@ -61,6 +54,8 @@ public class Simulation implements ISimulation {
     }
 
     private void advanceTime(){
+        IConsole console = Injector.injector().getConsoleObject();
+        IAdvanceTime advanceTime = Injector.injector().getAdvanceTimeObject();
         console.printLine("Advancing to next day");
         advanceTime.advanceTime();
         if(season.isTodayRegularSeasonEnd()){
@@ -71,6 +66,8 @@ public class Simulation implements ISimulation {
     }
 
     private void generatePlayoffSchedule(){
+        IConsole console = Injector.injector().getConsoleObject();
+        IGeneratePlayoffSchedule generatePlayoffSchedule = Injector.injector().getGeneratePlayoffScheduleeObject();
         console.printLine("Generating playoff schedule");
         if(generatePlayoffSchedule.generatePlayoffSchedule()){
             console.printLine("Playoff schedule generated");
@@ -81,6 +78,8 @@ public class Simulation implements ISimulation {
     }
 
     private void training(){
+        IConsole console = Injector.injector().getConsoleObject();
+        ITraining training = Injector.injector().getTrainingObject();
         console.printLine("Training teams");
         training.train();
 
@@ -113,6 +112,7 @@ public class Simulation implements ISimulation {
     }
 
     private void aging(){
+        IAging aging = Injector.injector().getAgingObject();
         aging.advanceEveryPlayersAge(season.getLeague(),1);
 
         if(season.isWinnerDetermined()){
@@ -130,6 +130,7 @@ public class Simulation implements ISimulation {
 
     private void persist(){
         //ToDo persist
+        IConsole console = Injector.injector().getConsoleObject();
 
         end();
         console.printLine("Simulation saved to db");
@@ -137,6 +138,7 @@ public class Simulation implements ISimulation {
     }
 
     private void end(){
+        IConsole console = Injector.injector().getConsoleObject();
         console.printLine("Done.");
     }
 }
