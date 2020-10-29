@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Team {
     private int teamID;
+    private int divisionID;
     private String teamName;
     private boolean aITeam;
     private List<Player> players = new ArrayList<>();
@@ -17,6 +18,10 @@ public class Team {
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
+    private int lossPoint;
+
+    public Team() {
+    }
 
     public Team(String teamName) {
         this.teamName = teamName;
@@ -134,5 +139,26 @@ public class Team {
 
     public void setaITeam(boolean aITeam) {
         this.aITeam = aITeam;
+    }
+
+    public int getLossPoint() {
+        return lossPoint;
+    }
+
+    public void setLossPoint(int lossPoint) {
+        this.lossPoint = lossPoint;
+    }
+
+    public int getDivisionID() {
+        return divisionID;
+    }
+
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
+    }
+
+    public boolean saveTeam() {
+        System.out.println("Team saved to DB. teamID set to 1.");
+        return true;
     }
 }

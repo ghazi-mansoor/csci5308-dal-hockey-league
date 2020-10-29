@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Conference {
+    public int leagueID;
     private int conferenceID;
     private String conferenceName;
     private Map<String, Division> divisions = new HashMap<>();
@@ -67,4 +68,14 @@ public class Conference {
     public void setConferenceName(String cN) {
         conferenceName = cN;
     }
+
+    public void setLeagueID(int leagueID) {
+        this.leagueID = leagueID;
+    }
+
+    public boolean saveConference() {
+        System.out.println("Conference saved to DB. conferenceID set to 1.");
+        return true;
+    }
+
 }
