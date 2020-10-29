@@ -19,6 +19,32 @@ public class TeamStandingTest{
     }
 
     @Test
+    public void getDivisionNameTest() {
+        TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        assertEquals("Division1",teamStanding.getDivisionName());
+    }
+
+    @Test
+    public void setDivisionNameTest() {
+        TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        teamStanding.setDivisionName("Division11");
+        assertEquals("Division11",teamStanding.getDivisionName());
+    }
+
+    @Test
+    public void getConferenceNameTest() {
+        TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        assertEquals("Conference1",teamStanding.getConferenceName());
+    }
+
+    @Test
+    public void setConferenceNameTest() {
+        TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        teamStanding.setConferenceName("Conference11");
+        assertEquals("Conference11",teamStanding.getConferenceName());
+    }
+
+    @Test
     public void getPointsTest() {
         TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
         assertEquals(1,teamStanding.getPoints());
@@ -68,6 +94,18 @@ public class TeamStandingTest{
         TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
         teamStanding.setDivisionRank(44);
         assertEquals(44,teamStanding.getDivisionRank());
+    }
+
+    @Test
+    public void getWinsTest() {
+        TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,5,6);
+        assertEquals(5,teamStanding.getWins());
+    }
+
+    @Test
+    public void getLossesTest() {
+        TeamStanding teamStanding = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,5,6);
+        assertEquals(6,teamStanding.getLosses());
     }
 
     @Test

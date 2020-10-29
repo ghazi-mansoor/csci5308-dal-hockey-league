@@ -5,6 +5,10 @@ import com.groupten.leagueobjectmodel.season.Season;
 public class AdvanceTime implements IAdvanceTime {
     private Season season;
 
+    public Season getSeason() {
+        return season;
+    }
+
     @Override
     public void setSeason(Season season){
         this.season = season;

@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Season {
-    private League league = null;
+    private League league;
     private Date currentDate;
     private Date regularSeasonStartsAt;
     private Date regularSeasonEndsAt;
@@ -91,6 +91,28 @@ public class Season {
         this.currentDate = cal.getTime();
     }
 
+    public void recordWin(String teamName){
+        teamStandings.forEach(teamStanding -> {
+            if(teamStanding.getTeamName().equals(teamName)){
+                teamStanding.addWin();
+            }
+        });
+        updateRanks();
+    }
+
+    public void recordLoss(String teamName){
+        teamStandings.forEach(teamStanding -> {
+            if(teamStanding.getTeamName().equals(teamName)){
+                teamStanding.addLoss();
+            }
+        });
+        updateRanks();
+    }
+
+    public void setCurrentDate(Date date){
+        this.currentDate= date;
+    }
+
     public boolean isTodayRegularSeasonEnd(){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(regularSeasonEndsAt).equals(dateFormat.format(currentDate));
@@ -116,7 +138,7 @@ public class Season {
     public boolean isTradeEnded(){
         long diffInMillies = Math.abs(tradeEndsAt.getTime() - currentDate.getTime());
         long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
-        return diff > 0;
+        return diff <= 0;
     }
 
     public boolean isWinnerDetermined(){
@@ -125,29 +147,11 @@ public class Season {
             Schedule schedule = playoffSchedules.get(i);
             long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
             long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
-            if(diff <= 0){
+            if(diff > 0){
                 schedulesPending++;
             }
         };
         return schedulesPending == 0;
-    }
-
-    public void recordWin(String teamName){
-        teamStandings.forEach(teamStanding -> {
-            if(teamStanding.getTeamName().equals(teamName)){
-                teamStanding.addWin();
-            }
-        });
-        updateRanks();
-    }
-
-    public void recordLoss(String teamName){
-        teamStandings.forEach(teamStanding -> {
-            if(teamStanding.getTeamName().equals(teamName)){
-                teamStanding.addLoss();
-            }
-        });
-        updateRanks();
     }
 
     public boolean generateRegularSchedule(){
@@ -224,6 +228,9 @@ public class Season {
     };
 
     public boolean generatePlayoffSchedule(){
+        if(teamStandings.size() <= 0){
+            return false;
+        }
         HashSet<String> conferenceNames = new HashSet<>();
         teamStandings.forEach(teamStanding -> {
             conferenceNames.add(teamStanding.getConferenceName());

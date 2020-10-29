@@ -132,9 +132,8 @@ public class Simulation implements ISimulation {
         //ToDo persist
         IConsole console = Injector.injector().getConsoleObject();
 
-        end();
         console.printLine("Simulation saved to db");
-
+        end();
     }
 
     private void end(){
