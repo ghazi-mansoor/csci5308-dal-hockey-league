@@ -28,21 +28,22 @@ public class Simulation implements ISimulation {
     IGeneratePlayoffSchedule generatePlayoffSchedule = Injector.injector().getGeneratePlayoffScheduleeObject();
     ITraining training = Injector.injector().getTrainingObject();
     IAging aging = Injector.injector().getAgingObject();
+    ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+
 
     public Simulation(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         this.year = cal.get(Calendar.YEAR);
-
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
         this.leagueLOM = leagueModel.getCurrentLeague();
     }
 
     @Override
-    public boolean init(int numberOfSeasons){
+    public void init(int numberOfSeasons){
         this.numberOfSeasons = numberOfSeasons;
-        initializeSeason();
-        return true;
+        if(this.numberOfSeasons > 0){
+            initializeSeason();
+        }
     }
 
     private void initializeSeason(){
