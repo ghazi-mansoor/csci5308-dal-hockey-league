@@ -18,6 +18,10 @@ public class Team {
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
+    private int lossPoint;
+
+    public Team() {
+    }
 
     public Team(String teamName) {
         this.teamName = teamName;
@@ -135,6 +139,14 @@ public class Team {
 
     public void setaITeam(boolean aITeam) {
         this.aITeam = aITeam;
+    }
+
+    public int getLossPoint() {
+        return lossPoint;
+    }
+
+    public void setLossPoint(int lossPoint) {
+        this.lossPoint = lossPoint;
     }
 
     public int getDivisionID() {
