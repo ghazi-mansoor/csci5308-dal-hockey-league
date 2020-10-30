@@ -44,18 +44,18 @@ public class Simulation implements ISimulation {
         this.season = new Season(leagueLOM,year);
         initializeSeason.setSeason(season);
         if(initializeSeason.generateRegularSchedule()){
+            console.printLine("Regular schedule generated.");
             advanceTime();
         }else{
             console.printLine("FAILURE: Some error occurred.");
         }
-        console.printLine("Regular schedule generated.");
-
     }
 
     private void advanceTime(){
         IConsole console = Injector.instance().getConsoleObject();
         IAdvanceTime advanceTime = Injector.instance().getAdvanceTimeObject();
         console.printLine("Advancing to next day");
+        advanceTime.setSeason(season);
         advanceTime.advanceTime();
         if(season.isTodayRegularSeasonEnd()){
             generatePlayoffSchedule();
