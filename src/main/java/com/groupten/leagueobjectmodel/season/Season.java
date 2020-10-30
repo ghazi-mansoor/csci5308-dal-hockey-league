@@ -172,6 +172,18 @@ public class Season {
                     sameDivisionTeamStanding.add(teamStanding);
                 }
             });
+            if(sameDivisionTeamStanding.size() < 8){
+                TeamStanding teamStanding1 = sameDivisionTeamStanding.get(0);
+                TeamStanding teamStanding2 = sameDivisionTeamStanding.get(1);
+                for(int i =0; i<5; i++){
+                    Schedule schedule = new Schedule();
+                    schedule.addTeamName(teamStanding1.getTeamName());
+                    schedule.addTeamName(teamStanding2.getTeamName());
+                    regularSchedules.add(schedule);
+                }
+                sameDivisionTeamStanding.remove(teamStanding1);
+                sameDivisionTeamStanding.remove(teamStanding2);
+            }
             sameDivisionTeamStanding.forEach(teamStanding1 -> {
                 sameDivisionTeamStanding.forEach(teamStanding2 -> {
                     if(!teamStanding1.getTeamName().equals(teamStanding2.getTeamName())){
