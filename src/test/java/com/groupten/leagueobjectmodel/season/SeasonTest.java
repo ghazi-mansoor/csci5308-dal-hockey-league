@@ -5,8 +5,8 @@ import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import org.junit.Test;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -30,19 +30,19 @@ public class SeasonTest {
     }
 
     @Test
-    public void getTradeEndsAtTest(){
-        League league = new League("League 1");
-        Season season = new Season(league,2020);
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        assertEquals("22/02/2021", dateFormat.format(season.getTradeEndsAt()));
-    }
-
-    @Test
     public void getRegularSeasonEndsAtTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("03/04/2021", dateFormat.format(season.getRegularSeasonEndsAt()));
+    }
+
+    @Test
+    public void getTradeEndsAtTest(){
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        assertEquals("22/02/2021", dateFormat.format(season.getTradeEndsAt()));
     }
 
     @Test
@@ -63,20 +63,18 @@ public class SeasonTest {
 
     @Test
     public void addTeamStandingTest(){
-        String teamName = "A";
-        TeamStanding teamStanding= new TeamStanding();
-
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        assertTrue(season.addTeamStanding(teamName,teamStanding));
+        season.addTeamStanding(new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0));
+        assertEquals(1, season.getTeamStandings().size());
     }
 
     @Test
     public void getTeamStandingsTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        season.addTeamStanding("A",new TeamStanding());
-        season.addTeamStanding("B",new TeamStanding());
+        season.addTeamStanding(new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0));
+        season.addTeamStanding(new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0));
         assertEquals(2, season.getTeamStandings().size());
     }
 
@@ -93,11 +91,92 @@ public class SeasonTest {
     public void recordWinTest(){
         League league = null;
         Season season = new Season(league,2020);
-        season.addTeamStanding("A",new TeamStanding());
-        season.addTeamStanding("B",new TeamStanding());
-        season.recordWin("A");
+        TeamStanding Team1 = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        TeamStanding Team2 = new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0);
+        season.addTeamStanding(Team1);
+        season.addTeamStanding(Team2);
+        season.recordWin("Team1");
 
-        assertEquals(2, season.getTeamStandings().get("A").getPoints());
+        assertEquals(3, Team1.getPoints());
+    }
+
+    @Test
+    public void recordLossTest(){
+        League league = null;
+        Season season = new Season(league,2020);
+        TeamStanding Team1 = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
+        TeamStanding Team2 = new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0);
+        season.addTeamStanding(Team1);
+        season.addTeamStanding(Team2);
+        season.recordLoss("Team1");
+
+        assertEquals(1, Team1.getPoints());
+        assertEquals(1, Team1.getLosses());
+    }
+
+    @Test
+    public void setCurrentDateTest() {
+        League league = new League("League 1");
+        Season season = new Season(league,2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            season.setCurrentDate(dateFormat.parse("10/09/2020"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals("10/09/2020", dateFormat.format(season.getCurrentDate().getTime()));
+    }
+
+    @Test
+    public void isTodayRegularSeasonEndTest(){
+        League league = null;
+        Season season = new Season(league,2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = dateFormat.parse("03/04/2021");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        season.setCurrentDate(d);
+        assertTrue(season.isTodayRegularSeasonEnd());
+    }
+
+    @Test
+    public void schedulesTodayTest(){
+        League league = null;
+        Season season = new Season(league,2020);
+        assertEquals(0,season.schedulesToday().size());
+    }
+
+    @Test
+    public void isTradeEndedTest(){
+        League league = null;
+        Season season = new Season(league,2020);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = dateFormat.parse("20/02/2021");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        season.setCurrentDate(d);
+        assertFalse(season.isTradeEnded());
+
+        try {
+            d = dateFormat.parse("23/02/2021");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        season.setCurrentDate(d);
+        assertTrue(season.isTradeEnded());
+    }
+
+    @Test
+    public void isWinnerDetermined(){
+        League league = null;
+        Season season = new Season(league,2020);
+        assertTrue(season.isWinnerDetermined());
     }
 
     @Test
@@ -105,5 +184,12 @@ public class SeasonTest {
         League league = null;
         Season season = new Season(league,2020);
         assertFalse(season.generateRegularSchedule());
+    }
+
+    @Test
+    public void generatePlayoffScheduleTest(){
+        League league = null;
+        Season season = new Season(league,2020);
+        assertFalse(season.generatePlayoffSchedule());
     }
 }

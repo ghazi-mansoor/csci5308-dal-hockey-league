@@ -1,7 +1,7 @@
 package com.groupten.statemachine.jsonimport;
 
-import com.groupten.persistence.dao.ILeagueDAO;
 import com.groupten.mocks.LeagueDBMock;
+import com.groupten.persistence.dao.ILeagueDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
