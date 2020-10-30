@@ -13,8 +13,8 @@ import java.util.*;
 
 public class Trading implements ITrading {
 
-	IConsole console = Injector.injector().getConsoleObject();
-	ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+	IConsole console = Injector.instance().getConsoleObject();
+	ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
 	League leagueLOM = leagueModel.getCurrentLeague();
 	Team tradeInitializingTeam = new Team();
 	Team tradeFinalizingTeam = new Team();

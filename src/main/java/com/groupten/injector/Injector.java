@@ -1,7 +1,14 @@
 package com.groupten.injector;
 
+
+import com.groupten.IO.comparator.Comparator;
+import com.groupten.IO.comparator.IComparator;
 import com.groupten.IO.console.Console;
 import com.groupten.IO.console.IConsole;
+import com.groupten.IO.deserializedata.DeserializeData;
+import com.groupten.IO.deserializedata.IDeserializeData;
+import com.groupten.IO.serializedata.ISerializeData;
+import com.groupten.IO.serializedata.SerializeData;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.persistence.dao.*;
@@ -27,7 +34,7 @@ import com.groupten.statemachine.simulation.training.Training;
 
 public class Injector {
 
-    private static Injector injector = null;
+    private static Injector instance = null;
     private IConsole consoleInterface;
 
     private IJSONImport jsonInterface;
@@ -39,7 +46,9 @@ public class Injector {
     private IGeneratePlayoffSchedule generatePlayoffScheduleInterface;
     private ITraining trainingInterface;
     private IAging agingInterface;
-
+    private ISerializeData serializeDataInterface;
+    private IDeserializeData deserializeDataInterface;
+    private IComparator comparatorInterface;
     private ILeagueDAO leagueDatabaseInterface;
     private IConferenceDAO conferenceDatabaseInterface;
     private IDivisionDAO divisionDatabaseInterface;
@@ -60,6 +69,9 @@ public class Injector {
         generatePlayoffScheduleInterface = new GeneratePlayoffSchedule();
         trainingInterface = new Training();
         agingInterface = new Aging();
+        comparatorInterface = new Comparator();
+        serializeDataInterface = new SerializeData();
+        deserializeDataInterface = new DeserializeData();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -70,16 +82,16 @@ public class Injector {
         leagueModel = new LeagueModel();
     }
 
-    public static Injector injector() {
-        if (injector == null) {
-            injector = new Injector();
+    public static Injector instance() {
+        if (instance == null) {
+            instance = new Injector();
         }
 
-        return injector;
+        return instance;
     }
 
-    public static void setInjector(Injector injector) {
-        Injector.injector = injector;
+    public static void setInstance(Injector instance) {
+        Injector.instance = instance;
     }
 
     public void setConsoleObject(IConsole consoleInterface) {
@@ -88,6 +100,30 @@ public class Injector {
 
     public IConsole getConsoleObject() {
         return consoleInterface;
+    }
+
+    public void setComparatorObject(IComparator comparatorInterface) {
+        this.comparatorInterface = comparatorInterface;
+    }
+
+    public IComparator getComparatorObject() {
+        return comparatorInterface;
+    }
+
+    public void setSerializeDataObject(ISerializeData serializeDataInterface) {
+        this.serializeDataInterface = serializeDataInterface;
+    }
+
+    public ISerializeData getSerializeDataObject() {
+        return serializeDataInterface;
+    }
+
+    public void setDeserializeDataObject(IDeserializeData deserializeDataInterface) {
+        this.deserializeDataInterface = deserializeDataInterface;
+    }
+
+    public IDeserializeData getDeserializeDataObject() {
+        return deserializeDataInterface;
     }
 
     public void setJSONObject(IJSONImport jsonInterface) {

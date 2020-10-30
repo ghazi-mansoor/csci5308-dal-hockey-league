@@ -14,10 +14,9 @@ import java.util.Map;
 public class Training implements ITraining {
 
     @Override
-    public void train() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+    public void trainPlayers() {
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
-        int daysUntilStatIncreaseCheck = leagueLOM.getDaysUntilStatIncreaseCheck();
 
         Map<String, Conference> conferences = leagueLOM.getConferences();
         for (Conference conference : conferences.values()) {

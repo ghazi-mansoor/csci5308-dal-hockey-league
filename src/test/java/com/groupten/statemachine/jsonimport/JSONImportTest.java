@@ -17,6 +17,13 @@ public class JSONImportTest {
     }
 
     @Test
+    public void importJSONDataTestUnsuccessful() {
+        JSONImport jsonTestUnSuccess = new JSONImport();
+        String path = "";
+        assertFalse(jsonTestUnSuccess.importJSONData(path));
+    }
+
+    @Test
     public void isLeagueNameUniqueTest() {
         ILeagueDAO leagueDBObj = new LeagueDBMock();
         JSONImport json = new JSONImport(leagueDBObj);
@@ -86,6 +93,24 @@ public class JSONImportTest {
         jsonTestTeamBlank.importJSONData(path);
         jsonTestTeamBlank.isLeagueNameUnique();
         assertFalse(jsonTestTeamBlank.instantiateJSONData());
+    }
+
+    @Test
+    public void instantiateJSONDataTest_Coach() {
+        JSONImport jsonTestCoachBlank = new JSONImport();
+        String path = "src/test/java/com/groupten/mocks/CoachBlankMock.json";
+        jsonTestCoachBlank.importJSONData(path);
+        jsonTestCoachBlank.isLeagueNameUnique();
+        assertFalse(jsonTestCoachBlank.instantiateJSONData());
+    }
+
+    @Test
+    public void instantiateJSONDataTest_Manager() {
+        JSONImport jsonTestManagerBlank = new JSONImport();
+        String path = "src/test/java/com/groupten/mocks/ManagerBlankMock.json";
+        jsonTestManagerBlank.importJSONData(path);
+        jsonTestManagerBlank.isLeagueNameUnique();
+        assertFalse(jsonTestManagerBlank.instantiateJSONData());
     }
 
 }

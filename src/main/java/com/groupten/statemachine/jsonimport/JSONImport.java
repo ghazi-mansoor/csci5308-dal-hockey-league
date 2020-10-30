@@ -26,7 +26,7 @@ public class JSONImport implements IJSONImport {
     }
 
     public JSONImport(ILeagueDAO leagueDBMockObj) {
-        Injector.injector().setLeagueDatabaseObject(leagueDBMockObj);
+        Injector.instance().setLeagueDatabaseObject(leagueDBMockObj);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class JSONImport implements IJSONImport {
 
     @Override
     public boolean isLeagueNameUnique() {
-        ILeagueDAO leagueDB = Injector.injector().getLeagueDatabaseObject();
+        ILeagueDAO leagueDB = Injector.instance().getLeagueDatabaseObject();
         String columnName = "leagueName";
         String leagueName = jsonData.get("leagueName").getAsString();
         List<HashMap<String, Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
@@ -56,7 +56,7 @@ public class JSONImport implements IJSONImport {
         boolean leagueAdded = false, conferenceAdded = false, divisionAdded = false, teamAdded = false,
                 managerAdded = false, coachAdded = false, playerAdded = false;
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League leagueLOM;
         Conference conferenceLOM;
         Division divisionLOM;

@@ -2,29 +2,29 @@ package com.groupten.IO.serializedata;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class SerializeData implements ISerializeData{
 
-    League leagueLOM;
+    private String path;
 
     public SerializeData(){
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        leagueLOM = leagueModel.getCurrentLeague();
-        System.out.println(leagueLOM);
+        this.path = "src/main/resources/SerializedData.json";
     }
 
-    public boolean exportData(){
+    public SerializeData(String path){
+        this.path = path;
+    }
+
+    public boolean exportData(League leagueLOM){
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try {
-            FileWriter fileWriter = new FileWriter("SerializedData.json");
+            FileWriter fileWriter = new FileWriter(path);
             gson.toJson(leagueLOM, fileWriter);
             fileWriter.close();
             return true;
