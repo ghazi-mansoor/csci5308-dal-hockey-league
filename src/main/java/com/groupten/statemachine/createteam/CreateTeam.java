@@ -1,5 +1,7 @@
 package com.groupten.statemachine.createteam;
 
+import com.groupten.IO.console.IConsole;
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
@@ -8,8 +10,6 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.IO.console.IConsole;
-import com.groupten.injector.Injector;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -263,4 +263,6 @@ public class CreateTeam implements ICreateTeam {
     public void setFreeAgents(List<Player> freeAgents) {
         this.freeAgents = freeAgents;
     }
+
+
 }

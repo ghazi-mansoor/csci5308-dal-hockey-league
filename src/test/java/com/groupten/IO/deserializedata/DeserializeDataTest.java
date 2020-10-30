@@ -1,7 +1,6 @@
-package com.groupten.IO.serializedata;
+package com.groupten.IO.deserializedata;
 
-import com.groupten.IO.comparator.IComparator;
-import com.groupten.IO.deserializedata.DeserializeData;
+import com.groupten.IO.serializedata.SerializeData;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
@@ -9,34 +8,35 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class SerializeDataTest {
+public class DeserializeDataTest {
 
     @BeforeClass
     public static void setup() {
         JSONImport json = new JSONImport();
         json.importJSONData("src/test/java/com/groupten/mocks/JsonMockCopy.json");
         json.instantiateJSONData();
-    }
-
-    @Test
-    public void exportDataTestSuccess(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League exportedLeague = leagueModel.getCurrentLeague();
         String path = "src/main/resources/SerializedData.json";
         SerializeData serializeData = new SerializeData(path);
-        assertTrue(serializeData.exportData(exportedLeague));
+        serializeData.exportData(exportedLeague);
     }
 
     @Test
-    public void exportDataTestUnSuccess(){
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League exportedLeague = leagueModel.getCurrentLeague();
+    public void importDataTestSuccess(){
+        String path = "src/main/resources/SerializedData.json";
+        DeserializeData deserializeData = new DeserializeData(path);
+        League league = deserializeData.importData();
+        assertEquals("Deep Hockey League", league.getLeagueName());
+    }
+
+    @Test
+    public void importDataTestUnSuccess(){
         String path = "";
-        SerializeData serializeData = new SerializeData(path);
-        assertFalse(serializeData.exportData(exportedLeague));
+        DeserializeData deserializeData = new DeserializeData(path);
+        assertNull(deserializeData.importData());
     }
 
 }

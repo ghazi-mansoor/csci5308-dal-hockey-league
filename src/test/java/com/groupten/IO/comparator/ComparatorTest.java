@@ -1,7 +1,7 @@
-package com.groupten.IO.serializedata;
+package com.groupten.IO.comparator;
 
-import com.groupten.IO.comparator.IComparator;
 import com.groupten.IO.deserializedata.DeserializeData;
+import com.groupten.IO.serializedata.SerializeData;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
@@ -9,10 +9,9 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class SerializeDataTest {
+public class ComparatorTest {
 
     @BeforeClass
     public static void setup() {
@@ -22,21 +21,18 @@ public class SerializeDataTest {
     }
 
     @Test
-    public void exportDataTestSuccess(){
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "src/main/resources/SerializedData.json";
-        SerializeData serializeData = new SerializeData(path);
-        assertTrue(serializeData.exportData(exportedLeague));
-    }
+    public void exportDataTest() {
 
-    @Test
-    public void exportDataTestUnSuccess(){
+        IComparator comparator = Injector.instance().getComparatorObject();
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "";
-        SerializeData serializeData = new SerializeData(path);
-        assertFalse(serializeData.exportData(exportedLeague));
+
+        SerializeData serializeData = new SerializeData();
+        assertTrue(serializeData.exportData(exportedLeague));
+
+        DeserializeData deserializeData = new DeserializeData();
+        League importedLeague = deserializeData.importData();
+        assertTrue(comparator.compareLeagues(exportedLeague, importedLeague));
     }
 
 }

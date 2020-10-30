@@ -2,6 +2,10 @@ package com.groupten.injector;
 
 import com.groupten.IO.comparator.Comparator;
 import com.groupten.IO.comparator.IComparator;
+import com.groupten.IO.deserializedata.DeserializeData;
+import com.groupten.IO.deserializedata.IDeserializeData;
+import com.groupten.IO.serializedata.ISerializeData;
+import com.groupten.IO.serializedata.SerializeData;
 import com.groupten.persistence.dao.database.ConferenceDAO;
 import com.groupten.persistence.dao.IConferenceDAO;
 import com.groupten.persistence.dao.database.DivisionDAO;
@@ -17,9 +21,9 @@ import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.IO.console.Console;
 import com.groupten.IO.console.IConsole;
 import com.groupten.statemachine.createteam.CreateTeam;
+import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import com.groupten.statemachine.jsonimport.IJSONImport;
-import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.LoadTeam;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.Simulation;
@@ -34,6 +38,8 @@ public class Injector {
     private ICreateTeam createTeamInterface;
     private ILoadTeam loadTeamInterface;
     private ISimulation simulationInterface;
+    private ISerializeData serializeDataInterface;
+    private IDeserializeData deserializeDataInterface;
     private IComparator comparatorInterface;
 
     private ILeagueDAO leagueDatabaseInterface;
@@ -52,6 +58,8 @@ public class Injector {
         loadTeamInterface = new LoadTeam();
         simulationInterface = new Simulation();
         comparatorInterface = new Comparator();
+        serializeDataInterface = new SerializeData();
+        deserializeDataInterface = new DeserializeData();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -88,6 +96,22 @@ public class Injector {
 
     public IComparator getComparatorObject() {
         return comparatorInterface;
+    }
+
+    public void setSerializeDataObject(ISerializeData serializeDataInterface) {
+        this.serializeDataInterface = serializeDataInterface;
+    }
+
+    public ISerializeData getSerializeDataObject() {
+        return serializeDataInterface;
+    }
+
+    public void setDeserializeDataObject(IDeserializeData deserializeDataInterface) {
+        this.deserializeDataInterface = deserializeDataInterface;
+    }
+
+    public IDeserializeData getDeserializeDataObject() {
+        return deserializeDataInterface;
     }
 
     public void setJSONObject(IJSONImport jsonInterface) {
