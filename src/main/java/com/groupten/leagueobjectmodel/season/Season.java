@@ -442,7 +442,7 @@ public class Season {
     }
 
     //Based on: https://www.baeldung.com/java-random-dates
-    public  Date randomDateBetween(Date startInclusive, Date endExclusive) {
+    private  Date randomDateBetween(Date startInclusive, Date endExclusive) {
         long startMillis = startInclusive.getTime();
         long endMillis = endExclusive.getTime();
         long randomMillisSinceEpoch = ThreadLocalRandom
@@ -451,6 +451,5 @@ public class Season {
 
         return new Date(randomMillisSinceEpoch);
     }
-
 
 }
