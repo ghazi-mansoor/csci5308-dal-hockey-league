@@ -2,7 +2,6 @@ package com.groupten.statemachine.simulation.initializeseason;
 
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.season.Season;
-import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlayoffSchedule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

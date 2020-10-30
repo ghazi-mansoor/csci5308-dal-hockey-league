@@ -1,7 +1,7 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.persistence.dao.ITeamDAO;
 import com.groupten.mocks.TeamDBMock;
+import com.groupten.persistence.dao.ITeamDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

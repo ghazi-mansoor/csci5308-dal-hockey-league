@@ -2,6 +2,8 @@ package com.groupten.statemachine;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.loadteam.ILoadTeam;
@@ -10,7 +12,6 @@ import com.groupten.statemachine.simulation.ISimulation;
 import java.io.IOException;
 
 public class StateMachine {
-
     public void init() {
         IConsole console = Injector.injector().getConsoleObject();
 
@@ -133,10 +134,15 @@ public class StateMachine {
 
     private void simulate(int numberOfSeasons) {
         IConsole console = Injector.injector().getConsoleObject();
+        console.printLine("Preparing for simulation.");
+
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        League leagueLOM = leagueModel.getCurrentLeague();
+
         ISimulation simulation = Injector.injector().getSimulationObject();
 
         console.printLine("Simulating " + numberOfSeasons + " Seasons.");
-        simulation.init(numberOfSeasons);
+        simulation.init(leagueLOM,numberOfSeasons);
         end();
     }
 

@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AdvanceTimeTest {
     League league = new League("League 1");

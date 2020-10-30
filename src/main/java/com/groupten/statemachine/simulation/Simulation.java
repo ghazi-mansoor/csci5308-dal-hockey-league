@@ -3,7 +3,6 @@ package com.groupten.statemachine.simulation;
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
@@ -17,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Simulation implements ISimulation {
+    private League leagueLOM;
     private Season season;
     private int numberOfSeasons;
     private int year;
@@ -28,7 +28,8 @@ public class Simulation implements ISimulation {
     }
 
     @Override
-    public void init(int numberOfSeasons){
+    public void init(League leagueLOM,int numberOfSeasons){
+        this.leagueLOM = leagueLOM;
         this.numberOfSeasons = numberOfSeasons;
         if(this.numberOfSeasons > 0){
             initializeSeason();
@@ -36,8 +37,6 @@ public class Simulation implements ISimulation {
     }
 
     private void initializeSeason(){
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        League leagueLOM = leagueModel.getCurrentLeague();
         IConsole console = Injector.injector().getConsoleObject();
         IInitializeSeason initializeSeason = Injector.injector().getInitializeSeasonsObject();
         console.printLine("Initializing season");
