@@ -29,7 +29,7 @@ public class CreateTeamTest {
     @Test
     public void ifConferenceAndDivisionExistTest() {
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("Deep Test League");
         Conference conference = new Conference("Deep Test Conference");
         Division division = new Division("Deep Division Division");
@@ -49,7 +49,7 @@ public class CreateTeamTest {
     public void instantiateNewTeamTest() {
         Player player;
         List<Player> listOfPlayer = new ArrayList<>();
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("Deep Test League");
         Conference conference = new Conference("Deep Test Conference");
         Division division = new Division("Deep Division Division");

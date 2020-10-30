@@ -1,5 +1,7 @@
 package com.groupten.injector;
 
+import com.groupten.IO.comparator.Comparator;
+import com.groupten.IO.comparator.IComparator;
 import com.groupten.persistence.dao.database.ConferenceDAO;
 import com.groupten.persistence.dao.IConferenceDAO;
 import com.groupten.persistence.dao.database.DivisionDAO;
@@ -14,9 +16,9 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.IO.console.Console;
 import com.groupten.IO.console.IConsole;
+import com.groupten.statemachine.createteam.CreateTeam;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import com.groupten.statemachine.jsonimport.IJSONImport;
-import com.groupten.statemachine.createteam.CreateTeam;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.loadteam.LoadTeam;
 import com.groupten.statemachine.loadteam.ILoadTeam;
@@ -25,13 +27,14 @@ import com.groupten.statemachine.simulation.ISimulation;
 
 public class Injector {
 
-    private static Injector injector = null;
+    private static Injector instance = null;
     private IConsole consoleInterface;
 
     private IJSONImport jsonInterface;
     private ICreateTeam createTeamInterface;
     private ILoadTeam loadTeamInterface;
     private ISimulation simulationInterface;
+    private IComparator comparatorInterface;
 
     private ILeagueDAO leagueDatabaseInterface;
     private IConferenceDAO conferenceDatabaseInterface;
@@ -48,6 +51,7 @@ public class Injector {
         createTeamInterface = new CreateTeam();
         loadTeamInterface = new LoadTeam();
         simulationInterface = new Simulation();
+        comparatorInterface = new Comparator();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -58,16 +62,16 @@ public class Injector {
         leagueModel = new LeagueModel();
     }
 
-    public static Injector injector() {
-        if (injector == null) {
-            injector = new Injector();
+    public static Injector instance() {
+        if (instance == null) {
+            instance = new Injector();
         }
 
-        return injector;
+        return instance;
     }
 
-    public static void setInjector(Injector injector) {
-        Injector.injector = injector;
+    public static void setInstance(Injector instance) {
+        Injector.instance = instance;
     }
 
     public void setConsoleObject(IConsole consoleInterface) {
@@ -76,6 +80,14 @@ public class Injector {
 
     public IConsole getConsoleObject() {
         return consoleInterface;
+    }
+
+    public void setComparatorObject(IComparator comparatorInterface) {
+        this.comparatorInterface = comparatorInterface;
+    }
+
+    public IComparator getComparatorObject() {
+        return comparatorInterface;
     }
 
     public void setJSONObject(IJSONImport jsonInterface) {

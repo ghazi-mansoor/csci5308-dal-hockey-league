@@ -32,7 +32,7 @@ public class CreateTeam implements ICreateTeam {
     @Override
     public void userPromptForNewTeam() {
 
-        IConsole console = Injector.injector().getConsoleObject();
+        IConsole console = Injector.instance().getConsoleObject();
 
         console.printLine("Enter the Conference name:");
         conferenceName = console.readLine();
@@ -52,7 +52,7 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean ifConferenceAndDivisionExist() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         leagueLOM = leagueModel.getCurrentLeague();
         if (leagueLOM.containsConference(conferenceName)) {
             Conference conference = leagueLOM.getConference(conferenceName);
@@ -64,8 +64,8 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean selectTeamGeneralManager() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
         List<GeneralManager> generalManagers = new ArrayList<>(leagueLOM.getGeneralManagers());
@@ -97,8 +97,8 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean selectTeamHeadCoach() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
         List<Coach> coaches = new ArrayList<>(leagueLOM.getCoaches());
@@ -136,8 +136,8 @@ public class CreateTeam implements ICreateTeam {
 
         boolean status = false;
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
         for (int i = 1; i <= NO_OF_GOALIE; i++) {
@@ -183,8 +183,8 @@ public class CreateTeam implements ICreateTeam {
     public boolean selectTeamSkaters() {
         boolean status = false;
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
         for (int i = 1; i <= NO_OF_SKATERS; i++) {
@@ -227,7 +227,7 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean instantiateNewTeam() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         leagueLOM = leagueModel.getCurrentLeague();
         Conference conference = leagueLOM.getConference(conferenceName);
         Division division = conference.getDivision(divisionName);

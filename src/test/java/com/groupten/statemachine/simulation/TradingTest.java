@@ -16,7 +16,7 @@ public class TradingTest {
     @Test
     public void sortByPlayerStrengthTest () {
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
 
@@ -70,7 +70,7 @@ public class TradingTest {
     @Test
     public void getWeakestPlayersTest(){
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
 

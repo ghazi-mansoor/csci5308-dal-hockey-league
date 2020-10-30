@@ -9,7 +9,7 @@ public class InitializeSeason implements IInitializeSeason{
     private final Season season;
 
     public InitializeSeason(){
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
         season = new Season(leagueLOM);
     }
