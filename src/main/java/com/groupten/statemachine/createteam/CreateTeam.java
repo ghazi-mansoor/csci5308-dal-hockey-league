@@ -1,5 +1,7 @@
 package com.groupten.statemachine.createteam;
 
+import com.groupten.IO.console.IConsole;
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
@@ -8,8 +10,6 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.IO.console.IConsole;
-import com.groupten.injector.Injector;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -26,12 +26,13 @@ public class CreateTeam implements ICreateTeam {
     private List<Player> freeAgents = new ArrayList<>();
     private League leagueLOM;
 
-    public CreateTeam() { }
+    public CreateTeam() {
+    }
 
     @Override
     public void userPromptForNewTeam() {
 
-        IConsole console = Injector.injector().getConsoleObject();
+        IConsole console = Injector.instance().getConsoleObject();
 
         console.printLine("Enter the Conference name:");
         conferenceName = console.readLine();
@@ -51,7 +52,7 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean ifConferenceAndDivisionExist() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         leagueLOM = leagueModel.getCurrentLeague();
         if (leagueLOM.containsConference(conferenceName)) {
             Conference conference = leagueLOM.getConference(conferenceName);
@@ -63,8 +64,8 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean selectTeamGeneralManager() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
         List<GeneralManager> generalManagers = new ArrayList<>(leagueLOM.getGeneralManagers());
@@ -73,31 +74,31 @@ public class CreateTeam implements ICreateTeam {
         console.printLine("\nPlease select a General Manager\n");
         console.printLine("ID\t\tManager Name");
 
-        for(int i = 0; i < generalManagers.size(); i++){
+        for (int i = 0; i < generalManagers.size(); i++) {
             tempGM = generalManagers.get(i);
             console.printLine((i + 1) + "\t\t" + tempGM.getManagerName());
         }
 
         console.printLine("\nChoice (ID)?");
 
-        try{
+        try {
             int choice = console.readInteger();
-            if(choice >= 1 && choice <= (generalManagers.size())){
+            if (choice >= 1 && choice <= (generalManagers.size())) {
                 this.generalManager = generalManagers.get(choice - 1);
                 leagueLOM.removeGeneralManager(generalManagers.get(choice - 1));
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }catch (InputMismatchException exception){
+        } catch (InputMismatchException exception) {
             return false;
         }
     }
 
     @Override
     public boolean selectTeamHeadCoach() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
         List<Coach> coaches = new ArrayList<>(leagueLOM.getCoaches());
@@ -107,7 +108,7 @@ public class CreateTeam implements ICreateTeam {
 
         console.printLine("ID\t\tSkating\t\tShooting\t\tChecking\t\tSaving\t\tName");
 
-        for(int i = 0; i < coaches.size(); i++){
+        for (int i = 0; i < coaches.size(); i++) {
             tempCoach = coaches.get(i);
             console.printLine((i + 1) + "\t\t" + tempCoach.getSkating() +
                     "\t\t\t" + tempCoach.getShooting() + "\t\t\t\t" + tempCoach.getChecking() +
@@ -116,16 +117,16 @@ public class CreateTeam implements ICreateTeam {
 
         console.printLine("\nChoice (ID)?");
 
-        try{
+        try {
             int choice = console.readInteger();
-            if(choice >= 1 && choice <= (coaches.size())){
+            if (choice >= 1 && choice <= (coaches.size())) {
                 this.headCoach = coaches.get(choice - 1);
                 leagueLOM.removeCoach(coaches.get(choice - 1));
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }catch (InputMismatchException exception){
+        } catch (InputMismatchException exception) {
             return false;
         }
     }
@@ -135,43 +136,43 @@ public class CreateTeam implements ICreateTeam {
 
         boolean status = false;
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
-        for(int i = 1; i <= NO_OF_GOALIE; i++){
+        for (int i = 1; i <= NO_OF_GOALIE; i++) {
             List<Player> goalies = new ArrayList<>(leagueLOM.getFreeAgentsGoalies());
             System.out.println(goalies.size());
             Player goalie;
 
             console.printLine("\nPlease select a goalie\n");
 
-            console.printLine("ID\t\tAge\t\tSkating\t\tShooting\t\tChecking\t\tSaving\t\tName");
+            console.printLine("ID\t\tAge\t\t\tSkating\t\t\tShooting\t\t\tChecking\t\tSaving\t\tName");
 
-            for(int j = 0; j < goalies.size(); j++){
+            for (int j = 0; j < goalies.size(); j++) {
                 goalie = goalies.get(j);
                 console.printLine((j + 1) + "\t\t" + goalie.getAge() + "\t\t" + goalie.getSkating() +
-                        "\t\t\t" + goalie.getShooting() + "\t\t\t\t" + goalie.getChecking() +
+                        "\t\t\t" + goalie.getShooting() + "\t\t\t\t\t" + goalie.getChecking() +
                         "\t\t\t\t" + goalie.getSaving() + "\t\t\t" + goalie.getPlayerName());
             }
 
             console.printLine("\nChoice (ID)?");
 
-            try{
+            try {
                 int choice = console.readInteger();
-                if(choice >= 1 && choice <= (goalies.size())){
+                if (choice >= 1 && choice <= (goalies.size())) {
                     freeAgents.add(goalies.get(choice - 1));
                     leagueLOM.removeFreeAgent(goalies.get(choice - 1));
                     status = true;
-                }else{
+                } else {
                     status = false;
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 status = false;
                 break;
             }
-            if(status == false){
+            if (status == false) {
                 break;
             }
         }
@@ -182,19 +183,19 @@ public class CreateTeam implements ICreateTeam {
     public boolean selectTeamSkaters() {
         boolean status = false;
 
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
-        IConsole console = Injector.injector().getConsoleObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
-        for(int i = 1; i <= NO_OF_SKATERS; i++){
+        for (int i = 1; i <= NO_OF_SKATERS; i++) {
             List<Player> skaters = new ArrayList<>(leagueLOM.getFreeAgentsSkaters());
             Player skater;
 
             console.printLine("\nPlease select a skater\n");
 
-            console.printLine("ID\t\tAge\t\tSkating\t\tShooting\t\tChecking\t\tSaving\t\tPosition\t\tName");
+            console.printLine("ID\t\tAge\t\t\tSkating\t\t\tShooting\t\tChecking\t\tSaving\t\tPosition\t\tName");
 
-            for(int j = 0; j < skaters.size(); j++){
+            for (int j = 0; j < skaters.size(); j++) {
                 skater = skaters.get(j);
                 console.printLine((j + 1) + "\t\t" + skater.getAge() + "\t\t" + skater.getSkating() +
                         "\t\t\t" + skater.getShooting() + "\t\t\t\t" + skater.getChecking() +
@@ -203,21 +204,21 @@ public class CreateTeam implements ICreateTeam {
 
             console.printLine("\nChoice (ID)?");
 
-            try{
+            try {
                 int choice = console.readInteger();
-                if(choice >= 1 && choice <= (skaters.size())){
+                if (choice >= 1 && choice <= (skaters.size())) {
                     freeAgents.add(skaters.get(choice - 1));
                     leagueLOM.removeFreeAgent(skaters.get(choice - 1));
                     status = true;
-                }else{
+                } else {
                     status = false;
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 status = false;
                 break;
             }
-            if(status == false){
+            if (status == false) {
                 break;
             }
         }
@@ -226,14 +227,14 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean instantiateNewTeam() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         leagueLOM = leagueModel.getCurrentLeague();
         Conference conference = leagueLOM.getConference(conferenceName);
         Division division = conference.getDivision(divisionName);
         Team team = new Team(teamName);
         team.setGeneralManager(generalManager);
         team.setHeadCoach(headCoach);
-        for(Player player : freeAgents){
+        for (Player player : freeAgents) {
             team.addPlayer(player);
         }
         return division.addTeam(team);
@@ -262,4 +263,6 @@ public class CreateTeam implements ICreateTeam {
     public void setFreeAgents(List<Player> freeAgents) {
         this.freeAgents = freeAgents;
     }
+
+
 }

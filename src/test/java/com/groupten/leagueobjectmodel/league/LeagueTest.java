@@ -4,6 +4,7 @@ import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.season.Season;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -34,6 +35,14 @@ public class LeagueTest {
                 2, 0.05);
         GeneralManager generalManager = new GeneralManager(1, "First General Manager");
         assertTrue(league.addGeneralManager(generalManager));
+    }
+
+    @Test
+    public void addSeasonTest() {
+        League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+        Season season = new Season(league);
+        assertTrue(league.addSeason(season));
     }
 
     @Test
@@ -117,6 +126,17 @@ public class LeagueTest {
         generalManager = new GeneralManager(2, "Second General Manager");
         league.addGeneralManager(generalManager);
         assertEquals(2, league.getGeneralManagers().size());
+    }
+
+    @Test
+    public void getSeasonsTest() {
+        League league = new League(1, "First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+        Season season1 = new Season(league);
+        league.addSeason(season1);
+        Season season2 = new Season(league);
+        league.addSeason(season2);
+        assertEquals(2, league.getSeasons().size());
     }
 
     @Test

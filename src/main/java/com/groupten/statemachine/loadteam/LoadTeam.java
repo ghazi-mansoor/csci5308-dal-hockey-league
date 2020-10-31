@@ -1,9 +1,9 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.persistence.dao.ITeamDAO;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.persistence.dao.ITeamDAO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,15 +14,16 @@ public class LoadTeam implements ILoadTeam {
     private String teamName;
     private int leagueID;
 
-    public LoadTeam() {}
+    public LoadTeam() {
+    }
 
     public LoadTeam(ITeamDAO teamDBObj) {
-        Injector.injector().setTeamDatabaseObject(teamDBObj);
+        Injector.instance().setTeamDatabaseObject(teamDBObj);
     }
 
     @Override
     public void userPromptForLoadingTeam() {
-        console = Injector.injector().getConsoleObject();
+        console = Injector.instance().getConsoleObject();
         console.printLine("Enter the Team name:");
         teamName = console.readLine();
     }
@@ -34,12 +35,12 @@ public class LoadTeam implements ILoadTeam {
 
     @Override
     public boolean doesTeamExist() {
-        ITeamDAO teamDB = Injector.injector().getTeamDatabaseObject();
+        ITeamDAO teamDB = Injector.instance().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
-        if(teamList.size() > 0){
+        if (teamList.size() > 0) {
             leagueID = (int) teamList.get(0).get("leagueId");
             return true;
-        } else{
+        } else {
             return false;
         }
     }

@@ -1,7 +1,5 @@
 package com.groupten.statemachine.simulation;
 
-import java.util.*;
-
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
@@ -11,10 +9,12 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 
+import java.util.*;
+
 public class Trading implements ITrading {
 
-	IConsole console = Injector.injector().getConsoleObject();
-	ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+	IConsole console = Injector.instance().getConsoleObject();
+	ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
 	League leagueLOM = leagueModel.getCurrentLeague();
 	Team tradeInitializingTeam = new Team();
 	Team tradeFinalizingTeam = new Team();
