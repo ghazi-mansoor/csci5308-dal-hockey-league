@@ -113,5 +113,168 @@ public class TradingTest {
 
     }
 
+    @Test
+    public void UIDropPlayers(){
+
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+
+        leagueModel.setCurrentLeague(league);
+        League leagueLOM = leagueModel.getCurrentLeague();
+        Trading trading = new Trading();
+        Team team = new Team();
+        Player player = new Player();
+
+        player = new Player("Player1", "goalie", 25, 5, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player2", "forward", 31, 2, 4, 9, 8);
+        team.addPlayer(player);
+        player = new Player("Player3", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player4", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player5", "defense", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+        player = new Player("Player6", "forward", 25, 5, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player7", "forward", 31, 2, 4, 6, 1);
+        team.addPlayer(player);
+        player = new Player("Player8", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player9", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player10", "defense", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+        player = new Player("Player11", "defense", 25, 5, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player12", "forward", 31, 6, 4, 6, 8);
+        team.addPlayer(player);
+        player = new Player("Player13", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player14", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player15", "forward", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+        player = new Player("Player16", "goalie", 25, 9, 1, 8, 8);
+        team.addPlayer(player);
+        player = new Player("Player17", "forward", 31, 6, 4, 2, 8);
+        team.addPlayer(player);
+        player = new Player("Player18", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player19", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player20", "defense", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+        player = new Player("Player21", "forward", 25, 15, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player22", "forward", 31, 2, 9, 6, 8);
+        team.addPlayer(player);
+        player = new Player("Player23", "goalie", 27, 10, 4, 6, 10);
+        team.addPlayer(player);
+        player = new Player("Player24", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player25", "goalie", 30, 10, 15, 3, 12);
+        team.addPlayer(player);
+
+        trading.UIDropPlayers(team);
+        int i = 0;
+        assertEquals("Player16",leagueLOM.getFreeAgentsGoalies().get(i).getPlayerName());
+        i++;
+        assertEquals("Player1",leagueLOM.getFreeAgentsGoalies().get(i).getPlayerName());
+        i++;
+        int j = 0;
+        assertEquals("Player6",leagueLOM.getFreeAgentsSkaters().get(j).getPlayerName());
+        j++;
+        assertEquals("Player11",leagueLOM.getFreeAgentsSkaters().get(j).getPlayerName());
+        j++;
+        assertEquals("Player7",leagueLOM.getFreeAgentsSkaters().get(j).getPlayerName());
+        j++;
+
+    }
+
+    @Test
+    public void UIGetFromFreeAgents(){
+        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+
+        leagueModel.setCurrentLeague(league);
+        League leagueLOM = leagueModel.getCurrentLeague();
+        Trading trading = new Trading();
+        Team team = new Team();
+        Player player = new Player();
+
+        player = new Player("Player1", "goalie", 25, 5, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player2", "forward", 31, 2, 4, 9, 8);
+        team.addPlayer(player);
+        player = new Player("Player3", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player4", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player5", "defense", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+        player = new Player("Player6", "forward", 25, 5, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player7", "forward", 31, 2, 4, 6, 1);
+        team.addPlayer(player);
+        player = new Player("Player8", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player9", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player10", "defense", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+        player = new Player("Player11", "defense", 25, 5, 3, 4, 8);
+        team.addPlayer(player);
+        player = new Player("Player12", "forward", 31, 6, 4, 6, 8);
+        team.addPlayer(player);
+        player = new Player("Player13", "defense", 27, 5, 4, 6, 5);
+        team.addPlayer(player);
+        player = new Player("Player14", "forward", 29, 7, 3, 2, 7);
+        team.addPlayer(player);
+        player = new Player("Player15", "forward", 30, 10, 5, 3, 7);
+        team.addPlayer(player);
+
+        player = new Player("Player16", "goalie", 25, 9, 1, 8, 8);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player17", "forward", 31, 6, 14, 2, 18);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player18", "defense", 27, 2, 4, 6, 5);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player19", "forward", 29, 7, 3, 12, 7);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player20", "defense", 30, 10, 5, 3, 7);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player21", "forward", 25, 15, 3, 4, 8);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player22", "forward", 31, 2, 9, 6, 8);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player23", "goalie", 27, 9, 4, 6, 10);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player24", "forward", 29, 7, 3, 2, 7);
+        leagueLOM.addFreeAgent(player);
+        player = new Player("Player25", "goalie", 30, 10, 15, 3, 12);
+        leagueLOM.addFreeAgent(player);
+
+        /*for(Player p : leagueLOM.getFreeAgents())
+        {
+            System.out.println(p.calculateStrength());
+        }*/
+
+        trading.UIGetFromFreeAgents(team);
+
+        int i = 15;
+        assertEquals("Player25",team.getPlayers().get(i).getPlayerName());
+        i++;
+        assertEquals("Player17",team.getPlayers().get(i).getPlayerName());
+        i++;
+        assertEquals("Player21",team.getPlayers().get(i).getPlayerName());
+        i++;
+        assertEquals("Player20",team.getPlayers().get(i).getPlayerName());
+        i++;
+        assertEquals("Player19",team.getPlayers().get(i).getPlayerName());
+
+    }
 
 }
