@@ -2,6 +2,7 @@ package com.groupten.leagueobjectmodel.league;
 
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
@@ -19,18 +20,11 @@ public class League {
     private List<Coach> coaches = new ArrayList<>();
     private List<GeneralManager> generalManagers = new ArrayList<>();
     private List<Season> seasons = new ArrayList<>();
-
-    private int averageRetirementAge;
-    private int maximumAge;
-    private double randomWinChance;
-    private double randomInjuryChance;
-    private int injuryDaysLow;
-    private int injuryDaysHigh;
-    private int daysUntilStatIncreaseCheck;
-    private int lossPoint;
-    private double randomTradeOfferChance;
-    private int maxPlayersPerTrade;
-    private double randomAcceptanceChance;
+    private GameConfig.Aging agingConfig;
+    private GameConfig.GameResolver gameResolverConfig;
+    private GameConfig.Injuries injuriesConfig;
+    private GameConfig.Training trainingConfig;
+    private GameConfig.Trading tradingConfig;
 
     public League(String leagueName) {
         this.leagueName = leagueName;
@@ -38,31 +32,6 @@ public class League {
 
     public League(int leagueID, String leagueName) {
         this(leagueName);
-        this.leagueID = leagueID;
-    }
-
-    public League(String leagueName, int averageRetirementAge, int maximumAge, double randomWinChance, double randomInjuryChance,
-                  int injuryDaysLow, int injuryDaysHigh, int daysUntilStatIncreaseCheck, int lossPoint, double randomTradeOfferChance,
-                  int maxPlayersPerTrade, double randomAcceptanceChance) {
-        this(leagueName);
-        this.averageRetirementAge = averageRetirementAge;
-        this.maximumAge = maximumAge;
-        this.randomWinChance = randomWinChance;
-        this.randomInjuryChance = randomInjuryChance;
-        this.injuryDaysLow = injuryDaysLow;
-        this.injuryDaysHigh = injuryDaysHigh;
-        this.daysUntilStatIncreaseCheck = daysUntilStatIncreaseCheck;
-        this.lossPoint = lossPoint;
-        this.randomTradeOfferChance = randomTradeOfferChance;
-        this.maxPlayersPerTrade = maxPlayersPerTrade;
-        this.randomAcceptanceChance = randomAcceptanceChance;
-    }
-
-    public League(int leagueID, String leagueName, int averageRetirementAge, int maximumAge, double randomWinChance, double randomInjuryChance,
-                  int injuryDaysLow, int injuryDaysHigh, int daysUntilStatIncreaseCheck, int lossPoint, double randomTradeOfferChance,
-                  int maxPlayersPerTrade, double randomAcceptanceChance) {
-        this(leagueName, averageRetirementAge, maximumAge, randomWinChance, randomInjuryChance, injuryDaysLow, injuryDaysHigh,
-                daysUntilStatIncreaseCheck, lossPoint, randomTradeOfferChance, maxPlayersPerTrade, randomAcceptanceChance);
         this.leagueID = leagueID;
     }
 
@@ -182,94 +151,6 @@ public class League {
         leagueID = lID;
     }
 
-    public double getAverageRetirementAge() {
-        return averageRetirementAge;
-    }
-
-    public void setAverageRetirementAge(int avgRA) {
-        averageRetirementAge = avgRA;
-    }
-
-    public double getMaximumAge() {
-        return maximumAge;
-    }
-
-    public void setMaximumAge(int mA) {
-        maximumAge = mA;
-    }
-
-    public double getRandomWinChance() {
-        return randomWinChance;
-    }
-
-    public void setRandomWinChance(double randWC) {
-        randomWinChance = randWC;
-    }
-
-    public double getRandomInjuryChance() {
-        return randomInjuryChance;
-    }
-
-    public void setRandomInjuryChance(double randomIC) {
-        randomInjuryChance = randomIC;
-    }
-
-    public int getInjuryDaysLow() {
-        return injuryDaysLow;
-    }
-
-    public void setInjuryDaysLow(int iDL) {
-        injuryDaysLow = iDL;
-    }
-
-    public int getInjuryDaysHigh() {
-        return injuryDaysHigh;
-    }
-
-    public void setInjuryDaysHigh(int iDH) {
-        injuryDaysHigh = iDH;
-    }
-
-    public int getDaysUntilStatIncreaseCheck() {
-        return daysUntilStatIncreaseCheck;
-    }
-
-    public void setDaysUntilStatIncreaseCheck(int daysSIC) {
-        daysUntilStatIncreaseCheck = daysSIC;
-    }
-
-    public int getLossPoint() {
-        return lossPoint;
-    }
-
-    public void setLossPoint(int lP) {
-        lossPoint = lP;
-    }
-
-    public double getRandomTradeOfferChance() {
-        return randomTradeOfferChance;
-    }
-
-    public void setRandomTradeOfferChance(double randomTOC) {
-        randomTradeOfferChance = randomTOC;
-    }
-
-    public double getRandomAcceptanceChance() {
-        return randomAcceptanceChance;
-    }
-
-    public void setRandomAcceptanceChance(double randomAC) {
-       randomAcceptanceChance = randomAC;
-    }
-
-    public int getMaxPlayersPerTrade() {
-        return maxPlayersPerTrade;
-    }
-
-    public void setMaxPlayersPerTrade(int maxPPT) {
-        maxPlayersPerTrade = maxPPT;
-    }
-
     public void removeGeneralManager(GeneralManager generalManager){
         generalManagers.remove(generalManager);
     }
@@ -285,5 +166,45 @@ public class League {
     public boolean saveLeague() {
         System.out.println("League saved to DB. leagueID set to 1.");
         return true;
+    }
+
+    public GameConfig.Aging getAgingConfig() {
+        return agingConfig;
+    }
+
+    public void setAgingConfig(GameConfig.Aging agingConfig) {
+        this.agingConfig = agingConfig;
+    }
+
+    public GameConfig.GameResolver getGameResolverConfig() {
+        return gameResolverConfig;
+    }
+
+    public void setGameResolverConfig(GameConfig.GameResolver gameResolverConfig) {
+        this.gameResolverConfig = gameResolverConfig;
+    }
+
+    public GameConfig.Injuries getInjuriesConfig() {
+        return injuriesConfig;
+    }
+
+    public void setInjuriesConfig(GameConfig.Injuries injuriesConfig) {
+        this.injuriesConfig = injuriesConfig;
+    }
+
+    public GameConfig.Training getTrainingConfig() {
+        return trainingConfig;
+    }
+
+    public void setTrainingConfig(GameConfig.Training trainingConfig) {
+        this.trainingConfig = trainingConfig;
+    }
+
+    public GameConfig.Trading getTradingConfig() {
+        return tradingConfig;
+    }
+
+    public void setTradingConfig(GameConfig.Trading tradingConfig) {
+        this.tradingConfig = tradingConfig;
     }
 }

@@ -2,19 +2,19 @@ package com.groupten.leagueobjectmodel.gameconfig;
 
 public class GameConfig {
     public static class Aging  {
-        private double averageRetirementAge;
-        private double maximumAge;
+        private int averageRetirementAge;
+        private int maximumAge;
 
-        public Aging(double averageRetirementAge, double maximumAge) {
+        public Aging(int averageRetirementAge, int maximumAge) {
             this.averageRetirementAge = averageRetirementAge;
             this.maximumAge = maximumAge;
         }
 
-        public double getAverageRetirementAge() {
+        public int getAverageRetirementAge() {
             return averageRetirementAge;
         }
 
-        public double getMaximumAge() {
+        public int getMaximumAge() {
             return maximumAge;
         }
     }
