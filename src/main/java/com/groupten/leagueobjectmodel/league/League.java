@@ -34,6 +34,11 @@ public class League {
         this.leagueName = leagueName;
     }
 
+    public League(int leagueID, String leagueName) {
+        this(leagueName);
+        this.leagueID = leagueID;
+    }
+
     public League(String leagueName, int averageRetirementAge, int maximumAge, double randomWinChance, double randomInjuryChance,
                   int injuryDaysLow, int injuryDaysHigh, int daysUntilStatIncreaseCheck, int lossPoint, double randomTradeOfferChance,
                   int maxPlayersPerTrade, double randomAcceptanceChance) {
