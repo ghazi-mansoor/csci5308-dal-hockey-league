@@ -1,6 +1,13 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.Team;
+
+import java.util.List;
+import java.util.Map;
 
 public class LeagueModel implements ILeagueModel {
     private League currentLeague;
@@ -22,7 +29,7 @@ public class LeagueModel implements ILeagueModel {
         boolean leagueSaved = currentLeague.saveLeague();
         if (leagueSaved) {
             int leagueID = currentLeague.getLeagueID();
-            Map <String, Conference> conferences = currentLeague.getConferences();
+            Map<String, Conference> conferences = currentLeague.getConferences();
 
             return saveConferences(leagueID, conferences);
         } else {
