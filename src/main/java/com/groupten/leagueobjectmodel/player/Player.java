@@ -18,6 +18,7 @@ public class Player {
     private double saving;
     private boolean injured;
     private int injuryPeriod;
+    private boolean retired;
 
     private final double gameConfigAverageRetirementAge = 35.0;
     private final double gameConfigMaxRetirementAge = 50.0;
@@ -68,7 +69,8 @@ public class Player {
 
     private boolean shouldPlayerBeRetired() {
         double probabilityOfRetirement = calculateProbabilityOfRetirement();
-        return age > gameConfigMaxRetirementAge || probabilityOfRetirement > 70;
+        retired = age > gameConfigMaxRetirementAge || probabilityOfRetirement > 70;
+        return retired;
     }
 
     private double calculateProbabilityOfRetirement() {
@@ -238,6 +240,10 @@ public class Player {
     public void setTeamID(int teamID) {
         this.teamID = teamID;
     }
+
+    public boolean isRetired() { return retired; }
+
+    public void setRetired(boolean retired) { this.retired = retired; };
 
     public boolean savePlayer() {
         System.out.println("Player saved to DB. playerID set to 1.");
