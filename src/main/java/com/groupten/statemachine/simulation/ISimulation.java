@@ -1,5 +1,7 @@
 package com.groupten.statemachine.simulation;
 
+import com.groupten.leagueobjectmodel.league.League;
+
 public interface ISimulation {
-    boolean init();
+    void init(League leagueLOM, int numberOfSeasons);
 }

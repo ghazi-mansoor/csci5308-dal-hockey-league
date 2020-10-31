@@ -14,19 +14,18 @@ import java.util.Map;
 public class Training implements ITraining {
 
     @Override
-    public void train() {
-        ILeagueModel leagueModel = Injector.injector().getLeagueModelObject();
+    public void trainPlayers() {
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
-        int daysUntilStatIncreaseCheck = leagueLOM.getDaysUntilStatIncreaseCheck();
 
         Map<String, Conference> conferences = leagueLOM.getConferences();
-        for (Conference conference: conferences.values()) {
+        for (Conference conference : conferences.values()) {
 
             Map<String, Division> divisions = conference.getDivisions();
-            for(Division division: divisions.values()){
+            for (Division division : divisions.values()) {
 
                 Map<String, Team> teams = division.getTeams();
-                for(Team team: teams.values()){
+                for (Team team : teams.values()) {
 
                     double skating = team.getHeadCoach().getSkating();
                     double shooting = team.getHeadCoach().getShooting();
@@ -35,37 +34,37 @@ public class Training implements ITraining {
 
                     List<Player> players = team.getPlayers();
 
-                    for(Player player: players){
-                        if(compareStatisticWithRandomValue(skating)){
-                            if(player.getSkating() < 20){
+                    for (Player player : players) {
+                        if (compareStatisticWithRandomValue(skating)) {
+                            if (player.getSkating() < 20) {
                                 player.setSkating(player.getSkating() + 1);
                             }
-                        }else{
-                            // Injury Check
+                        } else {
+                            player.checkInjury();
                         }
 
-                        if(compareStatisticWithRandomValue(shooting)){
-                            if(player.getShooting() < 20){
+                        if (compareStatisticWithRandomValue(shooting)) {
+                            if (player.getShooting() < 20) {
                                 player.setShooting(player.getShooting() + 1);
                             }
-                        }else{
-                            // Injury Check
+                        } else {
+                            player.checkInjury();
                         }
 
-                        if(compareStatisticWithRandomValue(checking)){
-                            if(player.getChecking() < 20){
+                        if (compareStatisticWithRandomValue(checking)) {
+                            if (player.getChecking() < 20) {
                                 player.setChecking(player.getChecking() + 1);
                             }
-                        }else{
-                            // Injury Check
+                        } else {
+                            player.checkInjury();
                         }
 
-                        if(compareStatisticWithRandomValue(saving)){
-                            if(player.getSaving() < 20){
+                        if (compareStatisticWithRandomValue(saving)) {
+                            if (player.getSaving() < 20) {
                                 player.setSaving(player.getSaving() + 1);
                             }
-                        }else{
-                            // Injury Check
+                        } else {
+                            player.checkInjury();
                         }
                     }
                 }
@@ -73,7 +72,7 @@ public class Training implements ITraining {
         }
     }
 
-    private boolean compareStatisticWithRandomValue(double statistic){
+    private boolean compareStatisticWithRandomValue(double statistic) {
         double random = Math.round(Math.random() * 100.0) / 100.0;
         return (random < statistic);
     }

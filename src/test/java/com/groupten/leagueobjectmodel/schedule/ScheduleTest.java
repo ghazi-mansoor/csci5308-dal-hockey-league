@@ -1,12 +1,13 @@
 package com.groupten.leagueobjectmodel.schedule;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ScheduleTest {
 

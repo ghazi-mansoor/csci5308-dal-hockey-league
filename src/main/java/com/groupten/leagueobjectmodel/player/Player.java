@@ -25,6 +25,9 @@ public class Player {
     private final int injuryDaysLow = 1;
     private final int injuryDaysHigh = 260;
 
+    public Player() {
+    }
+
     public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         this.playerName = playerName;
         this.position = position;
@@ -129,7 +132,7 @@ public class Player {
     private static boolean isPlayerNameValid(String pN) {
         boolean isValid;
         if (pN.isEmpty() || pN.isBlank() || pN.toLowerCase().equals("null")) {
-           isValid = false;
+            isValid = false;
         } else {
             isValid = true;
         }
@@ -145,13 +148,13 @@ public class Player {
     private static boolean areStatsValid(double ...args) {
         List<Boolean> validChecks = new ArrayList<>();
 
-         for (double stat : args) {
-             validChecks.add(stat >= 1 && stat <= 20);
-         }
+        for (double stat : args) {
+            validChecks.add(stat >= 1 && stat <= 20);
+        }
 
-         return Collections.frequency(validChecks, false) == 0;
+        return Collections.frequency(validChecks, false) == 0;
     }
-    
+
     public int getPlayerID() {
         return playerID;
     }

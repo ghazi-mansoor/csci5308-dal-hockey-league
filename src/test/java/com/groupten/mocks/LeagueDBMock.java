@@ -1,4 +1,4 @@
-package com.groupten.statemachine.mocks;
+package com.groupten.mocks;
 
 import com.groupten.persistence.dao.ILeagueDAO;
 
@@ -12,7 +12,7 @@ public class LeagueDBMock implements ILeagueDAO {
     @Override
     public int createLeague(String leagueName) {
         return 1;
-    };
+    }
 
     @Override
     public List<HashMap<String, Object>> getLeagues(String colName, String colValue) {
@@ -22,7 +22,7 @@ public class LeagueDBMock implements ILeagueDAO {
     }
 
     @Override
-    public void updateLeague(int leagueId, String leagueName){
+    public void updateLeague(int leagueId, String leagueName) {
     }
 
     @Override
