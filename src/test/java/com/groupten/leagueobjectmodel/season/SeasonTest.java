@@ -89,7 +89,8 @@ public class SeasonTest {
     }
 
     @Test
-    public void recordWinTest(Team team){
+    public void recordWinTest(){
+        Team team = new Team("Team1");
         League league = null;
         Season season = new Season(league,2020);
         TeamStanding teamStanding = new TeamStanding(team,"Division1","Conference1",1,2,3,4);;
