@@ -9,6 +9,7 @@ import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
+import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.training.ITraining;
 
 import java.util.Calendar;
@@ -85,7 +86,7 @@ public class Simulation implements ISimulation {
         List<Schedule> scheduleList = season.schedulesToday();
         if(scheduleList.size() > 0 ){
             scheduleList.forEach(schedule -> {
-                simulateGame();
+                simulateGame(schedule);
             });
         }
 
@@ -96,10 +97,10 @@ public class Simulation implements ISimulation {
         }
     }
 
-    private void simulateGame(){
-        //ToDo Simulate Games
+    private void simulateGame(Schedule schedule){
+        ISimulateGame simulateGame = Injector.instance().getSimulateGameObject();
+        simulateGame.simulateGame(schedule);
         injuryCheck();
-
     }
 
     private void injuryCheck(){
