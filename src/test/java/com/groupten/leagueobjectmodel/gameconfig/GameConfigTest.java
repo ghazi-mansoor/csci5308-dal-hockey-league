@@ -7,9 +7,9 @@ import static org.junit.Assert.assertEquals;
 public class GameConfigTest {
     @Test
     public void agingConfigTest() {
-        GameConfig.Aging agingConfig = new GameConfig.Aging(35.0, 50.0);
-        assertEquals(35.0, agingConfig.getAverageRetirementAge(), 0.0);
-        assertEquals(50.0, agingConfig.getMaximumAge(), 0.0);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        assertEquals(35, agingConfig.getAverageRetirementAge());
+        assertEquals(50, agingConfig.getMaximumAge());
     }
 
     @Test
