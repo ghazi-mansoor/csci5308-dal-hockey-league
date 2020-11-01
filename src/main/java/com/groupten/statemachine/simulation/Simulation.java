@@ -2,18 +2,24 @@ package com.groupten.statemachine.simulation;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
+import com.groupten.statemachine.simulation.injury.Injury;
 import com.groupten.statemachine.simulation.training.ITraining;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Simulation implements ISimulation {
     private League leagueLOM;
@@ -56,6 +62,7 @@ public class Simulation implements ISimulation {
         IConsole console = Injector.instance().getConsoleObject();
         IAdvanceTime advanceTime = Injector.instance().getAdvanceTimeObject();
         console.printLine("Advancing to next day");
+        advanceTime.setSeason(season);
         advanceTime.advanceTime();
         if(season.isTodayRegularSeasonEnd()){
             generatePlayoffSchedule();
@@ -103,7 +110,7 @@ public class Simulation implements ISimulation {
     }
 
     private void injuryCheck(){
-        //ToDo Injury Check
+        Injury.checkPlayerInjuriesAcrossLeague(leagueLOM);
     }
 
     private void executeTrades(){

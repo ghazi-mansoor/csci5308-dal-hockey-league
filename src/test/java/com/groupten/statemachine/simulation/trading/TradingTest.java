@@ -2,11 +2,14 @@ package com.groupten.statemachine.simulation.trading;
 
 import com.groupten.IO.console.Console;
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.jsonimport.JSONImport;
 import com.groupten.statemachine.simulation.trading.Trading;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -16,13 +19,12 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class TradingTest {
-
     @Test
     public void sortByPlayerStrengthTest () {
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -73,10 +75,10 @@ public class TradingTest {
 
     @Test
     public void getWeakestPlayersTest(){
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -119,10 +121,10 @@ public class TradingTest {
 
     @Test
     public void UIDropPlayersTest(){
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -200,8 +202,9 @@ public class TradingTest {
     @Test
     public void UIGetFromFreeAgentsTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -278,10 +281,10 @@ public class TradingTest {
 
     @Test
     public void UITradeOfferTest(){
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -289,11 +292,11 @@ public class TradingTest {
 
         if(trading.UITradeOffer())
         {
-            assertTrue(trading.trade);
+            assertTrue(trading.isTrade());
         }
         else
         {
-            assertFalse(trading.trade);
+            assertFalse(trading.isTrade());
         }
 
     }
@@ -301,8 +304,9 @@ public class TradingTest {
     @Test
     public void UITradeAcceptTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -320,8 +324,8 @@ public class TradingTest {
         team1.addPlayer(player4);
         Player player5 = new Player("Player5", "defense", 30, 10, 5, 3, 7);
         team1.addPlayer(player5);
-        trading.tradeInitializingTeam = team1;
-        trading.tradeInitializingTeam.setLossPoint(2);
+        trading.setTradeInitializingTeam(team1);
+        trading.getTradeFinalizingTeam().setLossPoint(2);
 
         Team team2 = new Team();
         Player player6 = new Player("Player6", "forward", 25, 5, 3, 4, 8);
@@ -334,8 +338,8 @@ public class TradingTest {
         team2.addPlayer(player9);
         Player player10 = new Player("Player10", "defense", 30, 10, 5, 3, 7);
         team2.addPlayer(player10);
-        trading.tradeFinalizingTeam = team2;
-        trading.tradeInitializingTeam.setLossPoint(3);
+        trading.setTradeFinalizingTeam(team2);
+        trading.getTradeFinalizingTeam().setLossPoint(3);
 
         HashMap<Player,Player> tradingPlayers = new HashMap<>();
         tradingPlayers.put(player2,player7);
@@ -343,7 +347,7 @@ public class TradingTest {
 
         trading.UITradeAccept(tradingPlayers);
 
-        assertEquals(0, trading.tradeInitializingTeam.getLossPoint());
+        assertEquals(0, trading.getTradeInitializingTeam().getLossPoint());
     }
 
 }

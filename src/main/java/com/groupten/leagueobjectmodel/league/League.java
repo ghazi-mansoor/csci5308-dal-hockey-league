@@ -26,7 +26,7 @@ public class League {
     private GameConfig.Training trainingConfig;
     private GameConfig.Trading tradingConfig;
 
-    private int averageRetirementAge = 35;
+    /* private int averageRetirementAge = 35;
     private int maximumAge = 50;
     private double randomWinChance = 0.1;
     private double randomInjuryChance = 0.05;
@@ -36,7 +36,7 @@ public class League {
     private int lossPoint = 8;
     private double randomTradeOfferChance = 0.05;
     private int maxPlayersPerTrade = 2;
-    private double randomAcceptanceChance = 0.05;
+    private double randomAcceptanceChance = 0.05; */
 
     public League(String leagueName) {
         this.leagueName = leagueName;
@@ -45,22 +45,6 @@ public class League {
     public League(int leagueID, String leagueName) {
         this(leagueName);
         this.leagueID = leagueID;
-    }
-
-    public League(String leagueName, int averageRetirementAge, int maximumAge, double randomWinChance, double randomInjuryChance, int injuryDaysLow, int injuryDaysHigh,
-    int daysUntilStatIncreaseCheck, int lossPoint, double randomTradeOfferChance, int maxPlayersPerTrade, double randomAcceptanceChance) {
-        this(leagueName);
-        this.averageRetirementAge = averageRetirementAge;
-        this.maximumAge = maximumAge;
-        this.randomWinChance = randomWinChance;
-        this.randomInjuryChance = randomInjuryChance;
-        this.injuryDaysLow = injuryDaysLow;
-        this.injuryDaysHigh = injuryDaysHigh;
-        this.daysUntilStatIncreaseCheck = daysUntilStatIncreaseCheck;
-        this.lossPoint = lossPoint;
-        this.randomTradeOfferChance = randomTradeOfferChance;
-        this.maxPlayersPerTrade = maxPlayersPerTrade;
-        this.randomAcceptanceChance = randomAcceptanceChance;
     }
 
     public boolean addConference(Conference conference) {
@@ -234,49 +218,5 @@ public class League {
 
     public void setTradingConfig(GameConfig.Trading tradingConfig) {
         this.tradingConfig = tradingConfig;
-    }
-
-    public int getAverageRetirementAge() {
-        return averageRetirementAge;
-    }
-
-    public int getMaximumAge() {
-        return maximumAge;
-    }
-
-    public double getRandomInjuryChance() {
-        return randomInjuryChance;
-    }
-
-    public double getRandomWinChance() {
-        return randomWinChance;
-    }
-
-    public int getInjuryDaysLow() {
-        return injuryDaysLow;
-    }
-
-    public int getInjuryDaysHigh() {
-        return injuryDaysHigh;
-    }
-
-    public int getDaysUntilStatIncreaseCheck() {
-        return daysUntilStatIncreaseCheck;
-    }
-
-    public int getLossPoint() {
-        return lossPoint;
-    }
-
-    public double getRandomTradeOfferChance() {
-        return randomTradeOfferChance;
-    }
-
-    public int getMaxPlayersPerTrade() {
-        return maxPlayersPerTrade;
-    }
-
-    public double getRandomAcceptanceChance() {
-        return randomAcceptanceChance;
     }
 }

@@ -4,6 +4,7 @@ import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
@@ -12,17 +13,67 @@ import com.groupten.leagueobjectmodel.team.Team;
 import java.util.*;
 
 public class Trading implements ITrading {
+	private IConsole console = Injector.instance().getConsoleObject();
+	private ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+	private League leagueLOM = leagueModel.getCurrentLeague();
+	private Team tradeInitializingTeam = new Team();
+	private Team tradeFinalizingTeam = new Team();
+	private final GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+	private final int maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+	private final int lossPoint = tradingConfig.getLossPoint();
+	private final double randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+	private final double randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
-	IConsole console = Injector.instance().getConsoleObject();
-	ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-	League leagueLOM = leagueModel.getCurrentLeague();
-	Team tradeInitializingTeam = new Team();
-	Team tradeFinalizingTeam = new Team();
-	int maxPlayersPerTrade = leagueLOM.getMaxPlayersPerTrade();
-	final int teamSize = 20;
-	boolean trade = false;
-	String playerName = null;
-	
+	private final int teamSize = 20;
+	private final int numberOfGoalies = 2;
+	private final int numberOfSkaters = 18;
+	private boolean trade = false;
+	private String playerName;
+
+	public Team getTradeInitializingTeam() {
+		return tradeInitializingTeam;
+	}
+
+	public void setTradeInitializingTeam(Team tradeInitializingTeam) {
+		this.tradeInitializingTeam = tradeInitializingTeam;
+	}
+
+	public Team getTradeFinalizingTeam() {
+		return tradeFinalizingTeam;
+	}
+
+	public void setTradeFinalizingTeam(Team tradeFinalizingTeam) {
+		this.tradeFinalizingTeam = tradeFinalizingTeam;
+	}
+
+	public int getTeamSize() {
+		return teamSize;
+	}
+
+	public int getNumberOfGoalies() {
+		return numberOfGoalies;
+	}
+
+	public int getNumberOfSkaters() {
+		return numberOfSkaters;
+	}
+
+	public boolean isTrade() {
+		return trade;
+	}
+
+	public void setTrade(boolean trade) {
+		this.trade = trade;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
 	public void startTrading() {
 		
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
@@ -49,7 +100,7 @@ public class Trading implements ITrading {
 				 {
 					 if(tradeInitializingTeam.isaITeam())
 					 {
-						 if(tradeInitializingTeam.getLossPoint() >= leagueLOM.getLossPoint())
+						 if(tradeInitializingTeam.getLossPoint() >= lossPoint)
 						 {
 							 tradeInitializingTeam = initializingTeam;
 							 HashMap<Player, Double> initialPlayerStrength = new HashMap<Player, Double>();
@@ -184,9 +235,9 @@ public class Trading implements ITrading {
 
 		Random random = new Random();
 		int upperbound = 1;
-		float randomTradeOfferChance = random.nextFloat();
+		double randomTradeOfferChanceGenerated = random.nextDouble();
 
-			if(randomTradeOfferChance < leagueLOM.getRandomTradeOfferChance())
+			if(randomTradeOfferChanceGenerated < randomTradeOfferChance)
 			{
 				trade = true;
 			}
@@ -197,7 +248,7 @@ public class Trading implements ITrading {
 	public void UITradeAccept(HashMap<Player,Player> tradingPlayers){
 
 		Random random = new Random();
-		float randomAcceptanceChance = random.nextFloat();
+		double randomAcceptanceChanceGenerated = random.nextDouble();
 		Player player1 = new Player();
 		Player player2 = new Player();
 		double tradeInitializingTeamStrength = 0.0;
@@ -229,7 +280,7 @@ public class Trading implements ITrading {
 
 		if(tradeInitializingTeamStrength < afterTradeInitializingStrength || tradeFinalizingTeamStrength < afterTradeFinalizingStrength)
 		{
-			if(randomAcceptanceChance > leagueLOM.getRandomAcceptanceChance())
+			if(randomAcceptanceChanceGenerated > randomAcceptanceChance)
 			{
 				console.printLine("Trade declined since its not beneficial.");
 				tradeInitializingTeam.setLossPoint(0);
@@ -377,7 +428,7 @@ public class Trading implements ITrading {
 			{
 				goalieCount++;
 
-				if(goalieCount > 2)
+				if(goalieCount > numberOfGoalies)
 				{
 					//orderedPlayerStrength.remove(entry.getKey());
 					tradingTeam.getPlayers().remove(entry.getKey());
@@ -388,7 +439,7 @@ public class Trading implements ITrading {
 			{
 				skaterCount++;
 
-				if(skaterCount > 18)
+				if(skaterCount > numberOfSkaters)
 				{
 					//orderedPlayerStrength.remove(entry.getKey());
 					tradingTeam.getPlayers().remove(entry.getKey());
@@ -428,7 +479,7 @@ public class Trading implements ITrading {
 			}
 		}
 
-		while (goalieCount > 2)
+		while (goalieCount > numberOfGoalies)
 		{
 			try{
 				console.printLine("Please choose a goalie (player name) to drop : \n");
@@ -462,7 +513,7 @@ public class Trading implements ITrading {
 			}
 		}
 
-		while (skaterCount > 18)
+		while (skaterCount > numberOfSkaters)
 		{
 			try{
 				console.printLine("Please choose a skater (player name) to drop : \n");
@@ -522,7 +573,7 @@ public class Trading implements ITrading {
 		}
 		for (Map.Entry<Player, Double> entry : orderedGoaliePlayerStrength.entrySet())
 		{
-			if(goalieCount < 2)
+			if(goalieCount < numberOfGoalies)
 			{
 				if(entry.getKey().getPosition().equals("goalie"))
 				{
@@ -551,7 +602,7 @@ public class Trading implements ITrading {
 		}
 		for (Map.Entry<Player, Double> entry : orderedSkaterPlayerStrength.entrySet())
 		{
-			if (skaterCount < 18)
+			if (skaterCount < numberOfSkaters)
 			{
 				if(entry.getKey().getPosition().equals("forward") || entry.getKey().getPosition().equals("defense"))
 				{
@@ -595,7 +646,7 @@ public class Trading implements ITrading {
 			}
 
 
-			while (goalieCount < 2)
+			while (goalieCount < numberOfGoalies)
 			{
 				try{
 					console.printLine("Please choose a goalie (player name) from the given list.");
@@ -629,7 +680,7 @@ public class Trading implements ITrading {
 				i++;
 			}
 
-			while (skaterCount < 18)
+			while (skaterCount < numberOfSkaters)
 			{
 				try{
 					console.printLine("Please choose a skater (player name) from the given list.");

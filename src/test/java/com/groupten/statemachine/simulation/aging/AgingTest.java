@@ -1,8 +1,12 @@
 package com.groupten.statemachine.simulation.aging;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.aging.Aging;
@@ -14,8 +18,16 @@ import static org.junit.Assert.assertTrue;
 public class AgingTest {
     @Test
     public void advanceEveryPlayersAgeTest() {
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        ILeagueModel leagueModel = new LeagueModel();
+        Injector.instance().setLeagueModelObject(leagueModel);
+
+        League league = new League("First League");
+        leagueModel.setCurrentLeague(league);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        league.setAgingConfig(agingConfig);
+        GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
+        league.setInjuriesConfig(injuriesConfig);
+
         Player player = new Player("First Free Agent", "goalie", 27, 5, 5, 5, 5);
         league.addFreeAgent(player);
         player = new Player("Second Free Agent", "goalie", 27, 5, 5, 5, 7);
