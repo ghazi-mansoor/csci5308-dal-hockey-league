@@ -1,5 +1,6 @@
 package com.groupten.statemachine.simulation.simulategame;
 
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
@@ -28,7 +29,9 @@ public class SimulateGame implements ISimulateGame {
         Team team_1 = teamList.get(0);
         Team team_2 = teamList.get(1);
 
-        double randomWinChance = season.getLeague().getRandomWinChance();
+        GameConfig.GameResolver gameResolver = season.getLeague().getGameResolverConfig();
+
+        double randomWinChance = gameResolver.getRandomWinChance();
 
         if(new Random().nextDouble() > randomWinChance){
             if(team_1.getTeamStrength() > team_2.getTeamStrength()){
