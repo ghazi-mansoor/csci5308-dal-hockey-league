@@ -44,9 +44,10 @@ public class Simulation implements ISimulation {
         IInitializeSeason initializeSeason = Injector.instance().getInitializeSeasonsObject();
         console.printLine("Initializing season");
         numberOfSeasons--;
-        this.season = new Season(leagueLOM,year);
         daysSinceStatsIncreased = 0;
+        season = new Season(leagueLOM,year);
         initializeSeason.setSeason(season);
+        leagueLOM.addSeason(season);
         if(initializeSeason.generateRegularSchedule()){
             console.printLine("Regular schedule generated.");
             advanceTime();
@@ -139,7 +140,6 @@ public class Simulation implements ISimulation {
     private void persist(){
         //ToDo persist
         IConsole console = Injector.instance().getConsoleObject();
-
         console.printLine("Simulation saved to db");
         end();
     }
