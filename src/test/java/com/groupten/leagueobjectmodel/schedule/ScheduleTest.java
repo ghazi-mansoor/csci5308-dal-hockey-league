@@ -1,5 +1,6 @@
 package com.groupten.leagueobjectmodel.schedule;
 
+import com.groupten.leagueobjectmodel.team.Team;
 import org.junit.Test;
 
 import java.text.DateFormat;
@@ -28,18 +29,18 @@ public class ScheduleTest {
     }
 
     @Test
-    public void addTeamNameTest() {
+    public void addTeamTest() {
         Schedule schedule = new Schedule();
-        schedule.addTeamName("Team1");
-        assertTrue(schedule.getTeamNames().contains("Team1"));
+        schedule.addTeam(new Team("Team1"));
+        assertEquals(1,schedule.getTeams().size());
     }
 
     @Test
-    public void getTeamNamesTest() {
+    public void getTeamTest() {
         Schedule schedule = new Schedule();
-        schedule.addTeamName("Team1");
-        schedule.addTeamName("Team2");
-        schedule.addTeamName("Team3");
-        assertEquals(3, schedule.getTeamNames().size());
+        schedule.addTeam(new Team("Team1"));
+        schedule.addTeam(new Team("Team2"));
+        schedule.addTeam(new Team("Team3"));
+        assertEquals(3, schedule.getTeams().size());
     }
 }
