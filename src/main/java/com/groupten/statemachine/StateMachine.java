@@ -39,26 +39,18 @@ public class StateMachine {
         try {
             json.importJSONData(path);
             console.printLine("SUCCESS: Reading JSON file.");
+            if (json.isLeagueNameUnique()) {
+                if (json.instantiateJSONData()) {
+                    console.printLine("SUCCESS: JSON Loaded.");
+                    createTeam();
+                }
+            }
         } catch (IOException e) {
             console.printLine("ERROR: Invalid File Path.");
-            continueOrExit();
-            importJson();
-        }
 
-        if (json.isLeagueNameUnique()) {
-            if (json.instantiateJSONData()) {
-                console.printLine("SUCCESS: JSON Loaded.");
-                createTeam();
-            } else {
-                console.printLine("ERROR: Invalid JSON Data.");
-                continueOrExit();
-                importJson();
-            }
-        } else {
-            console.printLine("ERROR: League Already Exists.");
-            continueOrExit();
-            importJson();
         }
+        continueOrExit();
+        importJson();
     }
 
     private void createTeam() {

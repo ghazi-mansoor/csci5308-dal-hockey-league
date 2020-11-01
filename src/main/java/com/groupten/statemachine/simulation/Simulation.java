@@ -2,24 +2,20 @@ package com.groupten.statemachine.simulation;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.conference.Conference;
-import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
-import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.injury.Injury;
+import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.training.ITraining;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Simulation implements ISimulation {
     private League leagueLOM;
@@ -50,12 +46,11 @@ public class Simulation implements ISimulation {
         this.season = new Season(leagueLOM,year);
         initializeSeason.setSeason(season);
         if(initializeSeason.generateRegularSchedule()){
+            console.printLine("Regular schedule generated.");
             advanceTime();
         }else{
             console.printLine("FAILURE: Some error occurred.");
         }
-        console.printLine("Regular schedule generated.");
-
     }
 
     private void advanceTime(){
@@ -92,7 +87,7 @@ public class Simulation implements ISimulation {
         List<Schedule> scheduleList = season.schedulesToday();
         if(scheduleList.size() > 0 ){
             scheduleList.forEach(schedule -> {
-                simulateGame();
+                simulateGame(schedule);
             });
         }
 
@@ -103,10 +98,10 @@ public class Simulation implements ISimulation {
         }
     }
 
-    private void simulateGame(){
-        //ToDo Simulate Games
+    private void simulateGame(Schedule schedule){
+        ISimulateGame simulateGame = Injector.instance().getSimulateGameObject();
+        simulateGame.simulateGame(schedule);
         injuryCheck();
-
     }
 
     private void injuryCheck(){

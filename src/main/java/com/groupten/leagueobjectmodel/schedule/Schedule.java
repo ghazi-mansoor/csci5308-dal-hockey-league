@@ -1,11 +1,13 @@
 package com.groupten.leagueobjectmodel.schedule;
 
+import com.groupten.leagueobjectmodel.team.Team;
+
 import java.util.Date;
 import java.util.HashSet;
 
 public class Schedule {
     private Date gameDate;
-    private HashSet<String> teamNames = new HashSet<>();
+    private HashSet<Team> teams = new HashSet<>();
 
     public Schedule(){
         gameDate = null;
@@ -23,16 +25,16 @@ public class Schedule {
         return gameDate;
     }
 
-    public boolean addTeamName(String teamName){
-        if(teamNames.size() <=2){
-            teamNames.add(teamName);
+    public boolean addTeam(Team team){
+        if(teams.size() <=2){
+            teams.add(team);
             return true;
         }else{
             return false;
         }
     }
 
-    public HashSet<String> getTeamNames() {
-        return teamNames;
+    public HashSet<Team> getTeams() {
+        return teams;
     }
 }

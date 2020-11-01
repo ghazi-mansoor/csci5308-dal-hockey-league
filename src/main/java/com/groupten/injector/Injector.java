@@ -29,6 +29,8 @@ import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlay
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.initializeseason.InitializeSeason;
+import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
+import com.groupten.statemachine.simulation.simulategame.SimulateGame;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.training.Training;
 
@@ -46,6 +48,7 @@ public class Injector {
     private IGeneratePlayoffSchedule generatePlayoffScheduleInterface;
     private ITraining trainingInterface;
     private IAging agingInterface;
+    private ISimulateGame simulateGameInterface;
     private ISerializeData serializeDataInterface;
     private IDeserializeData deserializeDataInterface;
     private IComparator comparatorInterface;
@@ -69,6 +72,7 @@ public class Injector {
         generatePlayoffScheduleInterface = new GeneratePlayoffSchedule();
         trainingInterface = new Training();
         agingInterface = new Aging();
+        simulateGameInterface = new SimulateGame();
         comparatorInterface = new Comparator();
         serializeDataInterface = new SerializeData();
         deserializeDataInterface = new DeserializeData();
@@ -198,6 +202,13 @@ public class Injector {
         return agingInterface;
     }
 
+    public void setSimulateGameObject(ISimulateGame simulateGameInterface) {
+        this.simulateGameInterface = simulateGameInterface;
+    }
+
+    public ISimulateGame getSimulateGameObject() {
+        return simulateGameInterface;
+    }
 
     public void setLeagueDatabaseObject(ILeagueDAO leagueDatabaseInterface) {
         this.leagueDatabaseInterface = leagueDatabaseInterface;
