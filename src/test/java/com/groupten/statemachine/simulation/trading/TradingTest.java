@@ -292,11 +292,11 @@ public class TradingTest {
 
         if(trading.UITradeOffer())
         {
-            assertTrue(trading.trade);
+            assertTrue(trading.isTrade());
         }
         else
         {
-            assertFalse(trading.trade);
+            assertFalse(trading.isTrade());
         }
 
     }
@@ -324,8 +324,8 @@ public class TradingTest {
         team1.addPlayer(player4);
         Player player5 = new Player("Player5", "defense", 30, 10, 5, 3, 7);
         team1.addPlayer(player5);
-        trading.tradeInitializingTeam = team1;
-        trading.tradeInitializingTeam.setLossPoint(2);
+        trading.setTradeInitializingTeam(team1);
+        trading.getTradeFinalizingTeam().setLossPoint(2);
 
         Team team2 = new Team();
         Player player6 = new Player("Player6", "forward", 25, 5, 3, 4, 8);
@@ -338,8 +338,8 @@ public class TradingTest {
         team2.addPlayer(player9);
         Player player10 = new Player("Player10", "defense", 30, 10, 5, 3, 7);
         team2.addPlayer(player10);
-        trading.tradeFinalizingTeam = team2;
-        trading.tradeInitializingTeam.setLossPoint(3);
+        trading.setTradeFinalizingTeam(team2);
+        trading.getTradeFinalizingTeam().setLossPoint(3);
 
         HashMap<Player,Player> tradingPlayers = new HashMap<>();
         tradingPlayers.put(player2,player7);
@@ -347,7 +347,7 @@ public class TradingTest {
 
         trading.UITradeAccept(tradingPlayers);
 
-        assertEquals(0, trading.tradeInitializingTeam.getLossPoint());
+        assertEquals(0, trading.getTradeInitializingTeam().getLossPoint());
     }
 
 }

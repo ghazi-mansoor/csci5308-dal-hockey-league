@@ -25,9 +25,55 @@ public class Trading implements ITrading {
 	private final double randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 	private final int teamSize = 20;
-	private final boolean trade = false;
+	private final int numberOfGoalies = 2;
+	private final int numberOfSkaters = 18;
+	private boolean trade = false;
 	private String playerName;
-	
+
+	public Team getTradeInitializingTeam() {
+		return tradeInitializingTeam;
+	}
+
+	public void setTradeInitializingTeam(Team tradeInitializingTeam) {
+		this.tradeInitializingTeam = tradeInitializingTeam;
+	}
+
+	public Team getTradeFinalizingTeam() {
+		return tradeFinalizingTeam;
+	}
+
+	public void setTradeFinalizingTeam(Team tradeFinalizingTeam) {
+		this.tradeFinalizingTeam = tradeFinalizingTeam;
+	}
+
+	public int getTeamSize() {
+		return teamSize;
+	}
+
+	public int getNumberOfGoalies() {
+		return numberOfGoalies;
+	}
+
+	public int getNumberOfSkaters() {
+		return numberOfSkaters;
+	}
+
+	public boolean isTrade() {
+		return trade;
+	}
+
+	public void setTrade(boolean trade) {
+		this.trade = trade;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
 	public void startTrading() {
 		
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
@@ -382,7 +428,7 @@ public class Trading implements ITrading {
 			{
 				goalieCount++;
 
-				if(goalieCount > 2)
+				if(goalieCount > numberOfGoalies)
 				{
 					//orderedPlayerStrength.remove(entry.getKey());
 					tradingTeam.getPlayers().remove(entry.getKey());
@@ -393,7 +439,7 @@ public class Trading implements ITrading {
 			{
 				skaterCount++;
 
-				if(skaterCount > 18)
+				if(skaterCount > numberOfSkaters)
 				{
 					//orderedPlayerStrength.remove(entry.getKey());
 					tradingTeam.getPlayers().remove(entry.getKey());
@@ -433,7 +479,7 @@ public class Trading implements ITrading {
 			}
 		}
 
-		while (goalieCount > 2)
+		while (goalieCount > numberOfGoalies)
 		{
 			try{
 				console.printLine("Please choose a goalie (player name) to drop : \n");
@@ -467,7 +513,7 @@ public class Trading implements ITrading {
 			}
 		}
 
-		while (skaterCount > 18)
+		while (skaterCount > numberOfSkaters)
 		{
 			try{
 				console.printLine("Please choose a skater (player name) to drop : \n");
@@ -527,7 +573,7 @@ public class Trading implements ITrading {
 		}
 		for (Map.Entry<Player, Double> entry : orderedGoaliePlayerStrength.entrySet())
 		{
-			if(goalieCount < 2)
+			if(goalieCount < numberOfGoalies)
 			{
 				if(entry.getKey().getPosition().equals("goalie"))
 				{
@@ -556,7 +602,7 @@ public class Trading implements ITrading {
 		}
 		for (Map.Entry<Player, Double> entry : orderedSkaterPlayerStrength.entrySet())
 		{
-			if (skaterCount < 18)
+			if (skaterCount < numberOfSkaters)
 			{
 				if(entry.getKey().getPosition().equals("forward") || entry.getKey().getPosition().equals("defense"))
 				{
@@ -600,7 +646,7 @@ public class Trading implements ITrading {
 			}
 
 
-			while (goalieCount < 2)
+			while (goalieCount < numberOfGoalies)
 			{
 				try{
 					console.printLine("Please choose a goalie (player name) from the given list.");
@@ -634,7 +680,7 @@ public class Trading implements ITrading {
 				i++;
 			}
 
-			while (skaterCount < 18)
+			while (skaterCount < numberOfSkaters)
 			{
 				try{
 					console.printLine("Please choose a skater (player name) from the given list.");
