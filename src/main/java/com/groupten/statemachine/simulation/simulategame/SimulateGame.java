@@ -54,6 +54,7 @@ public class SimulateGame implements ISimulateGame {
 
     private void recordWin(Team team){
         season.recordWin(team);
+        team.setWinPoint( team.getWinPoint() + 1);
     }
 
     private void recordLoss(Team team){

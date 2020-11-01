@@ -18,6 +18,7 @@ public class Team {
     private Coach headCoach;
     private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
+    private int winPoint;
     private int lossPoint;
 
     public Team() {
@@ -141,6 +142,14 @@ public class Team {
 
     public void setaITeam(boolean aITeam) {
         this.aITeam = aITeam;
+    }
+
+    public int getWinPoint() {
+        return winPoint;
+    }
+
+    public void setWinPoint(int winPoint) {
+        this.winPoint = winPoint;
     }
 
     public int getLossPoint() {
