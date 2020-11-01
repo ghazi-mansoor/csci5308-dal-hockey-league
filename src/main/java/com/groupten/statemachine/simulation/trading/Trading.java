@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation;
+package com.groupten.statemachine.simulation.trading;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
@@ -20,6 +20,8 @@ public class Trading implements ITrading {
 	Team tradeFinalizingTeam = new Team();
 	int maxPlayersPerTrade = leagueLOM.getMaxPlayersPerTrade();
 	final int teamSize = 20;
+	boolean trade = false;
+	String playerName = null;
 	
 	public void startTrading() {
 		
@@ -183,7 +185,6 @@ public class Trading implements ITrading {
 		Random random = new Random();
 		int upperbound = 1;
 		float randomTradeOfferChance = random.nextFloat();
-		boolean trade = false;
 
 			if(randomTradeOfferChance < leagueLOM.getRandomTradeOfferChance())
 			{
@@ -197,12 +198,17 @@ public class Trading implements ITrading {
 
 		Random random = new Random();
 		float randomAcceptanceChance = random.nextFloat();
-		int initializingTeamSize = 0;
-		int finalizingTeamSize = 0;
 		Player player1 = new Player();
 		Player player2 = new Player();
-		double tradeInitializingTeamStrength = tradeInitializingTeam.getTeamStrength();
+		double tradeInitializingTeamStrength = 0.0;
 		double afterTradeInitializingStrength = 0.0;
+		double tradeFinalizingTeamStrength = 0.0;
+		double afterTradeFinalizingStrength = 0.0;
+
+		tradeInitializingTeam.calculateTeamStrength();
+		tradeInitializingTeamStrength = tradeInitializingTeam.getTeamStrength();
+		tradeFinalizingTeam.calculateTeamStrength();
+		tradeFinalizingTeamStrength = tradeFinalizingTeam.getTeamStrength();
 
 		for(Map.Entry<Player, Player> Players : tradingPlayers.entrySet())
 		{
@@ -213,7 +219,15 @@ public class Trading implements ITrading {
 			tradeFinalizingTeam.getPlayers().remove(player2);
 			tradeFinalizingTeam.getPlayers().add(player1);
 		}
-		if(tradeInitializingTeamStrength < afterTradeInitializingStrength)
+
+		tradeInitializingTeam.setTeamStrength(0);
+		tradeFinalizingTeam.setTeamStrength(0);
+		tradeInitializingTeam.calculateTeamStrength();
+		afterTradeInitializingStrength = tradeInitializingTeam.getTeamStrength();
+		tradeFinalizingTeam.calculateTeamStrength();
+		afterTradeFinalizingStrength = tradeFinalizingTeam.getTeamStrength();
+
+		if(tradeInitializingTeamStrength < afterTradeInitializingStrength || tradeFinalizingTeamStrength < afterTradeFinalizingStrength)
 		{
 			if(randomAcceptanceChance > leagueLOM.getRandomAcceptanceChance())
 			{
@@ -230,33 +244,13 @@ public class Trading implements ITrading {
 				console.printLine("Trade successful!");
 			}
 		}
-
-		initializingTeamSize = tradeInitializingTeam.getPlayers().size();
-		finalizingTeamSize = tradeFinalizingTeam.getPlayers().size();
-		if(initializingTeamSize > teamSize)
-		{
-			tradeInitializingTeam = UIDropPlayers(tradeInitializingTeam);
-		}
-		if(finalizingTeamSize > teamSize)
-		{
-			tradeFinalizingTeam = UIDropPlayers(tradeFinalizingTeam);
-		}
-		if (initializingTeamSize < teamSize)
-		{
-			tradeInitializingTeam = UIGetFromFreeAgents(tradeInitializingTeam);
-		}
-		if (finalizingTeamSize < teamSize)
-		{
-			tradeFinalizingTeam = UIGetFromFreeAgents(tradeFinalizingTeam);
-		}
-
+			tradeInitializingTeam.setLossPoint(0);
+			adjustTeamPlayers();
 	}
 
 	public void UserTradeAccept(HashMap<Player,Player> tradingPlayers){
 
 		int option = 0;
-		int initializingTeamSize = 0;
-		int finalizingTeamSize = 0;
 		Player player1 = new Player();
 		Player player2 = new Player();
 
@@ -297,24 +291,54 @@ public class Trading implements ITrading {
 			tradeInitializingTeam.setLossPoint(0);
 		}
 
-		initializingTeamSize = tradeInitializingTeam.getPlayers().size();
-		finalizingTeamSize = tradeInitializingTeam.getPlayers().size();
+		adjustTeamPlayers();
 
-		if(initializingTeamSize > 20)
+	}
+
+	public void adjustTeamPlayers(){
+
+		int initializingTeamSize = 0;
+		int finalizingTeamSize = 0;
+
+		initializingTeamSize = tradeInitializingTeam.getPlayers().size();
+		finalizingTeamSize = tradeFinalizingTeam.getPlayers().size();
+
+		if(tradeInitializingTeam.isaITeam())
 		{
-			tradeInitializingTeam = UIDropPlayers(tradeInitializingTeam);
+			if(initializingTeamSize > teamSize)
+			{
+				tradeInitializingTeam = UIDropPlayers(tradeInitializingTeam);
+			}
+			else if (initializingTeamSize < teamSize)
+			{
+				tradeInitializingTeam = UIGetFromFreeAgents(tradeInitializingTeam);
+			}
 		}
-		if (finalizingTeamSize > 20)
+
+		if(tradeFinalizingTeam.isaITeam())
 		{
-			tradeFinalizingTeam = userDropPlayers(tradeFinalizingTeam);
+			if(finalizingTeamSize > teamSize)
+			{
+				tradeFinalizingTeam = UIDropPlayers(tradeFinalizingTeam);
+			}
+
+			if (finalizingTeamSize < teamSize)
+			{
+				tradeFinalizingTeam = UIGetFromFreeAgents(tradeFinalizingTeam);
+			}
 		}
-		if(initializingTeamSize < 20)
+
+		else
 		{
-			tradeInitializingTeam = UIGetFromFreeAgents(tradeInitializingTeam);
-		}
-		if(finalizingTeamSize < 20)
-		{
-			tradeFinalizingTeam = userGetFromFreeAgents(tradeFinalizingTeam);
+			if (finalizingTeamSize > teamSize)
+			{
+				tradeFinalizingTeam = userDropPlayers(tradeFinalizingTeam);
+			}
+
+			if(finalizingTeamSize < teamSize)
+			{
+				tradeFinalizingTeam = userGetFromFreeAgents(tradeFinalizingTeam);
+			}
 		}
 
 	}
@@ -380,7 +404,6 @@ public class Trading implements ITrading {
 		int i = 1;
 		int goalieCount = 0;
 		int skaterCount = 0;
-		String playerName = null;
 		List<Player> players = new ArrayList<>();
 
 		for(Player player : tradingTeam.getPlayers())
@@ -407,8 +430,16 @@ public class Trading implements ITrading {
 
 		while (goalieCount > 2)
 		{
-			console.printLine("Please choose a goalie (player name) to drop : \n");
-			playerName = console.readLine();
+			try{
+				console.printLine("Please choose a goalie (player name) to drop : \n");
+				playerName = console.readLine();
+			}
+			catch (Exception e)
+			{
+				System.out.println("Invalid value!");
+				break;
+			}
+
 
 			for (Player player : tradingTeam.getPlayers())
 			{
@@ -416,7 +447,7 @@ public class Trading implements ITrading {
 				{
 					tradingTeam.getPlayers().remove(player);
 					goalieCount--;
-					leagueLOM.getFreeAgentsGoalies().add(player);
+					leagueLOM.addFreeAgent(player);
 				}
 			}
 		}
@@ -433,8 +464,16 @@ public class Trading implements ITrading {
 
 		while (skaterCount > 18)
 		{
-			console.printLine("Please choose a skater (player name) to drop : \n");
-			playerName = console.readLine();
+			try{
+				console.printLine("Please choose a skater (player name) to drop : \n");
+				playerName = console.readLine();
+			}
+			catch (Exception e)
+			{
+				System.out.println("Invalid value!");
+				break;
+			}
+
 
 			for (Player player : tradingTeam.getPlayers())
 			{
@@ -546,9 +585,6 @@ public class Trading implements ITrading {
 			}
 		}
 
-
-		String playerName = null;
-
 		if (goalieCount < 2)
 		{
 			for (Player player : leagueLOM.getFreeAgentsGoalies())
@@ -561,8 +597,15 @@ public class Trading implements ITrading {
 
 			while (goalieCount < 2)
 			{
-				console.printLine("Please choose a goalie (player name) from the given list.");
-				playerName = console.readLine();
+				try{
+					console.printLine("Please choose a goalie (player name) from the given list.");
+					playerName = console.readLine();
+				}
+				catch (Exception e){
+					System.out.println("Invalid value");
+					break;
+				}
+
 
 				for (Player player : leagueLOM.getFreeAgentsGoalies())
 				{
@@ -588,8 +631,15 @@ public class Trading implements ITrading {
 
 			while (skaterCount < 18)
 			{
-				console.printLine("Please choose a skater (player name) from the given list.");
-				playerName = console.readLine();
+				try{
+					console.printLine("Please choose a skater (player name) from the given list.");
+					playerName = console.readLine();
+				}
+				catch (Exception e){
+					System.out.println("Invalid value");
+					break;
+				}
+
 
 				for (Player player : leagueLOM.getFreeAgentsGoalies())
 				{

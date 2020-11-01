@@ -1,15 +1,19 @@
-package com.groupten.statemachine.simulation;
+package com.groupten.statemachine.simulation.trading;
 
+import com.groupten.IO.console.Console;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.simulation.trading.Trading;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TradingTest {
 
@@ -114,7 +118,7 @@ public class TradingTest {
     }
 
     @Test
-    public void UIDropPlayers(){
+    public void UIDropPlayersTest(){
 
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
@@ -194,7 +198,7 @@ public class TradingTest {
     }
 
     @Test
-    public void UIGetFromFreeAgents(){
+    public void UIGetFromFreeAgentsTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
                 2, 0.05);
@@ -257,11 +261,6 @@ public class TradingTest {
         player = new Player("Player25", "goalie", 30, 10, 15, 3, 12);
         leagueLOM.addFreeAgent(player);
 
-        /*for(Player p : leagueLOM.getFreeAgents())
-        {
-            System.out.println(p.calculateStrength());
-        }*/
-
         trading.UIGetFromFreeAgents(team);
 
         int i = 15;
@@ -275,6 +274,76 @@ public class TradingTest {
         i++;
         assertEquals("Player19",team.getPlayers().get(i).getPlayerName());
 
+    }
+
+    @Test
+    public void UITradeOfferTest(){
+
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+
+        leagueModel.setCurrentLeague(league);
+        League leagueLOM = leagueModel.getCurrentLeague();
+        Trading trading = new Trading();
+
+        if(trading.UITradeOffer())
+        {
+            assertTrue(trading.trade);
+        }
+        else
+        {
+            assertFalse(trading.trade);
+        }
+
+    }
+
+    @Test
+    public void UITradeAcceptTest(){
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
+                2, 0.05);
+
+        leagueModel.setCurrentLeague(league);
+        League leagueLOM = leagueModel.getCurrentLeague();
+        Trading trading = new Trading();
+        Player player = new Player();
+
+        Team team1 = new Team();
+        Player player1 = new Player("Player1", "goalie", 25, 5, 3, 4, 8);
+        team1.addPlayer(player1);
+        Player player2  = new Player("Player2", "forward", 31, 2, 4, 9, 8);
+        team1.addPlayer(player2);
+        Player player3 = new Player("Player3", "defense", 27, 5, 4, 6, 5);
+        team1.addPlayer(player3);
+        Player player4 = new Player("Player4", "forward", 29, 7, 3, 2, 7);
+        team1.addPlayer(player4);
+        Player player5 = new Player("Player5", "defense", 30, 10, 5, 3, 7);
+        team1.addPlayer(player5);
+        trading.tradeInitializingTeam = team1;
+        trading.tradeInitializingTeam.setLossPoint(2);
+
+        Team team2 = new Team();
+        Player player6 = new Player("Player6", "forward", 25, 5, 3, 4, 8);
+        team2.addPlayer(player6);
+        Player player7 = new Player("Player7", "forward", 31, 2, 4, 6, 1);
+        team2.addPlayer(player7);
+        Player player8 = new Player("Player8", "defense", 27, 5, 4, 6, 5);
+        team2.addPlayer(player8);
+        Player player9 = new Player("Player9", "forward", 29, 7, 3, 2, 7);
+        team2.addPlayer(player9);
+        Player player10 = new Player("Player10", "defense", 30, 10, 5, 3, 7);
+        team2.addPlayer(player10);
+        trading.tradeFinalizingTeam = team2;
+        trading.tradeInitializingTeam.setLossPoint(3);
+
+        HashMap<Player,Player> tradingPlayers = new HashMap<>();
+        tradingPlayers.put(player2,player7);
+        tradingPlayers.put(player3,player8);
+
+        trading.UITradeAccept(tradingPlayers);
+
+        assertEquals(0, trading.tradeInitializingTeam.getLossPoint());
     }
 
 }
