@@ -7,6 +7,7 @@ import com.groupten.leagueobjectmodel.team.Team;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 public class SimulateGame implements ISimulateGame {
     private Season season;
@@ -26,14 +27,26 @@ public class SimulateGame implements ISimulateGame {
         List<Team> teamList = new ArrayList<>(teams);
         Team team_1 = teamList.get(0);
         Team team_2 = teamList.get(1);
-        if(team_1.getTeamStrength() > team_2.getTeamStrength()){
-            recordWin(team_1);
-            recordLoss(team_2);
-        }else{
-            recordWin(team_2);
-            recordLoss(team_1);
-        }
 
+        double randomWinChance = season.getLeague().getRandomWinChance();
+
+        if(new Random().nextDouble() > randomWinChance){
+            if(team_1.getTeamStrength() > team_2.getTeamStrength()){
+                recordWin(team_1);
+                recordLoss(team_2);
+            }else{
+                recordWin(team_2);
+                recordLoss(team_1);
+            }
+        }else{
+            if(team_1.getTeamStrength() < team_2.getTeamStrength()){
+                recordWin(team_1);
+                recordLoss(team_2);
+            }else{
+                recordWin(team_2);
+                recordLoss(team_1);
+            }
+        }
     }
 
     private void recordWin(Team team){
