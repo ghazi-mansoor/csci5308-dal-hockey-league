@@ -1,5 +1,10 @@
 package com.groupten.leagueobjectmodel.player;
 
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,15 +24,17 @@ public class Player {
     private boolean injured;
     private int injuryPeriod;
     private boolean retired;
+    private final ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+    private final League league = leagueModel.getCurrentLeague();
+    private final GameConfig.Aging agingConfig = league.getAgingConfig();
+    private final GameConfig.Injuries injuriesConfig = league.getInjuriesConfig();
+    private final double gameConfigAverageRetirementAge = agingConfig.getAverageRetirementAge();
+    private final double gameConfigMaxRetirementAge = agingConfig.getMaximumAge();
+    private final double randomInjuryChance = injuriesConfig.getRandomInjuryChance();
+    private final int injuryDaysLow = injuriesConfig.getInjuryDaysLows();
+    private final int injuryDaysHigh = injuriesConfig.getInjuryDaysHigh();
 
-    private final double gameConfigAverageRetirementAge = 35.0;
-    private final double gameConfigMaxRetirementAge = 50.0;
-    private final double randomInjuryChance = 0.05;
-    private final int injuryDaysLow = 1;
-    private final int injuryDaysHigh = 260;
-
-    public Player() {
-    }
+    public Player() {}
 
     public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         this.playerName = playerName;

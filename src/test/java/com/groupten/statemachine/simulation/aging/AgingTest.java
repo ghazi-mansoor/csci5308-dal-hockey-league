@@ -14,8 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class AgingTest {
     @Test
     public void advanceEveryPlayersAgeTest() {
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
         Player player = new Player("First Free Agent", "goalie", 27, 5, 5, 5, 5);
         league.addFreeAgent(player);
         player = new Player("Second Free Agent", "goalie", 27, 5, 5, 5, 7);

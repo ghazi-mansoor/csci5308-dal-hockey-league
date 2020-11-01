@@ -2,11 +2,14 @@ package com.groupten.statemachine.simulation.trading;
 
 import com.groupten.IO.console.Console;
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.jsonimport.JSONImport;
 import com.groupten.statemachine.simulation.trading.Trading;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -16,13 +19,12 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class TradingTest {
-
     @Test
     public void sortByPlayerStrengthTest () {
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -73,10 +75,10 @@ public class TradingTest {
 
     @Test
     public void getWeakestPlayersTest(){
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -119,10 +121,10 @@ public class TradingTest {
 
     @Test
     public void UIDropPlayersTest(){
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -200,8 +202,9 @@ public class TradingTest {
     @Test
     public void UIGetFromFreeAgentsTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -278,10 +281,10 @@ public class TradingTest {
 
     @Test
     public void UITradeOfferTest(){
-
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
@@ -301,8 +304,9 @@ public class TradingTest {
     @Test
     public void UITradeAcceptTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League", 35, 50, 0.1, 0.05, 1, 260, 100, 8, 0.05,
-                2, 0.05);
+        League league = new League("First League");
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
         League leagueLOM = leagueModel.getCurrentLeague();
