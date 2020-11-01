@@ -7,6 +7,7 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
@@ -61,6 +62,11 @@ public class JSONImport implements IJSONImport {
         Coach coachLOM;
         Player playerLOM;
         Team teamLOM;
+        GameConfig.Aging agingLOM;
+        GameConfig.GameResolver gameResolverLOM;
+        GameConfig.Injuries injuriesLOM;
+        GameConfig.Training trainingLOM;
+        GameConfig.Trading tradingLOM;
 
         JsonObject conference, division, team, headCoach, coach, teamPlayer, freeAgent;
         JsonObject gamePlayConfig, aging, gameResolver, injuries, training, trading;
@@ -94,8 +100,19 @@ public class JSONImport implements IJSONImport {
         String leagueName = jsonData.get("leagueName").getAsString();
         conferences = (JsonArray) jsonData.get("conferences");
 
-        leagueLOM = new League(leagueName, averageRetirementAge, maximumAge, randomWinChance, randomInjuryChance, injuryDaysLow,
-                injuryDaysHigh, daysUntilStatIncreaseCheck, lossPoint, randomTradeOfferChance, maxPlayersPerTrade, randomAcceptanceChance);
+        leagueLOM = new League(leagueName);
+
+        agingLOM = new GameConfig.Aging(averageRetirementAge, maximumAge);
+        gameResolverLOM = new GameConfig.GameResolver(randomWinChance);
+        injuriesLOM = new GameConfig.Injuries(randomInjuryChance, injuryDaysLow, injuryDaysHigh);
+        trainingLOM = new GameConfig.Training(daysUntilStatIncreaseCheck);
+        tradingLOM = new GameConfig.Trading(lossPoint, randomTradeOfferChance, maxPlayersPerTrade, randomAcceptanceChance);
+
+        leagueLOM.setAgingConfig(agingLOM);
+        leagueLOM.setGameResolverConfig(gameResolverLOM);
+        leagueLOM.setInjuriesConfig(injuriesLOM);
+        leagueLOM.setTrainingConfig(trainingLOM);
+        leagueLOM.setTradingConfig(tradingLOM);
 
         try {
             for (int i = 0; i < conferences.size(); i++) {
