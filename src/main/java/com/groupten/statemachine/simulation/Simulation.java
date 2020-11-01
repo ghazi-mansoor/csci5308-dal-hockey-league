@@ -9,6 +9,7 @@ import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
+import com.groupten.statemachine.simulation.injury.Injury;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.training.ITraining;
 
@@ -104,7 +105,7 @@ public class Simulation implements ISimulation {
     }
 
     private void injuryCheck(){
-        //ToDo Injury Check
+        Injury.checkPlayerInjuriesAcrossLeague(leagueLOM);
     }
 
     private void executeTrades(){

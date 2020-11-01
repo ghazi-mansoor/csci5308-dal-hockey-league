@@ -31,11 +31,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -50,11 +51,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -69,11 +71,12 @@
                   "saving": 18.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 }
               ],
               "generalManager": {
@@ -118,11 +121,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -137,11 +141,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -156,11 +161,12 @@
                   "saving": 18.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 }
               ],
               "generalManager": {
@@ -212,11 +218,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -231,11 +238,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -250,11 +258,12 @@
                   "saving": 18.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 }
               ],
               "generalManager": {
@@ -299,11 +308,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -318,11 +328,12 @@
                   "saving": 1.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 },
                 {
                   "playerID": 0,
@@ -337,11 +348,12 @@
                   "saving": 18.0,
                   "injured": false,
                   "injuryPeriod": 0,
-                  "gameConfigAverageRetirementAge": 35.0,
-                  "gameConfigMaxRetirementAge": 50.0,
-                  "randomInjuryChance": 0.05,
-                  "injuryDaysLow": 1,
-                  "injuryDaysHigh": 260
+                  "retired": false,
+                  "gameConfigAverageRetirementAge": 0.0,
+                  "gameConfigMaxRetirementAge": 0.0,
+                  "randomInjuryChance": 0.0,
+                  "injuryDaysLow": 0,
+                  "injuryDaysHigh": 0
                 }
               ],
               "generalManager": {
@@ -379,11 +391,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -398,11 +411,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -417,11 +431,12 @@
       "saving": 10.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -436,11 +451,12 @@
       "saving": 10.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -455,11 +471,12 @@
       "saving": 10.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -474,11 +491,12 @@
       "saving": 10.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -493,11 +511,12 @@
       "saving": 10.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -512,11 +531,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -531,11 +551,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -550,11 +571,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -569,11 +591,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -588,11 +611,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -607,11 +631,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -626,11 +651,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -645,11 +671,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -664,11 +691,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -683,11 +711,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -702,11 +731,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -721,11 +751,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -740,11 +771,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -759,11 +791,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -778,11 +811,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -797,11 +831,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -816,11 +851,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -835,11 +871,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -854,11 +891,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -873,11 +911,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -892,11 +931,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -911,11 +951,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -930,11 +971,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     },
     {
       "playerID": 0,
@@ -949,11 +991,12 @@
       "saving": 1.0,
       "injured": false,
       "injuryPeriod": 0,
-      "gameConfigAverageRetirementAge": 35.0,
-      "gameConfigMaxRetirementAge": 50.0,
-      "randomInjuryChance": 0.05,
-      "injuryDaysLow": 1,
-      "injuryDaysHigh": 260
+      "retired": false,
+      "gameConfigAverageRetirementAge": 0.0,
+      "gameConfigMaxRetirementAge": 0.0,
+      "randomInjuryChance": 0.0,
+      "injuryDaysLow": 0,
+      "injuryDaysHigh": 0
     }
   ],
   "coaches": [
@@ -996,15 +1039,26 @@
       "managerName": "Tom Spaghetti"
     }
   ],
-  "averageRetirementAge": 35,
-  "maximumAge": 50,
-  "randomWinChance": 0.1,
-  "randomInjuryChance": 0.05,
-  "injuryDaysLow": 1,
-  "injuryDaysHigh": 260,
-  "daysUntilStatIncreaseCheck": 100,
-  "lossPoint": 8,
-  "randomTradeOfferChance": 0.05,
-  "maxPlayersPerTrade": 2,
-  "randomAcceptanceChance": 0.05
+  "seasons": [],
+  "agingConfig": {
+    "averageRetirementAge": 35,
+    "maximumAge": 50
+  },
+  "gameResolverConfig": {
+    "randomWinChance": 0.1
+  },
+  "injuriesConfig": {
+    "randomInjuryChance": 0.05,
+    "injuryDaysLows": 1,
+    "injuryDaysHigh": 260
+  },
+  "trainingConfig": {
+    "daysUntilStatIncreaseCheck": 100
+  },
+  "tradingConfig": {
+    "lossPoint": 8,
+    "randomTradeOfferChance": 0.05,
+    "maxPlayersPerTrade": 2,
+    "randomAcceptanceChance": 0.05
+  }
 }

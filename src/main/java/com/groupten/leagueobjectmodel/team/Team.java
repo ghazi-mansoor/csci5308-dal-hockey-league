@@ -65,7 +65,7 @@ public class Team {
         }
     }
 
-    public void calculateTeamStrength() {
+    public double calculateTeamStrength() {
         for (Player player : players) {
             String pos = player.getPosition();
             double playerStrength = player.calculateStrength();
@@ -75,6 +75,8 @@ public class Team {
                 teamStrength += playerStrength;
             }
         }
+
+        return teamStrength;
     }
 
     public int getTeamID() {

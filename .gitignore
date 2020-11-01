@@ -508,3 +508,6 @@ Temporary Items
 src/main/main.iml
 src/test/resources/
 src/test/test.iml
+.settings
+.classpath
+.project

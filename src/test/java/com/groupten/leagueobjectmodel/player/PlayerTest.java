@@ -1,11 +1,17 @@
 package com.groupten.leagueobjectmodel.player;
 
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.statemachine.jsonimport.JSONImport;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class PlayerTest {
-
     @Test
     public void arePlayerFieldsValidTest() {
         String playerName = "First Player";
@@ -125,6 +131,8 @@ public class PlayerTest {
 
     @Test
     public void getShootingTest() {
+
+
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setShooting(10);
         assertEquals(10.0, player.getShooting(), 0);
@@ -163,4 +171,10 @@ public class PlayerTest {
         assertTrue(player.isInjured());
     }
 
+    @Test
+    public void isRetiredTest() {
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setRetired(true);
+        assertTrue(player.isRetired());
+    }
 }

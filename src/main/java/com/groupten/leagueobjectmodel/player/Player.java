@@ -1,5 +1,10 @@
 package com.groupten.leagueobjectmodel.player;
 
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,15 +23,14 @@ public class Player {
     private double saving;
     private boolean injured;
     private int injuryPeriod;
+    private boolean retired;
+    private double gameConfigAverageRetirementAge;
+    private double gameConfigMaxRetirementAge;
+    private double randomInjuryChance;
+    private int injuryDaysLow;
+    private int injuryDaysHigh;
 
-    private final double gameConfigAverageRetirementAge = 35.0;
-    private final double gameConfigMaxRetirementAge = 50.0;
-    private final double randomInjuryChance = 0.05;
-    private final int injuryDaysLow = 1;
-    private final int injuryDaysHigh = 260;
-
-    public Player() {
-    }
+    public Player() {}
 
     public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         this.playerName = playerName;
@@ -68,12 +72,17 @@ public class Player {
 
     private boolean shouldPlayerBeRetired() {
         double probabilityOfRetirement = calculateProbabilityOfRetirement();
-        return age > gameConfigMaxRetirementAge || probabilityOfRetirement > 70;
+        GameConfig.Aging agingConfig = getAgingConfig();
+        retired = age > agingConfig.getMaximumAge() || probabilityOfRetirement > 70;
+
+        return retired;
     }
 
     private double calculateProbabilityOfRetirement() {
         double probability;
-        if (age <= gameConfigAverageRetirementAge) {
+        GameConfig.Aging agingConfig = getAgingConfig();
+
+        if (age <= agingConfig.getAverageRetirementAge()) {
             probability = 0.8571 * age;
         } else {
             probability = 4.6666 * age - 133.3;
@@ -86,7 +95,9 @@ public class Player {
         if (injured) {
             return true;
         } else {
-            if (Math.random() < randomInjuryChance) {
+            GameConfig.Injuries injuriesConfig = getInjuriesConfig();
+
+            if (Math.random() < injuriesConfig.getRandomInjuryChance()) {
                 injured = true;
                 setInjuryPeriod();
             } else {
@@ -98,13 +109,26 @@ public class Player {
     }
 
     private void setInjuryPeriod() {
+        GameConfig.Injuries injuriesConfig = getInjuriesConfig();
         Random ran = new Random();
-        injuryPeriod = ran.nextInt(injuryDaysHigh) + injuryDaysLow;
+        injuryPeriod = ran.nextInt(injuriesConfig.getInjuryDaysHigh()) + injuriesConfig.getInjuryDaysLows();
     }
 
     private void removeInjury() {
         injured = false;
         injuryPeriod = 0;
+    }
+
+    private GameConfig.Aging getAgingConfig() {
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        League league = leagueModel.getCurrentLeague();
+        return league.getAgingConfig();
+    }
+
+    private GameConfig.Injuries getInjuriesConfig() {
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        League league = leagueModel.getCurrentLeague();
+        return league.getInjuriesConfig();
     }
 
     public double calculateStrength() {
@@ -238,6 +262,10 @@ public class Player {
     public void setTeamID(int teamID) {
         this.teamID = teamID;
     }
+
+    public boolean isRetired() { return retired; }
+
+    public void setRetired(boolean retired) { this.retired = retired; };
 
     public boolean savePlayer() {
         System.out.println("Player saved to DB. playerID set to 1.");
