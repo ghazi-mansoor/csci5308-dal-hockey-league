@@ -1,6 +1,7 @@
 package com.groupten.leagueobjectmodel.season;
 
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import org.junit.Test;
 
@@ -65,7 +66,7 @@ public class SeasonTest {
     public void addTeamStandingTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        season.addTeamStanding(new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0));
+        season.addTeamStanding(new TeamStanding(new Team("Team1"),"Division1","Conference1",1,2,3,4));
         assertEquals(1, season.getTeamStandings().size());
     }
 
@@ -73,8 +74,8 @@ public class SeasonTest {
     public void getTeamStandingsTest(){
         League league = new League("League 1");
         Season season = new Season(league,2020);
-        season.addTeamStanding(new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0));
-        season.addTeamStanding(new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0));
+        season.addTeamStanding(new TeamStanding(new Team("Team 1"),"Division1","Conference1",1,2,3,4));
+        season.addTeamStanding(new TeamStanding(new Team("Team 2"),"Division1","Conference1",1,2,3,4));
         assertEquals(2, season.getTeamStandings().size());
     }
 
@@ -88,30 +89,14 @@ public class SeasonTest {
     }
 
     @Test
-    public void recordWinTest(){
+    public void recordWinTest(Team team){
         League league = null;
         Season season = new Season(league,2020);
-        TeamStanding Team1 = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
-        TeamStanding Team2 = new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0);
-        season.addTeamStanding(Team1);
-        season.addTeamStanding(Team2);
-        season.recordWin("Team1");
+        TeamStanding teamStanding = new TeamStanding(team,"Division1","Conference1",1,2,3,4);;
+        season.addTeamStanding(teamStanding);
+        season.recordWin(team);
 
-        assertEquals(3, Team1.getPoints());
-    }
-
-    @Test
-    public void recordLossTest(){
-        League league = null;
-        Season season = new Season(league,2020);
-        TeamStanding Team1 = new TeamStanding("Team1","Division1","Conference1",1,2,3,4,0,0);
-        TeamStanding Team2 = new TeamStanding("Team2","Division1","Conference1",1,2,3,4,0,0);
-        season.addTeamStanding(Team1);
-        season.addTeamStanding(Team2);
-        season.recordLoss("Team1");
-
-        assertEquals(1, Team1.getPoints());
-        assertEquals(1, Team1.getLosses());
+        assertEquals(3, teamStanding.getPoints());
     }
 
     @Test
