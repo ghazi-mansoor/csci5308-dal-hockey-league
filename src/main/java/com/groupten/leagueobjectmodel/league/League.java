@@ -26,18 +26,6 @@ public class League {
     private GameConfig.Training trainingConfig;
     private GameConfig.Trading tradingConfig;
 
-    /* private int averageRetirementAge = 35;
-    private int maximumAge = 50;
-    private double randomWinChance = 0.1;
-    private double randomInjuryChance = 0.05;
-    private int injuryDaysLow = 1;
-    private int injuryDaysHigh = 260;
-    private int daysUntilStatIncreaseCheck = 100;
-    private int lossPoint = 8;
-    private double randomTradeOfferChance = 0.05;
-    private int maxPlayersPerTrade = 2;
-    private double randomAcceptanceChance = 0.05; */
-
     public League(String leagueName) {
         this.leagueName = leagueName;
     }

@@ -16,7 +16,6 @@ public class Team {
     private List<Player> players = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
-    private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
     private int lossPoint;
 
@@ -44,7 +43,7 @@ public class Team {
     }
 
     public boolean isPlayersCountValid() {
-        return players.size() == requiredNumberOfPlayers;
+        return players.size() == TeamConstants.REQUIRED_NUMBER_OF_PLAYERS;
     }
 
     public boolean doesTeamHaveOneCaptain() {
