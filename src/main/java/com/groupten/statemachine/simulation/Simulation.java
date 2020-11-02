@@ -11,6 +11,7 @@ import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePla
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.injury.Injury;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
+import com.groupten.statemachine.simulation.trading.Trading;
 import com.groupten.statemachine.simulation.training.ITraining;
 
 import java.util.Calendar;
@@ -117,7 +118,8 @@ public class Simulation implements ISimulation {
     }
 
     private void executeTrades(){
-        //ToDo execute trade
+        Trading trading = new Trading();
+        trading.startTrading();
     }
 
     private void aging(){
