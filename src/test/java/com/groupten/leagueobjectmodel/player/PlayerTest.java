@@ -172,13 +172,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void isRetiredTest() {
-        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        player.setRetired(true);
-        assertTrue(player.isRetired());
-    }
-
-    @Test
     public void setLeagueIDTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setLeagueID(1);

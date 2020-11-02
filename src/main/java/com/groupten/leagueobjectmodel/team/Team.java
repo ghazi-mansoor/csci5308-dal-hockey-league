@@ -56,8 +56,8 @@ public class Team {
         return count == 1;
     }
 
-    public static boolean isTeamNameValid(String tN) {
-        if (tN.isEmpty() || tN.isBlank() || tN.toLowerCase().equals("null")) {
+    public static boolean isTeamNameValid(String teamName) {
+        if (teamName.isEmpty() || teamName.isBlank() || teamName.toLowerCase().equals("null")) {
             return false;
         } else {
             return true;

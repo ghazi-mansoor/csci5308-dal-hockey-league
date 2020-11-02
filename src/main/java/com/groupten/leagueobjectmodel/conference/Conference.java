@@ -9,7 +9,7 @@ public class Conference {
     public int leagueID;
     private int conferenceID;
     private String conferenceName;
-    private Map<String, Division> divisions = new HashMap<>();
+    private final Map<String, Division> divisions = new HashMap<>();
 
     public Conference(String conferenceName) {
         this.conferenceName = conferenceName;
@@ -39,8 +39,8 @@ public class Conference {
         return divisions.containsKey(divisionName);
     }
 
-    public static boolean isConferenceNameValid(String cN) {
-        if (cN.isEmpty() || cN.isBlank() || cN.toLowerCase().equals("null")) {
+    public static boolean isConferenceNameValid(String conferenceName) {
+        if (conferenceName.isEmpty() || conferenceName.isBlank() || conferenceName.toLowerCase().equals("null")) {
             return false;
         } else {
             return true;
@@ -53,29 +53,32 @@ public class Conference {
 
     public Map<String, Division> getDivisions() { return divisions; }
 
+    public boolean saveConference() {
+        System.out.println("Conference saved to DB. conferenceID set to 1.");
+        return true;
+    }
+
     public int getConferenceID() {
         return conferenceID;
     }
 
-    public void setConferenceID(int cID) {
-        conferenceID = cID;
+    public void setConferenceID(int conferenceID) {
+        this.conferenceID = conferenceID;
     }
 
-    public String getConferenceName() {
-        return conferenceName;
-    }
-
-    public void setConferenceName(String cN) {
-        conferenceName = cN;
+    public int getLeagueID() {
+        return leagueID;
     }
 
     public void setLeagueID(int leagueID) {
         this.leagueID = leagueID;
     }
 
-    public boolean saveConference() {
-        System.out.println("Conference saved to DB. conferenceID set to 1.");
-        return true;
+    public String getConferenceName() {
+        return conferenceName;
     }
 
+    public void setConferenceName(String conferenceName) {
+        this.conferenceName = conferenceName;
+    }
 }

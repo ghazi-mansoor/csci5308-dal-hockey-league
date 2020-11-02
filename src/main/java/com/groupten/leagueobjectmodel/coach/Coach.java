@@ -49,54 +49,6 @@ public class Coach {
         return Collections.frequency(validChecks, false) == 0;
     }
 
-    public int getCoachID() {
-        return coachID;
-    }
-
-    public void setCoachID(int cID) {
-        coachID = cID;
-    }
-
-    public String getCoachName() {
-        return coachName;
-    }
-
-    public void setCoachName(String n) {
-        coachName = n;
-    }
-
-    public double getSkating() {
-        return skating;
-    }
-
-    public void setSkating(double sk) {
-        skating = sk;
-    }
-
-    public double getShooting() {
-        return shooting;
-    }
-
-    public void setShooting(double sh) {
-        shooting = sh;
-    }
-
-    public double getChecking() {
-        return checking;
-    }
-
-    public void setChecking(double ch) {
-        checking = ch;
-    }
-
-    public double getSaving() {
-        return saving;
-    }
-
-    public void setSaving(double sa) {
-        saving = sa;
-    }
-
     public int getLeagueID() {
         return leagueID;
     }
@@ -111,5 +63,53 @@ public class Coach {
 
     public void setTeamID(int teamID) {
         this.teamID = teamID;
+    }
+
+    public void setCoachID(int coachID) {
+        this.coachID = coachID;
+    }
+
+    public int getCoachID() {
+        return coachID;
+    }
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
+    }
+
+    public double getSkating() {
+        return skating;
+    }
+
+    public void setSkating(double skating) {
+        this.skating = skating;
+    }
+
+    public double getShooting() {
+        return shooting;
+    }
+
+    public void setShooting(double shooting) {
+        this.shooting = shooting;
+    }
+
+    public double getChecking() {
+        return checking;
+    }
+
+    public void setChecking(double checking) {
+        this.checking = checking;
+    }
+
+    public double getSaving() {
+        return saving;
+    }
+
+    public void setSaving(double saving) {
+        this.saving = saving;
     }
 }

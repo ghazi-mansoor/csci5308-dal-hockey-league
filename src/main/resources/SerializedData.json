@@ -21,6 +21,7 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -30,12 +31,12 @@
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -45,12 +46,12 @@
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -60,16 +61,19 @@
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 }
               ],
               "generalManager": {
                 "managerID": 0,
-                "managerName": "Mister Fred"
+                "managerName": "Mister Fred",
+                "leagueID": 0,
+                "teamID": 0
               },
               "headCoach": {
                 "coachID": 0,
+                "leagueID": 0,
+                "teamID": 0,
                 "coachName": "Mary Smith",
                 "skating": 0.5,
                 "shooting": 0.8,
@@ -95,6 +99,7 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -104,12 +109,12 @@
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -119,12 +124,12 @@
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -134,16 +139,19 @@
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 }
               ],
               "generalManager": {
                 "managerID": 0,
-                "managerName": "Mister Fred"
+                "managerName": "Mister Fred",
+                "leagueID": 0,
+                "teamID": 0
               },
               "headCoach": {
                 "coachID": 0,
+                "leagueID": 0,
+                "teamID": 0,
                 "coachName": "Mary Smith",
                 "skating": 0.5,
                 "shooting": 0.8,
@@ -176,6 +184,7 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -185,12 +194,12 @@
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -200,12 +209,12 @@
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -215,16 +224,19 @@
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 }
               ],
               "generalManager": {
                 "managerID": 0,
-                "managerName": "Mister Fred"
+                "managerName": "Mister Fred",
+                "leagueID": 0,
+                "teamID": 0
               },
               "headCoach": {
                 "coachID": 0,
+                "leagueID": 0,
+                "teamID": 0,
                 "coachName": "Mary Smith",
                 "skating": 0.5,
                 "shooting": 0.8,
@@ -250,6 +262,7 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -259,12 +272,12 @@
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -274,12 +287,12 @@
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
                   "teamID": 0,
+                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -289,16 +302,19 @@
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false
+                  "injuryPeriod": 0
                 }
               ],
               "generalManager": {
                 "managerID": 0,
-                "managerName": "Mister Fred"
+                "managerName": "Mister Fred",
+                "leagueID": 0,
+                "teamID": 0
               },
               "headCoach": {
                 "coachID": 0,
+                "leagueID": 0,
+                "teamID": 0,
                 "coachName": "Mary Smith",
                 "skating": 0.5,
                 "shooting": 0.8,
@@ -317,6 +333,7 @@
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent One",
       "position": "forward",
       "captain": false,
@@ -326,12 +343,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Two",
       "position": "defense",
       "captain": false,
@@ -341,12 +358,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Three",
       "position": "goalie",
       "captain": false,
@@ -356,12 +373,12 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Four",
       "position": "goalie",
       "captain": false,
@@ -371,12 +388,12 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Five",
       "position": "goalie",
       "captain": false,
@@ -386,12 +403,12 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Six",
       "position": "goalie",
       "captain": false,
@@ -401,12 +418,12 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Seven",
       "position": "goalie",
       "captain": false,
@@ -416,12 +433,12 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Eight",
       "position": "forward",
       "captain": false,
@@ -431,12 +448,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Nine",
       "position": "defense",
       "captain": false,
@@ -446,12 +463,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Ten",
       "position": "forward",
       "captain": false,
@@ -461,12 +478,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Eleven",
       "position": "defense",
       "captain": false,
@@ -476,12 +493,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Twelve",
       "position": "forward",
       "captain": false,
@@ -491,12 +508,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Thirteen",
       "position": "defense",
       "captain": false,
@@ -506,12 +523,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Fourteen",
       "position": "forward",
       "captain": false,
@@ -521,12 +538,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Fifteen",
       "position": "defense",
       "captain": false,
@@ -536,12 +553,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Sixteen",
       "position": "forward",
       "captain": false,
@@ -551,12 +568,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Seventeen",
       "position": "defense",
       "captain": false,
@@ -566,12 +583,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Eighteen",
       "position": "forward",
       "captain": false,
@@ -581,12 +598,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Nineteen",
       "position": "defense",
       "captain": false,
@@ -596,12 +613,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent Twenty",
       "position": "forward",
       "captain": false,
@@ -611,12 +628,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 21",
       "position": "defense",
       "captain": false,
@@ -626,12 +643,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 22",
       "position": "forward",
       "captain": false,
@@ -641,12 +658,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 23",
       "position": "defense",
       "captain": false,
@@ -656,12 +673,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 24",
       "position": "forward",
       "captain": false,
@@ -671,12 +688,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 25",
       "position": "defense",
       "captain": false,
@@ -686,12 +703,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 26",
       "position": "forward",
       "captain": false,
@@ -701,12 +718,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 27",
       "position": "defense",
       "captain": false,
@@ -716,12 +733,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 29",
       "position": "forward",
       "captain": false,
@@ -731,12 +748,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 30",
       "position": "defense",
       "captain": false,
@@ -746,12 +763,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 26",
       "position": "forward",
       "captain": false,
@@ -761,12 +778,12 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
       "teamID": 0,
+      "leagueID": 0,
       "playerName": "Agent 30",
       "position": "goalie",
       "captain": false,
@@ -776,13 +793,14 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false
+      "injuryPeriod": 0
     }
   ],
   "coaches": [
     {
       "coachID": 0,
+      "leagueID": 0,
+      "teamID": 0,
       "coachName": "Joe Smith",
       "skating": 0.5,
       "shooting": 0.8,
@@ -791,6 +809,8 @@
     },
     {
       "coachID": 0,
+      "leagueID": 0,
+      "teamID": 0,
       "coachName": "Frank Smith",
       "skating": 0.5,
       "shooting": 0.8,
@@ -799,6 +819,8 @@
     },
     {
       "coachID": 0,
+      "leagueID": 0,
+      "teamID": 0,
       "coachName": "Samantha Smith",
       "skating": 1.0,
       "shooting": 0.5,
@@ -809,15 +831,21 @@
   "generalManagers": [
     {
       "managerID": 0,
-      "managerName": "Karen Potam"
+      "managerName": "Karen Potam",
+      "leagueID": 0,
+      "teamID": 0
     },
     {
       "managerID": 0,
-      "managerName": "Joseph Squidly"
+      "managerName": "Joseph Squidly",
+      "leagueID": 0,
+      "teamID": 0
     },
     {
       "managerID": 0,
-      "managerName": "Tom Spaghetti"
+      "managerName": "Tom Spaghetti",
+      "leagueID": 0,
+      "teamID": 0
     }
   ],
   "seasons": [],
