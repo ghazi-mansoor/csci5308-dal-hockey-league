@@ -31,40 +31,4 @@ public class LeagueModelTest {
         assertTrue(leagueModel.loadLeague("Team 1"));
         assertTrue(leagueModel.loadLeague(1));
     }
-
-    @Test
-    public void saveLeagueModelTest() {
-        LeagueModel leagueModel = new LeagueModel();
-
-        League league = new League("League 1");
-        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
-        league.setAgingConfig(agingConfig);
-        GameConfig.GameResolver gameResolverConfig = new GameConfig.GameResolver(0.1);
-        league.setGameResolverConfig(gameResolverConfig);
-        GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
-        league.setInjuriesConfig(injuriesConfig);
-        GameConfig.Training trainingConfig = new GameConfig.Training(100);
-        league.setTrainingConfig(trainingConfig);
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
-        league.setTradingConfig(tradingConfig);
-
-        leagueModel.setCurrentLeague(league);
-
-        Conference conference = new Conference("Conference 1");
-        league.addConference(conference);
-
-        Division division = new Division("Division 1");
-        conference.addDivision(division);
-
-        Team team = new Team("Team 1");
-        division.addTeam(team);
-
-        Player player = new Player("Player 1", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0);
-        team.addPlayer(player);
-        player = new Player("Player 2", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0);
-        team.addPlayer(player);
-
-        assertTrue(leagueModel.saveLeagueModel());
-    }
-
 }
