@@ -245,6 +245,7 @@ public class Season {
             conferenceNames.add(teamStanding.getConferenceName());
         });
 
+        //Round1
         conferenceNames.forEach(conferenceName -> {
             HashSet<String> divisionNames = new HashSet<>();
             teamStandings.forEach(teamStanding -> {
@@ -292,7 +293,6 @@ public class Season {
                 }
             }
 
-            //Round 1
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.playoffStartsAt);
 
@@ -322,24 +322,34 @@ public class Season {
             schedule.addTeam(team5.getTeam());
             schedule.addTeam(team6.getTeam());
             playoffSchedules.add(schedule);
+        });
 
-            //Round 2
-            cal.add(Calendar.DATE, 1);
-            schedule = new Schedule();
+        //Round2
+        conferenceNames.forEach(conferenceName -> {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.playoffStartsAt);
+            cal.add(Calendar.DATE,4);
+            Schedule schedule = new Schedule();
             schedule.setGameDate(cal.getTime());
             playoffSchedules.add(schedule);
 
-            cal.add(Calendar.DATE, 1);
-            schedule = new Schedule();
-            schedule.setGameDate(cal.getTime());
-            playoffSchedules.add(schedule);
-
-            //Round 3
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
             schedule.setGameDate(cal.getTime());
             playoffSchedules.add(schedule);
         });
+
+        //Round3
+        conferenceNames.forEach(conferenceName -> {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.playoffStartsAt);
+            cal.add(Calendar.DATE,6);
+            Schedule schedule = new Schedule();
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
+        });
+
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.playoffStartsAt);
         cal.add(Calendar.DATE, 7);
