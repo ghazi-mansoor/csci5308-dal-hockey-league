@@ -13,16 +13,19 @@ import com.groupten.leagueobjectmodel.team.Team;
 import java.util.*;
 
 public class Trading implements ITrading {
-	private IConsole console = Injector.instance().getConsoleObject();
-	private ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-	private League leagueLOM = leagueModel.getCurrentLeague();
+
+	public Trading() {
+	}
+
+	private IConsole console;
+	private ILeagueModel leagueModel;
+	private League leagueLOM;
 	private Team tradeInitializingTeam = new Team();
 	private Team tradeFinalizingTeam = new Team();
-	private final GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
-	private final int maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
-	private final int lossPoint = tradingConfig.getLossPoint();
-	private final double randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
-	private final double randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+	private int maxPlayersPerTrade = 0;
+	private int lossPoint = 0;
+	private double randomTradeOfferChance = 0.0;
+	private double randomAcceptanceChance = 0.0;
 
 	private final int teamSize = 20;
 	private final int numberOfGoalies = 2;
@@ -76,7 +79,16 @@ public class Trading implements ITrading {
 
 	@Override
 	public void startTrading() {
-		
+
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
 		
 		 for (Map.Entry<String, Conference> entry : leagueLOM.getConferences().entrySet()) {
@@ -136,6 +148,15 @@ public class Trading implements ITrading {
 
 	@Override
 	public void initiateTrading(HashMap<Player, Double> initializingWeakestPlayers ) {
+
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
 		
@@ -237,6 +258,15 @@ public class Trading implements ITrading {
 	@Override
 	public boolean UITradeOffer(){
 
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+
 		Random random = new Random();
 		int upperbound = 1;
 		double randomTradeOfferChanceGenerated = random.nextDouble();
@@ -251,6 +281,15 @@ public class Trading implements ITrading {
 
 	@Override
 	public void UITradeAccept(HashMap<Player,Player> tradingPlayers){
+
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		Random random = new Random();
 		double randomAcceptanceChanceGenerated = random.nextDouble();
@@ -306,6 +345,14 @@ public class Trading implements ITrading {
 
 	@Override
 	public void UserTradeAccept(HashMap<Player,Player> tradingPlayers){
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		int option = 0;
 		Player player1 = new Player();
@@ -354,6 +401,14 @@ public class Trading implements ITrading {
 
 	@Override
 	public void adjustTeamPlayers(){
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		int initializingTeamSize = 0;
 		int finalizingTeamSize = 0;
@@ -403,6 +458,14 @@ public class Trading implements ITrading {
 
 	@Override
 	public Team UIDropPlayers(Team tradingTeam) {
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		int goalieCount = 0;
 		int skaterCount = 0;
@@ -460,6 +523,14 @@ public class Trading implements ITrading {
 
 	@Override
 	public Team userDropPlayers(Team tradingTeam){
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		int i = 1;
 		int goalieCount = 0;
@@ -551,6 +622,14 @@ public class Trading implements ITrading {
 
 	@Override
 	public Team UIGetFromFreeAgents(Team tradingTeam){
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		int goalieCount = 0;
 		int skaterCount = 0;
@@ -628,6 +707,15 @@ public class Trading implements ITrading {
 
 	@Override
 	public Team userGetFromFreeAgents(Team tradingTeam){
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+
 		int goalieCount = 0;
 		int skaterCount = 0;
 		List<Player> goalies = new ArrayList<>();
@@ -721,6 +809,14 @@ public class Trading implements ITrading {
 
 	@Override
 	public LinkedList sortByPlayerStrength(LinkedList strength){
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		Collections.sort(strength, new Comparator() {
 			public int compare(Object o1, Object o2) {
@@ -733,6 +829,15 @@ public class Trading implements ITrading {
 
 	@Override
 	public HashMap<Player,Double> getWeakestPlayers(LinkedList orderedStrength){
+
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
 		int i = 0;
 		HashMap<Player,Double> initializingWeakestPlayers = new LinkedHashMap<Player,Double>();
