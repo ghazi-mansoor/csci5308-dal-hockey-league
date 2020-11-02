@@ -5,6 +5,8 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.persistence.dao.IPlayerDAO;
+import com.groupten.persistence.dao.database.PlayerDAO;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -172,10 +174,10 @@ public class PlayerTest {
     }
 
     @Test
-    public void setLeagueIDTest() {
-        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        player.setLeagueID(1);
-        assertEquals(1, player.getLeagueID());
+    public void savePlayerTest() {
+        IPlayerDAO playerDAO = new PlayerDAO();
+        Player player = new Player("First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0, playerDAO);
+        assertTrue(player.savePlayer());
     }
 
 }

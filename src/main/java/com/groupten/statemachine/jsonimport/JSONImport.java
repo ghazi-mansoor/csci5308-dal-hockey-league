@@ -13,7 +13,7 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.*;
 
 import java.io.FileReader;
 import java.util.HashMap;
@@ -100,7 +100,8 @@ public class JSONImport implements IJSONImport {
         String leagueName = jsonData.get("leagueName").getAsString();
         conferences = (JsonArray) jsonData.get("conferences");
 
-        leagueLOM = new League(leagueName);
+        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
+        leagueLOM = new League(leagueName, leagueDAO);
 
         agingLOM = new GameConfig.Aging(averageRetirementAge, maximumAge);
         gameResolverLOM = new GameConfig.GameResolver(randomWinChance);
@@ -120,14 +121,16 @@ public class JSONImport implements IJSONImport {
                 divisions = (JsonArray) conference.get("divisions");
                 String conferenceName = conference.get("conferenceName").getAsString();
 
-                conferenceLOM = new Conference(conferenceName);
+                IConferenceDAO conferenceDAO = Injector.instance().getConferenceDatabaseObject();
+                conferenceLOM = new Conference(conferenceName, conferenceDAO);
 
                 for (int j = 0; j < divisions.size(); j++) {
                     division = (JsonObject) divisions.get(j);
                     teams = (JsonArray) division.get("teams");
                     String divisionName = division.get("divisionName").getAsString();
 
-                    divisionLOM = new Division(divisionName);
+                    IDivisionDAO divisionDAO = Injector.instance().getDivisionDatabaseObject();
+                    divisionLOM = new Division(divisionName, divisionDAO);
 
                     for (int k = 0; k < teams.size(); k++) {
                         team = (JsonObject) teams.get(k);
@@ -141,7 +144,8 @@ public class JSONImport implements IJSONImport {
                         double coachSaving = headCoach.get("saving").getAsDouble();
                         players = (JsonArray) team.get("players");
 
-                        teamLOM = new Team(teamName);
+                        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
+                        teamLOM = new Team(teamName, teamDAO);
                         managerLOM = new GeneralManager(generalManager);
                         coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
@@ -168,7 +172,8 @@ public class JSONImport implements IJSONImport {
                             double playerChecking = teamPlayer.get("checking").getAsDouble();
                             double playerSaving = teamPlayer.get("saving").getAsDouble();
 
-                            playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
+                            IPlayerDAO playerDAO = Injector.instance().getPlayerDatabaseObject();
+                            playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving, playerDAO);
 
                             if (teamLOM.addPlayer(playerLOM)) {
                                 success = true;

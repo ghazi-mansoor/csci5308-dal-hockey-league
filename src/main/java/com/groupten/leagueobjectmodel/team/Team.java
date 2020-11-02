@@ -3,6 +3,7 @@ package com.groupten.leagueobjectmodel.team;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.persistence.dao.ITeamDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +13,7 @@ public class Team {
     private int teamID;
     private int divisionID;
     private String teamName;
+    private ITeamDAO teamDAO;
     private boolean aITeam;
     private List<Player> players = new ArrayList<>();
     private GeneralManager generalManager;
@@ -20,11 +22,15 @@ public class Team {
     private int winPoint;
     private int lossPoint;
 
-    public Team() {
-    }
+    public Team() {}
 
     public Team(String teamName) {
         this.teamName = teamName;
+    }
+
+    public Team(String teamName, ITeamDAO teamDAO) {
+        this(teamName);
+        this.teamDAO = teamDAO;
     }
 
     public Team(int teamID, String teamName) {
@@ -41,6 +47,10 @@ public class Team {
         } else{
             return false;
         }
+    }
+
+    public void persistPlayerWithTeam(Player player) {
+        teamDAO.attachTeamPlayer(teamID, player.getPlayerID());
     }
 
     public boolean isPlayersCountValid() {
@@ -168,7 +178,11 @@ public class Team {
     }
 
     public boolean saveTeam() {
-        System.out.println("Team saved to DB. teamID set to 1.");
-        return true;
+        teamID = teamDAO.createTeam(divisionID, teamName);
+        if (teamID != -0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

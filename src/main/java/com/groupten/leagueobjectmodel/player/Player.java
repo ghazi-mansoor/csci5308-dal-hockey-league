@@ -4,6 +4,7 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.persistence.dao.IPlayerDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +14,6 @@ import java.util.Random;
 public class Player {
     private int playerID;
     private int teamID;
-    private int leagueID;
     private String playerName;
     private String position;
     private boolean captain;
@@ -24,6 +24,7 @@ public class Player {
     private double saving;
     private boolean injured;
     private int injuryPeriod;
+    private IPlayerDAO playerDAO;
 
     public Player() {}
 
@@ -37,6 +38,11 @@ public class Player {
         this.saving = saving;
     }
 
+    public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving, IPlayerDAO playerDAO) {
+        this(playerName, position, age, skating, shooting, checking, saving);
+        this.playerDAO = playerDAO;
+    }
+
     public Player(int playerID, String playerName, String position, double age, double skating, double shooting,
                   double checking, double saving) {
         this(playerName, position, age, skating, shooting, checking, saving);
@@ -46,6 +52,12 @@ public class Player {
     public Player(String playerName, String position, boolean captain, double age, double skating, double shooting,
                   double checking, double saving) {
         this(playerName, position, age, skating, shooting, checking, saving);
+        this.captain = captain;
+    }
+
+    public Player(String playerName, String position, boolean captain, double age, double skating, double shooting,
+                  double checking, double saving, IPlayerDAO playerDAO) {
+        this(playerName, position, age, skating, shooting, checking, saving, playerDAO);
         this.captain = captain;
     }
 
@@ -173,8 +185,12 @@ public class Player {
     }
 
     public boolean savePlayer() {
-        System.out.println("Player saved to DB. playerID set to 1.");
-        return true;
+        playerID = playerDAO.createPlayer(playerName, position, age, skating, shooting, checking, saving);
+        if (playerID != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getPlayerID() {
@@ -191,14 +207,6 @@ public class Player {
 
     public void setTeamID(int teamID) {
         this.teamID = teamID;
-    }
-
-    public int getLeagueID() {
-        return leagueID;
-    }
-
-    public void setLeagueID(int leagueID) {
-        this.leagueID = leagueID;
     }
 
     public String getPlayerName() {

@@ -1,6 +1,8 @@
 package com.groupten.leagueobjectmodel.conference;
 
 import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.persistence.dao.IConferenceDAO;
+import com.groupten.persistence.dao.database.ConferenceDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -87,5 +89,13 @@ public class ConferenceTest {
         Conference conference = new Conference("First Conference");
         conference.setConferenceName("Updated First Conference");
         assertEquals("Updated First Conference", conference.getConferenceName());
+    }
+
+    @Test
+    public void saveConferenceTest() {
+        IConferenceDAO conferenceDAO = new ConferenceDAO();
+        Conference conference = new Conference("First Conference", conferenceDAO);
+        conference.setLeagueID(1);
+        assertTrue(conference.saveConference());
     }
 }

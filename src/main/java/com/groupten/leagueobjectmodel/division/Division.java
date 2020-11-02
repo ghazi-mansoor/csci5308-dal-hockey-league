@@ -1,6 +1,7 @@
 package com.groupten.leagueobjectmodel.division;
 
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.IDivisionDAO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +10,16 @@ public class Division {
     private int divisionID;
     private int conferenceID;
     private String divisionName;
+    private IDivisionDAO divisionDAO;
     private Map<String, Team> teams = new HashMap<>();
 
     public Division(String divisionName) {
         this.divisionName = divisionName;
+    }
+
+    public Division(String divisionName, IDivisionDAO divisionDAO) {
+        this(divisionName);
+        this.divisionDAO = divisionDAO;
     }
 
     public Division(int divisionID, String divisionName) {
@@ -58,8 +65,12 @@ public class Division {
     }
 
     public boolean saveDivision() {
-        System.out.println("Division saved to DB. divisionID set to 1.");
-        return true;
+        divisionID = divisionDAO.createDivision(conferenceID, divisionName);
+        if (divisionID != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getDivisionID() {

@@ -6,6 +6,7 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.persistence.dao.ILeagueDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class League {
     private int leagueID;
     private String leagueName;
+    private ILeagueDAO leagueDAO;
     private Map<String, Conference> conferences = new HashMap<>();
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
@@ -28,6 +30,11 @@ public class League {
 
     public League(String leagueName) {
         this.leagueName = leagueName;
+    }
+
+    public League(String leagueName, ILeagueDAO leagueDAO) {
+        this(leagueName);
+        this.leagueDAO = leagueDAO;
     }
 
     public League(int leagueID, String leagueName) {
@@ -164,8 +171,15 @@ public class League {
     }
 
     public boolean saveLeague() {
-        System.out.println("League saved to DB. leagueID set to 1.");
-        return true;
+        leagueID = leagueDAO.createLeague(leagueName, agingConfig.getAverageRetirementAge(), agingConfig.getMaximumAge(),
+                injuriesConfig.getRandomInjuryChance(), injuriesConfig.getInjuryDaysHigh(), injuriesConfig.getInjuryDaysLows(),
+                tradingConfig.getLossPoint(), tradingConfig.getRandomTradeOfferChance(), tradingConfig.getMaxPlayersPerTrade(),
+                tradingConfig.getRandomAcceptanceChance());
+        if (leagueID != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public GameConfig.Aging getAgingConfig() {

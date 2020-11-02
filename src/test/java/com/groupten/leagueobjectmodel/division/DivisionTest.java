@@ -1,6 +1,8 @@
 package com.groupten.leagueobjectmodel.division;
 
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.IDivisionDAO;
+import com.groupten.persistence.dao.database.DivisionDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -75,6 +77,14 @@ public class DivisionTest {
         Division division = new Division("First Division");
         division.setDivisionName("Updated First Division");
         assertEquals("Updated First Division", division.getDivisionName());
+    }
+
+    @Test
+    public void saveDivisionTest() {
+        IDivisionDAO divisionDAO = new DivisionDAO();
+        Division division = new Division("First Division", divisionDAO);
+        division.setConferenceID(1);
+        assertTrue(division.saveDivision());
     }
 
 }

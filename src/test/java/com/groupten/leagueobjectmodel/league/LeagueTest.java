@@ -6,6 +6,8 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.database.LeagueDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -211,5 +213,22 @@ public class LeagueTest {
         assertEquals(0.05, tradingConfig.getRandomAcceptanceChance(), 0.0);
     }
 
+    @Test
+    public void saveLeagueTest() {
+        ILeagueDAO leagueDAO = new LeagueDAO();
+        League league = new League("First League", leagueDAO);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        league.setAgingConfig(agingConfig);
+        GameConfig.GameResolver gameResolverConfig = new GameConfig.GameResolver(0.1);
+        league.setGameResolverConfig(gameResolverConfig);
+        GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
+        league.setInjuriesConfig(injuriesConfig);
+        GameConfig.Training trainingConfig = new GameConfig.Training(100);
+        league.setTrainingConfig(trainingConfig);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
+
+        assertTrue(league.saveLeague());
+    }
 
 }

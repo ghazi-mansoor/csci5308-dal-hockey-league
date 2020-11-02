@@ -67,6 +67,11 @@ public class StoredProcedure
 	{
 		statement.setString(paramIndex, value);
 	}
+
+	public void setParameter(int paramIndex, double value) throws SQLException
+	{
+		statement.setDouble(paramIndex, value);
+	}
 	
 	public void registerOutputParameterString(int paramIndex) throws SQLException
 	{

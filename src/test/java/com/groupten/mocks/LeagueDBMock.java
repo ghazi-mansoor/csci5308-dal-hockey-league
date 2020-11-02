@@ -10,7 +10,8 @@ import java.util.List;
 public class LeagueDBMock implements ILeagueDAO {
 
     @Override
-    public int createLeague(String leagueName) {
+    public int createLeague(String leagueName, int averageRetirementAge, int maximumAge, double randomInjuryChance, int injuryDaysHigh,
+                            int injuryDaysLow, int lossPoint, double randomTradeOfferChance, int maxPlayerPerTrade, double randomAcceptanceChance) {
         return 1;
     }
 

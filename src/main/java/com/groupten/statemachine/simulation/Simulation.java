@@ -1,8 +1,10 @@
 package com.groupten.statemachine.simulation;
 
 import com.groupten.IO.console.IConsole;
+import com.groupten.IO.serializedata.SerializeData;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
@@ -74,6 +76,7 @@ public class Simulation implements ISimulation {
         IConsole console = Injector.instance().getConsoleObject();
         IGeneratePlayoffSchedule generatePlayoffSchedule = Injector.instance().getGeneratePlayoffScheduleeObject();
         console.printLine("Generating playoff schedule");
+        generatePlayoffSchedule.setSeason(season);
         if(generatePlayoffSchedule.generatePlayoffSchedule()){
             console.printLine("Playoff schedule generated");
             training();
@@ -101,14 +104,16 @@ public class Simulation implements ISimulation {
         }
 
         if(season.isTradeEnded()){
-            aging();
+            //aging();
         }else{
             executeTrades();
         }
+        aging();
     }
 
     private void simulateGame(Schedule schedule){
         ISimulateGame simulateGame = Injector.instance().getSimulateGameObject();
+        simulateGame.setSeason(season);
         simulateGame.simulateGame(schedule);
         injuryCheck();
     }
@@ -127,24 +132,39 @@ public class Simulation implements ISimulation {
     private void aging(){
         IAging aging = Injector.instance().getAgingObject();
         aging.advanceEveryPlayersAge(season.getLeague(),1);
-
+        System.out.println("Aging players");
         if(season.isWinnerDetermined()){
-            if(numberOfSeasons > 0){
+            if(numberOfSeasons > 1){
                 year++;
                 initializeSeason();
             }else{
-                persist();
+                persistFinal();
             }
         }else{
             persist();
-            advanceTime();
         }
     }
 
     private void persist(){
-        //ToDo persist
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Simulation saved to db");
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        leagueModel.saveLeagueModel();
+
+        advanceTime();
+    }
+
+    private void persistFinal() {
+        IConsole console = Injector.instance().getConsoleObject();
+        console.printLine("Simulation saved to db");
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        leagueModel.saveLeagueModel();
+
+        League exportedLeague = leagueModel.getCurrentLeague();
+        String path = "src/main/resources/SerializedData1.json";
+        SerializeData serializeData = new SerializeData(path);
+        serializeData.exportData(exportedLeague);
+
         end();
     }
 

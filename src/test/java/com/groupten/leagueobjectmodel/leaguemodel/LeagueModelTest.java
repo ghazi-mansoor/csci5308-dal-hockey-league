@@ -4,9 +4,12 @@ import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.conference.ConferenceTest;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.division.DivisionTest;
+import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.*;
+import com.groupten.persistence.dao.database.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -32,21 +35,38 @@ public class LeagueModelTest {
     @Test
     public void saveLeagueModelTest() {
         LeagueModel leagueModel = new LeagueModel();
-        League league = new League(1, "League 1");
+        ILeagueDAO leagueDAO = new LeagueDAO();
+
+        League league = new League("League 1", leagueDAO);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        league.setAgingConfig(agingConfig);
+        GameConfig.GameResolver gameResolverConfig = new GameConfig.GameResolver(0.1);
+        league.setGameResolverConfig(gameResolverConfig);
+        GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
+        league.setInjuriesConfig(injuriesConfig);
+        GameConfig.Training trainingConfig = new GameConfig.Training(100);
+        league.setTrainingConfig(trainingConfig);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        league.setTradingConfig(tradingConfig);
+
         leagueModel.setCurrentLeague(league);
 
-        Conference conference = new Conference(1, "Conference 1");
+        IConferenceDAO conferenceDAO = new ConferenceDAO();
+        Conference conference = new Conference("Conference 1", conferenceDAO);
         league.addConference(conference);
 
-        Division division = new Division(1, "Division 1");
+        IDivisionDAO divisionDAO = new DivisionDAO();
+        Division division = new Division("Division 1", divisionDAO);
         conference.addDivision(division);
 
-        Team team = new Team(1, "Team 1");
+        ITeamDAO teamDAO = new TeamDAO();
+        Team team = new Team("Team 1", teamDAO);
         division.addTeam(team);
 
-        Player player = new Player(1, "Player 1", "goalie", 20, 5, 5, 5, 5);
+        IPlayerDAO playerDAO = new PlayerDAO();
+        Player player = new Player("Player 1", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0, playerDAO);
         team.addPlayer(player);
-        player = new Player(2, "Player 2", "goalie", 20, 5, 5, 5, 5);
+        player = new Player("Player 2", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0, playerDAO);
         team.addPlayer(player);
 
         assertTrue(leagueModel.saveLeagueModel());

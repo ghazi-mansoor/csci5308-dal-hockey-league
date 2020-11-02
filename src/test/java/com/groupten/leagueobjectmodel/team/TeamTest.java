@@ -3,6 +3,9 @@ package com.groupten.leagueobjectmodel.team;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.mocks.TeamDBMock;
+import com.groupten.persistence.dao.ITeamDAO;
+import com.groupten.persistence.dao.database.TeamDAO;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -159,5 +162,13 @@ public class TeamTest {
         Team team  = new Team(1, "First Team");
         team.setaITeam(true);
         assertTrue(team.isaITeam());
+    }
+
+    @Test
+    public void saveTeamTest() {
+        ITeamDAO teamDAO = new TeamDAO();
+        Team team = new Team("First Team", teamDAO);
+        team.setDivisionID(1);
+        assertTrue(team.saveTeam());
     }
 }
