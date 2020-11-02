@@ -23,6 +23,7 @@ public class Simulation implements ISimulation {
     private Season season;
     private int numberOfSeasons;
     private int year;
+    private int daysSinceStatsIncreased;
 
     public Simulation(){
         Calendar cal = Calendar.getInstance();
@@ -44,8 +45,10 @@ public class Simulation implements ISimulation {
         IInitializeSeason initializeSeason = Injector.instance().getInitializeSeasonsObject();
         console.printLine("Initializing season");
         numberOfSeasons--;
-        this.season = new Season(leagueLOM,year);
+        daysSinceStatsIncreased = 0;
+        season = new Season(leagueLOM,year);
         initializeSeason.setSeason(season);
+        leagueLOM.addSeason(season);
         if(initializeSeason.generateRegularSchedule()){
             console.printLine("Regular schedule generated.");
             advanceTime();
@@ -83,7 +86,12 @@ public class Simulation implements ISimulation {
         IConsole console = Injector.instance().getConsoleObject();
         ITraining training = Injector.instance().getTrainingObject();
         console.printLine("Training teams");
-        training.trainPlayers();
+        if(daysSinceStatsIncreased > leagueLOM.getTrainingConfig().getDaysUntilStatIncreaseCheck()){
+            training.trainPlayers();
+            daysSinceStatsIncreased = 0;
+        }else{
+            daysSinceStatsIncreased++;
+        }
 
         List<Schedule> scheduleList = season.schedulesToday();
         if(scheduleList.size() > 0 ){
@@ -136,7 +144,6 @@ public class Simulation implements ISimulation {
     private void persist(){
         //ToDo persist
         IConsole console = Injector.instance().getConsoleObject();
-
         console.printLine("Simulation saved to db");
         end();
     }
