@@ -24,6 +24,7 @@ public class Season {
     private List<TeamStanding> teamStandings  = new ArrayList<>();
     private List<Schedule> regularSchedules  = new ArrayList<>();
     private List<Schedule> playoffSchedules  = new ArrayList<>();
+    private Team winner = null;
 
     public Season(League league){
         this.league = league;
@@ -137,18 +138,11 @@ public class Season {
     }
 
     public boolean isWinnerDetermined(){
-        int schedulesPending = 0;
-        for(int i=0; i < playoffSchedules.size(); i++){
-            Schedule schedule = playoffSchedules.get(i);
-            if(schedule.getTeams().size() == 2) {
-                long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
-                long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
-                if (diff > 0) {
-                    schedulesPending++;
-                }
-            }
-        };
-        return schedulesPending == 0;
+        if(winner == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public boolean generateRegularSchedule(){
@@ -412,11 +406,15 @@ public class Season {
     }
 
     private void updatePlayoffSchedule(Team team){
-        playoffSchedules.forEach(schedule -> {
-            if(schedule.getTeams().size() < 2){
-                schedule.addTeam(team);
-            }
-        });
+
+        Optional<Schedule> playoffSchedule =
+                playoffSchedules.stream().filter(schedule -> schedule.getTeams().size() < 2).findFirst();
+
+        if(playoffSchedule.isPresent()){
+            playoffSchedule.get().addTeam(team);
+        }else{
+            winner = team;
+        }
     }
 
     private void initDates(int year){

@@ -25,7 +25,7 @@ public class SerializeDataTest {
     public void exportDataTestSuccess(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "src/main/resources/SerializedData.json";
+        String path = "src/main/resources/SerializedDataTest.json";
         SerializeData serializeData = new SerializeData(path);
         assertTrue(serializeData.exportData(exportedLeague));
     }

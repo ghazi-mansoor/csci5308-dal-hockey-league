@@ -89,6 +89,7 @@ public class Trading implements ITrading {
 		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 
+		console.printLine("Trading started");
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
 		
 		 for (Map.Entry<String, Conference> entry : leagueLOM.getConferences().entrySet()) {

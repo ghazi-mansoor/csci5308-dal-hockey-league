@@ -1,6 +1,7 @@
 package com.groupten.statemachine.simulation;
 
 import com.groupten.IO.console.IConsole;
+import com.groupten.IO.serializedata.ISerializeData;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
@@ -101,14 +102,16 @@ public class Simulation implements ISimulation {
         }
 
         if(season.isTradeEnded()){
-            aging();
+            console.printLine("Trading ended");
         }else{
             executeTrades();
         }
+        aging();
     }
 
     private void simulateGame(Schedule schedule){
         ISimulateGame simulateGame = Injector.instance().getSimulateGameObject();
+        simulateGame.setSeason(season);
         simulateGame.simulateGame(schedule);
         injuryCheck();
     }
@@ -134,6 +137,7 @@ public class Simulation implements ISimulation {
                 initializeSeason();
             }else{
                 persist();
+                end();
             }
         }else{
             persist();
@@ -142,13 +146,13 @@ public class Simulation implements ISimulation {
     }
 
     private void persist(){
-        //ToDo persist
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Simulation saved to db");
-        end();
     }
 
     private void end(){
+        ISerializeData serializeData = Injector.instance().getSerializeDataObject();
+        serializeData.exportData(leagueLOM);
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Done.");
     }
