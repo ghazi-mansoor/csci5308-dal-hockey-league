@@ -74,6 +74,7 @@ public class Trading implements ITrading {
 		this.playerName = playerName;
 	}
 
+	@Override
 	public void startTrading() {
 		
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
@@ -133,6 +134,7 @@ public class Trading implements ITrading {
 		        
 	}
 
+	@Override
 	public void initiateTrading(HashMap<Player, Double> initializingWeakestPlayers ) {
 
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
@@ -209,6 +211,7 @@ public class Trading implements ITrading {
 			 
 	}
 
+	@Override
 	public HashMap<Player,Player> generatePlayersForTrading(HashMap<Player,Double> initializingWeakestPlayers,
 										  HashMap<Player,Double> finalizingPlayerStrength){
 
@@ -231,6 +234,7 @@ public class Trading implements ITrading {
 		return tradingPlayers;
 	}
 
+	@Override
 	public boolean UITradeOffer(){
 
 		Random random = new Random();
@@ -245,6 +249,7 @@ public class Trading implements ITrading {
 		return trade;
 	}
 
+	@Override
 	public void UITradeAccept(HashMap<Player,Player> tradingPlayers){
 
 		Random random = new Random();
@@ -299,6 +304,7 @@ public class Trading implements ITrading {
 			adjustTeamPlayers();
 	}
 
+	@Override
 	public void UserTradeAccept(HashMap<Player,Player> tradingPlayers){
 
 		int option = 0;
@@ -346,6 +352,7 @@ public class Trading implements ITrading {
 
 	}
 
+	@Override
 	public void adjustTeamPlayers(){
 
 		int initializingTeamSize = 0;
@@ -394,6 +401,7 @@ public class Trading implements ITrading {
 
 	}
 
+	@Override
 	public Team UIDropPlayers(Team tradingTeam) {
 
 		int goalieCount = 0;
@@ -450,6 +458,7 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
+	@Override
 	public Team userDropPlayers(Team tradingTeam){
 
 		int i = 1;
@@ -540,6 +549,7 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
+	@Override
 	public Team UIGetFromFreeAgents(Team tradingTeam){
 
 		int goalieCount = 0;
@@ -616,6 +626,7 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
+	@Override
 	public Team userGetFromFreeAgents(Team tradingTeam){
 		int goalieCount = 0;
 		int skaterCount = 0;
@@ -708,6 +719,7 @@ public class Trading implements ITrading {
 
 	}
 
+	@Override
 	public LinkedList sortByPlayerStrength(LinkedList strength){
 
 		Collections.sort(strength, new Comparator() {
@@ -719,6 +731,7 @@ public class Trading implements ITrading {
 		return strength;
 	}
 
+	@Override
 	public HashMap<Player,Double> getWeakestPlayers(LinkedList orderedStrength){
 
 		int i = 0;
