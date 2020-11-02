@@ -31,6 +31,8 @@ import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.initializeseason.InitializeSeason;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.simulategame.SimulateGame;
+import com.groupten.statemachine.simulation.trading.ITrading;
+import com.groupten.statemachine.simulation.trading.Trading;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.training.Training;
 
@@ -51,6 +53,7 @@ public class Injector {
     private ISimulateGame simulateGameInterface;
     private ISerializeData serializeDataInterface;
     private IDeserializeData deserializeDataInterface;
+    private ITrading tradingInterface;
     private IComparator comparatorInterface;
     private ILeagueDAO leagueDatabaseInterface;
     private IConferenceDAO conferenceDatabaseInterface;
@@ -76,6 +79,7 @@ public class Injector {
         comparatorInterface = new Comparator();
         serializeDataInterface = new SerializeData();
         deserializeDataInterface = new DeserializeData();
+        tradingInterface = new Trading();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -208,6 +212,14 @@ public class Injector {
 
     public ISimulateGame getSimulateGameObject() {
         return simulateGameInterface;
+    }
+
+    public ITrading getTradingObject() {
+        return tradingInterface;
+    }
+
+    public void setTradingObject(ITrading tradingInterface) {
+        this.tradingInterface = tradingInterface;
     }
 
     public void setLeagueDatabaseObject(ILeagueDAO leagueDatabaseInterface) {
