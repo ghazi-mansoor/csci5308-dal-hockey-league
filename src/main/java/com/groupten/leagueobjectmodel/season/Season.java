@@ -91,22 +91,17 @@ public class Season {
         this.currentDate = cal.getTime();
     }
 
-    public void recordWin(String teamName){
+    public void recordWin(Team team){
         teamStandings.forEach(teamStanding -> {
-            if(teamStanding.getTeamName().equals(teamName)){
-                teamStanding.addWin();
+            if(teamStanding.getTeam().getTeamName().equals(team.getTeamName())){
+                teamStanding.setPoints(teamStanding.getPoints() + 2);
             }
         });
-        updateRanks();
-    }
-
-    public void recordLoss(String teamName){
-        teamStandings.forEach(teamStanding -> {
-            if(teamStanding.getTeamName().equals(teamName)){
-                teamStanding.addLoss();
-            }
-        });
-        updateRanks();
+        if(currentDate.getTime() < playoffStartsAt.getTime()){
+            updateRanks();
+        }else{
+            updatePlayoffSchedule(team);
+        }
     }
 
     public void setCurrentDate(Date date){
@@ -145,10 +140,12 @@ public class Season {
         int schedulesPending = 0;
         for(int i=0; i < playoffSchedules.size(); i++){
             Schedule schedule = playoffSchedules.get(i);
-            long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
-            long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
-            if(diff > 0){
-                schedulesPending++;
+            if(schedule.getTeams().size() == 2) {
+                long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
+                long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
+                if (diff > 0) {
+                    schedulesPending++;
+                }
             }
         };
         return schedulesPending == 0;
@@ -172,13 +169,25 @@ public class Season {
                     sameDivisionTeamStanding.add(teamStanding);
                 }
             });
+            if(sameDivisionTeamStanding.size() < 8){
+                TeamStanding teamStanding1 = sameDivisionTeamStanding.get(0);
+                TeamStanding teamStanding2 = sameDivisionTeamStanding.get(1);
+                for(int i =0; i<5; i++){
+                    Schedule schedule = new Schedule();
+                    schedule.addTeam(teamStanding1.getTeam());
+                    schedule.addTeam(teamStanding2.getTeam());
+                    regularSchedules.add(schedule);
+                }
+                sameDivisionTeamStanding.remove(teamStanding1);
+                sameDivisionTeamStanding.remove(teamStanding2);
+            }
             sameDivisionTeamStanding.forEach(teamStanding1 -> {
                 sameDivisionTeamStanding.forEach(teamStanding2 -> {
-                    if(!teamStanding1.getTeamName().equals(teamStanding2.getTeamName())){
+                    if(!teamStanding1.getTeam().getTeamName().equals(teamStanding2.getTeam().getTeamName())){
                         for(int i =0; i<4; i++){
                             Schedule schedule = new Schedule();
-                            schedule.addTeamName(teamStanding1.getTeamName());
-                            schedule.addTeamName(teamStanding2.getTeamName());
+                            schedule.addTeam(teamStanding1.getTeam());
+                            schedule.addTeam(teamStanding2.getTeam());
                             regularSchedules.add(schedule);
                         }
                     }
@@ -198,8 +207,8 @@ public class Season {
                     if(!teamStanding1.getDivisionName().equals(teamStanding2.getDivisionName())){
                         for(int i =0; i<3; i++){
                             Schedule schedule = new Schedule();
-                            schedule.addTeamName(teamStanding1.getTeamName());
-                            schedule.addTeamName(teamStanding2.getTeamName());
+                            schedule.addTeam(teamStanding1.getTeam());
+                            schedule.addTeam(teamStanding2.getTeam());
                             regularSchedules.add(schedule);
                         }
                     }
@@ -212,8 +221,8 @@ public class Season {
                 if (!teamStanding1.getConferenceName().equals(teamStanding2.getConferenceName())) {
                     for (int i = 0; i < 2; i++) {
                         Schedule schedule = new Schedule();
-                        schedule.addTeamName(teamStanding1.getTeamName());
-                        schedule.addTeamName(teamStanding2.getTeamName());
+                        schedule.addTeam(teamStanding1.getTeam());
+                        schedule.addTeam(teamStanding2.getTeam());
                         regularSchedules.add(schedule);
                     }
                 }
@@ -236,6 +245,7 @@ public class Season {
             conferenceNames.add(teamStanding.getConferenceName());
         });
 
+        //Round1
         conferenceNames.forEach(conferenceName -> {
             HashSet<String> divisionNames = new HashSet<>();
             teamStandings.forEach(teamStanding -> {
@@ -265,7 +275,7 @@ public class Season {
             TeamStanding team8;
             TeamStanding div1Top4 = divisionTop5.get(0).get(3);
             TeamStanding div2Top4 = divisionTop5.get(1).get(3);
-            TeamStanding div1Top5 = divisionTop5.get(1).get(4);
+            TeamStanding div1Top5 = divisionTop5.get(0).get(4);
             TeamStanding div2Top5 = divisionTop5.get(1).get(4);
             if(div1Top4.getPoints() > div2Top4.getPoints()){
                 team7 = div1Top4;
@@ -288,31 +298,64 @@ public class Season {
 
             Schedule schedule = new Schedule();
             schedule.setGameDate(cal.getTime());
-            schedule.addTeamName(team1.getTeamName());
-            schedule.addTeamName(team8.getTeamName());
+            schedule.addTeam(team1.getTeam());
+            schedule.addTeam(team8.getTeam());
             playoffSchedules.add(schedule);
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
             schedule.setGameDate(cal.getTime());
-            schedule.addTeamName(team2.getTeamName());
-            schedule.addTeamName(team7.getTeamName());
+            schedule.addTeam(team2.getTeam());
+            schedule.addTeam(team7.getTeam());
             playoffSchedules.add(schedule);
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
             schedule.setGameDate(cal.getTime());
-            schedule.addTeamName(team3.getTeamName());
-            schedule.addTeamName(team4.getTeamName());
+            schedule.addTeam(team3.getTeam());
+            schedule.addTeam(team4.getTeam());
             playoffSchedules.add(schedule);
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
             schedule.setGameDate(cal.getTime());
-            schedule.addTeamName(team5.getTeamName());
-            schedule.addTeamName(team6.getTeamName());
+            schedule.addTeam(team5.getTeam());
+            schedule.addTeam(team6.getTeam());
             playoffSchedules.add(schedule);
         });
+
+        //Round2
+        conferenceNames.forEach(conferenceName -> {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.playoffStartsAt);
+            cal.add(Calendar.DATE,4);
+            Schedule schedule = new Schedule();
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
+
+            cal.add(Calendar.DATE, 1);
+            schedule = new Schedule();
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
+        });
+
+        //Round3
+        conferenceNames.forEach(conferenceName -> {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.playoffStartsAt);
+            cal.add(Calendar.DATE,6);
+            Schedule schedule = new Schedule();
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
+        });
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.playoffStartsAt);
+        cal.add(Calendar.DATE, 7);
+        Schedule schedule = new Schedule();
+        schedule.setGameDate(cal.getTime());
+        playoffSchedules.add(schedule);
 
         return true;
     }
@@ -368,6 +411,14 @@ public class Season {
         }
     }
 
+    private void updatePlayoffSchedule(Team team){
+        playoffSchedules.forEach(schedule -> {
+            if(schedule.getTeams().size() < 2){
+                schedule.addTeam(team);
+            }
+        });
+    }
+
     private void initDates(int year){
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
@@ -415,7 +466,6 @@ public class Season {
         cal.add( Calendar.DAY_OF_MONTH, -1 );
 
         int occCount = 0;
-
         while ( occCount != nth ) {
             cal.add( Calendar.DAY_OF_MONTH, 1 );
             if ( cal.get( Calendar.DAY_OF_WEEK ) == day ) {
@@ -433,7 +483,7 @@ public class Season {
                 divisions.forEach((divisionName, division) -> {
                     Map<String, Team> teams = division.getTeams();
                     teams.forEach((teamName, team) -> {
-                        TeamStanding teamStanding = new TeamStanding(team.getTeamName(),division.getDivisionName(),conference.getConferenceName(),0,0,0,0,0,0);
+                        TeamStanding teamStanding = new TeamStanding(team,division.getDivisionName(),conference.getConferenceName(),0,0,0,0);
                         this.teamStandings.add(teamStanding);
                     });
                 });

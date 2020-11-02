@@ -2,30 +2,28 @@ package com.groupten.statemachine.simulation;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.conference.Conference;
-import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
-import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.injury.Injury;
+import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
+import com.groupten.statemachine.simulation.trading.ITrading;
 import com.groupten.statemachine.simulation.training.ITraining;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Simulation implements ISimulation {
     private League leagueLOM;
     private Season season;
     private int numberOfSeasons;
     private int year;
+    private int daysSinceStatsIncreased;
 
     public Simulation(){
         Calendar cal = Calendar.getInstance();
@@ -47,15 +45,16 @@ public class Simulation implements ISimulation {
         IInitializeSeason initializeSeason = Injector.instance().getInitializeSeasonsObject();
         console.printLine("Initializing season");
         numberOfSeasons--;
-        this.season = new Season(leagueLOM,year);
+        daysSinceStatsIncreased = 0;
+        season = new Season(leagueLOM,year);
         initializeSeason.setSeason(season);
+        leagueLOM.addSeason(season);
         if(initializeSeason.generateRegularSchedule()){
+            console.printLine("Regular schedule generated.");
             advanceTime();
         }else{
             console.printLine("FAILURE: Some error occurred.");
         }
-        console.printLine("Regular schedule generated.");
-
     }
 
     private void advanceTime(){
@@ -87,12 +86,17 @@ public class Simulation implements ISimulation {
         IConsole console = Injector.instance().getConsoleObject();
         ITraining training = Injector.instance().getTrainingObject();
         console.printLine("Training teams");
-        training.trainPlayers();
+        if(daysSinceStatsIncreased > leagueLOM.getTrainingConfig().getDaysUntilStatIncreaseCheck()){
+            training.trainPlayers();
+            daysSinceStatsIncreased = 0;
+        }else{
+            daysSinceStatsIncreased++;
+        }
 
         List<Schedule> scheduleList = season.schedulesToday();
         if(scheduleList.size() > 0 ){
             scheduleList.forEach(schedule -> {
-                simulateGame();
+                simulateGame(schedule);
             });
         }
 
@@ -103,10 +107,10 @@ public class Simulation implements ISimulation {
         }
     }
 
-    private void simulateGame(){
-        //ToDo Simulate Games
+    private void simulateGame(Schedule schedule){
+        ISimulateGame simulateGame = Injector.instance().getSimulateGameObject();
+        simulateGame.simulateGame(schedule);
         injuryCheck();
-
     }
 
     private void injuryCheck(){
@@ -114,7 +118,10 @@ public class Simulation implements ISimulation {
     }
 
     private void executeTrades(){
-        //ToDo execute trade
+        IConsole console = Injector.instance().getConsoleObject();
+        ITrading trading = Injector.instance().getTradingObject();
+        console.printLine("Trading teams");
+        trading.startTrading();
     }
 
     private void aging(){
@@ -137,7 +144,6 @@ public class Simulation implements ISimulation {
     private void persist(){
         //ToDo persist
         IConsole console = Injector.instance().getConsoleObject();
-
         console.printLine("Simulation saved to db");
         end();
     }

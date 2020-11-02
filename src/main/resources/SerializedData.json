@@ -81,6 +81,7 @@
                 "saving": 0.5
               },
               "teamStrength": 0.0,
+              "winPoint": 0,
               "lossPoint": 0
             }
           }
@@ -159,6 +160,7 @@
                 "saving": 0.5
               },
               "teamStrength": 0.0,
+              "winPoint": 0,
               "lossPoint": 0
             }
           }
@@ -244,6 +246,7 @@
                 "saving": 0.5
               },
               "teamStrength": 0.0,
+              "winPoint": 0,
               "lossPoint": 0
             }
           }
@@ -322,6 +325,7 @@
                 "saving": 0.5
               },
               "teamStrength": 0.0,
+              "winPoint": 0,
               "lossPoint": 0
             }
           }
