@@ -297,7 +297,6 @@ public class Season {
             cal.setTime(this.playoffStartsAt);
 
             Schedule schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team1.getTeam());
             schedule.addTeam(team8.getTeam());
@@ -305,7 +304,6 @@ public class Season {
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team2.getTeam());
             schedule.addTeam(team7.getTeam());
@@ -313,7 +311,6 @@ public class Season {
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team3.getTeam());
             schedule.addTeam(team4.getTeam());
@@ -321,7 +318,6 @@ public class Season {
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team5.getTeam());
             schedule.addTeam(team6.getTeam());
@@ -330,20 +326,17 @@ public class Season {
             //Round 2
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             playoffSchedules.add(schedule);
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             playoffSchedules.add(schedule);
 
             //Round 3
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
-            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             playoffSchedules.add(schedule);
         });
