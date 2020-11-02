@@ -35,9 +35,8 @@ public class LeagueModelTest {
     @Test
     public void saveLeagueModelTest() {
         LeagueModel leagueModel = new LeagueModel();
-        ILeagueDAO leagueDAO = new LeagueDAO();
 
-        League league = new League("League 1", leagueDAO);
+        League league = new League("League 1");
         GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
         league.setAgingConfig(agingConfig);
         GameConfig.GameResolver gameResolverConfig = new GameConfig.GameResolver(0.1);
@@ -51,22 +50,18 @@ public class LeagueModelTest {
 
         leagueModel.setCurrentLeague(league);
 
-        IConferenceDAO conferenceDAO = new ConferenceDAO();
-        Conference conference = new Conference("Conference 1", conferenceDAO);
+        Conference conference = new Conference("Conference 1");
         league.addConference(conference);
 
-        IDivisionDAO divisionDAO = new DivisionDAO();
-        Division division = new Division("Division 1", divisionDAO);
+        Division division = new Division("Division 1");
         conference.addDivision(division);
 
-        ITeamDAO teamDAO = new TeamDAO();
-        Team team = new Team("Team 1", teamDAO);
+        Team team = new Team("Team 1");
         division.addTeam(team);
 
-        IPlayerDAO playerDAO = new PlayerDAO();
-        Player player = new Player("Player 1", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0, playerDAO);
+        Player player = new Player("Player 1", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0);
         team.addPlayer(player);
-        player = new Player("Player 2", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0, playerDAO);
+        player = new Player("Player 2", "goalie", 20.0, 5.0, 5.0, 5.0, 5.0);
         team.addPlayer(player);
 
         assertTrue(leagueModel.saveLeagueModel());

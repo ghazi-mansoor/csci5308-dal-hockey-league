@@ -21,7 +21,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -36,7 +35,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -51,7 +49,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -100,7 +97,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -115,7 +111,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -130,7 +125,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -186,7 +180,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -201,7 +194,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -216,7 +208,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -265,7 +256,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player One",
                   "position": "forward",
                   "captain": true,
@@ -280,7 +270,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Two",
                   "position": "defense",
                   "captain": false,
@@ -295,7 +284,6 @@
                 {
                   "playerID": 0,
                   "teamID": 0,
-                  "leagueID": 0,
                   "playerName": "Player Three",
                   "position": "goalie",
                   "captain": false,
@@ -337,7 +325,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent One",
       "position": "forward",
       "captain": false,
@@ -352,7 +339,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Two",
       "position": "defense",
       "captain": false,
@@ -367,7 +353,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Three",
       "position": "goalie",
       "captain": false,
@@ -382,7 +367,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Four",
       "position": "goalie",
       "captain": false,
@@ -397,7 +381,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Five",
       "position": "goalie",
       "captain": false,
@@ -412,7 +395,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Six",
       "position": "goalie",
       "captain": false,
@@ -427,7 +409,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Seven",
       "position": "goalie",
       "captain": false,
@@ -442,7 +423,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Eight",
       "position": "forward",
       "captain": false,
@@ -457,7 +437,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Nine",
       "position": "defense",
       "captain": false,
@@ -472,7 +451,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Ten",
       "position": "forward",
       "captain": false,
@@ -487,7 +465,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Eleven",
       "position": "defense",
       "captain": false,
@@ -502,7 +479,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Twelve",
       "position": "forward",
       "captain": false,
@@ -517,7 +493,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Thirteen",
       "position": "defense",
       "captain": false,
@@ -532,7 +507,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Fourteen",
       "position": "forward",
       "captain": false,
@@ -547,7 +521,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Fifteen",
       "position": "defense",
       "captain": false,
@@ -562,7 +535,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Sixteen",
       "position": "forward",
       "captain": false,
@@ -577,7 +549,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Seventeen",
       "position": "defense",
       "captain": false,
@@ -592,7 +563,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Eighteen",
       "position": "forward",
       "captain": false,
@@ -607,7 +577,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Nineteen",
       "position": "defense",
       "captain": false,
@@ -622,7 +591,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent Twenty",
       "position": "forward",
       "captain": false,
@@ -637,7 +605,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 21",
       "position": "defense",
       "captain": false,
@@ -652,7 +619,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 22",
       "position": "forward",
       "captain": false,
@@ -667,7 +633,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 23",
       "position": "defense",
       "captain": false,
@@ -682,7 +647,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 24",
       "position": "forward",
       "captain": false,
@@ -697,7 +661,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 25",
       "position": "defense",
       "captain": false,
@@ -712,7 +675,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 26",
       "position": "forward",
       "captain": false,
@@ -727,7 +689,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 27",
       "position": "defense",
       "captain": false,
@@ -742,7 +703,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 29",
       "position": "forward",
       "captain": false,
@@ -757,7 +717,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 30",
       "position": "defense",
       "captain": false,
@@ -772,7 +731,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 26",
       "position": "forward",
       "captain": false,
@@ -787,7 +745,6 @@
     {
       "playerID": 0,
       "teamID": 0,
-      "leagueID": 0,
       "playerName": "Agent 30",
       "position": "goalie",
       "captain": false,

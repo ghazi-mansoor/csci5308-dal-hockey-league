@@ -1,5 +1,6 @@
 package com.groupten.leagueobjectmodel.team;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
@@ -13,7 +14,6 @@ public class Team {
     private int teamID;
     private int divisionID;
     private String teamName;
-    private ITeamDAO teamDAO;
     private boolean aITeam;
     private List<Player> players = new ArrayList<>();
     private GeneralManager generalManager;
@@ -26,11 +26,6 @@ public class Team {
 
     public Team(String teamName) {
         this.teamName = teamName;
-    }
-
-    public Team(String teamName, ITeamDAO teamDAO) {
-        this(teamName);
-        this.teamDAO = teamDAO;
     }
 
     public Team(int teamID, String teamName) {
@@ -50,6 +45,7 @@ public class Team {
     }
 
     public void persistPlayerWithTeam(Player player) {
+        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
         teamDAO.attachTeamPlayer(teamID, player.getPlayerID());
     }
 
@@ -178,6 +174,7 @@ public class Team {
     }
 
     public boolean saveTeam() {
+        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
         teamID = teamDAO.createTeam(divisionID, teamName);
         if (teamID != -0) {
             return true;

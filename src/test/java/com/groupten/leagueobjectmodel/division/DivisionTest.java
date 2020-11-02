@@ -78,13 +78,4 @@ public class DivisionTest {
         division.setDivisionName("Updated First Division");
         assertEquals("Updated First Division", division.getDivisionName());
     }
-
-    @Test
-    public void saveDivisionTest() {
-        IDivisionDAO divisionDAO = new DivisionDAO();
-        Division division = new Division("First Division", divisionDAO);
-        division.setConferenceID(1);
-        assertTrue(division.saveDivision());
-    }
-
 }

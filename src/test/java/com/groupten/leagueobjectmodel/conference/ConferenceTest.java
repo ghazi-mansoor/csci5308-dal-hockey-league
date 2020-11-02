@@ -90,12 +90,4 @@ public class ConferenceTest {
         conference.setConferenceName("Updated First Conference");
         assertEquals("Updated First Conference", conference.getConferenceName());
     }
-
-    @Test
-    public void saveConferenceTest() {
-        IConferenceDAO conferenceDAO = new ConferenceDAO();
-        Conference conference = new Conference("First Conference", conferenceDAO);
-        conference.setLeagueID(1);
-        assertTrue(conference.saveConference());
-    }
 }

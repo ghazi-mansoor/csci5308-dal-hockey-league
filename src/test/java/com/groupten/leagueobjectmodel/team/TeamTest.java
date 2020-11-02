@@ -163,12 +163,4 @@ public class TeamTest {
         team.setaITeam(true);
         assertTrue(team.isaITeam());
     }
-
-    @Test
-    public void saveTeamTest() {
-        ITeamDAO teamDAO = new TeamDAO();
-        Team team = new Team("First Team", teamDAO);
-        team.setDivisionID(1);
-        assertTrue(team.saveTeam());
-    }
 }

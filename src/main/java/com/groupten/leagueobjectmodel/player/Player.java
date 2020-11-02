@@ -24,7 +24,6 @@ public class Player {
     private double saving;
     private boolean injured;
     private int injuryPeriod;
-    private IPlayerDAO playerDAO;
 
     public Player() {}
 
@@ -38,11 +37,6 @@ public class Player {
         this.saving = saving;
     }
 
-    public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving, IPlayerDAO playerDAO) {
-        this(playerName, position, age, skating, shooting, checking, saving);
-        this.playerDAO = playerDAO;
-    }
-
     public Player(int playerID, String playerName, String position, double age, double skating, double shooting,
                   double checking, double saving) {
         this(playerName, position, age, skating, shooting, checking, saving);
@@ -52,12 +46,6 @@ public class Player {
     public Player(String playerName, String position, boolean captain, double age, double skating, double shooting,
                   double checking, double saving) {
         this(playerName, position, age, skating, shooting, checking, saving);
-        this.captain = captain;
-    }
-
-    public Player(String playerName, String position, boolean captain, double age, double skating, double shooting,
-                  double checking, double saving, IPlayerDAO playerDAO) {
-        this(playerName, position, age, skating, shooting, checking, saving, playerDAO);
         this.captain = captain;
     }
 
@@ -185,6 +173,7 @@ public class Player {
     }
 
     public boolean savePlayer() {
+        IPlayerDAO playerDAO = Injector.instance().getPlayerDatabaseObject();
         playerID = playerDAO.createPlayer(playerName, position, age, skating, shooting, checking, saving);
         if (playerID != 0) {
             return true;

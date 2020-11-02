@@ -1,5 +1,6 @@
 package com.groupten.leagueobjectmodel.league;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
@@ -7,6 +8,7 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.database.LeagueDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +18,6 @@ import java.util.Map;
 public class League {
     private int leagueID;
     private String leagueName;
-    private ILeagueDAO leagueDAO;
     private Map<String, Conference> conferences = new HashMap<>();
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
@@ -30,11 +31,6 @@ public class League {
 
     public League(String leagueName) {
         this.leagueName = leagueName;
-    }
-
-    public League(String leagueName, ILeagueDAO leagueDAO) {
-        this(leagueName);
-        this.leagueDAO = leagueDAO;
     }
 
     public League(int leagueID, String leagueName) {
@@ -171,6 +167,7 @@ public class League {
     }
 
     public boolean saveLeague() {
+        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
         leagueID = leagueDAO.createLeague(leagueName, agingConfig.getAverageRetirementAge(), agingConfig.getMaximumAge(),
                 injuriesConfig.getRandomInjuryChance(), injuriesConfig.getInjuryDaysHigh(), injuriesConfig.getInjuryDaysLows(),
                 tradingConfig.getLossPoint(), tradingConfig.getRandomTradeOfferChance(), tradingConfig.getMaxPlayersPerTrade(),

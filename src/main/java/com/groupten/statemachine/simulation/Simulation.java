@@ -159,12 +159,6 @@ public class Simulation implements ISimulation {
         console.printLine("Simulation saved to db");
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         leagueModel.saveLeagueModel();
-
-        League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "src/main/resources/SerializedData1.json";
-        SerializeData serializeData = new SerializeData(path);
-        serializeData.exportData(exportedLeague);
-
         end();
     }
 

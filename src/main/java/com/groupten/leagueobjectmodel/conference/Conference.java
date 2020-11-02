@@ -1,5 +1,6 @@
 package com.groupten.leagueobjectmodel.conference;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.persistence.dao.IConferenceDAO;
 
@@ -10,16 +11,10 @@ public class Conference {
     public int leagueID;
     private int conferenceID;
     private String conferenceName;
-    private IConferenceDAO conferenceDAO;
     private final Map<String, Division> divisions = new HashMap<>();
 
     public Conference(String conferenceName) {
         this.conferenceName = conferenceName;
-    }
-
-    public Conference(String conferenceName, IConferenceDAO conferenceDAO) {
-        this(conferenceName);
-        this.conferenceDAO = conferenceDAO;
     }
 
     public Conference(int conferenceID, String conferenceName) {
@@ -61,6 +56,7 @@ public class Conference {
     public Map<String, Division> getDivisions() { return divisions; }
 
     public boolean saveConference() {
+        IConferenceDAO conferenceDAO = Injector.instance().getConferenceDatabaseObject();
         conferenceID = conferenceDAO.createConference(leagueID, conferenceName);
         if (conferenceID != 0) {
             return true;

@@ -133,8 +133,6 @@ public class PlayerTest {
 
     @Test
     public void getShootingTest() {
-
-
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setShooting(10);
         assertEquals(10.0, player.getShooting(), 0);
@@ -172,12 +170,4 @@ public class PlayerTest {
         player.setInjured(true);
         assertTrue(player.isInjured());
     }
-
-    @Test
-    public void savePlayerTest() {
-        IPlayerDAO playerDAO = new PlayerDAO();
-        Player player = new Player("First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0, playerDAO);
-        assertTrue(player.savePlayer());
-    }
-
 }
