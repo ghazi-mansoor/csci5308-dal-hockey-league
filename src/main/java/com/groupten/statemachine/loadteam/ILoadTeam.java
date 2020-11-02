@@ -6,6 +6,8 @@ public interface ILoadTeam {
 
     boolean doesTeamExist();
 
+    boolean loadExistingLeague();
+
     boolean validateUserInput();
 
 }
