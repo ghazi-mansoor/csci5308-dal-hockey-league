@@ -15,18 +15,18 @@ public class DeserializeDataTest {
     @BeforeClass
     public static void setup() {
         JSONImport json = new JSONImport();
-        json.importJSONData("src/test/java/com/groupten/mocks/JsonMockCopy.json");
+        json.importJSONData("src/test/java/com/groupten/mocks/JsonMock.json");
         json.instantiateJSONData();
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "src/main/resources/SerializedDataTest.json";
+        String path = "src/main/resources/SerializedData.json";
         SerializeData serializeData = new SerializeData(path);
         serializeData.exportData(exportedLeague);
     }
 
     @Test
     public void importDataTestSuccess(){
-        String path = "src/main/resources/SerializedDataTest.json";
+        String path = "src/main/resources/SerializedData.json";
         DeserializeData deserializeData = new DeserializeData(path);
         League league = deserializeData.importData();
         assertEquals("Deep Hockey League", league.getLeagueName());
