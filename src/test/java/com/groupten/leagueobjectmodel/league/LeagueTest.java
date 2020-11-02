@@ -6,6 +6,8 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.database.LeagueDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -210,6 +212,5 @@ public class LeagueTest {
         assertEquals(2, tradingConfig.getMaxPlayersPerTrade());
         assertEquals(0.05, tradingConfig.getRandomAcceptanceChance(), 0.0);
     }
-
 
 }

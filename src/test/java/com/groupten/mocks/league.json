@@ -3,24 +3,24 @@
    "gameplayConfig": {
       "aging": {
          "averageRetirementAge": 35,
-         "maximumAge": 58
+         "maximumAge": 50
       },
       "gameResolver": {
-         "randomWinChance": 0.83
+         "randomWinChance": 0.1
       },
       "injuries": {
-         "randomInjuryChance": 0.76,
+         "randomInjuryChance": 0.05,
          "injuryDaysLow": 4,
          "injuryDaysHigh": 153
       },
       "training": {
-         "daysUntilStatIncreaseCheck": 335
+         "daysUntilStatIncreaseCheck": 100
       },
       "trading": {
-         "lossPoint": 5,
-         "randomTradeOfferChance": 0.09,
-         "maxPlayersPerTrade": 4,
-         "randomAcceptanceChance": 0.15
+         "lossPoint": 2,
+         "randomTradeOfferChance": 0.05,
+         "maxPlayersPerTrade": 2,
+         "randomAcceptanceChance": 0.05
       }
    },
    "conferences": [

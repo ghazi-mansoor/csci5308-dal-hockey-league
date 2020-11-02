@@ -4,6 +4,7 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.persistence.dao.IPlayerDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,12 +24,6 @@ public class Player {
     private double saving;
     private boolean injured;
     private int injuryPeriod;
-    private boolean retired;
-    private double gameConfigAverageRetirementAge;
-    private double gameConfigMaxRetirementAge;
-    private double randomInjuryChance;
-    private int injuryDaysLow;
-    private int injuryDaysHigh;
 
     public Player() {}
 
@@ -61,7 +56,7 @@ public class Player {
     }
 
     public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
-        age += (days / 365.0);
+        age += (days / PlayerConstants.NUMBER_OF_DAYS_PER_YEAR);
 
         if (days > injuryPeriod) {
             removeInjury();
@@ -73,9 +68,7 @@ public class Player {
     private boolean shouldPlayerBeRetired() {
         double probabilityOfRetirement = calculateProbabilityOfRetirement();
         GameConfig.Aging agingConfig = getAgingConfig();
-        retired = age > agingConfig.getMaximumAge() || probabilityOfRetirement > 70;
-
-        return retired;
+        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > PlayerConstants.PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER;
     }
 
     private double calculateProbabilityOfRetirement() {
@@ -179,81 +172,23 @@ public class Player {
         return Collections.frequency(validChecks, false) == 0;
     }
 
+    public boolean savePlayer() {
+        IPlayerDAO playerDAO = Injector.instance().getPlayerDatabaseObject();
+        playerID = playerDAO.createPlayer(playerName, position, age, skating, shooting, checking, saving);
+        if (playerID != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int getPlayerID() {
         return playerID;
     }
 
-    public void setPlayerID(int pID) {
-        playerID = pID;
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
     }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String pN) {
-        playerName = pN;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String pos) {
-        position = pos;
-    }
-
-    public boolean isCaptain() {
-        return captain;
-    }
-
-    public void setCaptain(boolean cap) {
-        captain = cap;
-    }
-
-    public double getAge() {
-        return age;
-    }
-
-    public void setAge(double a) {
-        age = a;
-    }
-
-    public double getSkating() {
-        return skating;
-    }
-
-    public void setSkating(double sk) {
-        skating = sk;
-    }
-
-    public double getShooting() {
-        return shooting;
-    }
-
-    public void setShooting(double sh) {
-        shooting = sh;
-    }
-
-    public double getChecking() {
-        return checking;
-    }
-
-    public void setChecking(double ch) {
-        checking = ch;
-    }
-
-    public double getSaving() {
-        return saving;
-    }
-
-    public void setSaving(double s) {
-        saving = s;
-    }
-
-    public boolean isInjured() { return injured; }
-
-    public void setInjured(boolean in) { injured = in; }
 
     public int getTeamID() {
         return teamID;
@@ -263,14 +198,86 @@ public class Player {
         this.teamID = teamID;
     }
 
-    public boolean isRetired() { return retired; }
-
-    public void setRetired(boolean retired) { this.retired = retired; };
-
-    public boolean savePlayer() {
-        System.out.println("Player saved to DB. playerID set to 1.");
-        return true;
+    public String getPlayerName() {
+        return playerName;
     }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public boolean isCaptain() {
+        return captain;
+    }
+
+    public void setCaptain(boolean captain) {
+        this.captain = captain;
+    }
+
+    public void setInjured(boolean injured) {
+        this.injured = injured;
+    }
+
+    public boolean isInjured() {
+        return injured;
+    }
+
+    public void setAge(double age) {
+        this.age = age;
+    }
+
+    public double getAge() {
+        return age;
+    }
+
+    public void setSkating(double skating) {
+        this.skating = skating;
+    }
+
+    public double getSkating() {
+        return skating;
+    }
+
+    public void setShooting(double shooting) {
+        this.shooting = shooting;
+    }
+
+    public double getShooting() {
+        return shooting;
+    }
+
+    public void setChecking(double checking) {
+        this.checking = checking;
+    }
+
+    public double getChecking() {
+        return checking;
+    }
+
+    public void setSaving(double saving) {
+        this.saving = saving;
+    }
+
+    public double getSaving() {
+        return saving;
+    }
+
+    public void setInjuryPeriod(int injuryPeriod) {
+        this.injuryPeriod = injuryPeriod;
+    }
+
+    public int getInjuryPeriod() {
+        return injuryPeriod;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
 
 }
 

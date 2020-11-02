@@ -28,7 +28,7 @@ public class SimulateGame implements ISimulateGame {
         List<Team> teamList = new ArrayList<>(teams);
         Team team_1 = teamList.get(0);
         Team team_2 = teamList.get(1);
-
+        System.out.println("Match between " + team_1.getTeamName() + " and " + team_2.getTeamName());
         GameConfig.GameResolver gameResolver = season.getLeague().getGameResolverConfig();
 
         double randomWinChance = gameResolver.getRandomWinChance();

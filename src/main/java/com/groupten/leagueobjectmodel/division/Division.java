@@ -1,6 +1,8 @@
 package com.groupten.leagueobjectmodel.division;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.IDivisionDAO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,28 +43,12 @@ public class Division {
         return teams.get(teamName);
     }
 
-    public static boolean isDivisionNameValid(String dN) {
-        if (dN.isEmpty() || dN.isBlank() || dN.toLowerCase().equals("null")) {
+    public static boolean isDivisionNameValid(String divisionName) {
+        if (divisionName.isEmpty() || divisionName.isBlank() || divisionName.toLowerCase().equals("null")) {
             return false;
         } else {
             return true;
         }
-    }
-
-    public int getDivisionID() {
-        return divisionID;
-    }
-
-    public void setDivisionID(int dID) {
-        divisionID = dID;
-    }
-
-    public String getDivisionName() {
-        return divisionName;
-    }
-
-    public void setDivisionName(String dN) {
-        divisionName = dN;
     }
 
     public void setConferenceID(int conferenceID) {
@@ -74,8 +60,28 @@ public class Division {
     }
 
     public boolean saveDivision() {
-        System.out.println("Division saved to DB. divisionID set to 1.");
-        return true;
+        IDivisionDAO divisionDAO = Injector.instance().getDivisionDatabaseObject();
+        divisionID = divisionDAO.createDivision(conferenceID, divisionName);
+        if (divisionID != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    public int getDivisionID() {
+        return divisionID;
+    }
+
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
+    }
+
+    public String getDivisionName() {
+        return divisionName;
+    }
+
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
+    }
 }

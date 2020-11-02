@@ -1,11 +1,14 @@
 package com.groupten.leagueobjectmodel.league;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.database.LeagueDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,18 +29,6 @@ public class League {
     private GameConfig.Training trainingConfig;
     private GameConfig.Trading tradingConfig;
 
-    /* private int averageRetirementAge = 35;
-    private int maximumAge = 50;
-    private double randomWinChance = 0.1;
-    private double randomInjuryChance = 0.05;
-    private int injuryDaysLow = 1;
-    private int injuryDaysHigh = 260;
-    private int daysUntilStatIncreaseCheck = 100;
-    private int lossPoint = 8;
-    private double randomTradeOfferChance = 0.05;
-    private int maxPlayersPerTrade = 2;
-    private double randomAcceptanceChance = 0.05; */
-
     public League(String leagueName) {
         this.leagueName = leagueName;
     }
@@ -48,23 +39,23 @@ public class League {
     }
 
     public boolean addConference(Conference conference) {
-        if (Conference.isConferenceNameValid(conference.getConferenceName())){
+        if (Conference.isConferenceNameValid(conference.getConferenceName())) {
             String conferenceName = conference.getConferenceName();
             int initialSize = conferences.size();
             conferences.put(conferenceName, conference);
             return conferences.size() > initialSize;
-        } else{
+        } else {
             return false;
         }
     }
 
     public boolean addFreeAgent(Player player) {
-        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
-                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+        if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = freeAgents.size();
             freeAgents.add(player);
             return freeAgents.size() > initialSize;
-        }else{
+        } else {
             return false;
         }
     }
@@ -113,8 +104,8 @@ public class League {
 
     public List<Player> getFreeAgentsGoalies() {
         List<Player> goalies = new ArrayList<>();
-        for(Player freeAgent : freeAgents){
-            if(freeAgent.getPosition().equals("goalie")){
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals("goalie")) {
                 goalies.add(freeAgent);
             }
         }
@@ -123,8 +114,8 @@ public class League {
 
     public List<Player> getFreeAgentsSkaters() {
         List<Player> skaters = new ArrayList<>();
-        for(Player freeAgent : freeAgents){
-            if(freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")){
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")) {
                 skaters.add(freeAgent);
             }
         }
@@ -163,21 +154,29 @@ public class League {
         leagueID = lID;
     }
 
-    public void removeGeneralManager(GeneralManager generalManager){
+    public void removeGeneralManager(GeneralManager generalManager) {
         generalManagers.remove(generalManager);
     }
 
-    public void removeCoach(Coach coach){
+    public void removeCoach(Coach coach) {
         coaches.remove(coach);
     }
 
-    public void removeFreeAgent(Player player){
+    public void removeFreeAgent(Player player) {
         freeAgents.remove(player);
     }
 
     public boolean saveLeague() {
-        System.out.println("League saved to DB. leagueID set to 1.");
-        return true;
+        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
+        leagueID = leagueDAO.createLeague(leagueName, agingConfig.getAverageRetirementAge(), agingConfig.getMaximumAge(),
+                injuriesConfig.getRandomInjuryChance(), injuriesConfig.getInjuryDaysHigh(), injuriesConfig.getInjuryDaysLows(),
+                tradingConfig.getLossPoint(), tradingConfig.getRandomTradeOfferChance(), tradingConfig.getMaxPlayersPerTrade(),
+                tradingConfig.getRandomAcceptanceChance());
+        if (leagueID != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public GameConfig.Aging getAgingConfig() {

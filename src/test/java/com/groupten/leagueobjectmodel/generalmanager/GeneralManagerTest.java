@@ -42,4 +42,18 @@ public class GeneralManagerTest {
         generalManager.setManagerName("Updated First General Manager");
         assertEquals("Updated First General Manager", generalManager.getManagerName());
     }
+
+    @Test
+    public void setLeagueIDTest() {
+        GeneralManager generalManager = new GeneralManager("First General Manager");
+        generalManager.setLeagueID(1);
+        assertEquals(1, generalManager.getLeagueID());
+    }
+
+    @Test
+    public void setTeamIDTest() {
+        GeneralManager generalManager = new GeneralManager("First General Manager");
+        generalManager.setTeamID(1);
+        assertEquals(1, generalManager.getTeamID());
+    }
 }
