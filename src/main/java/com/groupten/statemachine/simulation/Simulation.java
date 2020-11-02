@@ -74,6 +74,7 @@ public class Simulation implements ISimulation {
     private void generatePlayoffSchedule(){
         IConsole console = Injector.instance().getConsoleObject();
         IGeneratePlayoffSchedule generatePlayoffSchedule = Injector.instance().getGeneratePlayoffScheduleeObject();
+        generatePlayoffSchedule.setSeason(season);
         console.printLine("Generating playoff schedule");
         if(generatePlayoffSchedule.generatePlayoffSchedule()){
             console.printLine("Playoff schedule generated");
@@ -130,8 +131,9 @@ public class Simulation implements ISimulation {
     private void aging(){
         IAging aging = Injector.instance().getAgingObject();
         aging.advanceEveryPlayersAge(season.getLeague(),1);
-
+        IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
+            console.printLine("Season won by:"+ season.getWinner().getTeamName());
             if(numberOfSeasons > 0){
                 year++;
                 initializeSeason();
@@ -148,11 +150,10 @@ public class Simulation implements ISimulation {
     private void persist(){
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Simulation saved to db");
+//        ToDo: Save to DB
     }
 
     private void end(){
-        ISerializeData serializeData = Injector.instance().getSerializeDataObject();
-        serializeData.exportData(leagueLOM);
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Done.");
     }
