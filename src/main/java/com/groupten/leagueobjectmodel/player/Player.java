@@ -13,6 +13,7 @@ import java.util.Random;
 public class Player {
     private int playerID;
     private int teamID;
+    private int leagueID;
     private String playerName;
     private String position;
     private boolean captain;
@@ -267,5 +268,12 @@ public class Player {
         return true;
     }
 
+    public int getLeagueID() {
+        return leagueID;
+    }
+
+    public void setLeagueID(int leagueID) {
+        this.leagueID = leagueID;
+    }
 }
 

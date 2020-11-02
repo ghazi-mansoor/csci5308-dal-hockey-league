@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Coach {
     private int coachID;
+    private int leagueID;
+    private int teamID;
     private String coachName;
     private double skating;
     private double shooting;
@@ -93,5 +95,21 @@ public class Coach {
 
     public void setSaving(double sa) {
         saving = sa;
+    }
+
+    public int getLeagueID() {
+        return leagueID;
+    }
+
+    public void setLeagueID(int leagueID) {
+        this.leagueID = leagueID;
+    }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
     }
 }

@@ -177,4 +177,12 @@ public class PlayerTest {
         player.setRetired(true);
         assertTrue(player.isRetired());
     }
+
+    @Test
+    public void setLeagueIDTest() {
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setLeagueID(1);
+        assertEquals(1, player.getLeagueID());
+    }
+
 }
