@@ -36,23 +36,23 @@ public class League {
     }
 
     public boolean addConference(Conference conference) {
-        if (Conference.isConferenceNameValid(conference.getConferenceName())){
+        if (Conference.isConferenceNameValid(conference.getConferenceName())) {
             String conferenceName = conference.getConferenceName();
             int initialSize = conferences.size();
             conferences.put(conferenceName, conference);
             return conferences.size() > initialSize;
-        } else{
+        } else {
             return false;
         }
     }
 
     public boolean addFreeAgent(Player player) {
-        if(Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
-                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())){
+        if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = freeAgents.size();
             freeAgents.add(player);
             return freeAgents.size() > initialSize;
-        }else{
+        } else {
             return false;
         }
     }
@@ -101,8 +101,8 @@ public class League {
 
     public List<Player> getFreeAgentsGoalies() {
         List<Player> goalies = new ArrayList<>();
-        for(Player freeAgent : freeAgents){
-            if(freeAgent.getPosition().equals("goalie")){
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals("goalie")) {
                 goalies.add(freeAgent);
             }
         }
@@ -111,8 +111,8 @@ public class League {
 
     public List<Player> getFreeAgentsSkaters() {
         List<Player> skaters = new ArrayList<>();
-        for(Player freeAgent : freeAgents){
-            if(freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")){
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")) {
                 skaters.add(freeAgent);
             }
         }
@@ -151,15 +151,15 @@ public class League {
         leagueID = lID;
     }
 
-    public void removeGeneralManager(GeneralManager generalManager){
+    public void removeGeneralManager(GeneralManager generalManager) {
         generalManagers.remove(generalManager);
     }
 
-    public void removeCoach(Coach coach){
+    public void removeCoach(Coach coach) {
         coaches.remove(coach);
     }
 
-    public void removeFreeAgent(Player player){
+    public void removeFreeAgent(Player player) {
         freeAgents.remove(player);
     }
 
