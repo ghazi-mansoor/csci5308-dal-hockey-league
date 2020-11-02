@@ -97,7 +97,11 @@ public class Season {
                 teamStanding.setPoints(teamStanding.getPoints() + 2);
             }
         });
-        updateRanks();
+        if(currentDate.getTime() < playoffStartsAt.getTime()){
+            updateRanks();
+        }else{
+            updatePlayoffSchedule(team);
+        }
     }
 
     public void setCurrentDate(Date date){
@@ -136,10 +140,12 @@ public class Season {
         int schedulesPending = 0;
         for(int i=0; i < playoffSchedules.size(); i++){
             Schedule schedule = playoffSchedules.get(i);
-            long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
-            long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
-            if(diff > 0){
-                schedulesPending++;
+            if(schedule.getTeams().size() == 2) {
+                long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
+                long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
+                if (diff > 0) {
+                    schedulesPending++;
+                }
             }
         };
         return schedulesPending == 0;
@@ -286,10 +292,12 @@ public class Season {
                 }
             }
 
+            //Round 1
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.playoffStartsAt);
 
             Schedule schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team1.getTeam());
             schedule.addTeam(team8.getTeam());
@@ -297,6 +305,7 @@ public class Season {
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team2.getTeam());
             schedule.addTeam(team7.getTeam());
@@ -304,6 +313,7 @@ public class Season {
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team3.getTeam());
             schedule.addTeam(team4.getTeam());
@@ -311,11 +321,38 @@ public class Season {
 
             cal.add(Calendar.DATE, 1);
             schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
             schedule.setGameDate(cal.getTime());
             schedule.addTeam(team5.getTeam());
             schedule.addTeam(team6.getTeam());
             playoffSchedules.add(schedule);
+
+            //Round 2
+            cal.add(Calendar.DATE, 1);
+            schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
+
+            cal.add(Calendar.DATE, 1);
+            schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
+
+            //Round 3
+            cal.add(Calendar.DATE, 1);
+            schedule = new Schedule();
+            schedule.setConferenceName(conferenceName);
+            schedule.setGameDate(cal.getTime());
+            playoffSchedules.add(schedule);
         });
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.playoffStartsAt);
+        cal.add(Calendar.DATE, 7);
+        Schedule schedule = new Schedule();
+        schedule.setGameDate(cal.getTime());
+        playoffSchedules.add(schedule);
 
         return true;
     }
@@ -369,6 +406,14 @@ public class Season {
         for(int i =0 ; i < leagueTeamStandings.size(); i++){
             leagueTeamStandings.get(i).setDivisionRank(i+1);
         }
+    }
+
+    private void updatePlayoffSchedule(Team team){
+        playoffSchedules.forEach(schedule -> {
+            if(schedule.getTeams().size() < 2){
+                schedule.addTeam(team);
+            }
+        });
     }
 
     private void initDates(int year){
