@@ -45,12 +45,6 @@ public class LoadTeam implements ILoadTeam {
         }
     }
 
-    @Override
-    public boolean loadExistingLeague() {
-        LeagueModel leagueModel = new LeagueModel();
-        return leagueModel.loadLeague(leagueID);
-    }
-
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }

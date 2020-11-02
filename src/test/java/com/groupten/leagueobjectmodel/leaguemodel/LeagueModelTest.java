@@ -24,11 +24,4 @@ public class LeagueModelTest {
         league = new League(" ");
         assertFalse(leagueModel.setCurrentLeague(league));
     }
-
-    @Test
-    public void loadLeagueTest() {
-        LeagueModel leagueModel = new LeagueModel();
-        assertTrue(leagueModel.loadLeague("Team 1"));
-        assertTrue(leagueModel.loadLeague(1));
-    }
 }
