@@ -44,11 +44,13 @@ public class JSONImport implements IJSONImport {
 
     @Override
     public boolean isLeagueNameUnique() {
-        ILeagueDAO leagueDB = Injector.instance().getLeagueDatabaseObject();
-        String columnName = "leagueName";
-        String leagueName = jsonData.get("leagueName").getAsString();
-        List<HashMap<String, Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
-        return leagues.size() == 0;
+        return true;
+
+//        ILeagueDAO leagueDB = Injector.instance().getLeagueDatabaseObject();
+//        String columnName = "leagueName";
+//        String leagueName = jsonData.get("leagueName").getAsString();
+//        List<HashMap<String, Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
+//        return leagues.size() == 0;
     }
 
     @Override

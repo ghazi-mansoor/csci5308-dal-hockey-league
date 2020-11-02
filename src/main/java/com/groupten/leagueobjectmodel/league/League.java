@@ -22,7 +22,6 @@ public class League {
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
     private List<GeneralManager> generalManagers = new ArrayList<>();
-    private List<Season> seasons = new ArrayList<>();
     private GameConfig.Aging agingConfig;
     private GameConfig.GameResolver gameResolverConfig;
     private GameConfig.Injuries injuriesConfig;
@@ -72,12 +71,6 @@ public class League {
         return generalManagers.size() > initialSize;
     }
 
-    public boolean addSeason(Season season) {
-        int initialSize = seasons.size();
-        this.seasons.add(season);
-        return seasons.size() > initialSize;
-    }
-
     public boolean isNumberOfConferencesEven() {
         return conferences.size() % 2 == 0;
     }
@@ -124,10 +117,6 @@ public class League {
 
     public List<GeneralManager> getGeneralManagers() {
         return generalManagers;
-    }
-
-    public List<Season> getSeasons() {
-        return seasons;
     }
 
     public static boolean isLeagueNameValid(String lN) {
