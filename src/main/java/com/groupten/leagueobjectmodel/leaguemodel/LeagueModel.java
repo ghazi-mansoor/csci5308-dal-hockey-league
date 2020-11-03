@@ -1,87 +1,130 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
-import com.groupten.jdbc.conference.IConferenceDAO;
-import com.groupten.jdbc.division.IDivisionDAO;
-import com.groupten.jdbc.league.ILeagueDAO;
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
-import com.groupten.validator.Validator;
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.conference.Conference;
+import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.ILeagueDAO;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LeagueModel implements ILeagueModel {
-    private Map<String, League> leagues;
     private League currentLeague;
-    private ILeagueDAO leaguePersistenceAPI;
-    private IConferenceDAO conferencePersistenceAPI;
-    private IDivisionDAO divisionPersistenceAPI;
-    private ITeamDAO teamPersistenceAPI;
-    private IPlayerDAO playerPersistenceAPI;
 
-    public LeagueModel() {
-        leagues = new HashMap<String, League>();
-    }
+    @Override
+    public boolean loadLeagueModel(int leagueID) {
+        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
+        String leagueId = String.valueOf(leagueID);
+        List<HashMap<String, Object>> leaguesMap = leagueDAO.getLeagues("leagueId", leagueId);
+        HashMap<String, Object> leagueMap = leaguesMap.get(0);
 
-    public LeagueModel(ILeagueDAO lPer, IConferenceDAO cPer, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
-        leagues = new HashMap<String, League>();
-        leaguePersistenceAPI = lPer;
-        conferencePersistenceAPI = cPer;
-        divisionPersistenceAPI = dPer;
-        teamPersistenceAPI = tPer;
-        playerPersistenceAPI = pPer;
+        int leagueIDPrimaryKey = (int) leagueMap.get("leagueId");
+        String leagueName = (String) leagueMap.get("leagueName");
+
+        currentLeague = new League(leagueIDPrimaryKey, leagueName);
+
+        return (currentLeague.getLeagueID() == leagueID);
     }
 
     @Override
-    public boolean addLeagueToModel(League league) {
-        String leagueName = league.getLeagueName();
+    public boolean saveLeagueModel() {
+        boolean leagueSaved = currentLeague.saveLeague();
+        if (leagueSaved) {
+            int leagueID = currentLeague.getLeagueID();
+            Map<String, Conference> conferences = currentLeague.getConferences();
 
-        if (Validator.areStringsValid(leagueName)) {
-            leagues.put(league.getLeagueName(), league);
-            return leagues.containsKey(league.getLeagueName());
+            return saveConferences(leagueID, conferences);
         } else {
             return false;
         }
     }
 
+    private boolean saveConferences(int leagueID, Map<String, Conference> conferences) {
+        for (Conference conference : conferences.values()) {
+            conference.setLeagueID(leagueID);
+            boolean conferenceSaved = conference.saveConference();
+
+            if (conferenceSaved == false) {
+                return false;
+            } else {
+                int conferenceID = conference.getConferenceID();
+                Map <String, Division> divisions = conference.getDivisions();
+
+                return saveDivisions(conferenceID, divisions);
+            }
+        }
+        return true;
+    }
+
+    private boolean saveDivisions(int conferenceID, Map<String, Division> divisions) {
+        for (Division division : divisions.values()) {
+            division.setConferenceID(conferenceID);
+            boolean divisionSaved = division.saveDivision();
+
+            if (divisionSaved == false) {
+                return false;
+            } else {
+                int divisionID = division.getDivisionID();
+                Map<String, Team> teams = division.getTeams();
+
+                return saveTeams(divisionID, teams);
+            }
+        }
+        return true;
+    }
+
+    private boolean saveTeams(int divisionID, Map<String, Team> teams) {
+        for (Team team : teams.values()) {
+            team.setDivisionID(divisionID);
+            boolean teamSaved = team.saveTeam();
+
+            if (teamSaved == false) {
+                return false;
+            } else {
+                int teamID = team.getTeamID();
+                List<Player> players = team.getPlayers();
+                boolean playersSaved = savePlayers(teamID, players);
+
+                if (playersSaved) {
+                    for (Player player : players) {
+                        team.persistPlayerWithTeam(player);
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean savePlayers(int teamID, List<Player> players) {
+        for (Player player : players) {
+            player.setTeamID(teamID);
+            boolean playerSaved = player.savePlayer();
+
+            if (playerSaved == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
-    public void saveLeagueModelToDB() {
-        for (League league : leagues.values()) {
-            league.saveLeagueToDB();
+    public League getCurrentLeague() {
+        return currentLeague;
+    }
+
+    @Override
+    public boolean setCurrentLeague(League currentLeague) {
+        if (League.isLeagueNameValid(currentLeague.getLeagueName())) {
+            this.currentLeague = currentLeague;
+            return true;
+        } else {
+            return false;
         }
     }
-
-    @Override
-    public boolean doesContainLeague(String leagueName) {
-        return leagues.containsKey(leagueName);
-    }
-
-    @Override
-    public Map<String, League> getLeagues() {
-        return leagues;
-    }
-
-    @Override
-    public League getLeague(String leagueName) {
-        return leagues.get(leagueName);
-    }
-
-    @Override
-    public boolean loadLeagueFromDB(int lID) {
-        String leagueId = String.valueOf(lID);
-        List<HashMap<String, Object>> leaguesMap = leaguePersistenceAPI.getLeagues("leagueId", leagueId);
-        Map<String, Object> leagueMap = leaguesMap.get(0);
-
-        int leagueID = (int) leagueMap.get("leagueId");
-        String leagueName = (String) leagueMap.get("leagueName");
-
-        currentLeague = new League(leagueID, leagueName, leaguePersistenceAPI, conferencePersistenceAPI, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
-
-        currentLeague.loadConferencesFromDB();
-
-        return (currentLeague.getLeagueID() == lID);
-    }
-
 }

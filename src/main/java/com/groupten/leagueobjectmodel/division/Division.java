@@ -1,107 +1,87 @@
 package com.groupten.leagueobjectmodel.division;
 
-import com.groupten.jdbc.division.IDivisionDAO;
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.validator.Validator;
+import com.groupten.persistence.dao.IDivisionDAO;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Division implements IDivision {
-    private int leagueID;
-    private int conferenceID;
+public class Division {
     private int divisionID;
+    private int conferenceID;
     private String divisionName;
-    private Map<String, Team> teams;
-    private IDivisionDAO divisionPersistenceAPI;
-    private ITeamDAO teamPersistenceAPI;
-    private IPlayerDAO playerPersistenceAPI;
+    private Map<String, Team> teams = new HashMap<>();
 
-
-    public Division(String dn) {
-        divisionName = dn;
-        teams = new HashMap<String, Team>();
+    public Division(String divisionName) {
+        this.divisionName = divisionName;
     }
 
-    public Division(String dn, IDivisionDAO per) {
-        divisionName = dn;
-        teams = new HashMap<String, Team>();
-        divisionPersistenceAPI = per;
+    public Division(int divisionID, String divisionName) {
+        this(divisionName);
+        this.divisionID = divisionID;
     }
 
-    public Division(int lID, int cID, int dID, String dn, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
-        leagueID = lID;
-        conferenceID = cID;
-        divisionID = dID;
-        divisionName = dn;
-        teams = new HashMap<String, Team>();
-        divisionPersistenceAPI = dPer;
-        teamPersistenceAPI = tPer;
-        playerPersistenceAPI = pPer;
-    }
-
-    @Override
-    public boolean addTeamToDivision(Team team) {
-        String teamName = team.getTeamName();
-        if (Validator.areStringsValid(teamName)) {
-            teams.put(team.getTeamName(), team);
-            return teams.containsKey(team.getTeamName());
-        } else {
+    public boolean addTeam(Team team) {
+        if(Team.isTeamNameValid(team.getTeamName())){
+            String teamName = team.getTeamName();
+            int initialSize = teams.size();
+            teams.put(teamName, team);
+            return teams.size() > initialSize;
+        }else{
             return false;
         }
     }
 
-    @Override
-    public boolean saveDivisionToDB() {
-        divisionID = divisionPersistenceAPI.createDivision(conferenceID, divisionName);
-        setTeamForeignKeys();
-        saveAllTeams();
-        return (divisionID != 0);
-    }
-
-    private void setTeamForeignKeys() {
-        for (Team team : teams.values()) {
-            team.setDivisionID(divisionID);
-            team.setLeagueID(leagueID);
-        }
-    }
-
-    private void saveAllTeams() {
-        for (Team team : teams.values()) {
-            team.saveTeamToDB();
-        }
-    }
-
-    @Override
-    public boolean doesTeamExistInMemory(String teamName) {
+    public boolean containsTeam(String teamName) {
         return teams.containsKey(teamName);
+    }
+
+    public Map<String, Team> getTeams() { return teams; }
+
+    public Team getTeam(String teamName) {
+        return teams.get(teamName);
+    }
+
+    public static boolean isDivisionNameValid(String divisionName) {
+        if (divisionName.isEmpty() || divisionName.isBlank() || divisionName.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void setConferenceID(int conferenceID) {
         this.conferenceID = conferenceID;
     }
 
+    public int getConferenceID() {
+        return conferenceID;
+    }
+
+    public boolean saveDivision() {
+        IDivisionDAO divisionDAO = Injector.instance().getDivisionDatabaseObject();
+        divisionID = divisionDAO.createDivision(conferenceID, divisionName);
+        if (divisionID != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int getDivisionID() {
+        return divisionID;
+    }
+
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
+    }
+
     public String getDivisionName() {
         return divisionName;
     }
 
-    public void setLeagueID(int leagueID) {
-        this.leagueID = leagueID;
-    }
-
-    @Override
-    public void loadTeamsFromDB() {
-        List<HashMap<String, Object>> teamMaps = divisionPersistenceAPI.getDivisionTeams(divisionID);
-        for (Map<String, Object> teamMap : teamMaps) {
-            int teamID = (int) teamMap.get("teamId");
-            String teamName = (String) teamMap.get("teamName");
-            String generalManager = (String) teamMap.get("generalManager");
-            String headCoach = (String) teamMap.get("headCoach");
-            Team team = new Team(leagueID, divisionID, teamID, teamName, generalManager, headCoach, teamPersistenceAPI, playerPersistenceAPI);
-            addTeamToDivision(team);
-        }
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
     }
 }

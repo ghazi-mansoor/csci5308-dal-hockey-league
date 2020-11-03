@@ -1,9 +1,9 @@
 package com.groupten.statemachine.loadteam;
 
-import com.groupten.jdbc.team.ITeamDAO;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.statemachine.console.IConsole;
+import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.persistence.dao.ITeamDAO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,15 +14,16 @@ public class LoadTeam implements ILoadTeam {
     private String teamName;
     private int leagueID;
 
-    public LoadTeam() {}
+    public LoadTeam() {
+    }
 
     public LoadTeam(ITeamDAO teamDBObj) {
-        Injector.injector().setTeamDatabaseObject(teamDBObj);
+        Injector.instance().setTeamDatabaseObject(teamDBObj);
     }
 
     @Override
     public void userPromptForLoadingTeam() {
-        console = Injector.injector().getConsoleObject();
+        console = Injector.instance().getConsoleObject();
         console.printLine("Enter the Team name:");
         teamName = console.readLine();
     }
@@ -34,23 +35,20 @@ public class LoadTeam implements ILoadTeam {
 
     @Override
     public boolean doesTeamExist() {
-        ITeamDAO teamDB = Injector.injector().getTeamDatabaseObject();
+        ITeamDAO teamDB = Injector.instance().getTeamDatabaseObject();
         List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
-        if(teamList.size() > 0){
+        if (teamList.size() > 0) {
             leagueID = (int) teamList.get(0).get("leagueId");
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
     public boolean loadExistingLeague() {
-        LeagueModel leagueModel = new LeagueModel(Injector.injector().getLeagueDatabaseObject(),
-                Injector.injector().getConferenceDatabaseObject(), Injector.injector().getDivisionDatabaseObject(),
-                Injector.injector().getTeamDatabaseObject(), Injector.injector().getPlayerDatabaseObject()
-        );
-        return leagueModel.loadLeagueFromDB(leagueID);
+        LeagueModel leagueModel = new LeagueModel();
+        return leagueModel.loadLeagueModel(leagueID);
     }
 
     public void setTeamName(String teamName) {
