@@ -1,14 +1,18 @@
 package com.groupten.leagueobjectmodel.team;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.persistence.dao.ITeamDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Team {
+    private final int REQUIRED_NUMBER_OF_PLAYERS = 20;
+
     private int teamID;
     private int divisionID;
     private String teamName;
@@ -16,20 +20,22 @@ public class Team {
     private List<Player> players = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
-    private final int requiredNumberOfPlayers = 20;
     private double teamStrength;
     private int winPoint;
     private int lossPoint;
 
     public Team() {
+        this.aITeam = true;
     }
 
     public Team(String teamName) {
+        this.aITeam = true;
         this.teamName = teamName;
     }
 
     public Team(int teamID, String teamName) {
         this(teamName);
+        this.aITeam = true;
         this.teamID = teamID;
     }
 
@@ -44,8 +50,13 @@ public class Team {
         }
     }
 
+    public void persistPlayerWithTeam(Player player) {
+        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
+        teamDAO.attachTeamPlayer(teamID, player.getPlayerID());
+    }
+
     public boolean isPlayersCountValid() {
-        return players.size() == requiredNumberOfPlayers;
+        return players.size() == REQUIRED_NUMBER_OF_PLAYERS;
     }
 
     public boolean doesTeamHaveOneCaptain() {
@@ -58,8 +69,8 @@ public class Team {
         return count == 1;
     }
 
-    public static boolean isTeamNameValid(String tN) {
-        if (tN.isEmpty() || tN.isBlank() || tN.toLowerCase().equals("null")) {
+    public static boolean isTeamNameValid(String teamName) {
+        if (teamName.isEmpty() || teamName.isBlank() || teamName.toLowerCase().equals("null")) {
             return false;
         } else {
             return true;
@@ -169,7 +180,12 @@ public class Team {
     }
 
     public boolean saveTeam() {
-        System.out.println("Team saved to DB. teamID set to 1.");
-        return true;
+        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
+        teamID = teamDAO.createTeam(divisionID, teamName);
+        if (teamID != -0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

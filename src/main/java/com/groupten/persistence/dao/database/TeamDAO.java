@@ -10,20 +10,17 @@ import java.util.List;
 public class TeamDAO implements ITeamDAO {
 
     @Override
-    public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {
+    public int createTeam(int divisionId, String teamName) {
         int teamId = 0;
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("createTeam(?,?,?,?,?)");
+            storedProcedure = new StoredProcedure("createTeam(?,?,?)");
             storedProcedure.setParameter(1, divisionId);
             storedProcedure.setParameter(2, teamName);
-            storedProcedure.setParameter(3, generalManager);
-            storedProcedure.setParameter(4, headCoach);
-
-            storedProcedure.registerOutputParameterInt(5);
+            storedProcedure.registerOutputParameterInt(3);
             storedProcedure.execute();
-            teamId = storedProcedure.getOutputParameterInt(5);
+            teamId = storedProcedure.getOutputParameterInt(3);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{

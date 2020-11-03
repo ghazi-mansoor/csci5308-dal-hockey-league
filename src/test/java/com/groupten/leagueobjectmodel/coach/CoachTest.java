@@ -94,4 +94,18 @@ public class CoachTest {
         coach.setSaving(1.0);
         assertEquals(1.0, coach.getSaving(), 0.0);
     }
+
+    @Test
+    public void setLeagueIDTest() {
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        coach.setLeagueID(1);
+        assertEquals(1, coach.getLeagueID());
+    }
+
+    @Test
+    public void setTeamIDTest() {
+        Coach coach = new Coach(1, "First Coach", 0.5, 0.5, 0.5, 0.5);
+        coach.setTeamID(1);
+        assertEquals(1, coach.getTeamID());
+    }
 }

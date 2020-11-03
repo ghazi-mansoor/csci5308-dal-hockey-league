@@ -3,6 +3,8 @@ package com.groupten.leagueobjectmodel.generalmanager;
 public class GeneralManager {
     private int managerID;
     private String managerName;
+    private int leagueID;
+    private int teamID;
 
     public GeneralManager(String mN) {
         managerName = mN;
@@ -35,5 +37,21 @@ public class GeneralManager {
 
     public void setManagerName(String mN) {
         managerName = mN;
+    }
+
+    public int getLeagueID() {
+        return leagueID;
+    }
+
+    public void setLeagueID(int leagueID) {
+        this.leagueID = leagueID;
+    }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
     }
 }

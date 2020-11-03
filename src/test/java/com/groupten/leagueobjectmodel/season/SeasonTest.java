@@ -162,7 +162,7 @@ public class SeasonTest {
     public void isWinnerDetermined(){
         League league = null;
         Season season = new Season(league,2020);
-        assertTrue(season.isWinnerDetermined());
+        assertFalse(season.isWinnerDetermined());
     }
 
     @Test

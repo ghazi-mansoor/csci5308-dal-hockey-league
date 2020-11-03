@@ -24,6 +24,7 @@ public class Season {
     private List<TeamStanding> teamStandings  = new ArrayList<>();
     private List<Schedule> regularSchedules  = new ArrayList<>();
     private List<Schedule> playoffSchedules  = new ArrayList<>();
+    private Team winner = null;
 
     public Season(League league){
         this.league = league;
@@ -74,6 +75,10 @@ public class Season {
 
     public List<Schedule> getRegularSchedules() {
         return regularSchedules;
+    }
+
+    public Team getWinner() {
+        return winner;
     }
 
     public void addTeamStanding(TeamStanding teamStanding) {
@@ -137,18 +142,11 @@ public class Season {
     }
 
     public boolean isWinnerDetermined(){
-        int schedulesPending = 0;
-        for(int i=0; i < playoffSchedules.size(); i++){
-            Schedule schedule = playoffSchedules.get(i);
-            if(schedule.getTeams().size() == 2) {
-                long diffInMillies = Math.abs(schedule.getGameDate().getTime() - currentDate.getTime());
-                long diff = Math.abs(TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
-                if (diff > 0) {
-                    schedulesPending++;
-                }
-            }
-        };
-        return schedulesPending == 0;
+        if(winner == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public boolean generateRegularSchedule(){
@@ -253,30 +251,29 @@ public class Season {
                     divisionNames.add(teamStanding.getDivisionName());
                 }
             });
-            List<List<TeamStanding>> divisionTop5 = new ArrayList<>();
+            List<TeamStanding> conferenceTop10 = new ArrayList<>();
             divisionNames.forEach(divisionName -> {
-                List<TeamStanding> top5 = new ArrayList<>();
                 teamStandings.forEach(teamStanding -> {
                     if(teamStanding.getDivisionName().equals(divisionName)){
                         if(teamStanding.getDivisionRank() <=5){
-                            top5.add(teamStanding);
+                            conferenceTop10.add(teamStanding);
                         }
                     }
                 });
-                divisionTop5.add(top5);
             });
-            TeamStanding team1 = divisionTop5.get(0).get(0);
-            TeamStanding team2 = divisionTop5.get(1).get(0);
-            TeamStanding team3 = divisionTop5.get(0).get(1);
-            TeamStanding team4 = divisionTop5.get(1).get(1);
-            TeamStanding team5 = divisionTop5.get(0).get(2);
-            TeamStanding team6 = divisionTop5.get(1).get(2);
+
+            TeamStanding team1 = conferenceTop10.get(0);
+            TeamStanding team2 = conferenceTop10.get(5);
+            TeamStanding team3 = conferenceTop10.get(1);
+            TeamStanding team4 = conferenceTop10.get(6);
+            TeamStanding team5 = conferenceTop10.get(2);
+            TeamStanding team6 = conferenceTop10.get(7);
             TeamStanding team7;
             TeamStanding team8;
-            TeamStanding div1Top4 = divisionTop5.get(0).get(3);
-            TeamStanding div2Top4 = divisionTop5.get(1).get(3);
-            TeamStanding div1Top5 = divisionTop5.get(0).get(4);
-            TeamStanding div2Top5 = divisionTop5.get(1).get(4);
+            TeamStanding div1Top4 = conferenceTop10.get(3);
+            TeamStanding div2Top4 = conferenceTop10.get(8);
+            TeamStanding div1Top5 = conferenceTop10.get(4);
+            TeamStanding div2Top5 = conferenceTop10.get(9);
             if(div1Top4.getPoints() > div2Top4.getPoints()){
                 team7 = div1Top4;
                 if(div1Top5.getPoints() > div2Top4.getPoints()){
@@ -407,16 +404,20 @@ public class Season {
         Collections.sort(leagueTeamStandings);
         Collections.reverse(leagueTeamStandings);
         for(int i =0 ; i < leagueTeamStandings.size(); i++){
-            leagueTeamStandings.get(i).setDivisionRank(i+1);
+            leagueTeamStandings.get(i).setLeagueRank(i+1);
         }
     }
 
     private void updatePlayoffSchedule(Team team){
-        playoffSchedules.forEach(schedule -> {
-            if(schedule.getTeams().size() < 2){
-                schedule.addTeam(team);
-            }
-        });
+
+        Optional<Schedule> playoffSchedule =
+                playoffSchedules.stream().filter(schedule -> schedule.getTeams().size() < 2).findFirst();
+
+        if(playoffSchedule.isPresent()){
+            playoffSchedule.get().addTeam(team);
+        }else{
+            winner = team;
+        }
     }
 
     private void initDates(int year){

@@ -10,16 +10,26 @@ import java.util.List;
 public class LeagueDAO implements ILeagueDAO {
 
     @Override
-    public int createLeague(String leagueName) {
+    public int createLeague(String leagueName, int averageRetirementAge, int maximumAge, double randomInjuryChance, int injuryDaysHigh,
+                            int injuryDaysLow, int lossPoint, double randomTradeOfferChance, int maxPlayerPerTrade, double randomAcceptanceChance) {
         long leagueId = 0;
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("createLeague(?,?)");
-            storedProcedure.setParameter(1,leagueName);
-            storedProcedure.registerOutputParameterInt(2);
+            storedProcedure = new StoredProcedure("createLeague(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            storedProcedure.setParameter(1, leagueName);
+            storedProcedure.setParameter(2, averageRetirementAge);
+            storedProcedure.setParameter(3, maximumAge);
+            storedProcedure.setParameter(4, randomInjuryChance);
+            storedProcedure.setParameter(5, injuryDaysHigh);
+            storedProcedure.setParameter(6, injuryDaysLow);
+            storedProcedure.setParameter(7, lossPoint);
+            storedProcedure.setParameter(8, randomTradeOfferChance);
+            storedProcedure.setParameter(9, maxPlayerPerTrade);
+            storedProcedure.setParameter(10, randomAcceptanceChance);
+            storedProcedure.registerOutputParameterInt(11);
             storedProcedure.execute();
-            leagueId = storedProcedure.getOutputParameterInt(2);
+            leagueId = storedProcedure.getOutputParameterInt(11);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{

@@ -6,6 +6,8 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.dao.database.LeagueDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -33,13 +35,6 @@ public class LeagueTest {
         League league = new League(1, "First League");
         GeneralManager generalManager = new GeneralManager(1, "First General Manager");
         assertTrue(league.addGeneralManager(generalManager));
-    }
-
-    @Test
-    public void addSeasonTest() {
-        League league = new League(1, "First League");
-        Season season = new Season(league);
-        assertTrue(league.addSeason(season));
     }
 
     @Test
@@ -115,16 +110,6 @@ public class LeagueTest {
         generalManager = new GeneralManager(2, "Second General Manager");
         league.addGeneralManager(generalManager);
         assertEquals(2, league.getGeneralManagers().size());
-    }
-
-    @Test
-    public void getSeasonsTest() {
-        League league = new League(1, "First League");
-        Season season1 = new Season(league);
-        league.addSeason(season1);
-        Season season2 = new Season(league);
-        league.addSeason(season2);
-        assertEquals(2, league.getSeasons().size());
     }
 
     @Test
@@ -210,6 +195,5 @@ public class LeagueTest {
         assertEquals(2, tradingConfig.getMaxPlayersPerTrade());
         assertEquals(0.05, tradingConfig.getRandomAcceptanceChance(), 0.0);
     }
-
 
 }

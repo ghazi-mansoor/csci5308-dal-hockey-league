@@ -36,14 +36,12 @@ public class Aging implements IAging {
     }
 
     private void traverseTeamsMapAndAdvancePlayerAges(Map<String, Team> teams, List<Player> freeAgents, int days) {
-        List<Player> updatedPlayersList = new ArrayList<Player>();
-
         for (Team team : teams.values()) {
+            List<Player> updatedPlayersList = new ArrayList<Player>();
             List<Player> players = team.getPlayers();
 
             for (Player player : players) {
                 boolean playerShouldRetire = player.increaseAgeAndCheckIfPlayerShouldBeRetired(days);
-
                 if (playerShouldRetire) {
                     Player bestFreeAgent = findBestFreeAgent(freeAgents, player);
                     updatedPlayersList.add(bestFreeAgent);
@@ -51,7 +49,6 @@ public class Aging implements IAging {
                 } else {
                     updatedPlayersList.add(player);
                 }
-
             }
 
             team.setPlayers(updatedPlayersList);

@@ -18,7 +18,7 @@ import java.util.List;
 public class CreateTeam implements ICreateTeam {
 
     private final int NO_OF_GOALIE = 2;
-    private final int NO_OF_SKATERS = 1;
+    private final int NO_OF_SKATERS = 18;
 
     private String conferenceName, divisionName, teamName;
     private GeneralManager generalManager;
@@ -234,6 +234,7 @@ public class CreateTeam implements ICreateTeam {
         Team team = new Team(teamName);
         team.setGeneralManager(generalManager);
         team.setHeadCoach(headCoach);
+        team.setaITeam(false);
         for (Player player : freeAgents) {
             team.addPlayer(player);
         }

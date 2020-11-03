@@ -36,7 +36,7 @@ public class Injury {
 
     private static void traversePlayersAndCheckInjuries(Team team) {
         for (Player player : team.getPlayers()) {
-            System.out.println(player.checkInjury());
+            player.checkInjury();
         }
     }
 }

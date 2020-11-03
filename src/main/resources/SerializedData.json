@@ -2,195 +2,6 @@
   "leagueID": 0,
   "leagueName": "Deep Hockey League",
   "conferences": {
-    "Western Conference": {
-      "leagueID": 0,
-      "conferenceID": 0,
-      "conferenceName": "Western Conference",
-      "divisions": {
-        "Pacific": {
-          "divisionID": 0,
-          "conferenceID": 0,
-          "divisionName": "Pacific",
-          "teams": {
-            "Boston": {
-              "teamID": 0,
-              "divisionID": 0,
-              "teamName": "Boston",
-              "aITeam": false,
-              "players": [
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player One",
-                  "position": "forward",
-                  "captain": true,
-                  "age": 27.0,
-                  "skating": 15.0,
-                  "shooting": 18.0,
-                  "checking": 12.0,
-                  "saving": 1.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                },
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player Two",
-                  "position": "defense",
-                  "captain": false,
-                  "age": 20.0,
-                  "skating": 10.0,
-                  "shooting": 10.0,
-                  "checking": 10.0,
-                  "saving": 1.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                },
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player Three",
-                  "position": "goalie",
-                  "captain": false,
-                  "age": 33.0,
-                  "skating": 10.0,
-                  "shooting": 4.0,
-                  "checking": 9.0,
-                  "saving": 18.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                }
-              ],
-              "generalManager": {
-                "managerID": 0,
-                "managerName": "Mister Fred"
-              },
-              "headCoach": {
-                "coachID": 0,
-                "coachName": "Mary Smith",
-                "skating": 0.5,
-                "shooting": 0.8,
-                "checking": 0.3,
-                "saving": 0.5
-              },
-              "requiredNumberOfPlayers": 20,
-              "teamStrength": 0.0,
-              "winPoint": 0,
-              "lossPoint": 0
-            }
-          }
-        },
-        "Zoom": {
-          "divisionID": 0,
-          "conferenceID": 0,
-          "divisionName": "Zoom",
-          "teams": {
-            "Boston": {
-              "teamID": 0,
-              "divisionID": 0,
-              "teamName": "Boston",
-              "aITeam": false,
-              "players": [
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player One",
-                  "position": "forward",
-                  "captain": true,
-                  "age": 27.0,
-                  "skating": 15.0,
-                  "shooting": 18.0,
-                  "checking": 12.0,
-                  "saving": 1.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                },
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player Two",
-                  "position": "defense",
-                  "captain": false,
-                  "age": 20.0,
-                  "skating": 10.0,
-                  "shooting": 10.0,
-                  "checking": 10.0,
-                  "saving": 1.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                },
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player Three",
-                  "position": "goalie",
-                  "captain": false,
-                  "age": 33.0,
-                  "skating": 10.0,
-                  "shooting": 4.0,
-                  "checking": 9.0,
-                  "saving": 18.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                }
-              ],
-              "generalManager": {
-                "managerID": 0,
-                "managerName": "Mister Fred"
-              },
-              "headCoach": {
-                "coachID": 0,
-                "coachName": "Mary Smith",
-                "skating": 0.5,
-                "shooting": 0.8,
-                "checking": 0.3,
-                "saving": 0.5
-              },
-              "requiredNumberOfPlayers": 20,
-              "teamStrength": 0.0,
-              "winPoint": 0,
-              "lossPoint": 0
-            }
-          }
-        }
-      }
-    },
     "Eastern Conference": {
       "leagueID": 0,
       "conferenceID": 0,
@@ -219,13 +30,7 @@
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
@@ -239,13 +44,7 @@
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
+                  "injuryPeriod": 0
                 },
                 {
                   "playerID": 0,
@@ -259,119 +58,25 @@
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
+                  "injuryPeriod": 0
                 }
               ],
               "generalManager": {
                 "managerID": 0,
-                "managerName": "Mister Fred"
+                "managerName": "Mister Fred",
+                "leagueID": 0,
+                "teamID": 0
               },
               "headCoach": {
                 "coachID": 0,
+                "leagueID": 0,
+                "teamID": 0,
                 "coachName": "Mary Smith",
                 "skating": 0.5,
                 "shooting": 0.8,
                 "checking": 0.3,
                 "saving": 0.5
               },
-              "requiredNumberOfPlayers": 20,
-              "teamStrength": 0.0,
-              "winPoint": 0,
-              "lossPoint": 0
-            }
-          }
-        },
-        "Blah": {
-          "divisionID": 0,
-          "conferenceID": 0,
-          "divisionName": "Blah",
-          "teams": {
-            "Boston": {
-              "teamID": 0,
-              "divisionID": 0,
-              "teamName": "Boston",
-              "aITeam": false,
-              "players": [
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player One",
-                  "position": "forward",
-                  "captain": true,
-                  "age": 27.0,
-                  "skating": 15.0,
-                  "shooting": 18.0,
-                  "checking": 12.0,
-                  "saving": 1.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                },
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player Two",
-                  "position": "defense",
-                  "captain": false,
-                  "age": 20.0,
-                  "skating": 10.0,
-                  "shooting": 10.0,
-                  "checking": 10.0,
-                  "saving": 1.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                },
-                {
-                  "playerID": 0,
-                  "teamID": 0,
-                  "playerName": "Player Three",
-                  "position": "goalie",
-                  "captain": false,
-                  "age": 33.0,
-                  "skating": 10.0,
-                  "shooting": 4.0,
-                  "checking": 9.0,
-                  "saving": 18.0,
-                  "injured": false,
-                  "injuryPeriod": 0,
-                  "retired": false,
-                  "gameConfigAverageRetirementAge": 0.0,
-                  "gameConfigMaxRetirementAge": 0.0,
-                  "randomInjuryChance": 0.0,
-                  "injuryDaysLow": 0,
-                  "injuryDaysHigh": 0
-                }
-              ],
-              "generalManager": {
-                "managerID": 0,
-                "managerName": "Mister Fred"
-              },
-              "headCoach": {
-                "coachID": 0,
-                "coachName": "Mary Smith",
-                "skating": 0.5,
-                "shooting": 0.8,
-                "checking": 0.3,
-                "saving": 0.5
-              },
-              "requiredNumberOfPlayers": 20,
               "teamStrength": 0.0,
               "winPoint": 0,
               "lossPoint": 0
@@ -394,13 +99,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -414,13 +113,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -434,13 +127,7 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -454,13 +141,7 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -474,13 +155,7 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -494,13 +169,7 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -514,13 +183,7 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -534,13 +197,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -554,13 +211,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -574,13 +225,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -594,13 +239,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -614,13 +253,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -634,13 +267,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -654,13 +281,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -674,13 +295,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -694,13 +309,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -714,13 +323,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -734,13 +337,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -754,13 +351,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -774,13 +365,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -794,13 +379,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -814,13 +393,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -834,13 +407,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -854,13 +421,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -874,13 +435,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -894,13 +449,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -914,13 +463,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -934,13 +477,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -954,13 +491,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -974,13 +505,7 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     },
     {
       "playerID": 0,
@@ -994,18 +519,14 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0,
-      "retired": false,
-      "gameConfigAverageRetirementAge": 0.0,
-      "gameConfigMaxRetirementAge": 0.0,
-      "randomInjuryChance": 0.0,
-      "injuryDaysLow": 0,
-      "injuryDaysHigh": 0
+      "injuryPeriod": 0
     }
   ],
   "coaches": [
     {
       "coachID": 0,
+      "leagueID": 0,
+      "teamID": 0,
       "coachName": "Joe Smith",
       "skating": 0.5,
       "shooting": 0.8,
@@ -1014,6 +535,8 @@
     },
     {
       "coachID": 0,
+      "leagueID": 0,
+      "teamID": 0,
       "coachName": "Frank Smith",
       "skating": 0.5,
       "shooting": 0.8,
@@ -1022,6 +545,8 @@
     },
     {
       "coachID": 0,
+      "leagueID": 0,
+      "teamID": 0,
       "coachName": "Samantha Smith",
       "skating": 1.0,
       "shooting": 0.5,
@@ -1032,18 +557,23 @@
   "generalManagers": [
     {
       "managerID": 0,
-      "managerName": "Karen Potam"
+      "managerName": "Karen Potam",
+      "leagueID": 0,
+      "teamID": 0
     },
     {
       "managerID": 0,
-      "managerName": "Joseph Squidly"
+      "managerName": "Joseph Squidly",
+      "leagueID": 0,
+      "teamID": 0
     },
     {
       "managerID": 0,
-      "managerName": "Tom Spaghetti"
+      "managerName": "Tom Spaghetti",
+      "leagueID": 0,
+      "teamID": 0
     }
   ],
-  "seasons": [],
   "agingConfig": {
     "averageRetirementAge": 35,
     "maximumAge": 50

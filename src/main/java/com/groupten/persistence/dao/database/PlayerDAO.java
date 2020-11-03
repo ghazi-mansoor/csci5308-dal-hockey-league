@@ -10,19 +10,22 @@ import java.util.List;
 public class PlayerDAO implements IPlayerDAO {
 
     @Override
-    public int createPlayer(int leagueId, String playerName, String position, boolean isCaptain) {
+    public int createPlayer(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         int playerId = 0;
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("createPlayer(?,?,?,?,?)");
-            storedProcedure.setParameter(1, leagueId);
-            storedProcedure.setParameter(2, playerName);
-            storedProcedure.setParameter(3, position);
-            storedProcedure.setParameter(4, isCaptain);
-            storedProcedure.registerOutputParameterInt(3);
+            storedProcedure = new StoredProcedure("createPlayer(?, ?, ?, ?, ?, ?, ?, ?)");
+            storedProcedure.setParameter(1, playerName);
+            storedProcedure.setParameter(2, position);
+            storedProcedure.setParameter(3, age);
+            storedProcedure.setParameter(4, skating);
+            storedProcedure.setParameter(5, shooting);
+            storedProcedure.setParameter(6, checking);
+            storedProcedure.setParameter(7, saving);
+            storedProcedure.registerOutputParameterInt(8);
             storedProcedure.execute();
-            playerId = storedProcedure.getOutputParameterInt(3);
+            playerId = storedProcedure.getOutputParameterInt(8);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{

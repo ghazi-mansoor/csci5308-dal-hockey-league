@@ -1,6 +1,7 @@
 package com.groupten.statemachine.simulation;
 
 import com.groupten.IO.console.IConsole;
+import com.groupten.IO.serializedata.ISerializeData;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
@@ -34,6 +35,7 @@ public class Simulation implements ISimulation {
     @Override
     public void init(League leagueLOM,int numberOfSeasons){
         this.leagueLOM = leagueLOM;
+        System.out.println(this.leagueLOM+ " init");
         this.numberOfSeasons = numberOfSeasons;
         if(this.numberOfSeasons > 0){
             initializeSeason();
@@ -48,7 +50,6 @@ public class Simulation implements ISimulation {
         daysSinceStatsIncreased = 0;
         season = new Season(leagueLOM,year);
         initializeSeason.setSeason(season);
-        leagueLOM.addSeason(season);
         if(initializeSeason.generateRegularSchedule()){
             console.printLine("Regular schedule generated.");
             advanceTime();
@@ -60,7 +61,7 @@ public class Simulation implements ISimulation {
     private void advanceTime(){
         IConsole console = Injector.instance().getConsoleObject();
         IAdvanceTime advanceTime = Injector.instance().getAdvanceTimeObject();
-        console.printLine("Advancing to next day");
+//        console.printLine("Advancing to next day");
         advanceTime.setSeason(season);
         advanceTime.advanceTime();
         if(season.isTodayRegularSeasonEnd()){
@@ -73,6 +74,7 @@ public class Simulation implements ISimulation {
     private void generatePlayoffSchedule(){
         IConsole console = Injector.instance().getConsoleObject();
         IGeneratePlayoffSchedule generatePlayoffSchedule = Injector.instance().getGeneratePlayoffScheduleeObject();
+        generatePlayoffSchedule.setSeason(season);
         console.printLine("Generating playoff schedule");
         if(generatePlayoffSchedule.generatePlayoffSchedule()){
             console.printLine("Playoff schedule generated");
@@ -85,7 +87,7 @@ public class Simulation implements ISimulation {
     private void training(){
         IConsole console = Injector.instance().getConsoleObject();
         ITraining training = Injector.instance().getTrainingObject();
-        console.printLine("Training teams");
+//        console.printLine("Training teams");
         if(daysSinceStatsIncreased > leagueLOM.getTrainingConfig().getDaysUntilStatIncreaseCheck()){
             training.trainPlayers();
             daysSinceStatsIncreased = 0;
@@ -101,14 +103,16 @@ public class Simulation implements ISimulation {
         }
 
         if(season.isTradeEnded()){
-            aging();
+//            console.printLine("Trading ended");
         }else{
             executeTrades();
         }
+        aging();
     }
 
     private void simulateGame(Schedule schedule){
         ISimulateGame simulateGame = Injector.instance().getSimulateGameObject();
+        simulateGame.setSeason(season);
         simulateGame.simulateGame(schedule);
         injuryCheck();
     }
@@ -120,32 +124,36 @@ public class Simulation implements ISimulation {
     private void executeTrades(){
         IConsole console = Injector.instance().getConsoleObject();
         ITrading trading = Injector.instance().getTradingObject();
-        console.printLine("Trading teams");
+//        console.printLine("Trading teams");
         trading.startTrading();
     }
 
     private void aging(){
         IAging aging = Injector.instance().getAgingObject();
         aging.advanceEveryPlayersAge(season.getLeague(),1);
-
+        IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
+            console.printLine("Season won by:"+ season.getWinner().getTeamName());
             if(numberOfSeasons > 0){
                 year++;
                 initializeSeason();
             }else{
                 persist();
+                end();
             }
         }else{
-            persist();
+//            persist();
             advanceTime();
         }
     }
 
     private void persist(){
-        //ToDo persist
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Simulation saved to db");
-        end();
+//        leagueLOM.saveLeague();
+        console.printLine("Exporting to json file");
+        ISerializeData serializeData = Injector.instance().getSerializeDataObject();
+        serializeData.exportData(leagueLOM);
     }
 
     private void end(){

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TeamDBMock implements ITeamDAO {
     @Override
-    public int createTeam(int divisionId, String teamName, String generalManager, String headCoach) {
+    public int createTeam(int divisionId, String teamName) {
         return 0;
     }
 
