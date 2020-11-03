@@ -1,83 +1,80 @@
 package com.groupten.leagueobjectmodel.conference;
 
-import com.groupten.jdbc.conference.IConferenceDAO;
-import com.groupten.jdbc.division.IDivisionDAO;
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.division.Division;
-import com.groupten.validator.Validator;
+import com.groupten.persistence.dao.IConferenceDAO;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Conference implements IConference {
-    private int leagueID;
+public class Conference {
+    public int leagueID;
     private int conferenceID;
     private String conferenceName;
-    private Map<String, Division> divisions;
-    private IConferenceDAO conferencePersistenceAPI;
-    private IDivisionDAO divisionPersistenceAPI;
-    private ITeamDAO teamPersistenceAPI;
-    private IPlayerDAO playerPersistenceAPI;
+    private final Map<String, Division> divisions = new HashMap<>();
 
-    public Conference(String cn) {
-        conferenceName = cn;
-        divisions = new HashMap<String, Division>();
+    public Conference(String conferenceName) {
+        this.conferenceName = conferenceName;
     }
 
-    public Conference(String cn, IConferenceDAO per) {
-        conferenceName = cn;
-        divisions = new HashMap<String, Division>();
-        conferencePersistenceAPI = per;
+    public Conference(int conferenceID, String conferenceName) {
+        this(conferenceName);
+        this.conferenceID = conferenceID;
     }
 
-    public Conference(int lID, int cID, String cn, IConferenceDAO cPer, IDivisionDAO dPer, ITeamDAO tPer, IPlayerDAO pPer) {
-        leagueID = lID;
-        conferenceID = cID;
-        conferenceName = cn;
-        divisions = new HashMap<String, Division>();
-        conferencePersistenceAPI = cPer;
-        divisionPersistenceAPI = dPer;
-        teamPersistenceAPI = tPer;
-        playerPersistenceAPI = pPer;
+    public boolean addDivision(Division division) {
+        if(Division.isDivisionNameValid(division.getDivisionName())){
+            String divisionName = division.getDivisionName();
+            int initialSize = divisions.size();
+            divisions.put(divisionName, division);
+            return divisions.size() > initialSize;
+        }else{
+            return false;
+        }
     }
 
-    @Override
-    public boolean addDivisionToConference(Division division) {
-        String divisionName = division.getDivisionName();
-        if (Validator.areStringsValid(divisionName)) {
-            divisions.put(division.getDivisionName(), division);
-            return divisions.containsKey(division.getDivisionName());
+    public boolean isNumberOfDivisionsEven() {
+        return divisions.size() % 2 == 0;
+    }
+
+    public boolean containsDivision(String divisionName) {
+        return divisions.containsKey(divisionName);
+    }
+
+    public static boolean isConferenceNameValid(String conferenceName) {
+        if (conferenceName.isEmpty() || conferenceName.isBlank() || conferenceName.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Division getDivision(String divisionName) {
+        return divisions.get(divisionName);
+    }
+
+    public Map<String, Division> getDivisions() { return divisions; }
+
+    public boolean saveConference() {
+        IConferenceDAO conferenceDAO = Injector.instance().getConferenceDatabaseObject();
+        conferenceID = conferenceDAO.createConference(leagueID, conferenceName);
+        if (conferenceID != 0) {
+            return true;
         } else {
             return false;
         }
     }
 
-    @Override
-    public boolean saveConferenceToDB() {
-        conferenceID = conferencePersistenceAPI.createConference(leagueID, conferenceName);
-        setDivisionForeignKeys();
-        saveAllDivisions();
-        return (conferenceID != 0);
+    public int getConferenceID() {
+        return conferenceID;
     }
 
-    private void setDivisionForeignKeys() {
-        for (Division division : divisions.values()) {
-            division.setConferenceID(conferenceID);
-            division.setLeagueID(leagueID);
-        }
+    public void setConferenceID(int conferenceID) {
+        this.conferenceID = conferenceID;
     }
 
-    private void saveAllDivisions() {
-        for (Division division : divisions.values()) {
-            division.saveDivisionToDB();
-        }
-    }
-
-    @Override
-    public boolean doesContainDivision(String divisionName) {
-        return divisions.containsKey(divisionName);
+    public int getLeagueID() {
+        return leagueID;
     }
 
     public void setLeagueID(int leagueID) {
@@ -88,24 +85,7 @@ public class Conference implements IConference {
         return conferenceName;
     }
 
-    public Division getDivision(String divisionName) {
-        return divisions.get(divisionName);
-    }
-
-    @Override
-    public boolean areNumberOfDivisionsEven() {
-        return (divisions.size() % 2 == 0);
-    }
-
-    @Override
-    public void loadDivisionFromDB() {
-        List<HashMap<String, Object>> divisionMaps = conferencePersistenceAPI.getConferenceDivisions(conferenceID);
-        for (Map<String, Object> divisionMap : divisionMaps) {
-            int divisionID = (int) divisionMap.get("divisionId");
-            String divisionName = (String) divisionMap.get("divisionName");
-            Division division = new Division(leagueID, conferenceID, divisionID, divisionName, divisionPersistenceAPI, teamPersistenceAPI, playerPersistenceAPI);
-            addDivisionToConference(division);
-            division.loadTeamsFromDB();
-        }
+    public void setConferenceName(String conferenceName) {
+        this.conferenceName = conferenceName;
     }
 }

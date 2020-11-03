@@ -1,13 +1,7 @@
 package com.groupten.statemachine.simulation;
 
+import com.groupten.leagueobjectmodel.league.League;
+
 public interface ISimulation {
-
-    void beginSimulation();
-    void fakeState_1();
-    void fakeState_2();
-    void simulate();
-    void fakeState_3();
-    void fakeState_4();
-    void endSimulation();
-
+    void init(League leagueLOM, int numberOfSeasons);
 }

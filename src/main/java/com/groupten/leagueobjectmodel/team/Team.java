@@ -1,131 +1,191 @@
 package com.groupten.leagueobjectmodel.team;
 
-import com.groupten.jdbc.player.IPlayerDAO;
-import com.groupten.jdbc.team.ITeamDAO;
-import com.groupten.validator.Validator;
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.coach.Coach;
+import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.persistence.dao.ITeamDAO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-public class Team implements ITeam {
-    private int leagueID;
-    private int divisionID;
+public class Team {
+    private final int REQUIRED_NUMBER_OF_PLAYERS = 20;
+
     private int teamID;
+    private int divisionID;
     private String teamName;
-    private String generalManager;
-    private String headCoach;
-    private List <Player> players;
-    private ITeamDAO teamPersistenceAPI;
-    private IPlayerDAO playerPersistenceAPI;
+    private boolean aITeam;
+    private List<Player> players = new ArrayList<>();
+    private GeneralManager generalManager;
+    private Coach headCoach;
+    private double teamStrength;
+    private int winPoint;
+    private int lossPoint;
 
-    public Team(String tn, String gm, String hc) {
-        teamName = tn;
-        generalManager = gm;
-        headCoach = hc;
-        players = new ArrayList<Player>();
+    public Team() {
+        this.aITeam = true;
     }
 
-    public Team(String tn, String gm, String hc, ITeamDAO per) {
-        teamName = tn;
-        generalManager = gm;
-        headCoach = hc;
-        players = new ArrayList<Player>();
-        teamPersistenceAPI = per;
+    public Team(String teamName) {
+        this.aITeam = true;
+        this.teamName = teamName;
     }
 
-    public Team(int lID, int dID, int tID, String tn, String gm, String hc, ITeamDAO tPer, IPlayerDAO pPer) {
-        leagueID = lID;
-        divisionID = dID;
-        teamID = tID;
-        teamName = tn;
-        generalManager = gm;
-        headCoach = hc;
-        players = new ArrayList<Player>();
-        teamPersistenceAPI = tPer;
+    public Team(int teamID, String teamName) {
+        this(teamName);
+        this.aITeam = true;
+        this.teamID = teamID;
     }
 
-    @Override
-    public boolean addPlayerToTeam(Player player) {
-        String playerName = player.getPlayerName();
-        String playerPosition = player.getPosition();
-
-        if (Validator.areStringsValid(playerName) && Validator.isPositionValid(playerPosition)) {
-            int numberOfFreeAgents = players.size();
+    public boolean addPlayer(Player player) {
+        if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
+                player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
+            int initialSize = players.size();
             players.add(player);
-            int numberOfFreeAgentsPostAdditions = players.size();
-
-            return numberOfFreeAgentsPostAdditions == numberOfFreeAgents + 1;
-        } else {
+            return players.size() > initialSize;
+        } else{
             return false;
         }
     }
 
-    @Override
-    public boolean saveTeamToDB() {
-        teamID = teamPersistenceAPI.createTeam(divisionID, teamName, generalManager, headCoach);
-        setPlayerForeignKeys();
-        saveAllPlayers();
-        return (teamID != 0);
+    public void persistPlayerWithTeam(Player player) {
+        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
+        teamDAO.attachTeamPlayer(teamID, player.getPlayerID());
     }
 
-    private void setPlayerForeignKeys() {
+    public boolean isPlayersCountValid() {
+        return players.size() == REQUIRED_NUMBER_OF_PLAYERS;
+    }
+
+    public boolean doesTeamHaveOneCaptain() {
+        List<Boolean> captains = new ArrayList<>();
         for (Player player : players) {
-            player.setTeamID(teamID);
-            player.setLeagueID(leagueID);
+            captains.add(player.isCaptain());
+        }
+        int count = Collections.frequency(captains, true);
+
+        return count == 1;
+    }
+
+    public static boolean isTeamNameValid(String teamName) {
+        if (teamName.isEmpty() || teamName.isBlank() || teamName.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
         }
     }
 
-    private void saveAllPlayers() {
+    public double calculateTeamStrength() {
         for (Player player : players) {
-            player.savePlayerToDB();
-        }
-    }
-
-    @Override
-    public boolean isOnlyOnePlayerCaptain() {
-        List<Boolean> captains = new ArrayList<Boolean>();
-        int count = 0;
-
-        for (Player player : players) {
-            captains.add((player.getCaptain()));
-        }
-
-        for (Boolean captain : captains) {
-            if (captain) {
-                count++;
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
             }
         }
 
-        return count == 1;
-
+        return teamStrength;
     }
 
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int tID) {
+        teamID = tID;
     }
 
     public String getTeamName() {
         return teamName;
     }
 
-    public void setLeagueID(int leagueID) {
-        this.leagueID = leagueID;
+    public void setTeamName(String tN) {
+        teamName = tN;
     }
 
-    @Override
-    public void loadPlayersFromDB() {
-        List<HashMap<String, Object>> playerMaps = teamPersistenceAPI.getTeamPlayers(teamID);
-        for (Map<String, Object> playerMap : playerMaps) {
-            int playerID = (int) playerMap.get("playerId");
-            String playerName = (String) playerMap.get("playerName");
-            String position = (String) playerMap.get("position");
-            Boolean captain = (Boolean) playerMap.get("captain");
-            Player player = new Player(leagueID, teamID, playerID, playerName, position, captain, playerPersistenceAPI, teamPersistenceAPI);
-            addPlayerToTeam(player);
+    public GeneralManager getGeneralManager() {
+        return generalManager;
+    }
+
+    public boolean setGeneralManager(GeneralManager generalManager) {
+        if (GeneralManager.isManagerNameValid(generalManager.getManagerName())) {
+            this.generalManager = generalManager;
+            return true;
+        }else{
+            return false;
         }
     }
 
+    public Coach getHeadCoach() {
+        return headCoach;
+    }
+
+    public boolean setHeadCoach(Coach headCoach) {
+        if (Coach.areCoachFieldsValid(headCoach.getCoachName(), headCoach.getSkating(), headCoach.getShooting(), headCoach.getChecking(), headCoach.getSaving())) {
+            this.headCoach = headCoach;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public List<Player> getPlayers() { return players; }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public double getTeamStrength() {
+        return teamStrength;
+    }
+
+    public void setTeamStrength(double teamStrength) {
+        this.teamStrength = teamStrength;
+    }
+
+    public boolean isaITeam() {
+        return aITeam;
+    }
+
+    public void setaITeam(boolean aITeam) {
+        this.aITeam = aITeam;
+    }
+
+    public int getWinPoint() {
+        return winPoint;
+    }
+
+    public void setWinPoint(int winPoint) {
+        this.winPoint = winPoint;
+    }
+
+    public int getLossPoint() {
+        return lossPoint;
+    }
+
+    public void setLossPoint(int lossPoint) {
+        this.lossPoint = lossPoint;
+    }
+
+    public int getDivisionID() {
+        return divisionID;
+    }
+
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
+    }
+
+    public boolean saveTeam() {
+        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
+        teamID = teamDAO.createTeam(divisionID, teamName);
+        if (teamID != -0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
