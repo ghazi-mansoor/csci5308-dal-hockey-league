@@ -35,6 +35,7 @@ public class Simulation implements ISimulation {
     @Override
     public void init(League leagueLOM,int numberOfSeasons){
         this.leagueLOM = leagueLOM;
+        System.out.println(this.leagueLOM+ " init");
         this.numberOfSeasons = numberOfSeasons;
         if(this.numberOfSeasons > 0){
             initializeSeason();

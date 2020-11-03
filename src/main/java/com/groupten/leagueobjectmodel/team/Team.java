@@ -22,14 +22,18 @@ public class Team {
     private int winPoint;
     private int lossPoint;
 
-    public Team() {}
+    public Team() {
+        this.aITeam = true;
+    }
 
     public Team(String teamName) {
+        this.aITeam = true;
         this.teamName = teamName;
     }
 
     public Team(int teamID, String teamName) {
         this(teamName);
+        this.aITeam = true;
         this.teamID = teamID;
     }
 

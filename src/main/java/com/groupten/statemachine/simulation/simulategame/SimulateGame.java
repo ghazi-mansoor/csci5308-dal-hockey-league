@@ -1,5 +1,6 @@
 package com.groupten.statemachine.simulation.simulategame;
 
+import com.groupten.IO.console.IConsole;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
@@ -54,9 +55,11 @@ public class SimulateGame implements ISimulateGame {
     private void recordWin(Team team){
         season.recordWin(team);
         team.setWinPoint( team.getWinPoint() + 1);
+        System.out.println("Team won : "+team.getTeamName());
     }
 
     private void recordLoss(Team team){
         team.setLossPoint( team.getLossPoint() + 1);
+        System.out.println("Team lost : "+team.getTeamName());
     }
 }
