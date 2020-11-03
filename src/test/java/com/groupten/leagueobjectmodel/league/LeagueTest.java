@@ -38,13 +38,6 @@ public class LeagueTest {
     }
 
     @Test
-    public void addSeasonTest() {
-        League league = new League(1, "First League");
-        Season season = new Season(league);
-        assertTrue(league.addSeason(season));
-    }
-
-    @Test
     public void isNumberOFConferencesEvenTest() {
         League league = new League(1, "First League");
         Conference conferenceOne = new Conference(1, "First Conference");
@@ -117,16 +110,6 @@ public class LeagueTest {
         generalManager = new GeneralManager(2, "Second General Manager");
         league.addGeneralManager(generalManager);
         assertEquals(2, league.getGeneralManagers().size());
-    }
-
-    @Test
-    public void getSeasonsTest() {
-        League league = new League(1, "First League");
-        Season season1 = new Season(league);
-        league.addSeason(season1);
-        Season season2 = new Season(league);
-        league.addSeason(season2);
-        assertEquals(2, league.getSeasons().size());
     }
 
     @Test

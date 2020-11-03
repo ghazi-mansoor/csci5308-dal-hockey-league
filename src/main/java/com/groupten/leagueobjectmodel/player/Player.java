@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Player {
+    private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
+    private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 70.0;
+
     private int playerID;
     private int teamID;
     private String playerName;
@@ -56,7 +59,7 @@ public class Player {
     }
 
     public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
-        age += (days / PlayerConstants.NUMBER_OF_DAYS_PER_YEAR);
+        age += (days / NUMBER_OF_DAYS_PER_YEAR);
 
         if (days > injuryPeriod) {
             removeInjury();
@@ -68,7 +71,7 @@ public class Player {
     private boolean shouldPlayerBeRetired() {
         double probabilityOfRetirement = calculateProbabilityOfRetirement();
         GameConfig.Aging agingConfig = getAgingConfig();
-        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > PlayerConstants.PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER;
+        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER;
     }
 
     private double calculateProbabilityOfRetirement() {

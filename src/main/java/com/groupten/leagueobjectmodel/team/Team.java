@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Team {
+    private final int REQUIRED_NUMBER_OF_PLAYERS = 20;
+
     private int teamID;
     private int divisionID;
     private String teamName;
@@ -54,7 +56,7 @@ public class Team {
     }
 
     public boolean isPlayersCountValid() {
-        return players.size() == TeamConstants.REQUIRED_NUMBER_OF_PLAYERS;
+        return players.size() == REQUIRED_NUMBER_OF_PLAYERS;
     }
 
     public boolean doesTeamHaveOneCaptain() {
