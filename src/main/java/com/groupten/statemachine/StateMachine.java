@@ -130,7 +130,6 @@ public class StateMachine {
 
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League leagueLOM = leagueModel.getCurrentLeague();
-        System.out.println(leagueLOM+" simulate");
         ISimulation simulation = Injector.instance().getSimulationObject();
 
         console.printLine("Simulating " + numberOfSeasons + " Seasons.");
@@ -144,7 +143,7 @@ public class StateMachine {
         console.printLine("\nDo you want to Retry? (y/n)");
         String choice = console.readLine().toLowerCase();
         if(choice.equals("y")){
-            //do nothing
+            console.printLine("\nOk..starting again.");
         }else if(choice.equals("n")){
             end();
         }else{

@@ -12,7 +12,7 @@ public class SerializeData implements ISerializeData{
     private String path;
 
     public SerializeData(){
-        this.path = "src/main/resources/SerializedData.json";
+        this.path = "SerializedData.json";
     }
 
     public SerializeData(String path){
@@ -28,7 +28,7 @@ public class SerializeData implements ISerializeData{
             gson.toJson(leagueLOM, fileWriter);
             fileWriter.close();
             return true;
-        }catch (IOException e) {
+        } catch (IOException e) {
             return false;
         }
     }

@@ -48,7 +48,7 @@ public class LoadTeam implements ILoadTeam {
     @Override
     public boolean loadExistingLeague() {
         LeagueModel leagueModel = new LeagueModel();
-        return leagueModel.loadLeague(leagueID);
+        return leagueModel.loadLeagueModel(leagueID);
     }
 
     public void setTeamName(String teamName) {

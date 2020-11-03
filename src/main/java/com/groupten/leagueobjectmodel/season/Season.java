@@ -243,7 +243,6 @@ public class Season {
             conferenceNames.add(teamStanding.getConferenceName());
         });
 
-        //Round1
         conferenceNames.forEach(conferenceName -> {
             HashSet<String> divisionNames = new HashSet<>();
             teamStandings.forEach(teamStanding -> {
@@ -321,7 +320,6 @@ public class Season {
             playoffSchedules.add(schedule);
         });
 
-        //Round2
         conferenceNames.forEach(conferenceName -> {
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.playoffStartsAt);
@@ -336,7 +334,6 @@ public class Season {
             playoffSchedules.add(schedule);
         });
 
-        //Round3
         conferenceNames.forEach(conferenceName -> {
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.playoffStartsAt);
@@ -365,7 +362,6 @@ public class Season {
             divisionNames.add(teamStanding.getDivisionName());
         });
 
-        //Update Division Ranks
         divisionNames.forEach(divisionName -> {
             List<TeamStanding> divisionTeamStandings = new ArrayList<>();
 
@@ -382,7 +378,6 @@ public class Season {
             }
         });
 
-        //Update Conference Ranks
         conferenceNames.forEach(conferenceName -> {
             List<TeamStanding> conferenceTeamStandings = new ArrayList<>();
 
@@ -399,7 +394,6 @@ public class Season {
             }
         });
 
-        //Update League Ranks
         List<TeamStanding> leagueTeamStandings = teamStandings;
         Collections.sort(leagueTeamStandings);
         Collections.reverse(leagueTeamStandings);
@@ -445,15 +439,12 @@ public class Season {
         this.playoffEndsBy = cal.getTime();
     }
 
-    // Based on: https://praveenlobo.com/blog/get-last-friday-of-the-month-in-java
     private Date lastDayOfMonth(Date date, int day) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        // set calendar to the first day of the next month
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.add(Calendar.MONTH, 1);
 
-        // calculate the number of days to subtract to get the last desired day of the month
         int lobosMagicNumber = (13 - day) % 7;
         cal.add(Calendar.DAY_OF_MONTH, -(((lobosMagicNumber + cal.get(Calendar.DAY_OF_WEEK)) % 7) + 1));
 
@@ -492,7 +483,6 @@ public class Season {
         }
     }
 
-    //Based on: https://www.baeldung.com/java-random-dates
     private  Date randomDateBetween(Date startInclusive, Date endExclusive) {
         long startMillis = startInclusive.getTime();
         long endMillis = endExclusive.getTime();

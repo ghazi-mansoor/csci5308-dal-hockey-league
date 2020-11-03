@@ -150,7 +150,7 @@ public class Trading implements ITrading {
 						if (tradeFinalizingTeam.isaITeam()) {
 							UITradeAccept(tradingPlayers);
 						} else {
-							UserTradeAccept(tradingPlayers);
+							userTradeAccept(tradingPlayers);
 						}
 					}
 				}
@@ -253,7 +253,7 @@ public class Trading implements ITrading {
 	}
 
 	@Override
-	public void UserTradeAccept(HashMap<Player, Player> tradingPlayers) {
+	public void userTradeAccept(HashMap<Player, Player> tradingPlayers) {
 		int option = 0;
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -265,13 +265,15 @@ public class Trading implements ITrading {
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 		Player player1 = new Player();
 		Player player2 = new Player();
-
-		for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
-			System.out.println(Players.getKey() + " Players");
-		}
+		int maximumPlayerPerTrade = 1;
 
 		console.printLine("User trade initiated!");
+
 		for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
+			if (maximumPlayerPerTrade > maxPlayersPerTrade) {
+				break;
+			}
+
 			player1 = Players.getKey();
 			player2 = Players.getValue();
 			console.printLine("\n Player Name : " + player1.getPlayerName() + "\n Age : " + player1.getAge() + "\n Checking : " + player1.getChecking()
@@ -317,8 +319,6 @@ public class Trading implements ITrading {
 
 		initializingTeamSize = tradeInitializingTeam.getPlayers().size();
 		finalizingTeamSize = tradeFinalizingTeam.getPlayers().size();
-
-		System.out.println(initializingTeamSize+ " " +finalizingTeamSize);
 
 		if (tradeInitializingTeam.isaITeam()) {
 			if (initializingTeamSize > teamSize) {
@@ -378,7 +378,6 @@ public class Trading implements ITrading {
 				goalieCount++;
 
 				if (goalieCount > numberOfGoalies) {
-					//orderedPlayerStrength.remove(entry.getKey());
 					tradingTeam.getPlayers().remove(entry.getKey());
 					leagueLOM.addFreeAgent(entry.getKey());
 				}
@@ -386,7 +385,6 @@ public class Trading implements ITrading {
 				skaterCount++;
 
 				if (skaterCount > numberOfSkaters) {
-					//orderedPlayerStrength.remove(entry.getKey());
 					tradingTeam.getPlayers().remove(entry.getKey());
 					leagueLOM.addFreeAgent(entry.getKey());
 				}

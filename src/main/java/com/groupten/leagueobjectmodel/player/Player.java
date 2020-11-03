@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Player {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
-    private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 70.0;
+    private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
 
     private int playerID;
     private int teamID;
