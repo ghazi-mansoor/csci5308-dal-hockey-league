@@ -35,7 +35,6 @@ public class Simulation implements ISimulation {
     @Override
     public void init(League leagueLOM,int numberOfSeasons){
         this.leagueLOM = leagueLOM;
-        System.out.println(this.leagueLOM+ " init");
         this.numberOfSeasons = numberOfSeasons;
         if(this.numberOfSeasons > 0){
             initializeSeason();
@@ -61,7 +60,6 @@ public class Simulation implements ISimulation {
     private void advanceTime(){
         IConsole console = Injector.instance().getConsoleObject();
         IAdvanceTime advanceTime = Injector.instance().getAdvanceTimeObject();
-//        console.printLine("Advancing to next day");
         advanceTime.setSeason(season);
         advanceTime.advanceTime();
         if(season.isTodayRegularSeasonEnd()){
@@ -87,7 +85,6 @@ public class Simulation implements ISimulation {
     private void training(){
         IConsole console = Injector.instance().getConsoleObject();
         ITraining training = Injector.instance().getTrainingObject();
-//        console.printLine("Training teams");
         if(daysSinceStatsIncreased > leagueLOM.getTrainingConfig().getDaysUntilStatIncreaseCheck()){
             training.trainPlayers();
             daysSinceStatsIncreased = 0;
@@ -103,7 +100,6 @@ public class Simulation implements ISimulation {
         }
 
         if(season.isTradeEnded()){
-//            console.printLine("Trading ended");
         }else{
             executeTrades();
         }
@@ -124,7 +120,6 @@ public class Simulation implements ISimulation {
     private void executeTrades(){
         IConsole console = Injector.instance().getConsoleObject();
         ITrading trading = Injector.instance().getTradingObject();
-//        console.printLine("Trading teams");
         trading.startTrading();
     }
 
@@ -142,18 +137,17 @@ public class Simulation implements ISimulation {
                 end();
             }
         }else{
-//            persist();
             advanceTime();
         }
     }
 
     private void persist(){
         IConsole console = Injector.instance().getConsoleObject();
-        console.printLine("Simulation saved to db");
-//        leagueLOM.saveLeague();
         console.printLine("Exporting to json file");
         ISerializeData serializeData = Injector.instance().getSerializeDataObject();
         serializeData.exportData(leagueLOM);
+        console.printLine("Simulation saved to db");
+        leagueLOM.saveLeague();
     }
 
     private void end(){

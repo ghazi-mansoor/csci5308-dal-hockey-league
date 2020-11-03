@@ -50,13 +50,13 @@ public class AgingTest {
 
         Player teamPlayer = new Player("First Player", "goalie", false, 30, 5, 5, 5, 5);
         team.addPlayer(teamPlayer);
-        teamPlayer = new Player("Second Player", "goalie", false, 43, 5, 5, 5, 5);
+        teamPlayer = new Player("Second Player", "goalie", false, 50, 5, 5, 5, 5);
         team.addPlayer(teamPlayer);
         teamPlayer = new Player("Third Player", "defense", false, 30, 5, 5, 5, 5);
         team.addPlayer(teamPlayer);
         teamPlayer = new Player("Fourth Player", "defense", false, 30, 5, 5, 5, 5);
         team.addPlayer(teamPlayer);
-        teamPlayer = new Player("Fifth Player", "forward", false, 43, 5, 2, 5, 5);
+        teamPlayer = new Player("Fifth Player", "forward", false, 50, 5, 2, 5, 5);
         team.addPlayer(teamPlayer);
 
         Aging aging = new Aging();

@@ -4,5 +4,6 @@ import com.groupten.leagueobjectmodel.season.Season;
 
 public interface IInitializeSeason {
     void setSeason(Season season);
+
     boolean generateRegularSchedule();
 }

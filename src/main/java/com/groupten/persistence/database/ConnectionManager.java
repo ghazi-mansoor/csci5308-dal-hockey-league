@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// Singleton for retrieving connections.
 public class ConnectionManager
 {
 	private static ConnectionManager uniqueInstance = null;

@@ -26,8 +26,7 @@ public class CreateTeam implements ICreateTeam {
     private List<Player> freeAgents = new ArrayList<>();
     private League leagueLOM;
 
-    public CreateTeam() {
-    }
+    public CreateTeam() {}
 
     @Override
     public void userPromptForNewTeam() {
@@ -79,7 +78,7 @@ public class CreateTeam implements ICreateTeam {
             console.printLine((i + 1) + "\t\t" + tempGM.getManagerName());
         }
 
-        console.printLine("\nChoice (ID)?");
+        console.printLine("\nEnter General Manager (ID)?");
 
         try {
             int choice = console.readInteger();
@@ -115,7 +114,7 @@ public class CreateTeam implements ICreateTeam {
                     "\t\t\t\t" + tempCoach.getSaving() + "\t\t\t" + tempCoach.getCoachName());
         }
 
-        console.printLine("\nChoice (ID)?");
+        console.printLine("\nEnter Head Coach (ID)?");
 
         try {
             int choice = console.readInteger();
@@ -142,7 +141,6 @@ public class CreateTeam implements ICreateTeam {
 
         for (int i = 1; i <= NO_OF_GOALIE; i++) {
             List<Player> goalies = new ArrayList<>(leagueLOM.getFreeAgentsGoalies());
-            System.out.println(goalies.size());
             Player goalie;
 
             console.printLine("\nPlease select a goalie\n");
@@ -156,7 +154,7 @@ public class CreateTeam implements ICreateTeam {
                         "\t\t\t\t" + goalie.getSaving() + "\t\t\t" + goalie.getPlayerName());
             }
 
-            console.printLine("\nChoice (ID)?");
+            console.printLine("\nEnter Goalie (ID)?");
 
             try {
                 int choice = console.readInteger();
@@ -202,7 +200,7 @@ public class CreateTeam implements ICreateTeam {
                         "\t\t\t\t" + skater.getSaving() + "\t\t\t" + skater.getPosition() + "\t\t\t" + skater.getPlayerName());
             }
 
-            console.printLine("\nChoice (ID)?");
+            console.printLine("\nEnter Skater (ID)?");
 
             try {
                 int choice = console.readInteger();
@@ -264,6 +262,5 @@ public class CreateTeam implements ICreateTeam {
     public void setFreeAgents(List<Player> freeAgents) {
         this.freeAgents = freeAgents;
     }
-
 
 }

@@ -1,11 +1,14 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.persistence.dao.ILeagueDAO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,15 +16,18 @@ public class LeagueModel implements ILeagueModel {
     private League currentLeague;
 
     @Override
-    public boolean loadLeague(int leagueID) {
-        // TODO: Load league, conferences, divisions, teams, and players from DB via league's ID
-        return true;
-    }
+    public boolean loadLeagueModel(int leagueID) {
+        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
+        String leagueId = String.valueOf(leagueID);
+        List<HashMap<String, Object>> leaguesMap = leagueDAO.getLeagues("leagueId", leagueId);
+        HashMap<String, Object> leagueMap = leaguesMap.get(0);
 
-    @Override
-    public boolean loadLeague(String teamName) {
-        // TODO: Load league, conferences, divisions, teams, and players from DB via team's name
-        return true;
+        int leagueIDPrimaryKey = (int) leagueMap.get("leagueId");
+        String leagueName = (String) leagueMap.get("leagueName");
+
+        currentLeague = new League(leagueIDPrimaryKey, leagueName);
+
+        return (currentLeague.getLeagueID() == leagueID);
     }
 
     @Override

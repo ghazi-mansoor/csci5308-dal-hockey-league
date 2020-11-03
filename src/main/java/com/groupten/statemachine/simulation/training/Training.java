@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class Training implements ITraining {
 
+    private final int MAX_PLAYER_STAT_VALUE = 20;
+
     @Override
     public void trainPlayers() {
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
@@ -36,7 +38,7 @@ public class Training implements ITraining {
 
                     for (Player player : players) {
                         if (compareStatisticWithRandomValue(skating)) {
-                            if (player.getSkating() < 20) {
+                            if (player.getSkating() < MAX_PLAYER_STAT_VALUE) {
                                 player.setSkating(player.getSkating() + 1);
                             }
                         } else {
@@ -44,7 +46,7 @@ public class Training implements ITraining {
                         }
 
                         if (compareStatisticWithRandomValue(shooting)) {
-                            if (player.getShooting() < 20) {
+                            if (player.getShooting() < MAX_PLAYER_STAT_VALUE) {
                                 player.setShooting(player.getShooting() + 1);
                             }
                         } else {
@@ -52,7 +54,7 @@ public class Training implements ITraining {
                         }
 
                         if (compareStatisticWithRandomValue(checking)) {
-                            if (player.getChecking() < 20) {
+                            if (player.getChecking() < MAX_PLAYER_STAT_VALUE) {
                                 player.setChecking(player.getChecking() + 1);
                             }
                         } else {
@@ -60,7 +62,7 @@ public class Training implements ITraining {
                         }
 
                         if (compareStatisticWithRandomValue(saving)) {
-                            if (player.getSaving() < 20) {
+                            if (player.getSaving() < MAX_PLAYER_STAT_VALUE) {
                                 player.setSaving(player.getSaving() + 1);
                             }
                         } else {

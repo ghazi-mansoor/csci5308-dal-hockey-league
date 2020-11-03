@@ -31,11 +31,21 @@ public class PlayerTest {
 
     @Test
     public void increaseAgeAndCheckIfPlayerShouldRetire() {
+        ILeagueModel leagueModel = new LeagueModel();
+        Injector.instance().setLeagueModelObject(leagueModel);
+
+        League league = new League("First League");
+        leagueModel.setCurrentLeague(league);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        league.setAgingConfig(agingConfig);
+        GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
+        league.setInjuriesConfig(injuriesConfig);
+
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         assertFalse(player.increaseAgeAndCheckIfPlayerShouldBeRetired(1));
         player = new Player(2, "Second Player", "goalie", false, 50.0, 5.0, 5.0, 5.0, 5.0);
         assertTrue(player.increaseAgeAndCheckIfPlayerShouldBeRetired(10));
-        player = new Player(3, "Third Player", "goalie", false, 43, 5.0, 5.0, 5.0, 5.0);
+        player = new Player(3, "Third Player", "goalie", false, 50.0, 5.0, 5.0, 5.0, 5.0);
         assertTrue(player.increaseAgeAndCheckIfPlayerShouldBeRetired(365));
     }
 

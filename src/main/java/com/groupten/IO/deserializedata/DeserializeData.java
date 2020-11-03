@@ -11,7 +11,7 @@ public class DeserializeData implements IDeserializeData{
     private String path;
 
     public DeserializeData(){
-        this.path = "src/main/resources/SerializedData.json";
+        this.path = "SerializedData.json";
     }
 
     public DeserializeData(String path){

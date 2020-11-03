@@ -13,7 +13,7 @@ public interface ITrading {
                                                             HashMap<Player,Double> finalizingPlayerStrength);
     boolean UITradeOffer();
     void UITradeAccept(HashMap<Player,Player> tradingPlayers);
-    void UserTradeAccept(HashMap<Player,Player> tradingPlayers);
+    void userTradeAccept(HashMap<Player,Player> tradingPlayers);
     void adjustTeamPlayers();
     Team UIDropPlayers(Team tradingTeam);
     Team userDropPlayers(Team tradingTeam);
@@ -21,5 +21,4 @@ public interface ITrading {
     Team userGetFromFreeAgents(Team tradingTeam);
     LinkedList sortByPlayerStrength(LinkedList strength);
     HashMap<Player,Double> getWeakestPlayers(LinkedList orderedStrength);
-
 }
