@@ -1,6 +1,5 @@
 package com.groupten.persistence.dao;
 
-import com.groupten.persistence.dao.IPlayerDAO;
 import com.groupten.persistence.database.StoredProcedure;
 
 import java.util.ArrayList;
@@ -13,8 +12,8 @@ public class PlayerDAO implements IPlayerDAO {
     public int createPlayer(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         int playerId = 0;
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("createPlayer(?, ?, ?, ?, ?, ?, ?, ?)");
             storedProcedure.setParameter(1, playerName);
             storedProcedure.setParameter(2, position);
@@ -28,10 +27,8 @@ public class PlayerDAO implements IPlayerDAO {
             playerId = storedProcedure.getOutputParameterInt(8);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return playerId;
@@ -39,20 +36,18 @@ public class PlayerDAO implements IPlayerDAO {
 
     @Override
     public List<HashMap<String, Object>> getPlayers(String colName, String colValue) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("getPlayers(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return list;
@@ -60,55 +55,49 @@ public class PlayerDAO implements IPlayerDAO {
 
     @Override
     public void updatePlayer(int playerId, String playerName, String position, boolean isCaptain) {
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("updatePlayer(?,?,?,?)");
-            storedProcedure.setParameter(1,playerId);
-            storedProcedure.setParameter(2,playerName);
-            storedProcedure.setParameter(2,position);
-            storedProcedure.setParameter(2,isCaptain);
+            storedProcedure.setParameter(1, playerId);
+            storedProcedure.setParameter(2, playerName);
+            storedProcedure.setParameter(2, position);
+            storedProcedure.setParameter(2, isCaptain);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
     }
 
     @Override
     public void deletePlayer(int playerId) {
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("deletePlayer(?)");
-            storedProcedure.setParameter(1,playerId);
+            storedProcedure.setParameter(1, playerId);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
     }
 
     @Override
     public List<HashMap<String, Object>> getCaptains(String colName, String colValue) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("getCaptains(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return list;
@@ -116,20 +105,18 @@ public class PlayerDAO implements IPlayerDAO {
 
     @Override
     public List<HashMap<String, Object>> getFreeAgents(String colName, String colValue) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("getFreeAgents(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return list;

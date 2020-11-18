@@ -1,6 +1,5 @@
 package com.groupten.persistence.dao;
 
-import com.groupten.persistence.dao.ITeamDAO;
 import com.groupten.persistence.database.StoredProcedure;
 
 import java.util.ArrayList;
@@ -13,8 +12,8 @@ public class TeamDAO implements ITeamDAO {
     public int createTeam(int divisionId, String teamName) {
         int teamId = 0;
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("createTeam(?,?,?)");
             storedProcedure.setParameter(1, divisionId);
             storedProcedure.setParameter(2, teamName);
@@ -23,10 +22,8 @@ public class TeamDAO implements ITeamDAO {
             teamId = storedProcedure.getOutputParameterInt(3);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return teamId;
@@ -34,20 +31,18 @@ public class TeamDAO implements ITeamDAO {
 
     @Override
     public List<HashMap<String, Object>> getTeams(String colName, String colValue) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("getTeams(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return list;
@@ -55,8 +50,8 @@ public class TeamDAO implements ITeamDAO {
 
     @Override
     public void updateTeam(int teamId, String teamName, String generalManager, String headCoach) {
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("updateTeam(?,?,?,?)");
             storedProcedure.setParameter(1, teamId);
             storedProcedure.setParameter(2, teamName);
@@ -65,44 +60,38 @@ public class TeamDAO implements ITeamDAO {
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
     }
 
     @Override
     public void deleteTeam(int teamId) {
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("deleteTeam(?)");
-            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(1, teamId);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
     }
 
     @Override
     public List<HashMap<String, Object>> getTeamPlayers(int teamId) {
-        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("getTeamPlayers(?)");
             storedProcedure.setParameter(1, teamId);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
 
         return list;
@@ -110,35 +99,31 @@ public class TeamDAO implements ITeamDAO {
 
     @Override
     public void attachTeamPlayer(int teamId, int playerId) {
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("attachTeamPlayer(?,?)");
-            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(1, teamId);
             storedProcedure.setParameter(2, playerId);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
     }
 
     @Override
     public void detachTeamPlayer(int teamId, int playerId) {
-        StoredProcedure storedProcedure = null;
-        try{
+        IStoredProcedure storedProcedure = new NullStoredProcedure();
+        try {
             storedProcedure = new StoredProcedure("attachTeamPlayer(?,?)");
-            storedProcedure.setParameter(1,teamId);
+            storedProcedure.setParameter(1, teamId);
             storedProcedure.setParameter(2, playerId);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            if(storedProcedure != null){
-                storedProcedure.cleanup();
-            }
+        } finally {
+            storedProcedure.cleanup();
         }
     }
 }

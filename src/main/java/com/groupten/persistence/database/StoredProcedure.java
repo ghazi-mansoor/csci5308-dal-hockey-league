@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class StoredProcedure {
+public class StoredProcedure implements IStoredProcedure {
     private final String storedProcedureName;
     private Connection connection;
     private CallableStatement statement;
