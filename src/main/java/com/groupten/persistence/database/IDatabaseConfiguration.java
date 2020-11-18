@@ -1,8 +1,9 @@
 package com.groupten.persistence.database;
 
-public interface IDatabaseConfiguration
-{
-	public String getDatabaseUserName();
-	public String getDatabasePassword();
-	public String getDatabaseURL();
+public interface IDatabaseConfiguration {
+    String getDatabaseUserName();
+
+    String getDatabasePassword();
+
+    String getDatabaseURL();
 }
