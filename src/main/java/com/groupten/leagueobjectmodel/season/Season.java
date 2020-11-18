@@ -462,17 +462,19 @@ public class Season {
     }
 
     private void generateTeamStandings(){
-        Map<String, Conference> conferences = league.getConferences();
-        conferences.forEach((conferenceName,conference) ->{
-            Map<String, Division> divisions = conference.getDivisions();
-            divisions.forEach((divisionName, division) -> {
-                Map<String, Team> teams = division.getTeams();
-                teams.forEach((teamName, team) -> {
-                    TeamStanding teamStanding = new TeamStanding(team,division.getDivisionName(),conference.getConferenceName(),0,0,0,0);
-                    this.teamStandings.add(teamStanding);
+        if (league != null) {
+            Map<String, Conference> conferences = league.getConferences();
+            conferences.forEach((conferenceName,conference) ->{
+                Map<String, Division> divisions = conference.getDivisions();
+                divisions.forEach((divisionName, division) -> {
+                    Map<String, Team> teams = division.getTeams();
+                    teams.forEach((teamName, team) -> {
+                        TeamStanding teamStanding = new TeamStanding(team,division.getDivisionName(),conference.getConferenceName(),0,0,0,0);
+                        this.teamStandings.add(teamStanding);
+                    });
                 });
             });
-        });
+        }
     }
 
     private  Date randomDateBetween(Date startInclusive, Date endExclusive) {
