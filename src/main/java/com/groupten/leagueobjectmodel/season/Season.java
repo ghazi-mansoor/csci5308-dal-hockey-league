@@ -180,14 +180,12 @@ public class Season {
                 sameDivisionTeamStanding.remove(teamStanding2);
             }
             sameDivisionTeamStanding.forEach(teamStanding1 -> {
-                sameDivisionTeamStanding.forEach(teamStanding2 -> {
-                    if(!teamStanding1.getTeam().getTeamName().equals(teamStanding2.getTeam().getTeamName())){
-                        for(int i =0; i<4; i++){
-                            Schedule schedule = new Schedule();
-                            schedule.addTeam(teamStanding1.getTeam());
-                            schedule.addTeam(teamStanding2.getTeam());
-                            regularSchedules.add(schedule);
-                        }
+                sameDivisionTeamStanding.stream().filter(teamStanding2 -> teamStanding2 != teamStanding1).forEach(teamStanding2 -> {
+                    for (int i = 0; i < 4; i++) {
+                        Schedule schedule = new Schedule();
+                        schedule.addTeam(teamStanding1.getTeam());
+                        schedule.addTeam(teamStanding2.getTeam());
+                        regularSchedules.add(schedule);
                     }
                 });
             });
@@ -201,28 +199,24 @@ public class Season {
                 }
             });
             sameConferenceTeamStanding.forEach(teamStanding1 -> {
-                sameConferenceTeamStanding.forEach(teamStanding2 -> {
-                    if(!teamStanding1.getDivisionName().equals(teamStanding2.getDivisionName())){
-                        for(int i =0; i<3; i++){
-                            Schedule schedule = new Schedule();
-                            schedule.addTeam(teamStanding1.getTeam());
-                            schedule.addTeam(teamStanding2.getTeam());
-                            regularSchedules.add(schedule);
-                        }
+                sameConferenceTeamStanding.stream().filter(teamStanding2 -> teamStanding2 != teamStanding1).forEach(teamStanding2 -> {
+                    for (int i = 0; i < 3; i++) {
+                        Schedule schedule = new Schedule();
+                        schedule.addTeam(teamStanding1.getTeam());
+                        schedule.addTeam(teamStanding2.getTeam());
+                        regularSchedules.add(schedule);
                     }
                 });
             });
         });
 
         teamStandings.forEach(teamStanding1 -> {
-            teamStandings.forEach(teamStanding2 -> {
-                if (!teamStanding1.getConferenceName().equals(teamStanding2.getConferenceName())) {
-                    for (int i = 0; i < 2; i++) {
-                        Schedule schedule = new Schedule();
-                        schedule.addTeam(teamStanding1.getTeam());
-                        schedule.addTeam(teamStanding2.getTeam());
-                        regularSchedules.add(schedule);
-                    }
+            teamStandings.stream().filter(teamStanding2 -> teamStanding2 != teamStanding1).forEach(teamStanding2 -> {
+                for (int i = 0; i < 2; i++) {
+                    Schedule schedule = new Schedule();
+                    schedule.addTeam(teamStanding1.getTeam());
+                    schedule.addTeam(teamStanding2.getTeam());
+                    regularSchedules.add(schedule);
                 }
             });
         });
@@ -458,7 +452,7 @@ public class Season {
         cal.add( Calendar.DAY_OF_MONTH, -1 );
 
         int occCount = 0;
-        while ( occCount != nth ) {
+        while ( occCount < nth ) {
             cal.add( Calendar.DAY_OF_MONTH, 1 );
             if ( cal.get( Calendar.DAY_OF_WEEK ) == day ) {
                 occCount++;
@@ -468,19 +462,17 @@ public class Season {
     }
 
     private void generateTeamStandings(){
-        if(league != null){
-            Map<String, Conference> conferences = league.getConferences();
-            conferences.forEach((conferenceName,conference) ->{
-                Map<String, Division> divisions = conference.getDivisions();
-                divisions.forEach((divisionName, division) -> {
-                    Map<String, Team> teams = division.getTeams();
-                    teams.forEach((teamName, team) -> {
-                        TeamStanding teamStanding = new TeamStanding(team,division.getDivisionName(),conference.getConferenceName(),0,0,0,0);
-                        this.teamStandings.add(teamStanding);
-                    });
+        Map<String, Conference> conferences = league.getConferences();
+        conferences.forEach((conferenceName,conference) ->{
+            Map<String, Division> divisions = conference.getDivisions();
+            divisions.forEach((divisionName, division) -> {
+                Map<String, Team> teams = division.getTeams();
+                teams.forEach((teamName, team) -> {
+                    TeamStanding teamStanding = new TeamStanding(team,division.getDivisionName(),conference.getConferenceName(),0,0,0,0);
+                    this.teamStandings.add(teamStanding);
                 });
             });
-        }
+        });
     }
 
     private  Date randomDateBetween(Date startInclusive, Date endExclusive) {
