@@ -1,25 +1,26 @@
-package com.groupten.persistence.dao.database;
+package com.groupten.persistence.dao;
 
-import com.groupten.persistence.dao.IConferenceDAO;
+import com.groupten.persistence.dao.IDivisionDAO;
 import com.groupten.persistence.database.StoredProcedure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConferenceDAO implements IConferenceDAO {
+public class DivisionDAO implements IDivisionDAO {
+
     @Override
-    public int createConference(int leagueId, String conferenceName) {
-        int conferenceId = 0;
+    public int createDivision(int conferenceId, String divisionName) {
+        int divisionId = 0;
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("createConference(?,?,?)");
-            storedProcedure.setParameter(1,leagueId);
-            storedProcedure.setParameter(2,conferenceName);
+            storedProcedure = new StoredProcedure("createDivision(?,?,?)");
+            storedProcedure.setParameter(1,conferenceId);
+            storedProcedure.setParameter(2,divisionName);
             storedProcedure.registerOutputParameterInt(3);
             storedProcedure.execute();
-            conferenceId = storedProcedure.getOutputParameterInt(3);
+            divisionId = storedProcedure.getOutputParameterInt(3);
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -28,16 +29,16 @@ public class ConferenceDAO implements IConferenceDAO {
             }
         }
 
-        return conferenceId;
+        return divisionId;
     }
 
     @Override
-    public List<HashMap<String, Object>> getConferences(String colName, String colValue) {
+    public List<HashMap<String, Object>> getDivisions(String colName, String colValue) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("getConferences(?,?)");
+            storedProcedure = new StoredProcedure("getDivisions(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();
@@ -53,12 +54,12 @@ public class ConferenceDAO implements IConferenceDAO {
     }
 
     @Override
-    public void updateConference(int conferenceId, String conferenceName) {
+    public void updateDivision(int divisionId, String divisionName) {
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("updateConference(?,?)");
-            storedProcedure.setParameter(1,conferenceId);
-            storedProcedure.setParameter(2,conferenceName);
+            storedProcedure = new StoredProcedure("updateDivision(?,?)");
+            storedProcedure.setParameter(1,divisionId);
+            storedProcedure.setParameter(2,divisionName);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,11 +71,11 @@ public class ConferenceDAO implements IConferenceDAO {
     }
 
     @Override
-    public void deleteConference(int conferenceId) {
+    public void deleteDivision(int divisionId) {
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("deleteConference(?)");
-            storedProcedure.setParameter(1,conferenceId);
+            storedProcedure = new StoredProcedure("deleteDivision(?)");
+            storedProcedure.setParameter(1,divisionId);
             storedProcedure.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,13 +87,13 @@ public class ConferenceDAO implements IConferenceDAO {
     }
 
     @Override
-    public List<HashMap<String, Object>> getConferenceDivisions(int conferenceId) {
+    public List<HashMap<String, Object>> getDivisionTeams(int divisionId) {
         List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 
         StoredProcedure storedProcedure = null;
         try{
-            storedProcedure = new StoredProcedure("getConferenceDivisions(?)");
-            storedProcedure.setParameter(1, conferenceId);
+            storedProcedure = new StoredProcedure("getDivisionTeams(?)");
+            storedProcedure.setParameter(1, divisionId);
             list = storedProcedure.executeWithResults();
         } catch (Exception e) {
             e.printStackTrace();

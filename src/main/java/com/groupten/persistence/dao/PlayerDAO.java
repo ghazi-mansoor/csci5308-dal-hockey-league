@@ -1,4 +1,4 @@
-package com.groupten.persistence.dao.database;
+package com.groupten.persistence.dao;
 
 import com.groupten.persistence.dao.IPlayerDAO;
 import com.groupten.persistence.database.StoredProcedure;
