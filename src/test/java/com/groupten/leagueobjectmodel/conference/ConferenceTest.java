@@ -1,8 +1,6 @@
 package com.groupten.leagueobjectmodel.conference;
 
 import com.groupten.leagueobjectmodel.division.Division;
-import com.groupten.persistence.dao.IConferenceDAO;
-import com.groupten.persistence.dao.database.ConferenceDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,19 +1,13 @@
 package com.groupten.statemachine.simulation.trading;
 
-import com.groupten.IO.console.Console;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.jsonimport.JSONImport;
-import com.groupten.statemachine.simulation.trading.Trading;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.*;
 
 import static org.junit.Assert.*;

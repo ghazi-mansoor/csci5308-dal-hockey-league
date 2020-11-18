@@ -5,10 +5,6 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.persistence.dao.IPlayerDAO;
-import com.groupten.persistence.dao.database.PlayerDAO;
-import com.groupten.statemachine.jsonimport.JSONImport;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

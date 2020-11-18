@@ -9,7 +9,6 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.simulation.aging.Aging;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
