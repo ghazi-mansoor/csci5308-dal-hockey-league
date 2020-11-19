@@ -9,17 +9,11 @@ import java.io.IOException;
 
 public class SerializeData implements ISerializeData{
 
-    private String path;
+    public SerializeData(){ }
 
-    public SerializeData(){
-        this.path = "SerializedData.json";
-    }
+    public boolean exportData(League leagueLOM, String path){
 
-    public SerializeData(String path){
-        this.path = path;
-    }
-
-    public boolean exportData(League leagueLOM){
+        path += leagueLOM.getUserTeam().replace(" ", "_") + ".json";
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

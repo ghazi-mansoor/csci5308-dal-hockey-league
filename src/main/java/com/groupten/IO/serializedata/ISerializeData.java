@@ -4,6 +4,6 @@ import com.groupten.leagueobjectmodel.league.League;
 
 public interface ISerializeData {
 
-    boolean exportData(League leagueLOM);
+    boolean exportData(League leagueLOM, String path);
 
 }

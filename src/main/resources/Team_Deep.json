@@ -1,6 +1,7 @@
 {
   "leagueID": 0,
   "leagueName": "Deep Hockey League",
+  "userTeam": "Team Deep",
   "conferences": {
     "Eastern Conference": {
       "leagueID": 0,

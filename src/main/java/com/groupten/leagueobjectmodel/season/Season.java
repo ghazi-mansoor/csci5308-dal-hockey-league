@@ -39,7 +39,6 @@ public class Season {
 
     public Season(League league,int year){
         this.league = league;
-
         this.initDates(year);
 
         this.generateTeamStandings();

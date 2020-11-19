@@ -15,6 +15,8 @@ import java.util.Map;
 public class LeagueModel implements ILeagueModel {
     private League currentLeague;
 
+
+
     @Override
     public boolean loadLeagueModel(int leagueID) {
         ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();

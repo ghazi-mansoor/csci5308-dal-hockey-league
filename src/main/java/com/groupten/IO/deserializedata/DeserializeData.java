@@ -8,17 +8,9 @@ import java.io.FileReader;
 
 public class DeserializeData implements IDeserializeData{
 
-    private String path;
+    public DeserializeData(){ }
 
-    public DeserializeData(){
-        this.path = "SerializedData.json";
-    }
-
-    public DeserializeData(String path){
-        this.path = path;
-    }
-
-    public League importData() {
+    public League importData(String path) {
         FileReader fileReader;
         JsonParser jsonParser = new JsonParser();
         Gson gson = new Gson();

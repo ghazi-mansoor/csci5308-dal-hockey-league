@@ -1,24 +1,26 @@
 package com.groupten.statemachine.loadteam;
 
 import com.groupten.IO.console.IConsole;
+import com.groupten.IO.deserializedata.IDeserializeData;
 import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
-import com.groupten.persistence.dao.ITeamDAO;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
 
 public class LoadTeam implements ILoadTeam {
 
     private IConsole console;
     private String teamName;
-    private int leagueID;
+    private String fileToBeLoaded;
+    private String path;
 
     public LoadTeam() {
+        this.path = "src/main/resources/";
     }
 
-    public LoadTeam(ITeamDAO teamDBObj) {
-        Injector.instance().setTeamDatabaseObject(teamDBObj);
+    public LoadTeam(String path) {
+        this.path = path;
     }
 
     @Override
@@ -35,24 +37,42 @@ public class LoadTeam implements ILoadTeam {
 
     @Override
     public boolean doesTeamExist() {
-        ITeamDAO teamDB = Injector.instance().getTeamDatabaseObject();
-        List<HashMap<String, Object>> teamList = teamDB.getTeams("teamName", teamName);
-        if (teamList.size() > 0) {
-            leagueID = (int) teamList.get(0).get("leagueId");
-            return true;
-        } else {
+        File[] files = new File(path).listFiles();
+
+        if (files == null) {
             return false;
+        } else {
+            for (File file : files) {
+                if (file.isFile()) {
+                    String userInput = teamName.replace(" ", "_");
+                    String fileName = file.getName().replace(" ", "_").split("\\.")[0];
+                    if (userInput.equals(fileName)) {
+                        fileToBeLoaded = fileName;
+                        return true;
+                    }
+                }
+            }
         }
+        return false;
     }
 
     @Override
     public boolean loadExistingLeague() {
-        LeagueModel leagueModel = new LeagueModel();
-        return leagueModel.loadLeagueModel(leagueID);
+        IDeserializeData deserializeData = Injector.instance().getDeserializeDataObject();
+        League league = deserializeData.importData(path + fileToBeLoaded + ".json");
+        if (league == null) {
+            return false;
+        } else {
+            ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+            return leagueModel.setCurrentLeague(league);
+        }
     }
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
 
+    public void setFileToBeLoaded(String fileToBeLoaded) {
+        this.fileToBeLoaded = fileToBeLoaded;
+    }
 }
