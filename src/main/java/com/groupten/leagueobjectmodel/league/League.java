@@ -16,6 +16,7 @@ import java.util.Map;
 public class League {
     private int leagueID;
     private String leagueName;
+    private String userTeam;
     private Map<String, Conference> conferences = new HashMap<>();
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
@@ -33,6 +34,14 @@ public class League {
     public League(int leagueID, String leagueName) {
         this(leagueName);
         this.leagueID = leagueID;
+    }
+
+    public String getUserTeam() {
+        return userTeam;
+    }
+
+    public void setUserTeam(String userTeam) {
+        this.userTeam = userTeam;
     }
 
     public boolean addConference(Conference conference) {

@@ -4,6 +4,6 @@ import com.groupten.leagueobjectmodel.league.League;
 
 public interface IDeserializeData {
 
-    League importData();
+    League importData(String path);
 
 }

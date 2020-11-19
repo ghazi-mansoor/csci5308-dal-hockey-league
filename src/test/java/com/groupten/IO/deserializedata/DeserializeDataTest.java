@@ -8,8 +8,7 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class DeserializeDataTest {
 
@@ -20,24 +19,24 @@ public class DeserializeDataTest {
         json.instantiateJSONData();
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "src/main/resources/SerializedData.json";
-        SerializeData serializeData = new SerializeData(path);
-        serializeData.exportData(exportedLeague);
+        leagueModel.getCurrentLeague().setUserTeam("Team Deep");
+        String path = "src/main/resources/";
+        SerializeData serializeData = new SerializeData();
+        serializeData.exportData(exportedLeague, path);
     }
 
     @Test
     public void importDataTestSuccess(){
-        String path = "src/main/resources/SerializedData.json";
-        DeserializeData deserializeData = new DeserializeData(path);
-        League league = deserializeData.importData();
-        assertEquals("Deep Hockey League", league.getLeagueName());
+        String path = "src/test/java/com/groupten/mocks/Team_Deep.json";
+        DeserializeData deserializeData = new DeserializeData();
+        assertNotNull(deserializeData.importData(path));
     }
 
     @Test
     public void importDataTestUnSuccess(){
         String path = "";
-        DeserializeData deserializeData = new DeserializeData(path);
-        assertNull(deserializeData.importData());
+        DeserializeData deserializeData = new DeserializeData();
+        assertNull(deserializeData.importData(path));
     }
 
 }

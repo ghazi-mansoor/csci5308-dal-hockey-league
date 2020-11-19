@@ -230,6 +230,7 @@ public class CreateTeam implements ICreateTeam {
         Conference conference = leagueLOM.getConference(conferenceName);
         Division division = conference.getDivision(divisionName);
         Team team = new Team(teamName);
+        leagueLOM.setUserTeam(teamName);
         team.setGeneralManager(generalManager);
         team.setHeadCoach(headCoach);
         team.setaITeam(false);

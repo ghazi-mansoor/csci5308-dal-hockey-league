@@ -22,19 +22,21 @@ public class SerializeDataTest {
     @Test
     public void exportDataTestSuccess(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        leagueModel.getCurrentLeague().setUserTeam("Team Deep");
         League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "src/main/resources/SerializedData.json";
-        SerializeData serializeData = new SerializeData(path);
-        assertTrue(serializeData.exportData(exportedLeague));
+        String path = "src/main/resources/";
+        SerializeData serializeData = new SerializeData();
+        assertTrue(serializeData.exportData(exportedLeague, path));
     }
 
     @Test
     public void exportDataTestUnSuccess(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        leagueModel.getCurrentLeague().setUserTeam("Team Deep");
         League exportedLeague = leagueModel.getCurrentLeague();
-        String path = "";
-        SerializeData serializeData = new SerializeData(path);
-        assertFalse(serializeData.exportData(exportedLeague));
+        String path = "xyz/";
+        SerializeData serializeData = new SerializeData();
+        assertFalse(serializeData.exportData(exportedLeague, path));
     }
 
 }

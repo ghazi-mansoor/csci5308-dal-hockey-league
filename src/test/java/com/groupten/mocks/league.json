@@ -1,5 +1,5 @@
 {
-   "leagueName": "Dalhousie Hockey League",
+   "leagueName": "Group 10 Hockey League",
    "gameplayConfig": {
       "aging": {
          "averageRetirementAge": 35,
@@ -17,7 +17,7 @@
          "daysUntilStatIncreaseCheck": 100
       },
       "trading": {
-         "lossPoint": 40,
+         "lossPoint": 100,
          "randomTradeOfferChance": 0.05,
          "maxPlayersPerTrade": 2,
          "randomAcceptanceChance": 0.05
