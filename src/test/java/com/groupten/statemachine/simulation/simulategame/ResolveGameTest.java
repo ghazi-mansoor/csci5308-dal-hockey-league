@@ -3,6 +3,8 @@ package com.groupten.statemachine.simulation.simulategame;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.jsonimport.JSONImport;
+import com.groupten.statemachine.simulation.simulategame.strategy.IStrategy;
+import com.groupten.statemachine.simulation.simulategame.strategy.RandomStrategy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

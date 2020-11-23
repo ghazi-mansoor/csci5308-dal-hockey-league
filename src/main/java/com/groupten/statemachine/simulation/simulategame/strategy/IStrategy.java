@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation.simulategame;
+package com.groupten.statemachine.simulation.simulategame.strategy;
 
 import com.groupten.leagueobjectmodel.team.Team;
 
