@@ -27,28 +27,17 @@ public class SimulateGame implements ISimulateGame {
     public void simulateGame(Schedule schedule) {
         HashSet<Team> teams = schedule.getTeams();
         List<Team> teamList = new ArrayList<>(teams);
-        Team team_1 = teamList.get(0);
-        Team team_2 = teamList.get(1);
-        GameConfig.GameResolver gameResolver = season.getLeague().getGameResolverConfig();
+        Team team1 = teamList.get(0);
+        Team team2 = teamList.get(1);
 
-        double randomWinChance = gameResolver.getRandomWinChance();
-
-        if(new Random().nextDouble() > randomWinChance){
-            if(team_1.getTeamStrength() > team_2.getTeamStrength()){
-                recordWin(team_1);
-                recordLoss(team_2);
-            }else{
-                recordWin(team_2);
-                recordLoss(team_1);
-            }
+        ResolveGame resolveGame = new ResolveGame();
+        Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
+        if(winner == team1){
+            recordWin(team1);
+            recordLoss(team2);
         }else{
-            if(team_1.getTeamStrength() < team_2.getTeamStrength()){
-                recordWin(team_1);
-                recordLoss(team_2);
-            }else{
-                recordWin(team_2);
-                recordLoss(team_1);
-            }
+            recordWin(team2);
+            recordLoss(team1);
         }
     }
 
