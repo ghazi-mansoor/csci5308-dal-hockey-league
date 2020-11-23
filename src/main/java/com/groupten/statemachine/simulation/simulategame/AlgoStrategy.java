@@ -4,7 +4,10 @@ import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.shift.Shift;
 import com.groupten.leagueobjectmodel.team.Team;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class AlgoStrategy implements IStrategy{

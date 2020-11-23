@@ -23,6 +23,7 @@
                 {
                   "NUMBER_OF_DAYS_PER_YEAR": 365.0,
                   "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+                  "MAX_TOI": 1080,
                   "playerID": 0,
                   "teamID": 0,
                   "playerName": "Player One",
@@ -34,11 +35,13 @@
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0
+                  "injuryPeriod": 0,
+                  "availTOI": 1080
                 },
                 {
                   "NUMBER_OF_DAYS_PER_YEAR": 365.0,
                   "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+                  "MAX_TOI": 1080,
                   "playerID": 0,
                   "teamID": 0,
                   "playerName": "Player Two",
@@ -50,11 +53,13 @@
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0
+                  "injuryPeriod": 0,
+                  "availTOI": 1080
                 },
                 {
                   "NUMBER_OF_DAYS_PER_YEAR": 365.0,
                   "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+                  "MAX_TOI": 1080,
                   "playerID": 0,
                   "teamID": 0,
                   "playerName": "Player Three",
@@ -66,7 +71,8 @@
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0
+                  "injuryPeriod": 0,
+                  "availTOI": 1080
                 }
               ],
               "generalManager": {
@@ -98,6 +104,7 @@
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent One",
@@ -109,11 +116,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Two",
@@ -125,11 +134,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Three",
@@ -141,11 +152,13 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Four",
@@ -157,11 +170,13 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Five",
@@ -173,11 +188,13 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Six",
@@ -189,11 +206,13 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Seven",
@@ -205,11 +224,13 @@
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Eight",
@@ -221,11 +242,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Nine",
@@ -237,11 +260,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Ten",
@@ -253,11 +278,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Eleven",
@@ -269,11 +296,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Twelve",
@@ -285,11 +314,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Thirteen",
@@ -301,11 +332,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Fourteen",
@@ -317,11 +350,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Fifteen",
@@ -333,11 +368,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Sixteen",
@@ -349,11 +386,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Seventeen",
@@ -365,11 +404,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Eighteen",
@@ -381,11 +422,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Nineteen",
@@ -397,11 +440,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent Twenty",
@@ -413,11 +458,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 21",
@@ -429,11 +476,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 22",
@@ -445,11 +494,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 23",
@@ -461,11 +512,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 24",
@@ -477,11 +530,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 25",
@@ -493,11 +548,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 26",
@@ -509,11 +566,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 27",
@@ -525,11 +584,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 29",
@@ -541,11 +602,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 30",
@@ -557,11 +620,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 26",
@@ -573,11 +638,13 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
       "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
+      "MAX_TOI": 1080,
       "playerID": 0,
       "teamID": 0,
       "playerName": "Agent 30",
@@ -589,7 +656,8 @@
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "availTOI": 1080
     }
   ],
   "coaches": [

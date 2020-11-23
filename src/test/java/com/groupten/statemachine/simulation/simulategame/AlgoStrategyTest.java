@@ -6,11 +6,6 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
 import static org.junit.Assert.assertTrue;
 
 public class AlgoStrategyTest {

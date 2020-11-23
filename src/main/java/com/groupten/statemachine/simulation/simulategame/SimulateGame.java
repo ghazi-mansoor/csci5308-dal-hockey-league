@@ -1,7 +1,5 @@
 package com.groupten.statemachine.simulation.simulategame;
 
-import com.groupten.IO.console.IConsole;
-import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
@@ -9,7 +7,6 @@ import com.groupten.leagueobjectmodel.team.Team;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 public class SimulateGame implements ISimulateGame {
     private Season season;
