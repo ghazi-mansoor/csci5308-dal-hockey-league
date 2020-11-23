@@ -13,7 +13,7 @@ public class RandomStrategyTest {
     @BeforeClass
     public static void setup() {
         JSONImport json = new JSONImport();
-        json.importJSONData("src/test/java/com/groupten/mocks/JsonMock.json");
+        json.importJSONData("src/test/java/com/groupten/mocks/JsonMockNoTeams.json");
         json.instantiateJSONData();
     }
 

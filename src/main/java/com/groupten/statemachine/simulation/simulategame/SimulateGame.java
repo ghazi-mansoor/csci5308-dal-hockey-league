@@ -11,17 +11,9 @@ import java.util.List;
 public class SimulateGame implements ISimulateGame {
     private Season season;
 
-    public Season getSeason() {
-        return season;
-    }
-
     @Override
-    public void setSeason(Season season){
+    public void simulateGame(Season season, Schedule schedule) {
         this.season = season;
-    }
-
-    @Override
-    public void simulateGame(Schedule schedule) {
         HashSet<Team> teams = schedule.getTeams();
         List<Team> teamList = new ArrayList<>(teams);
         Team team1 = teamList.get(0);
