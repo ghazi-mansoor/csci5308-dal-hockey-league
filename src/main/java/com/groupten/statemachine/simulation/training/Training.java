@@ -1,19 +1,36 @@
 package com.groupten.statemachine.simulation.training;
 
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.simulation.trophy.IObserver;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Training implements ITraining {
 
     private final int MAX_PLAYER_STAT_VALUE = 20;
+    private List<IObserver> observers = new ArrayList<>();
+    private Map<Coach, Integer> coachRanking = new HashMap<>();
+
+    public void subscribe(IObserver observer) {
+        observers.add(observer);
+    }
+
+    public void unsubscribe(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObserver() {
+        for (IObserver observer : observers) {
+            observer.updateCoachRanking(coachRanking);
+        }
+    }
 
     @Override
     public void trainPlayers() {
@@ -34,12 +51,16 @@ public class Training implements ITraining {
                     double checking = team.getHeadCoach().getChecking();
                     double saving = team.getHeadCoach().getSaving();
 
+                    int count = 0;
+
                     List<Player> players = team.getActivePlayers();
+                    List<Player> players1 = team.getInActivePlayers();
 
                     for (Player player : players) {
                         if (compareStatisticWithRandomValue(skating)) {
                             if (player.getSkating() < MAX_PLAYER_STAT_VALUE) {
                                 player.setSkating(player.getSkating() + 1);
+                                count++;
                             }
                         } else {
                             player.checkInjury();
@@ -48,6 +69,7 @@ public class Training implements ITraining {
                         if (compareStatisticWithRandomValue(shooting)) {
                             if (player.getShooting() < MAX_PLAYER_STAT_VALUE) {
                                 player.setShooting(player.getShooting() + 1);
+                                count++;
                             }
                         } else {
                             player.checkInjury();
@@ -56,6 +78,7 @@ public class Training implements ITraining {
                         if (compareStatisticWithRandomValue(checking)) {
                             if (player.getChecking() < MAX_PLAYER_STAT_VALUE) {
                                 player.setChecking(player.getChecking() + 1);
+                                count++;
                             }
                         } else {
                             player.checkInjury();
@@ -64,14 +87,17 @@ public class Training implements ITraining {
                         if (compareStatisticWithRandomValue(saving)) {
                             if (player.getSaving() < MAX_PLAYER_STAT_VALUE) {
                                 player.setSaving(player.getSaving() + 1);
+                                count++;
                             }
                         } else {
                             player.checkInjury();
                         }
                     }
+                    coachRanking.put(team.getHeadCoach(), count);
                 }
             }
         }
+        notifyObserver();
     }
 
     private boolean compareStatisticWithRandomValue(double statistic) {
