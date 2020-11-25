@@ -37,22 +37,29 @@ public class Aging implements IAging {
 
     private void traverseTeamsMapAndAdvancePlayerAges(Map<String, Team> teams, List<Player> freeAgents, int days) {
         for (Team team : teams.values()) {
-            List<Player> updatedPlayersList = new ArrayList<Player>();
-            List<Player> players = team.getPlayers();
+            List<Player> activePlayers = team.getActivePlayers();
+            List<Player> inActivePlayers = team.getInActivePlayers();
 
-            for (Player player : players) {
-                boolean playerShouldRetire = player.increaseAgeAndCheckIfPlayerShouldBeRetired(days);
-                if (playerShouldRetire) {
-                    Player bestFreeAgent = findBestFreeAgent(freeAgents, player);
-                    updatedPlayersList.add(bestFreeAgent);
-                    freeAgents.remove(bestFreeAgent);
-                } else {
-                    updatedPlayersList.add(player);
-                }
-            }
-
-            team.setPlayers(updatedPlayersList);
+            team.setActivePlayers(updatePlayerRosterBasedOnRetirements(activePlayers, freeAgents, days));
+            team.setInActivePlayers(updatePlayerRosterBasedOnRetirements(inActivePlayers, freeAgents, days));
         }
+    }
+
+    private List<Player> updatePlayerRosterBasedOnRetirements(List<Player> players, List<Player> freeAgents, int days) {
+        List<Player> updatedPlayersList = new ArrayList<Player>();
+
+        for (Player player : players) {
+            boolean playerShouldRetire = player.increaseAgeAndCheckIfPlayerShouldBeRetired(days);
+            if (playerShouldRetire) {
+                Player bestFreeAgent = findBestFreeAgent(freeAgents, player);
+                updatedPlayersList.add(bestFreeAgent);
+                freeAgents.remove(bestFreeAgent);
+            } else {
+                updatedPlayersList.add(player);
+            }
+        }
+
+        return updatedPlayersList;
     }
 
     private void advanceFreeAgentAges(League league, int days) {
