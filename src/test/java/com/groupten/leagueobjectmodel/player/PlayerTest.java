@@ -5,7 +5,10 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.leagueobjectmodel.team.Team;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
@@ -48,9 +51,10 @@ public class PlayerTest {
     @Test
     public void checkInjuryTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        while (player.checkInjury()) {
-            assertTrue(player.isInjured());
+        while (player.isInjured() == false) {
+            player.checkInjury();
         }
+        assertTrue(player.isInjured());
     }
 
     @Test
@@ -185,9 +189,26 @@ public class PlayerTest {
     }
 
     @Test
-    public void setAvailTOITest(){
+    public void setAvailTOITest() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setAvailTOI(100);
         assertEquals(100, player.getAvailTOI());
+    }
+
+    @Test
+    public void initializePlayerAgeTest() {
+        LocalDateTime today = LocalDateTime.now();
+        int currentDay = today.getDayOfMonth();
+        int currentMonth = today.getMonthValue();
+        int currentYear = today.getYear();
+
+        int playerBirthDay = 23;
+        int playerBirthMonth = 11;
+        int playerBirthYear = 2000;
+
+        double playerAgeCalculated =  currentYear - playerBirthYear + ((currentMonth - playerBirthMonth) / 12.0) + ((currentDay - playerBirthDay) / 365.0);
+
+        Player player = new Player("First Player", "forward", true, playerBirthDay, playerBirthMonth, playerBirthYear, 5.0, 5.0, 5.0, 5.0);
+        assertEquals(playerAgeCalculated, player.getAge(), 0);
     }
 }

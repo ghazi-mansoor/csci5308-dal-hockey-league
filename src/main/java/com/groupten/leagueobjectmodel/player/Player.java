@@ -6,6 +6,7 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.persistence.dao.IPlayerDAO;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,9 @@ public class Player {
     private String position;
     private boolean captain;
     private double age;
+    private int birthDay;
+    private int birthMonth;
+    private int birthYear;
     private double skating;
     private double shooting;
     private double checking;
@@ -29,6 +33,7 @@ public class Player {
     private boolean injured;
     private int injuryPeriod;
     private int availTOI;
+    private List<IPlayerSubscriber> subscribers = new ArrayList<>();
 
     public Player() {}
 
@@ -43,6 +48,19 @@ public class Player {
         this.availTOI = MAX_TOI;
     }
 
+    public Player(String playerName, String position, int birthDay, int birthMonth, int birthYear, double skating, double shooting, double checking, double saving) {
+        this.playerName = playerName;
+        this.position = position;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
+        this.age = initializePlayerAge(birthDay, birthMonth, birthYear);
+        this.skating = skating;
+        this.shooting = shooting;
+        this.checking = checking;
+        this.saving = saving;
+    }
+
     public Player(int playerID, String playerName, String position, double age, double skating, double shooting,
                   double checking, double saving) {
         this(playerName, position, age, skating, shooting, checking, saving);
@@ -55,10 +73,29 @@ public class Player {
         this.captain = captain;
     }
 
+    public Player(String playerName, String position, boolean captain, int birthDay, int birthMonth, int birthYear, double skating, double shooting, double checking, double saving) {
+        this(playerName, position, birthDay, birthMonth, birthYear, skating, shooting, checking, saving);
+        this.captain = captain;
+    }
+
     public Player(int playerID, String playerName, String position, boolean captain, double age, double skating, double shooting,
                   double checking, double saving) {
         this(playerName, position, captain, age, skating, shooting, checking, saving);
         this.playerID = playerID;
+    }
+
+    public void subscribe(IPlayerSubscriber subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    public void unsubscribe(IPlayerSubscriber subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    private void notifySubscribers() {
+        for (IPlayerSubscriber subscriber : subscribers) {
+            subscriber.update(this);
+        }
     }
 
     public boolean increaseAgeAndCheckIfPlayerShouldBeRetired(int days) {
@@ -99,6 +136,7 @@ public class Player {
             if (Math.random() < injuriesConfig.getRandomInjuryChance()) {
                 injured = true;
                 setInjuryPeriod();
+                notifySubscribers();
             } else {
                 injured = false;
             }
@@ -186,6 +224,11 @@ public class Player {
         } else {
             return false;
         }
+    }
+
+    private double initializePlayerAge(int birthDay, int birthMonth, int birthYear) {
+        LocalDateTime today = LocalDateTime.now();
+        return today.getYear() - birthYear + ((today.getMonthValue() - birthMonth) / 12.0) + ((today.getDayOfMonth() - birthDay) / 365.0);
     }
 
     public int getPlayerID() {
@@ -290,6 +333,30 @@ public class Player {
 
     public void setAvailTOI(int availTOI) {
         this.availTOI = availTOI;
+    }
+
+    public int getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(int birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public int getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(int birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
     }
 }
 

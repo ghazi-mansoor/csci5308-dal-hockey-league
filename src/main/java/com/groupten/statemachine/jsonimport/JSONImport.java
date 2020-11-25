@@ -170,7 +170,7 @@ public class JSONImport implements IJSONImport {
 
                             playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
 
-                            if (teamLOM.addPlayer(playerLOM)) {
+                            if (teamLOM.addActivePlayer(playerLOM)) {
                                 success = true;
                             }else{
                                 throw new Exception("Issue with JSON Data");
