@@ -42,7 +42,7 @@ public class PlayerDAO implements IPlayerDAO {
 
         IStoredProcedure storedProcedure = new NullStoredProcedure();
         try {
-            storedProcedure = new StoredProcedure("getPlayers(?,?)");
+            storedProcedure = new StoredProcedure("getActivePlayers(?,?)");
             storedProcedure.setParameter(1, colName);
             storedProcedure.setParameter(2, colValue);
             list = storedProcedure.executeWithResults();

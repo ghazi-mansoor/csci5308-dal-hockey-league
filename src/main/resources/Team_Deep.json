@@ -14,12 +14,12 @@
           "divisionName": "Atlantic",
           "teams": {
             "Boston": {
-              "REQUIRED_NUMBER_OF_PLAYERS": 20,
+              "REQUIRED_NUMBER_OF_ACTIVE_PLAYERS": 20,
               "teamID": 0,
               "divisionID": 0,
               "teamName": "Boston",
               "aITeam": true,
-              "players": [
+              "activePlayers": [
                 {
                   "NUMBER_OF_DAYS_PER_YEAR": 365.0,
                   "PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER": 90.0,
@@ -29,12 +29,16 @@
                   "position": "forward",
                   "captain": true,
                   "age": 27.0,
+                  "birthDay": 0,
+                  "birthMonth": 0,
+                  "birthYear": 0,
                   "skating": 15.0,
                   "shooting": 18.0,
                   "checking": 12.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0
+                  "injuryPeriod": 0,
+                  "subscribers": []
                 },
                 {
                   "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -45,12 +49,16 @@
                   "position": "defense",
                   "captain": false,
                   "age": 20.0,
+                  "birthDay": 0,
+                  "birthMonth": 0,
+                  "birthYear": 0,
                   "skating": 10.0,
                   "shooting": 10.0,
                   "checking": 10.0,
                   "saving": 1.0,
                   "injured": false,
-                  "injuryPeriod": 0
+                  "injuryPeriod": 0,
+                  "subscribers": []
                 },
                 {
                   "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -61,14 +69,19 @@
                   "position": "goalie",
                   "captain": false,
                   "age": 33.0,
+                  "birthDay": 0,
+                  "birthMonth": 0,
+                  "birthYear": 0,
                   "skating": 10.0,
                   "shooting": 4.0,
                   "checking": 9.0,
                   "saving": 18.0,
                   "injured": false,
-                  "injuryPeriod": 0
+                  "injuryPeriod": 0,
+                  "subscribers": []
                 }
               ],
+              "inActivePlayers": [],
               "generalManager": {
                 "managerID": 0,
                 "managerName": "Mister Fred",
@@ -104,12 +117,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -120,12 +137,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -136,12 +157,16 @@
       "position": "goalie",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 5.0,
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -152,12 +177,16 @@
       "position": "goalie",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 5.0,
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -168,12 +197,16 @@
       "position": "goalie",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 5.0,
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -184,12 +217,16 @@
       "position": "goalie",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 5.0,
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -200,12 +237,16 @@
       "position": "goalie",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 5.0,
       "checking": 5.0,
       "saving": 10.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -216,12 +257,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -232,12 +277,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -248,12 +297,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -264,12 +317,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -280,12 +337,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -296,12 +357,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -312,12 +377,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -328,12 +397,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -344,12 +417,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -360,12 +437,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -376,12 +457,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -392,12 +477,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -408,12 +497,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -424,12 +517,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -440,12 +537,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -456,12 +557,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -472,12 +577,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -488,12 +597,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -504,12 +617,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -520,12 +637,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -536,12 +657,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -552,12 +677,16 @@
       "position": "defense",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -568,12 +697,16 @@
       "position": "forward",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     },
     {
       "NUMBER_OF_DAYS_PER_YEAR": 365.0,
@@ -584,12 +717,16 @@
       "position": "goalie",
       "captain": false,
       "age": 25.0,
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
       "skating": 10.0,
       "shooting": 10.0,
       "checking": 10.0,
       "saving": 1.0,
       "injured": false,
-      "injuryPeriod": 0
+      "injuryPeriod": 0,
+      "subscribers": []
     }
   ],
   "coaches": [

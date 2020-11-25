@@ -15,7 +15,7 @@ public class TeamTest {
     public void addPlayerTest() {
         Team team  = new Team(1, "First Team");
         Player player = new Player("First Player", "goalie", false, 27, 5, 5, 5, 5);
-        assertTrue(team.addPlayer(player));
+        assertTrue(team.addActivePlayer(player));
     }
 
     @Test
@@ -23,7 +23,7 @@ public class TeamTest {
         Team team  = new Team(1, "First Team");
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
-            team.addPlayer(player);
+            team.addActivePlayer(player);
         }
         assertTrue(team.isPlayersCountValid());
     }
@@ -33,14 +33,14 @@ public class TeamTest {
         Team team  = new Team(1, "First Team");
         for (int i = 0; i < 18; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
-            team.addPlayer(player);
+            team.addActivePlayer(player);
         }
         Player player = new Player(19, "Player", "forward", true, 27, 5, 5, 5, 5);
-        team.addPlayer(player);
+        team.addActivePlayer(player);
         assertTrue(team.doesTeamHaveOneCaptain());
 
         player = new Player(20, "Player", "forward", true, 27, 5, 5, 5, 5);
-        team.addPlayer(player);
+        team.addActivePlayer(player);
         assertFalse(team.doesTeamHaveOneCaptain());
     }
 
@@ -61,7 +61,7 @@ public class TeamTest {
         Team team  = new Team(1, "First Team");
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
-            team.addPlayer(player);
+            team.addActivePlayer(player);
         }
         team.calculateTeamStrength();
         assertEquals(200.0, team.getTeamStrength(), 0.0);
@@ -130,9 +130,9 @@ public class TeamTest {
         Team team  = new Team(1, "First Team");
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
-            team.addPlayer(player);
+            team.addActivePlayer(player);
         }
-        assertEquals(20, team.getPlayers().size());
+        assertEquals(20, team.getActivePlayers().size());
     }
 
     @Test
@@ -143,8 +143,8 @@ public class TeamTest {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
             players.add(player);
         }
-        team.setPlayers(players);
-        assertEquals(20,team.getPlayers().size());
+        team.setActivePlayers(players);
+        assertEquals(20,team.getActivePlayers().size());
     }
 
     @Test

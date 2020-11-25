@@ -34,7 +34,7 @@ public class Training implements ITraining {
                     double checking = team.getHeadCoach().getChecking();
                     double saving = team.getHeadCoach().getSaving();
 
-                    List<Player> players = team.getPlayers();
+                    List<Player> players = team.getActivePlayers();
 
                     for (Player player : players) {
                         if (compareStatisticWithRandomValue(skating)) {
