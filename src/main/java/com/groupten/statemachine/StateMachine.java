@@ -128,12 +128,10 @@ public class StateMachine {
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Preparing for simulation.");
 
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League leagueLOM = leagueModel.getCurrentLeague();
         ISimulation simulation = Injector.instance().getSimulationObject();
 
         console.printLine("Simulating " + numberOfSeasons + " Seasons.");
-        simulation.init(leagueLOM,numberOfSeasons);
+        simulation.init(numberOfSeasons);
         end();
     }
 

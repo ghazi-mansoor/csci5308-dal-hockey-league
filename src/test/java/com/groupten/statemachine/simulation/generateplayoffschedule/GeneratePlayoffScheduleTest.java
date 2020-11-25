@@ -2,35 +2,26 @@ package com.groupten.statemachine.simulation.generateplayoffschedule;
 
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.statemachine.jsonimport.JSONImport;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class GeneratePlayoffScheduleTest {
-    League league = new League("League 1");
-    Season season = new Season(league,2020);
+    Season season = new Season(2020);
 
-    @Test
-    public void getSeasonTest(){
-        GeneratePlayoffSchedule generatePlayoffSchedule = new GeneratePlayoffSchedule();
-        generatePlayoffSchedule.setSeason(season);
-        assertEquals(season,generatePlayoffSchedule.getSeason());
-    }
-
-    @Test
-    public void setSeasonTest(){
-        GeneratePlayoffSchedule generatePlayoffSchedule = new GeneratePlayoffSchedule();
-        generatePlayoffSchedule.setSeason(season);
-        assertEquals(season,generatePlayoffSchedule.getSeason());
+    @BeforeClass
+    public static void setup() {
+        JSONImport json = new JSONImport();
+        json.importJSONData("src/test/java/com/groupten/mocks/JsonMockNoTeams.json");
+        json.instantiateJSONData();
     }
 
     @Test
     public void generatePlayoffScheduleTest(){
         GeneratePlayoffSchedule generatePlayoffSchedule = new GeneratePlayoffSchedule();
-        League league = null;
-        Season season2 = new Season(league,2020);
-        generatePlayoffSchedule.setSeason(season2);
-        assertFalse(generatePlayoffSchedule.generatePlayoffSchedule());
+        assertFalse(generatePlayoffSchedule.generatePlayoffSchedule(season));
     }
 }
