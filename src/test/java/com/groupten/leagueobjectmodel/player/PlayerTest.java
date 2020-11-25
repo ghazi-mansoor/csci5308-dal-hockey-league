@@ -182,6 +182,20 @@ public class PlayerTest {
     }
 
     @Test
+    public void getAvailTOITest(){
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setAvailTOI(100);
+        assertEquals(100, player.getAvailTOI());
+    }
+
+    @Test
+    public void setAvailTOITest() {
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setAvailTOI(100);
+        assertEquals(100, player.getAvailTOI());
+    }
+
+    @Test
     public void initializePlayerAgeTest() {
         LocalDateTime today = LocalDateTime.now();
         int currentDay = today.getDayOfMonth();

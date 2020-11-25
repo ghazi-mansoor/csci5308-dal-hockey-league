@@ -15,6 +15,7 @@ import java.util.Random;
 public class Player {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
     private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
+    private final int MAX_TOI = 1080;
 
     private int playerID;
     private int teamID;
@@ -31,6 +32,7 @@ public class Player {
     private double saving;
     private boolean injured;
     private int injuryPeriod;
+    private int availTOI;
     private List<IPlayerSubscriber> subscribers = new ArrayList<>();
 
     public Player() {}
@@ -43,6 +45,7 @@ public class Player {
         this.shooting = shooting;
         this.checking = checking;
         this.saving = saving;
+        this.availTOI = MAX_TOI;
     }
 
     public Player(String playerName, String position, int birthDay, int birthMonth, int birthYear, double skating, double shooting, double checking, double saving) {
@@ -324,6 +327,13 @@ public class Player {
         return position;
     }
 
+    public int getAvailTOI() {
+        return availTOI;
+    }
+
+    public void setAvailTOI(int availTOI) {
+        this.availTOI = availTOI;
+    }
 
     public int getBirthDay() {
         return birthDay;

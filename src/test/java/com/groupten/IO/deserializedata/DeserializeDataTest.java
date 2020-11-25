@@ -8,7 +8,8 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class DeserializeDataTest {
 
