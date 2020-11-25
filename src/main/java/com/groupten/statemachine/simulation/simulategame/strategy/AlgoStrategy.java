@@ -25,8 +25,8 @@ public class AlgoStrategy implements IStrategy{
 
     @Override
     public Team getWinner(Team team1, Team team2) {
-        team1Shifts = prepareShifts(team1.getPlayers());
-        team2Shifts = prepareShifts(team2.getPlayers());
+        team1Shifts = prepareShifts(team1.getActivePlayers());
+        team2Shifts = prepareShifts(team2.getActivePlayers());
         int team1Goals = 0;
         int team2Goals = 0;
 
