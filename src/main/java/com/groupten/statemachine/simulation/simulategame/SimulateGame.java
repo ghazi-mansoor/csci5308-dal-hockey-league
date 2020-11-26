@@ -19,7 +19,7 @@ public class SimulateGame implements ISimulateGame {
         Team team1 = teamList.get(0);
         Team team2 = teamList.get(1);
 
-        IResolveGame resolveGame = new ResolveGame();
+        IResolveGame resolveGame = new ResolveGame(season);
         Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
         if(winner == team1){
             recordWin(team1);

@@ -1,13 +1,11 @@
 package com.groupten.statemachine.simulation.simulategame.strategy;
 
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.shift.Shift;
 import com.groupten.leagueobjectmodel.team.Team;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AlgoStrategy implements IStrategy{
@@ -20,11 +18,35 @@ public class AlgoStrategy implements IStrategy{
     double PENALITY_CHANCE = 0.8;
 
     Random rand = new Random();
+    Season season;
     List<Shift> team1Shifts = new ArrayList<>();
     List<Shift> team2Shifts = new ArrayList<>();
+    Map<Player, Integer> shots = new HashMap<>();
+    Map<Player, Integer> penalties = new HashMap<>();
+    Map<Player, Integer> goals = new HashMap<>();
+    Map<Player, Integer> saves = new HashMap<>();
+    private List<IAlgoStrategyObserver> observers = new ArrayList<>();
+
+    public void attach(IAlgoStrategyObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void detach(IAlgoStrategyObserver observer) {
+        this.observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (IAlgoStrategyObserver observer : this.observers) {
+            observer.updateShots(shots);
+            observer.updateShots(penalties);
+            observer.updateShots(goals);
+            observer.updateShots(saves);
+        }
+    }
 
     @Override
-    public Team getWinner(Team team1, Team team2) {
+    public Team getWinner(Season season, Team team1, Team team2) {
+        this.season = season;
         team1Shifts = prepareShifts(team1.getActivePlayers());
         team2Shifts = prepareShifts(team2.getActivePlayers());
         int team1Goals = 0;
@@ -39,16 +61,19 @@ public class AlgoStrategy implements IStrategy{
             int team2GoalAttempt = 0;
 
             if(team1Shift.getShootingStat() > team2Shift.getShootingStat()){
-                team1Shots++;
+                shots.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
                 if(team1Shift.getSkatingStat() > team2Shift.getSkatingStat()){
                     team1Shots++;
+                    shots.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
                 }else{
                     team1Shots--;
                 }
             }else{
                 team2Shots++;
+                shots.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
                 if(team2Shift.getSkatingStat() > team1Shift.getSkatingStat()){
                     team2Shots++;
+                    shots.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
                 }else{
                     team2Shots--;
                 }
@@ -56,8 +81,8 @@ public class AlgoStrategy implements IStrategy{
             for (int i=0;i<team1Shots;i++){
                 if(team2Shift.getCheckingStat() > team1Shift.getCheckingStat()){
                     if(rand.nextDouble() > PENALITY_CHANCE){
-                        Player penalty_player = team2Shift.getDefensemen().get(rand.nextInt(team2Shift.getDefensemen().size()));
                         team1GoalAttempt++;
+                        penalties.merge(team2Shift.getDefensemen().get(rand.nextInt(team2Shift.getDefensemen().size())),1, Integer::sum);
                     }
                 }else{
                     team1GoalAttempt++;
@@ -66,8 +91,8 @@ public class AlgoStrategy implements IStrategy{
             for (int i=0;i<team2Shots;i++){
                 if(team1Shift.getCheckingStat() > team1Shift.getCheckingStat()){
                     if(rand.nextDouble() > PENALITY_CHANCE){
-                        Player penalty_player = team1Shift.getDefensemen().get(rand.nextInt(team1Shift.getDefensemen().size()));
                         team2GoalAttempt++;
+                        penalties.merge(team1Shift.getDefensemen().get(rand.nextInt(team1Shift.getDefensemen().size())),1, Integer::sum);
                     }
                 }else{
                     team2GoalAttempt++;
@@ -77,16 +102,22 @@ public class AlgoStrategy implements IStrategy{
             for(int i=0;i<team1GoalAttempt;i++){
                 if(team2Shift.getSavingStat() < team1Shift.getSavingStat()){
                     team1Goals++;
-                    Player goal_player = team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size()));
+                    goals.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
+                }else{
+                    saves.merge(team2Shift.getGoalie(),1, Integer::sum);
                 }
             }
             for(int i=0;i<team2GoalAttempt;i++){
                 if(team1Shift.getSavingStat() < team2Shift.getSavingStat()){
                     team2Goals++;
-                    Player goal_player = team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size()));
+                    goals.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
+                }else{
+                    saves.merge(team1Shift.getGoalie(),1, Integer::sum);
                 }
             }
         }
+
+        notifyObservers();
 
         if(team1Goals > team2Goals){
             return team1;
@@ -163,10 +194,22 @@ public class AlgoStrategy implements IStrategy{
         List<Player> goalies = players.stream()
                 .filter(player -> player.getPosition().equals("goalie"))
                 .collect(Collectors.toList());
+
         if(goalies.size() == 0) {
             throw new NoSuchElementException();
         }
-        return goalies.get(rand.nextInt(goalies.size()));
+
+        if(season.getCurrentDate().getTime() > season.getRegularSeasonEndsAt().getTime()){
+            Player goalie = goalies.get(0);
+            for(int i=0; i< goalies.size();i++){
+                if(goalies.get(i).getSaving() > goalie.getSaving()){
+                    goalie = goalies.get(i);
+                }
+            }
+            return goalie;
+        }else{
+            return goalies.get(rand.nextInt(goalies.size()));
+        }
     }
 }
 

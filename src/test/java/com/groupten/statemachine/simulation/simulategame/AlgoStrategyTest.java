@@ -1,6 +1,7 @@
 package com.groupten.statemachine.simulation.simulategame;
 
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy;
@@ -20,7 +21,8 @@ public class AlgoStrategyTest {
 
     @Test
     public void getWinnerTest(){
-        ResolveGame resolveGame = new ResolveGame();
+        Season season = new Season();
+        ResolveGame resolveGame = new ResolveGame(season);
         resolveGame.setStrategy(new AlgoStrategy());
 
         Team team1  = new Team(1, "First Team");
