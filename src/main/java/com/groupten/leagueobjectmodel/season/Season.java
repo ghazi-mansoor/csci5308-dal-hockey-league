@@ -107,6 +107,10 @@ public class Season implements ISeason {
         }
     }
 
+    public List<TeamStanding> getTeamStandings(){
+        return teamStandings;
+    }
+
     @Override
     public boolean generateRegularSchedule() {
         if (teamStandings.size() <= 0) {

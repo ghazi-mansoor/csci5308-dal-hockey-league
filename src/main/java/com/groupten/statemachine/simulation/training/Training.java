@@ -18,15 +18,18 @@ public class Training implements ITraining {
     private List<IObserver> observers = new ArrayList<>();
     private Map<Coach, Integer> coachRanking = new HashMap<>();
 
+    @Override
     public void subscribe(IObserver observer) {
         observers.add(observer);
     }
 
+    @Override
     public void unsubscribe(IObserver observer) {
         observers.remove(observer);
     }
 
-    private void notifyObserver() {
+    @Override
+    public void notifyObserver() {
         for (IObserver observer : observers) {
             observer.updateCoachRanking(coachRanking);
         }
