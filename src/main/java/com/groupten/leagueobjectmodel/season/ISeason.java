@@ -1,6 +1,7 @@
 package com.groupten.leagueobjectmodel.season;
 
 import com.groupten.leagueobjectmodel.schedule.Schedule;
+import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.leagueobjectmodel.team.Team;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ public interface ISeason {
     List<Schedule> schedulesToday();
     void recordWin(Team team);
     Team getSeasonWinner();
+    SeasonStat getSeasonStat();
     boolean isTodayRegularSeasonEnd();
     boolean isTradeEnded();
     boolean isWinnerDetermined();

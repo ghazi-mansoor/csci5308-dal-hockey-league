@@ -8,6 +8,7 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
+import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ public class Season implements ISeason {
     private List<Schedule> regularSchedules = new ArrayList<>();
     private List<Schedule> playoffSchedules = new ArrayList<>();
     private Team winner = null;
+    private SeasonStat seasonStat;
     private List<ISeasonObserver> observers = new ArrayList<>();
 
     public Season() {
@@ -36,11 +38,13 @@ public class Season implements ISeason {
 
         this.initDates(year);
         this.generateTeamStandings();
+        this.seasonStat = new SeasonStat();
     }
 
     public Season(int year) {
         this.initDates(year);
         this.generateTeamStandings();
+        this.seasonStat = new SeasonStat();
     }
 
     public void attach(ISeasonObserver observer) {
@@ -339,6 +343,11 @@ public class Season implements ISeason {
     @Override
     public Team getSeasonWinner() {
         return winner;
+    }
+
+    @Override
+    public SeasonStat getSeasonStat() {
+        return seasonStat;
     }
 
     @Override
