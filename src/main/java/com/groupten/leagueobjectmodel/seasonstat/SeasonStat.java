@@ -1,4 +1,4 @@
-package com.groupten.statemachine.simulation.seasonstat;
+package com.groupten.leagueobjectmodel.seasonstat;
 
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.statemachine.simulation.simulategame.strategy.IAlgoStrategyObserver;
