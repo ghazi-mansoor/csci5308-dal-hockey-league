@@ -55,7 +55,7 @@ public class Season implements ISeason {
         this.observers.remove(observer);
     }
 
-    private void notifyObservers() {
+    public void notifyObservers() {
         for (ISeasonObserver observer : this.observers) {
             observer.updateRegularSeasonEnd(this);
         }
@@ -101,10 +101,6 @@ public class Season implements ISeason {
         cal.setTime(this.currentDate);
         cal.add(Calendar.DATE, 1);
         this.currentDate = cal.getTime();
-
-        if(isTodayRegularSeasonEnd()){
-            notifyObservers();
-        }
     }
 
     public List<TeamStanding> getTeamStandings(){

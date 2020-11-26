@@ -13,21 +13,14 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.persistence.dao.ILeagueDAO;
 
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.List;
 
 public class JSONImport implements IJSONImport {
 
     private JsonObject jsonData;
 
     public JSONImport() {
-    }
-
-    public JSONImport(ILeagueDAO leagueDBMockObj) {
-        Injector.instance().setLeagueDatabaseObject(leagueDBMockObj);
     }
 
     @Override
@@ -40,15 +33,6 @@ public class JSONImport implements IJSONImport {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    @Override
-    public boolean isLeagueNameUnique() {
-        ILeagueDAO leagueDB = Injector.instance().getLeagueDatabaseObject();
-        String columnName = "leagueName";
-        String leagueName = jsonData.get("leagueName").getAsString();
-        List<HashMap<String, Object>> leagues = leagueDB.getLeagues(columnName, leagueName);
-        return leagues.size() == 0;
     }
 
     @Override
