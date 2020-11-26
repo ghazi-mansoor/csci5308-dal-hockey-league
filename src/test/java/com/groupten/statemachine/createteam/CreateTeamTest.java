@@ -61,7 +61,7 @@ public class CreateTeamTest {
         createTeam.setConferenceName("Deep Test Conference");
         createTeam.setDivisionName("Deep Division Division");
         createTeam.setTeamName("Deep Test 3");
-        createTeam.setGeneralManager(new GeneralManager("First General Manager"));
+        createTeam.setGeneralManager(new GeneralManager("First General Manager", "Normal"));
         createTeam.setHeadCoach(new Coach("First Coach", 0.5, 0.5, 0.5, 0.5));
 
         player = new Player("First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);

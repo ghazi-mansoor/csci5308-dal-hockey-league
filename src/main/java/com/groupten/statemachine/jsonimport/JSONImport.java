@@ -172,13 +172,15 @@ public class JSONImport implements IJSONImport {
                             String playerName = teamPlayer.get("playerName").getAsString();
                             String position = teamPlayer.get("position").getAsString();
                             boolean captain = teamPlayer.get("captain").getAsBoolean();
-                            double playerAge = teamPlayer.get("age").getAsDouble();
+                            int playerBirthDay = teamPlayer.get("birthDay").getAsInt();
+                            int playerBirthMonth = teamPlayer.get("birthMonth").getAsInt();
+                            int playerBirthYear = teamPlayer.get("birthYear").getAsInt();
                             double playerSkating = teamPlayer.get("skating").getAsDouble();
                             double playerShooting = teamPlayer.get("shooting").getAsDouble();
                             double playerChecking = teamPlayer.get("checking").getAsDouble();
                             double playerSaving = teamPlayer.get("saving").getAsDouble();
 
-                            playerLOM = new Player(playerName, position, captain, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
+                            playerLOM = new Player(playerName, position, captain, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
 
                             if (teamLOM.addActivePlayer(playerLOM)) {
                                 success = true;
@@ -212,13 +214,15 @@ public class JSONImport implements IJSONImport {
                 freeAgent = (JsonObject) freeAgents.get(i);
                 String playerName = freeAgent.get("playerName").getAsString();
                 String position = freeAgent.get("position").getAsString();
-                double playerAge = freeAgent.get("age").getAsDouble();
+                int playerBirthDay = freeAgent.get("birthDay").getAsInt();
+                int playerBirthMonth = freeAgent.get("birthMonth").getAsInt();
+                int playerBirthYear = freeAgent.get("birthYear").getAsInt();
                 double playerSkating = freeAgent.get("skating").getAsDouble();
                 double playerShooting = freeAgent.get("shooting").getAsDouble();
                 double playerChecking = freeAgent.get("checking").getAsDouble();
                 double playerSaving = freeAgent.get("saving").getAsDouble();
 
-                playerLOM = new Player(playerName, position, playerAge, playerSkating, playerShooting, playerChecking, playerSaving);
+                playerLOM = new Player(playerName, position, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
 
                 if (leagueLOM.addFreeAgent(playerLOM)) {
                     success = true;
