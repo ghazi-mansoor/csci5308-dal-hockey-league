@@ -2,15 +2,15 @@ package com.groupten.statemachine.simulation.simulategame;
 
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy;
 import com.groupten.statemachine.simulation.simulategame.strategy.IStrategy;
+import com.groupten.statemachine.simulation.simulategame.strategy.RandomStrategy;
 
 public class ResolveGame implements IResolveGame {
     private IStrategy strategy;
     private final Season season;
 
     public ResolveGame(Season season){
-        this.strategy = new AlgoStrategy();
+        this.strategy = new RandomStrategy();
         this.season = season;
     }
 

@@ -3,6 +3,7 @@ package com.groupten.statemachine.simulation.simulategame;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class SimulateGame implements ISimulateGame {
         Team team2 = teamList.get(1);
 
         IResolveGame resolveGame = new ResolveGame(season);
+        resolveGame.setStrategy(new AlgoStrategy());
         Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
         if(winner == team1){
             recordWin(team1);
