@@ -59,6 +59,7 @@ public class Player {
         this.shooting = shooting;
         this.checking = checking;
         this.saving = saving;
+        this.availTOI = MAX_TOI;
     }
 
     public Player(int playerID, String playerName, String position, double age, double skating, double shooting,
@@ -333,6 +334,10 @@ public class Player {
 
     public void setAvailTOI(int availTOI) {
         this.availTOI = availTOI;
+    }
+
+    public void resetAvailTOI() {
+        this.availTOI = MAX_TOI;
     }
 
     public int getBirthDay() {
