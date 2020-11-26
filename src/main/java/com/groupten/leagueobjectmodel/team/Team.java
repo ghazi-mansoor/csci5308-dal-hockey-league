@@ -117,7 +117,7 @@ public class Team implements IPlayerSubscriber {
     }
 
     public boolean setGeneralManager(GeneralManager generalManager) {
-        if (GeneralManager.isManagerNameValid(generalManager.getManagerName())) {
+        if (GeneralManager.isManagerValid(generalManager)) {
             this.generalManager = generalManager;
             return true;
         } else {

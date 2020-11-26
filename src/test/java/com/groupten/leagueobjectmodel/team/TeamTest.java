@@ -96,7 +96,7 @@ public class TeamTest {
     @Test
     public void setGeneralManagerTest() {
         Team team  = new Team("First Team");
-        GeneralManager generalManager = new GeneralManager("Manager");
+        GeneralManager generalManager = new GeneralManager("Manager", "normal");
         team.setGeneralManager(generalManager);
         assertEquals("Manager", team.getGeneralManager().getManagerName());
     }
@@ -104,7 +104,7 @@ public class TeamTest {
     @Test
     public void getGeneralManagerTest() {
         Team team  = new Team("First Team");
-        GeneralManager generalManager = new GeneralManager("Manager");
+        GeneralManager generalManager = new GeneralManager("Manager", "normal");
         team.setGeneralManager(generalManager);
         assertEquals("Manager", team.getGeneralManager().getManagerName());
     }

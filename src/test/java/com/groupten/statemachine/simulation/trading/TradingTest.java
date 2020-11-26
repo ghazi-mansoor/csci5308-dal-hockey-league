@@ -17,7 +17,7 @@ public class TradingTest {
     public void sortByPlayerStrengthTest () {
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
@@ -71,7 +71,7 @@ public class TradingTest {
     public void getWeakestPlayersTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
@@ -117,7 +117,7 @@ public class TradingTest {
     public void UIDropPlayersTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
@@ -197,7 +197,7 @@ public class TradingTest {
     public void UIGetFromFreeAgentsTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
@@ -277,7 +277,7 @@ public class TradingTest {
     public void UITradeOfferTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);
@@ -299,7 +299,7 @@ public class TradingTest {
     public void UITradeAcceptTest(){
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
 
         leagueModel.setCurrentLeague(league);

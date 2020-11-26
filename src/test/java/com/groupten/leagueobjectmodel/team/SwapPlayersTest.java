@@ -21,7 +21,7 @@ public class SwapPlayersTest {
 
         League league = new League("First League");
         leagueModel.setCurrentLeague(league);
-        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50, 0.01);
         league.setAgingConfig(agingConfig);
         GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
         league.setInjuriesConfig(injuriesConfig);

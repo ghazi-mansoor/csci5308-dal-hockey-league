@@ -6,6 +6,7 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
+import com.groupten.leagueobjectmodel.season.ISeasonObserver;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
@@ -51,6 +52,7 @@ public class Simulation implements ISimulation {
         numberOfSeasons--;
         daysSinceStatsIncreased = 0;
         season = new Season(year);
+        season.attach((ISeasonObserver) Injector.instance().getTrophyObject());
         if(initializeSeason.generateRegularSchedule(season)){
             console.printLine("Regular schedule generated.");
             advanceTime();
@@ -127,6 +129,7 @@ public class Simulation implements ISimulation {
         aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
+            season.notifyObservers();
             console.printLine("Season won by:"+ season.getSeasonWinner().getTeamName());
             SeasonStat seasonStat = season.getSeasonStat();
             console.printLine("Season Stats");
