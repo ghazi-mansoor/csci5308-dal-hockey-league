@@ -68,8 +68,8 @@ public class JSONImport implements IJSONImport {
         GameConfig.Training trainingLOM;
         GameConfig.Trading tradingLOM;
 
-        JsonObject conference, division, team, headCoach, coach, teamPlayer, freeAgent;
-        JsonObject gamePlayConfig, aging, gameResolver, injuries, training, trading;
+        JsonObject conference, division, team, headCoach, coach, teamPlayer, freeAgent, generalManager;
+        JsonObject gamePlayConfig, aging, gameResolver, injuries, training, trading, gmTable;
         JsonArray conferences, divisions, teams, players;
 
         boolean success = false;
@@ -80,9 +80,11 @@ public class JSONImport implements IJSONImport {
         injuries = (JsonObject) gamePlayConfig.get("injuries");
         training = (JsonObject) gamePlayConfig.get("training");
         trading = (JsonObject) gamePlayConfig.get("trading");
+        gmTable = (JsonObject) trading.get("gmTable");
 
         int averageRetirementAge = aging.get("averageRetirementAge").getAsInt();
         int maximumAge = aging.get("maximumAge").getAsInt();
+        double statDecayChance = aging.get("statDecayChance").getAsDouble();
 
         double randomWinChance = gameResolver.get("randomWinChance").getAsDouble();
 
@@ -96,17 +98,21 @@ public class JSONImport implements IJSONImport {
         double randomTradeOfferChance = trading.get("randomTradeOfferChance").getAsDouble();
         int maxPlayersPerTrade = trading.get("maxPlayersPerTrade").getAsInt();
         double randomAcceptanceChance = trading.get("randomAcceptanceChance").getAsDouble();
+        double shrewd = gmTable.get("shrewd").getAsDouble();
+        double normal = gmTable.get("normal").getAsDouble();
+        double gambler = gmTable.get("gambler").getAsDouble();
 
         String leagueName = jsonData.get("leagueName").getAsString();
         conferences = (JsonArray) jsonData.get("conferences");
 
         leagueLOM = new League(leagueName);
 
-        agingLOM = new GameConfig.Aging(averageRetirementAge, maximumAge);
+        agingLOM = new GameConfig.Aging(averageRetirementAge, maximumAge, statDecayChance);
         gameResolverLOM = new GameConfig.GameResolver(randomWinChance);
         injuriesLOM = new GameConfig.Injuries(randomInjuryChance, injuryDaysLow, injuryDaysHigh);
         trainingLOM = new GameConfig.Training(daysUntilStatIncreaseCheck);
-        tradingLOM = new GameConfig.Trading(lossPoint, randomTradeOfferChance, maxPlayersPerTrade, randomAcceptanceChance);
+        tradingLOM = new GameConfig.Trading(lossPoint, randomTradeOfferChance, maxPlayersPerTrade,
+                randomAcceptanceChance, shrewd, normal, gambler);
 
         leagueLOM.setAgingConfig(agingLOM);
         leagueLOM.setGameResolverConfig(gameResolverLOM);
@@ -132,7 +138,11 @@ public class JSONImport implements IJSONImport {
                     for (int k = 0; k < teams.size(); k++) {
                         team = (JsonObject) teams.get(k);
                         String teamName = team.get("teamName").getAsString();
-                        String generalManager = team.get("generalManager").getAsString();
+
+                        generalManager = (JsonObject) team.get("generalManager");
+                        String gmName = generalManager.get("name").getAsString();
+                        String gmPersonality = generalManager.get("personality").getAsString();
+
                         headCoach = (JsonObject) team.get("headCoach");
                         String coachName = headCoach.get("name").getAsString();
                         double coachSkating = headCoach.get("skating").getAsDouble();
@@ -142,7 +152,7 @@ public class JSONImport implements IJSONImport {
                         players = (JsonArray) team.get("players");
 
                         teamLOM = new Team(teamName);
-                        managerLOM = new GeneralManager(generalManager);
+                        managerLOM = new GeneralManager(gmName, gmPersonality);
                         coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
 
                         if (teamLOM.setGeneralManager(managerLOM)) {
@@ -239,9 +249,11 @@ public class JSONImport implements IJSONImport {
             JsonArray generalManagers = (JsonArray) jsonData.get("generalManagers");
 
             for (int i = 0; i < generalManagers.size(); i++) {
-                String generalManager = generalManagers.get(i).getAsString();
+                generalManager = (JsonObject) generalManagers.get(i);
+                String gmName = generalManager.get("name").getAsString();
+                String gmPersonality = generalManager.get("personality").getAsString();
 
-                managerLOM = new GeneralManager(generalManager);
+                managerLOM = new GeneralManager(gmName, gmPersonality);
 
                 if (leagueLOM.addGeneralManager(managerLOM)) {
                     success = true;

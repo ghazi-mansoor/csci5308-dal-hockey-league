@@ -4,10 +4,12 @@ public class GameConfig {
     public static class Aging  {
         private int averageRetirementAge;
         private int maximumAge;
+        private double statDecayChance;
 
-        public Aging(int averageRetirementAge, int maximumAge) {
+        public Aging(int averageRetirementAge, int maximumAge, double statDecayChance) {
             this.averageRetirementAge = averageRetirementAge;
             this.maximumAge = maximumAge;
+            this.statDecayChance = statDecayChance;
         }
 
         public int getAverageRetirementAge() {
@@ -16,6 +18,10 @@ public class GameConfig {
 
         public int getMaximumAge() {
             return maximumAge;
+        }
+
+        public double getStatDecayChance() {
+            return statDecayChance;
         }
     }
 
@@ -72,13 +78,20 @@ public class GameConfig {
         private double randomTradeOfferChance;
         private int maxPlayersPerTrade;
         private double randomAcceptanceChance;
+        private double shrewd;
+        private double normal;
+        private double gambler;
+
 
         public Trading(int lossPoint, double randomTradeOfferChance, int maxPlayersPerTrade,
-                       double randomAcceptanceChance) {
+                       double randomAcceptanceChance, double shrewd, double normal, double gambler) {
             this.lossPoint = lossPoint;
             this.randomTradeOfferChance = randomTradeOfferChance;
             this.maxPlayersPerTrade = maxPlayersPerTrade;
             this.randomAcceptanceChance = randomAcceptanceChance;
+            this.shrewd = shrewd;
+            this.normal = normal;
+            this.gambler = gambler;
         }
 
         public int getLossPoint() {
@@ -95,6 +108,18 @@ public class GameConfig {
 
         public double getRandomAcceptanceChance() {
             return randomAcceptanceChance;
+        }
+
+        public double getShrewd() {
+            return shrewd;
+        }
+
+        public double getNormal() {
+            return normal;
+        }
+
+        public double getGambler() {
+            return gambler;
         }
     }
 }
