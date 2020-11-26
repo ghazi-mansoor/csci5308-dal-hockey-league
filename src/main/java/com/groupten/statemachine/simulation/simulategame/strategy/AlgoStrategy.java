@@ -119,11 +119,18 @@ public class AlgoStrategy implements IStrategy{
 
         notifyObservers();
 
+        resetAvailTOI(team1.getActivePlayers());
+        resetAvailTOI(team2.getActivePlayers());
+
         if(team1Goals > team2Goals){
             return team1;
         }else{
             return team2;
         }
+    }
+
+    private void resetAvailTOI(List<Player> players){
+        players.forEach(Player::resetAvailTOI);
     }
 
     private List<Shift> prepareShifts(List<Player> players){
@@ -134,30 +141,23 @@ public class AlgoStrategy implements IStrategy{
         for(int i=0;i<SHIFTS;i++){
             Shift shift = new Shift(shiftInterval);
             for(int j=0; j < SHIFT_FORWARD; j++){
-                try{
-                    Player forward = getForward(players,shiftInterval);
+                Player forward = getForward(players,shiftInterval);
+                if(forward != null){
                     shift.addForward(forward);
                     forward.setAvailTOI(forward.getAvailTOI()-shiftInterval);
-                }catch (NoSuchElementException e){
-                    e.printStackTrace();
                 }
-
             }
             for(int j=0; j < SHIFT_DEFENSE; j++){
-                try{
-                    Player defense = getDefense(players,shiftInterval);
+                Player defense = getDefense(players,shiftInterval);
+                if(defense != null) {
                     shift.addDefense(defense);
                     defense.setAvailTOI(defense.getAvailTOI()-shiftInterval);
-                }catch (NoSuchElementException e){
-                    e.printStackTrace();
                 }
             }
             for(int j=0; j < SHIFT_GOALIE; j++){
-                try{
-                    Player goalie = getGoalie(players);
+                Player goalie = getGoalie(players);
+                if(goalie != null){
                     shift.setGoalie(goalie);
-                }catch (NoSuchElementException e){
-                    e.printStackTrace();
                 }
             }
             teamShifts.add(shift);
@@ -166,28 +166,27 @@ public class AlgoStrategy implements IStrategy{
     }
 
     private Player getForward(List<Player> players, int shiftInterval) throws NoSuchElementException {
+        Player forward = null;
         List<Player> forwards = players.stream()
                 .filter(player -> player.getPosition().equals("forward"))
                 .filter(player -> player.getAvailTOI() >= shiftInterval)
                 .collect(Collectors.toList());
-        if(forwards.size() == 0) {
-            players.forEach(player -> {
-                System.out.println(player.getAvailTOI());
-            });
-            throw new NoSuchElementException();
+        if(forwards.size() > 0) {
+            forward = forwards.get(rand.nextInt(forwards.size()));
         }
-        return forwards.get(rand.nextInt(forwards.size()));
+        return forward;
     }
 
     private Player getDefense(List<Player> players, int shiftInterval) throws NoSuchElementException {
+        Player defence = null;
         List<Player> defensemen = players.stream()
                 .filter(player -> player.getPosition().equals("defense"))
                 .filter(player -> player.getAvailTOI() >= shiftInterval)
                 .collect(Collectors.toList());
-        if(defensemen.size() == 0) {
-            throw new NoSuchElementException();
+        if(defensemen.size() > 0) {
+            defence = defensemen.get(rand.nextInt(defensemen.size()));
         }
-        return defensemen.get(rand.nextInt(defensemen.size()));
+        return defence;
     }
 
     private Player getGoalie(List<Player> players) throws NoSuchElementException {
@@ -195,21 +194,21 @@ public class AlgoStrategy implements IStrategy{
                 .filter(player -> player.getPosition().equals("goalie"))
                 .collect(Collectors.toList());
 
-        if(goalies.size() == 0) {
-            throw new NoSuchElementException();
-        }
+        Player goalie = null;
 
         if(season.getCurrentDate().getTime() > season.getRegularSeasonEndsAt().getTime()){
-            Player goalie = goalies.get(0);
-            for(int i=0; i< goalies.size();i++){
-                if(goalies.get(i).getSaving() > goalie.getSaving()){
-                    goalie = goalies.get(i);
+            goalie = goalies.get(0);
+            for (Player player : goalies) {
+                if (player.getSaving() > goalie.getSaving()) {
+                    goalie = player;
                 }
             }
-            return goalie;
         }else{
-            return goalies.get(rand.nextInt(goalies.size()));
+            if(goalies.size() > 0){
+                goalie = goalies.get(rand.nextInt(goalies.size()));
+            }
         }
+        return goalie;
     }
 }
 
