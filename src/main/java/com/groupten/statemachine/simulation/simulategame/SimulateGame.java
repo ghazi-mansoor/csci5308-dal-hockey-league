@@ -21,7 +21,9 @@ public class SimulateGame implements ISimulateGame {
         Team team2 = teamList.get(1);
 
         IResolveGame resolveGame = new ResolveGame(season);
-        resolveGame.setStrategy(new AlgoStrategy());
+        AlgoStrategy algoStrategy = new AlgoStrategy();
+        algoStrategy.attach(this.season.getSeasonStat());
+        resolveGame.setStrategy(algoStrategy);
         Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
         if(winner == team1){
             recordWin(team1);
