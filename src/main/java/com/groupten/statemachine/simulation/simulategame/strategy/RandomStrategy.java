@@ -4,14 +4,18 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 
 import java.util.Random;
 
 public class RandomStrategy implements IStrategy {
+    Season season;
 
     @Override
-    public Team getWinner(Team team1, Team team2) {
+    public Team getWinner(Season season, Team team1, Team team2) {
+        this.season = season;
+
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = leagueModel.getCurrentLeague();
 

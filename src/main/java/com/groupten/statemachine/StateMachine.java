@@ -2,8 +2,6 @@ package com.groupten.statemachine;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.loadteam.ILoadTeam;

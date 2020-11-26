@@ -8,6 +8,7 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
+import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Season implements ISeason {
 
-    private League league;
     private Date currentDate;
     private Date regularSeasonStartsAt;
     private Date regularSeasonEndsAt;
@@ -28,30 +28,37 @@ public class Season implements ISeason {
     private List<Schedule> regularSchedules = new ArrayList<>();
     private List<Schedule> playoffSchedules = new ArrayList<>();
     private Team winner = null;
+    private SeasonStat seasonStat;
+    private List<ISeasonObserver> observers = new ArrayList<>();
 
     public Season() {
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        this.league = leagueModel.getCurrentLeague();
-
-        this.generateTeamStandings();
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         int year = cal.get(Calendar.YEAR);
+
         this.initDates(year);
+        this.generateTeamStandings();
+        this.seasonStat = new SeasonStat();
     }
 
     public Season(int year) {
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        this.league = leagueModel.getCurrentLeague();
-
-        this.generateTeamStandings();
-
         this.initDates(year);
+        this.generateTeamStandings();
+        this.seasonStat = new SeasonStat();
     }
 
-    public League getLeague() {
-        return league;
+    public void attach(ISeasonObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void detach(ISeasonObserver observer) {
+        this.observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (ISeasonObserver observer : this.observers) {
+            observer.updateRegularSeasonEnd(this);
+        }
     }
 
     @Override
@@ -94,6 +101,10 @@ public class Season implements ISeason {
         cal.setTime(this.currentDate);
         cal.add(Calendar.DATE, 1);
         this.currentDate = cal.getTime();
+
+        if(isTodayRegularSeasonEnd()){
+            notifyObservers();
+        }
     }
 
     @Override
@@ -335,6 +346,11 @@ public class Season implements ISeason {
     }
 
     @Override
+    public SeasonStat getSeasonStat() {
+        return seasonStat;
+    }
+
+    @Override
     public boolean isTodayRegularSeasonEnd() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(regularSeasonEndsAt).equals(dateFormat.format(currentDate));
@@ -470,19 +486,19 @@ public class Season implements ISeason {
     }
 
     private void generateTeamStandings() {
-        if (league != null) {
-            Map<String, Conference> conferences = league.getConferences();
-            conferences.forEach((conferenceName, conference) -> {
-                Map<String, Division> divisions = conference.getDivisions();
-                divisions.forEach((divisionName, division) -> {
-                    Map<String, Team> teams = division.getTeams();
-                    teams.forEach((teamName, team) -> {
-                        TeamStanding teamStanding = new TeamStanding(team, division.getDivisionName(), conference.getConferenceName(), 0, 0, 0, 0);
-                        this.teamStandings.add(teamStanding);
-                    });
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        League league = leagueModel.getCurrentLeague();
+        Map<String, Conference> conferences = league.getConferences();
+        conferences.forEach((conferenceName, conference) -> {
+            Map<String, Division> divisions = conference.getDivisions();
+            divisions.forEach((divisionName, division) -> {
+                Map<String, Team> teams = division.getTeams();
+                teams.forEach((teamName, team) -> {
+                    TeamStanding teamStanding = new TeamStanding(team, division.getDivisionName(), conference.getConferenceName(), 0, 0, 0, 0);
+                    this.teamStandings.add(teamStanding);
                 });
             });
-        }
+        });
     }
 
     private Date randomDateBetween(Date startInclusive, Date endExclusive) {

@@ -7,6 +7,7 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
@@ -123,10 +124,16 @@ public class Simulation implements ISimulation {
 
     private void aging(){
         IAging aging = Injector.instance().getAgingObject();
-        aging.advanceEveryPlayersAge(season.getLeague(),1);
+        aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
             console.printLine("Season won by:"+ season.getSeasonWinner().getTeamName());
+            SeasonStat seasonStat = season.getSeasonStat();
+            console.printLine("Season Stats");
+            console.printLine("Shots per Game:"+ seasonStat.getAvgShots());
+            console.printLine("Penalties per Game:"+ seasonStat.getAvgPenalties());
+            console.printLine("Goals per Game:"+ seasonStat.getAvgGoals());
+            console.printLine("Saves per Game:"+ seasonStat.getAvgSaves());
             if(numberOfSeasons > 0){
                 year++;
                 initializeSeason();
