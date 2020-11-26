@@ -1,14 +1,17 @@
 package com.groupten.statemachine.simulation.simulategame;
 
+import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.simulategame.strategy.IStrategy;
 import com.groupten.statemachine.simulation.simulategame.strategy.RandomStrategy;
 
 public class ResolveGame implements IResolveGame {
     private IStrategy strategy;
+    private final Season season;
 
-    public ResolveGame(){
-        strategy = new RandomStrategy();
+    public ResolveGame(Season season){
+        this.strategy = new RandomStrategy();
+        this.season = season;
     }
 
     @Override
@@ -23,6 +26,6 @@ public class ResolveGame implements IResolveGame {
 
     @Override
     public Team getWinner(Team team1, Team team2){
-        return strategy.getWinner(team1, team2);
+        return strategy.getWinner(this.season, team1, team2);
     }
 }

@@ -123,7 +123,7 @@ public class Simulation implements ISimulation {
 
     private void aging(){
         IAging aging = Injector.instance().getAgingObject();
-        aging.advanceEveryPlayersAge(season.getLeague(),1);
+        aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
             console.printLine("Season won by:"+ season.getSeasonWinner().getTeamName());
