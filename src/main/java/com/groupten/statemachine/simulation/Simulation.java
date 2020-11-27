@@ -17,6 +17,7 @@ import com.groupten.statemachine.simulation.injury.Injury;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.trading.ITrading;
 import com.groupten.statemachine.simulation.training.ITraining;
+import com.groupten.statemachine.simulation.trophy.ITrophy;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -137,6 +138,11 @@ public class Simulation implements ISimulation {
             console.printLine("Penalties per Game:"+ seasonStat.getAvgPenalties());
             console.printLine("Goals per Game:"+ seasonStat.getAvgGoals());
             console.printLine("Saves per Game:"+ seasonStat.getAvgSaves());
+
+            ITrophy trophy = Injector.instance().getTrophyObject();
+            trophy.awardTrophy();
+            trophy.trophyWinners();
+
             if(numberOfSeasons > 0){
                 year++;
                 initializeSeason();

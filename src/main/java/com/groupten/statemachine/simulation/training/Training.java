@@ -8,29 +8,28 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.simulation.trophy.IObserver;
 
 import java.util.*;
 
 public class Training implements ITraining {
 
     private final int MAX_PLAYER_STAT_VALUE = 20;
-    private List<IObserver> observers = new ArrayList<>();
-    private Map<Coach, Integer> coachRanking = new HashMap<>();
+    private List<ITrainingObserver> observers = new ArrayList<>();
+    private LinkedHashMap<Coach, Integer> coachRanking = new LinkedHashMap<>();
 
     @Override
-    public void subscribe(IObserver observer) {
+    public void subscribe(ITrainingObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void unsubscribe(IObserver observer) {
+    public void unsubscribe(ITrainingObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObserver() {
-        for (IObserver observer : observers) {
+        for (ITrainingObserver observer : observers) {
             observer.updateCoachRanking(coachRanking);
         }
     }
@@ -57,7 +56,6 @@ public class Training implements ITraining {
                     int count = 0;
 
                     List<Player> players = team.getActivePlayers();
-                    List<Player> players1 = team.getInActivePlayers();
 
                     for (Player player : players) {
                         if (compareStatisticWithRandomValue(skating)) {
