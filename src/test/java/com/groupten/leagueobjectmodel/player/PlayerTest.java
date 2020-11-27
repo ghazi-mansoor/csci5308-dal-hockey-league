@@ -7,6 +7,8 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.Assert.*;
 
 public class PlayerTest {
@@ -32,7 +34,7 @@ public class PlayerTest {
 
         League league = new League("First League");
         leagueModel.setCurrentLeague(league);
-        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50, 0.01);
         league.setAgingConfig(agingConfig);
         GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
         league.setInjuriesConfig(injuriesConfig);
@@ -48,9 +50,10 @@ public class PlayerTest {
     @Test
     public void checkInjuryTest() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        while (player.checkInjury()) {
-            assertTrue(player.isInjured());
+        while (player.isInjured() == false) {
+            player.checkInjury();
         }
+        assertTrue(player.isInjured());
     }
 
     @Test
@@ -175,5 +178,36 @@ public class PlayerTest {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setInjured(true);
         assertTrue(player.isInjured());
+    }
+
+    @Test
+    public void getAvailTOITest(){
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setAvailTOI(100);
+        assertEquals(100, player.getAvailTOI());
+    }
+
+    @Test
+    public void setAvailTOITest() {
+        Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
+        player.setAvailTOI(100);
+        assertEquals(100, player.getAvailTOI());
+    }
+
+    @Test
+    public void initializePlayerAgeTest() {
+        LocalDateTime today = LocalDateTime.now();
+        int currentDay = today.getDayOfMonth();
+        int currentMonth = today.getMonthValue();
+        int currentYear = today.getYear();
+
+        int playerBirthDay = 23;
+        int playerBirthMonth = 11;
+        int playerBirthYear = 2000;
+
+        double playerAgeCalculated =  currentYear - playerBirthYear + ((currentMonth - playerBirthMonth) / 12.0) + ((currentDay - playerBirthDay) / 365.0);
+
+        Player player = new Player("First Player", "forward", true, playerBirthDay, playerBirthMonth, playerBirthYear, 5.0, 5.0, 5.0, 5.0);
+        assertEquals(playerAgeCalculated, player.getAge(), 0);
     }
 }

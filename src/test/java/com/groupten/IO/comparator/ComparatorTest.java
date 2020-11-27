@@ -22,7 +22,6 @@ public class ComparatorTest {
 
     @Test
     public void exportDataTest() {
-
         IComparator comparator = Injector.instance().getComparatorObject();
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League exportedLeague = leagueModel.getCurrentLeague();

@@ -1,11 +1,9 @@
 package com.groupten.leagueobjectmodel.generalmanager;
 
-import java.util.HashMap;
-
 public class GeneralManager {
     private int managerID;
     private String managerName;
-    private HashMap<String,Double> managerPersonality;
+    private String managerPersonality;
     private int leagueID;
     private int teamID;
 
@@ -13,13 +11,19 @@ public class GeneralManager {
         managerName = mN;
     }
 
+    public GeneralManager(String mN, String mP) {
+        managerName = mN;
+        managerPersonality = mP;
+    }
+
     public GeneralManager(int mID, String mN) {
         this(mN);
         managerID = mID;
     }
 
-    public static boolean isManagerNameValid(String mN) {
-        if (mN.isEmpty() || mN.isBlank() || mN.toLowerCase().equals("null")) {
+    public static boolean isManagerValid(GeneralManager generalManager) {
+        if (generalManager.getManagerName().isEmpty() || generalManager.getManagerName().isBlank() || generalManager.getManagerName().toLowerCase().equals("null") ||
+                generalManager.getManagerPersonality().isEmpty() || generalManager.getManagerPersonality().isBlank() || generalManager.getManagerPersonality().toLowerCase().equals("null")) {
             return false;
         } else {
             return true;
@@ -42,12 +46,12 @@ public class GeneralManager {
         managerName = mN;
     }
 
-    public HashMap<String, Double> getManagerPersonality() {
+    public String getManagerPersonality() {
         return managerPersonality;
     }
 
-    public void setManagerPersonality(HashMap<String, Double> managerPersonality) {
-        this.managerPersonality = managerPersonality;
+    public void setManagerPersonality(String mp) {
+        managerPersonality = mp;
     }
 
     public int getLeagueID() {

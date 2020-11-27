@@ -34,6 +34,8 @@ import com.groupten.statemachine.simulation.trading.ITrading;
 import com.groupten.statemachine.simulation.trading.Trading;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.training.Training;
+import com.groupten.statemachine.simulation.trophy.ITrophy;
+import com.groupten.statemachine.simulation.trophy.Trophy;
 
 public class Injector {
 
@@ -59,6 +61,7 @@ public class Injector {
     private IDivisionDAO divisionDatabaseInterface;
     private ITeamDAO teamDatabaseInterface;
     private IPlayerDAO playerDatabaseInterface;
+    private ITrophy trophyInterface;
 
     private ILeagueModel leagueModel;
 
@@ -79,6 +82,9 @@ public class Injector {
         serializeDataInterface = new SerializeData();
         deserializeDataInterface = new DeserializeData();
         tradingInterface = new Trading();
+        trophyInterface = new Trophy();
+
+
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -107,6 +113,14 @@ public class Injector {
 
     public IConsole getConsoleObject() {
         return consoleInterface;
+    }
+
+    public void setTrophyObject(ITrophy trophyInterface) {
+        this.trophyInterface = trophyInterface;
+    }
+
+    public ITrophy getTrophyObject() {
+        return trophyInterface;
     }
 
     public void setComparatorObject(IComparator comparatorInterface) {

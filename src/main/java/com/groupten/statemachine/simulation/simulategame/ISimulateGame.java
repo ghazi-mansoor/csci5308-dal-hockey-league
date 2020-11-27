@@ -4,6 +4,5 @@ import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 
 public interface ISimulateGame {
-    void setSeason(Season season);
-    void simulateGame(Schedule schedule);
+    void simulateGame(Season season, Schedule schedule);
 }

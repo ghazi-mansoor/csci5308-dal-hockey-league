@@ -235,7 +235,7 @@ public class CreateTeam implements ICreateTeam {
         team.setHeadCoach(headCoach);
         team.setaITeam(false);
         for (Player player : freeAgents) {
-            team.addPlayer(player);
+            team.addActivePlayer(player);
         }
         return division.addTeam(team);
     }

@@ -150,7 +150,7 @@ public class LeagueTest {
     @Test
     public void setAgingConfigTest() {
         League league = new League(1, "First League");
-        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50, 0.01);
         league.setAgingConfig(agingConfig);
         assertEquals(35, agingConfig.getAverageRetirementAge());
         assertEquals(50, agingConfig.getMaximumAge());
@@ -185,7 +185,7 @@ public class LeagueTest {
     @Test
     public void setTradingConfig() {
         League league = new League(1, "First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05);
+        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
         league.setTradingConfig(tradingConfig);
         assertEquals(8, tradingConfig.getLossPoint());
         assertEquals(0.05, tradingConfig.getRandomTradeOfferChance(), 0.0);

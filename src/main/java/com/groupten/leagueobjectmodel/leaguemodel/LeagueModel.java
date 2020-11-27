@@ -88,7 +88,7 @@ public class LeagueModel implements ILeagueModel {
                 return false;
             } else {
                 int teamID = team.getTeamID();
-                List<Player> players = team.getPlayers();
+                List<Player> players = team.getActivePlayers();
                 boolean playersSaved = savePlayers(teamID, players);
 
                 if (playersSaved) {

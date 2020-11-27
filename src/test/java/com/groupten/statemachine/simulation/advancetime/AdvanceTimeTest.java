@@ -2,6 +2,8 @@ package com.groupten.statemachine.simulation.advancetime;
 
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.statemachine.jsonimport.JSONImport;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.text.DateFormat;
@@ -10,28 +12,19 @@ import java.text.SimpleDateFormat;
 import static org.junit.Assert.assertEquals;
 
 public class AdvanceTimeTest {
-    League league = new League("League 1");
-    Season season = new Season(league,2020);
+    Season season = new Season(2020);
 
-    @Test
-    public void getSeasonTest(){
-        AdvanceTime advanceTime = new AdvanceTime();
-        advanceTime.setSeason(season);
-        assertEquals(season,advanceTime.getSeason());
-    }
-
-    @Test
-    public void setSeasonTest(){
-        AdvanceTime advanceTime = new AdvanceTime();
-        advanceTime.setSeason(season);
-        assertEquals(season,advanceTime.getSeason());
+    @BeforeClass
+    public static void setup() {
+        JSONImport json = new JSONImport();
+        json.importJSONData("src/test/java/com/groupten/mocks/JsonMockNoTeams.json");
+        json.instantiateJSONData();
     }
 
     @Test
     public void advanceTimeTest(){
         AdvanceTime advanceTime = new AdvanceTime();
-        advanceTime.setSeason(season);
-        advanceTime.advanceTime();
+        advanceTime.advanceTime(season);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("01/10/2020", dateFormat.format(season.getCurrentDate()));
     }

@@ -1,5 +1,4 @@
 package com.groupten.leagueobjectmodel.gameconfig;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,10 +6,12 @@ public class GameConfig {
     public static class Aging  {
         private int averageRetirementAge;
         private int maximumAge;
+        private double statDecayChance;
 
-        public Aging(int averageRetirementAge, int maximumAge) {
+        public Aging(int averageRetirementAge, int maximumAge, double statDecayChance) {
             this.averageRetirementAge = averageRetirementAge;
             this.maximumAge = maximumAge;
+            this.statDecayChance = statDecayChance;
         }
 
         public int getAverageRetirementAge() {
@@ -19,6 +20,10 @@ public class GameConfig {
 
         public int getMaximumAge() {
             return maximumAge;
+        }
+
+        public double getStatDecayChance() {
+            return statDecayChance;
         }
     }
 
@@ -78,7 +83,7 @@ public class GameConfig {
         private HashMap<String,Double> gmTable;
 
         public Trading(int lossPoint, double randomTradeOfferChance, int maxPlayersPerTrade,
-                       double randomAcceptanceChance) {
+                       double randomAcceptanceChance,HashMap<String,Double> gmTable) {
             this.lossPoint = lossPoint;
             this.randomTradeOfferChance = randomTradeOfferChance;
             this.maxPlayersPerTrade = maxPlayersPerTrade;

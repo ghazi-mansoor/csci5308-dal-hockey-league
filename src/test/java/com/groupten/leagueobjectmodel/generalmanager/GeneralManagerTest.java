@@ -7,14 +7,15 @@ import static org.junit.Assert.*;
 public class GeneralManagerTest {
     @Test
     public void isManagerNameValidTest() {
-        String managerName = "First Manager";
-        assertTrue(GeneralManager.isManagerNameValid(managerName));
-        managerName = "";
-        assertFalse(GeneralManager.isManagerNameValid(managerName));
-        managerName = " ";
-        assertFalse(GeneralManager.isManagerNameValid(managerName));
-        managerName = "Null";
-        assertFalse(GeneralManager.isManagerNameValid(managerName));
+
+        GeneralManager generalManager = new GeneralManager("First Manager", "normal");
+        assertTrue(GeneralManager.isManagerValid(generalManager));
+        GeneralManager generalManager1 = new GeneralManager("", "normal");
+        assertFalse(GeneralManager.isManagerValid(generalManager1));
+        GeneralManager generalManager2 = new GeneralManager("", "normal");
+        assertFalse(GeneralManager.isManagerValid(generalManager2));
+        GeneralManager generalManager3= new GeneralManager("Null", "normal");
+        assertFalse(GeneralManager.isManagerValid(generalManager3));
     }
 
     @Test
