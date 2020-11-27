@@ -7,10 +7,12 @@ import java.util.*;
 
 public interface ITrading {
 
-    void startTrading();
-    void initiateTrading(HashMap<Player, Double> initializingWeakestPlayers );
-    HashMap<Player,Player> generatePlayersForTrading(HashMap<Player,Double> initializingWeakestPlayers,
-                                                            HashMap<Player,Double> finalizingPlayerStrength);
+    void getInitialTeam();
+    void getFinalTeam();
+    String getWeakSection();
+    double computePlayerTradeOffers(String weakSection);
+    double computePlayersTradeOffers(String weakSection);
+    void generateTradeOffers();
     boolean UITradeOffer();
     void UITradeAccept(HashMap<Player,Player> tradingPlayers);
     void userTradeAccept(HashMap<Player,Player> tradingPlayers);
@@ -19,6 +21,6 @@ public interface ITrading {
     Team userDropPlayers(Team tradingTeam);
     Team UIGetFromFreeAgents(Team tradingTeam);
     Team userGetFromFreeAgents(Team tradingTeam);
-    LinkedList sortByPlayerStrength(LinkedList strength);
-    HashMap<Player,Double> getWeakestPlayers(LinkedList orderedStrength);
+    LinkedList sortByStrength(LinkedList strength);
+    void getAveragePlayerStrength();
 }

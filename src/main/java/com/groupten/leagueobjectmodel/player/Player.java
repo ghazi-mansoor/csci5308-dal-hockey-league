@@ -135,7 +135,7 @@ public class Player {
                 strength = skating + shooting + (checking / 2);
                 break;
             case "defense":
-                strength = skating + shooting + (shooting / 2);
+                strength = skating + checking + (shooting / 2);
                 break;
             case "goalie":
                 strength = skating + saving;

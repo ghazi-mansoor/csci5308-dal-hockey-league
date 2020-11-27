@@ -1,8 +1,11 @@
 package com.groupten.leagueobjectmodel.generalmanager;
 
+import java.util.HashMap;
+
 public class GeneralManager {
     private int managerID;
     private String managerName;
+    private HashMap<String,Double> managerPersonality;
     private int leagueID;
     private int teamID;
 
@@ -37,6 +40,14 @@ public class GeneralManager {
 
     public void setManagerName(String mN) {
         managerName = mN;
+    }
+
+    public HashMap<String, Double> getManagerPersonality() {
+        return managerPersonality;
+    }
+
+    public void setManagerPersonality(HashMap<String, Double> managerPersonality) {
+        this.managerPersonality = managerPersonality;
     }
 
     public int getLeagueID() {
