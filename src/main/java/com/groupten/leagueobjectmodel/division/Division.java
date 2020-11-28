@@ -1,13 +1,14 @@
 package com.groupten.leagueobjectmodel.division;
 
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.persistence.dao.IDivisionDAO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Division {
+public class Division implements IPersistModel {
     private int divisionID;
     private int conferenceID;
     private String divisionName;
@@ -59,7 +60,7 @@ public class Division {
         return conferenceID;
     }
 
-    public boolean saveDivision() {
+    public boolean save() {
         IDivisionDAO divisionDAO = Injector.instance().getDivisionDatabaseObject();
         divisionID = divisionDAO.createDivision(conferenceID, divisionName);
         if (divisionID != 0) {

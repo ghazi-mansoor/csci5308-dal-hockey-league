@@ -2,12 +2,13 @@ package com.groupten.leagueobjectmodel.conference;
 
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.division.Division;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.persistence.dao.IConferenceDAO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Conference {
+public class Conference implements IPersistModel {
     public int leagueID;
     private int conferenceID;
     private String conferenceName;
@@ -55,7 +56,7 @@ public class Conference {
 
     public Map<String, Division> getDivisions() { return divisions; }
 
-    public boolean saveConference() {
+    public boolean save() {
         IConferenceDAO conferenceDAO = Injector.instance().getConferenceDatabaseObject();
         conferenceID = conferenceDAO.createConference(leagueID, conferenceName);
         if (conferenceID != 0) {
