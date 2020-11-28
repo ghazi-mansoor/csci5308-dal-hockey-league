@@ -91,8 +91,4 @@ public class Shift {
         }
         return checkingStat;
     }
-
-    public double getSavingStat(){
-        return goalie.getSaving();
-    }
 }

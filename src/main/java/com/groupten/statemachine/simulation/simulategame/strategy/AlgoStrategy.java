@@ -16,6 +16,7 @@ public class AlgoStrategy implements IStrategy{
     int SHIFT_DEFENSE = 2;
     int SHIFT_GOALIE = 1;
     double PENALTY_CHANCE = 0.20;
+    double SAVING_BENCHMARK = 14;
 
     Random rand = new Random();
     Season season;
@@ -94,7 +95,7 @@ public class AlgoStrategy implements IStrategy{
             }
 
             for(int i=0;i<team1GoalAttempt;i++){
-                if(team2Shift.getSavingStat() < team1Shift.getSavingStat()){
+                if(team2Shift.getGoalie().getSaving() > SAVING_BENCHMARK){
                     team1Goals++;
                     goals.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
                 }else{
@@ -102,7 +103,7 @@ public class AlgoStrategy implements IStrategy{
                 }
             }
             for(int i=0;i<team2GoalAttempt;i++){
-                if(team1Shift.getSavingStat() < team2Shift.getSavingStat()){
+                if(team1Shift.getGoalie().getSaving() > SAVING_BENCHMARK){
                     team2Goals++;
                     goals.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
                 }else{
