@@ -15,7 +15,7 @@ public class AlgoStrategy implements IStrategy{
     int SHIFT_FORWARD = 3;
     int SHIFT_DEFENSE = 2;
     int SHIFT_GOALIE = 1;
-    double PENALITY_CHANCE = 0.8;
+    double PENALTY_CHANCE = 0.20;
 
     Random rand = new Random();
     Season season;
@@ -38,9 +38,9 @@ public class AlgoStrategy implements IStrategy{
     private void notifyObservers() {
         for (IAlgoStrategyObserver observer : this.observers) {
             observer.updateShots(shots);
-            observer.updateShots(penalties);
-            observer.updateShots(goals);
-            observer.updateShots(saves);
+            observer.updatePenalties(penalties);
+            observer.updateGoals(goals);
+            observer.updateSaves(saves);
         }
     }
 
@@ -53,49 +53,43 @@ public class AlgoStrategy implements IStrategy{
         int team2Goals = 0;
 
         for(int s=0;s<SHIFTS;s++){
-            Shift team1Shift = team1Shifts.get(0);
-            Shift team2Shift = team1Shifts.get(0);
+            Shift team1Shift = team1Shifts.get(s);
+            Shift team2Shift = team2Shifts.get(s);
             int team1Shots = 0;
             int team2Shots = 0;
             int team1GoalAttempt = 0;
             int team2GoalAttempt = 0;
 
             if(team1Shift.getShootingStat() > team2Shift.getShootingStat()){
-                shots.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
+                team1Shots++;
                 if(team1Shift.getSkatingStat() > team2Shift.getSkatingStat()){
                     team1Shots++;
-                    shots.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
-                }else{
-                    team1Shots--;
                 }
             }else{
                 team2Shots++;
-                shots.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
                 if(team2Shift.getSkatingStat() > team1Shift.getSkatingStat()){
                     team2Shots++;
-                    shots.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
-                }else{
-                    team2Shots--;
                 }
             }
+
             for (int i=0;i<team1Shots;i++){
+                shots.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
+                team1GoalAttempt++;
                 if(team2Shift.getCheckingStat() > team1Shift.getCheckingStat()){
-                    if(rand.nextDouble() > PENALITY_CHANCE){
-                        team1GoalAttempt++;
+                    team1GoalAttempt--;
+                    if(rand.nextFloat() < PENALTY_CHANCE){
                         penalties.merge(team2Shift.getDefensemen().get(rand.nextInt(team2Shift.getDefensemen().size())),1, Integer::sum);
                     }
-                }else{
-                    team1GoalAttempt++;
                 }
             }
             for (int i=0;i<team2Shots;i++){
+                shots.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
+                team2GoalAttempt++;
                 if(team1Shift.getCheckingStat() > team1Shift.getCheckingStat()){
-                    if(rand.nextDouble() > PENALITY_CHANCE){
-                        team2GoalAttempt++;
+                    team2GoalAttempt--;
+                    if(rand.nextFloat() < PENALTY_CHANCE){
                         penalties.merge(team1Shift.getDefensemen().get(rand.nextInt(team1Shift.getDefensemen().size())),1, Integer::sum);
                     }
-                }else{
-                    team2GoalAttempt++;
                 }
             }
 
