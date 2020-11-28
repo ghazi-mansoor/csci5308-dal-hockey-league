@@ -5,16 +5,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
+import com.groupten.leagueobjectmodel.coach.ICoachBuilder;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModelFactory;
+import com.groupten.leagueobjectmodel.player.IPlayerBuilder;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.ITeamBuilder;
 import com.groupten.leagueobjectmodel.team.Team;
 
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JSONImport implements IJSONImport {
 
@@ -38,7 +44,11 @@ public class JSONImport implements IJSONImport {
     @Override
     public boolean instantiateJSONData() {
 
+        ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        ICoachBuilder coachBuilder = Injector.instance().getCoachBuilder();
+        ITeamBuilder teamBuilder = Injector.instance().getTeamBuilder();
+        IPlayerBuilder playerBuilder = Injector.instance().getPlayerBuilder();
         League leagueLOM;
         Conference conferenceLOM;
         Division divisionLOM;
@@ -89,7 +99,8 @@ public class JSONImport implements IJSONImport {
         String leagueName = jsonData.get("leagueName").getAsString();
         conferences = (JsonArray) jsonData.get("conferences");
 
-        leagueLOM = new League(leagueName);
+        //leagueLOM = new League(leagueName);
+        leagueLOM = leagueModelFactory.createLeague(leagueName);
 
         agingLOM = new GameConfig.Aging(averageRetirementAge, maximumAge, statDecayChance);
         gameResolverLOM = new GameConfig.GameResolver(randomWinChance);
@@ -110,16 +121,20 @@ public class JSONImport implements IJSONImport {
                 divisions = (JsonArray) conference.get("divisions");
                 String conferenceName = conference.get("conferenceName").getAsString();
 
-                conferenceLOM = new Conference(conferenceName);
+                // conferenceLOM = new Conference(conferenceName);
+                conferenceLOM = leagueModelFactory.createConference(conferenceName);
 
                 for (int j = 0; j < divisions.size(); j++) {
                     division = (JsonObject) divisions.get(j);
                     teams = (JsonArray) division.get("teams");
                     String divisionName = division.get("divisionName").getAsString();
 
-                    divisionLOM = new Division(divisionName);
+                    // divisionLOM = new Division(divisionName);
+                    divisionLOM = leagueModelFactory.createDivision(divisionName);
 
                     for (int k = 0; k < teams.size(); k++) {
+                        List<Player> allPlayers = new ArrayList<>();
+
                         team = (JsonObject) teams.get(k);
                         String teamName = team.get("teamName").getAsString();
 
@@ -135,21 +150,7 @@ public class JSONImport implements IJSONImport {
                         double coachSaving = headCoach.get("saving").getAsDouble();
                         players = (JsonArray) team.get("players");
 
-                        teamLOM = new Team(teamName);
-                        managerLOM = new GeneralManager(gmName, gmPersonality);
-                        coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
-
-                        if (teamLOM.setGeneralManager(managerLOM)) {
-                            success = true;
-                        }else{
-                            throw new Exception("Issue with JSON Data");
-                        }
-
-                        if (teamLOM.setHeadCoach(coachLOM)) {
-                            success = true;
-                        }else{
-                            throw new Exception("Issue with JSON Data");
-                        }
+                        // teamLOM = new Team(teamName);
 
                         for (int l = 0; l < players.size(); l++) {
                             teamPlayer = (JsonObject) players.get(l);
@@ -164,13 +165,46 @@ public class JSONImport implements IJSONImport {
                             double playerChecking = teamPlayer.get("checking").getAsDouble();
                             double playerSaving = teamPlayer.get("saving").getAsDouble();
 
-                            playerLOM = new Player(playerName, position, captain, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
-
-                            if (teamLOM.addActivePlayer(playerLOM)) {
+                            // playerLOM = new Player(playerName, position, captain, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
+                            if (Player.arePlayerFieldsValid(playerName, position, playerSkating, playerShooting, playerChecking, playerSaving)) {
                                 success = true;
-                            }else{
+                            } else {
                                 throw new Exception("Issue with JSON Data");
                             }
+
+                            playerBuilder.reset();
+                            playerBuilder.setProfile(playerName, position);
+                            playerBuilder.setAsCaptain(captain);
+                            playerBuilder.setAgeFromBirthDay(playerBirthDay, playerBirthMonth, playerBirthYear);
+                            playerBuilder.setPlayerStats(playerSkating, playerShooting, playerChecking, playerSaving);
+                            playerLOM = playerBuilder.getResult();
+
+                            allPlayers.add(playerLOM);
+                        }
+
+                        teamBuilder.reset();
+                        teamBuilder.setTeamName(teamName);
+                        teamBuilder.setPlayerRosters(allPlayers);
+                        teamLOM = teamBuilder.getResult();
+
+                        // managerLOM = new GeneralManager(gmName, gmPersonality);
+                        managerLOM = leagueModelFactory.createGeneralManager(gmName, gmPersonality);
+                        // coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
+                        coachBuilder.reset();
+                        coachBuilder.setName(coachName);
+                        coachBuilder.setCoachStats(coachSkating, coachShooting, coachChecking, coachSaving);
+                        coachLOM = coachBuilder.getResult();
+
+                        if (teamLOM.setGeneralManager(managerLOM)) {
+                            success = true;
+                        }else{
+                            throw new Exception("Issue with JSON Data");
+                        }
+
+                        if (teamLOM.setHeadCoach(coachLOM)) {
+                            success = true;
+                        }else{
+                            throw new Exception("Issue with JSON Data");
                         }
 
                         if (divisionLOM.addTeam(teamLOM)) {
@@ -206,7 +240,12 @@ public class JSONImport implements IJSONImport {
                 double playerChecking = freeAgent.get("checking").getAsDouble();
                 double playerSaving = freeAgent.get("saving").getAsDouble();
 
-                playerLOM = new Player(playerName, position, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
+                // playerLOM = new Player(playerName, position, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
+                playerBuilder.reset();
+                playerBuilder.setProfile(playerName, position);
+                playerBuilder.setAgeFromBirthDay(playerBirthDay, playerBirthMonth, playerBirthYear);
+                playerBuilder.setPlayerStats(playerSkating, playerShooting, playerChecking, playerSaving);
+                playerLOM = playerBuilder.getResult();
 
                 if (leagueLOM.addFreeAgent(playerLOM)) {
                     success = true;

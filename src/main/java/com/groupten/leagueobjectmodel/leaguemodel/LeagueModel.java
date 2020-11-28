@@ -15,8 +15,6 @@ import java.util.Map;
 public class LeagueModel implements ILeagueModel {
     private League currentLeague;
 
-
-
     @Override
     public boolean loadLeagueModel(int leagueID) {
         ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
@@ -34,7 +32,7 @@ public class LeagueModel implements ILeagueModel {
 
     @Override
     public boolean saveLeagueModel() {
-        boolean leagueSaved = currentLeague.saveLeague();
+        boolean leagueSaved = currentLeague.save();
         if (leagueSaved) {
             int leagueID = currentLeague.getLeagueID();
             Map<String, Conference> conferences = currentLeague.getConferences();
@@ -48,7 +46,7 @@ public class LeagueModel implements ILeagueModel {
     private boolean saveConferences(int leagueID, Map<String, Conference> conferences) {
         for (Conference conference : conferences.values()) {
             conference.setLeagueID(leagueID);
-            boolean conferenceSaved = conference.saveConference();
+            boolean conferenceSaved = conference.save();
 
             if (conferenceSaved == false) {
                 return false;
@@ -65,7 +63,7 @@ public class LeagueModel implements ILeagueModel {
     private boolean saveDivisions(int conferenceID, Map<String, Division> divisions) {
         for (Division division : divisions.values()) {
             division.setConferenceID(conferenceID);
-            boolean divisionSaved = division.saveDivision();
+            boolean divisionSaved = division.save();
 
             if (divisionSaved == false) {
                 return false;
@@ -82,7 +80,7 @@ public class LeagueModel implements ILeagueModel {
     private boolean saveTeams(int divisionID, Map<String, Team> teams) {
         for (Team team : teams.values()) {
             team.setDivisionID(divisionID);
-            boolean teamSaved = team.saveTeam();
+            boolean teamSaved = team.save();
 
             if (teamSaved == false) {
                 return false;
@@ -106,7 +104,7 @@ public class LeagueModel implements ILeagueModel {
     private boolean savePlayers(int teamID, List<Player> players) {
         for (Player player : players) {
             player.setTeamID(teamID);
-            boolean playerSaved = player.savePlayer();
+            boolean playerSaved = player.save();
 
             if (playerSaved == false) {
                 return false;
