@@ -62,12 +62,16 @@ public class StateMachine {
                 if (createTeam.selectTeamGeneralManager()) {
                     if (createTeam.selectTeamHeadCoach()) {
                         if (createTeam.selectTeamGoalies()) {
-                            if (createTeam.selectTeamSkaters()) {
-                                if (createTeam.instantiateNewTeam()) {
-                                    console.printLine("SUCCESS: Team Created.");
-                                    playerChoice();
+                            if (createTeam.selectTeamForwards()) {
+                                if (createTeam.selectTeamDefense()) {
+                                    if (createTeam.instantiateNewTeam()) {
+                                        console.printLine("SUCCESS: Team Created.");
+                                        playerChoice();
+                                    } else {
+                                        console.printLine("FAILURE: Some error occurred.");
+                                    }
                                 } else {
-                                    console.printLine("FAILURE: Some error occurred.");
+                                    console.printLine("ERROR: Invalid Input.");
                                 }
                             } else {
                                 console.printLine("ERROR: Invalid Input.");
