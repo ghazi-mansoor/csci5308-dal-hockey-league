@@ -76,40 +76,52 @@ public class AlgoStrategy implements IStrategy{
             }
 
             for (int i=0;i<team1Shots;i++){
-                shots.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
-                team1GoalAttempt++;
-                if(team2Shift.getCheckingStat() > team1Shift.getCheckingStat()){
-                    team1GoalAttempt--;
-                    if(rand.nextFloat() < PENALTY_CHANCE){
-                        penalties.merge(team2Shift.getDefensemen().get(rand.nextInt(team2Shift.getDefensemen().size())),1, Integer::sum);
+                if(recordShot(team1Shift)) {
+                    team1GoalAttempt++;
+                    if (team2Shift.getCheckingStat() > team1Shift.getCheckingStat()) {
+                        team1GoalAttempt--;
+                        if (rand.nextFloat() < PENALTY_CHANCE) {
+                            recordPenalty(team2Shift);
+                        }
                     }
                 }
             }
             for (int i=0;i<team2Shots;i++){
-                shots.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
-                team2GoalAttempt++;
-                if(team1Shift.getCheckingStat() > team1Shift.getCheckingStat()){
-                    team2GoalAttempt--;
-                    if(rand.nextFloat() < PENALTY_CHANCE){
-                        penalties.merge(team1Shift.getDefensemen().get(rand.nextInt(team1Shift.getDefensemen().size())),1, Integer::sum);
+                if(recordShot(team2Shift)) {
+                    team2GoalAttempt++;
+                    if (team1Shift.getCheckingStat() > team1Shift.getCheckingStat()) {
+                        team2GoalAttempt--;
+                        if (rand.nextFloat() < PENALTY_CHANCE) {
+                            recordPenalty(team1Shift);
+                        }
                     }
                 }
             }
 
             for(int i=0;i<team1GoalAttempt;i++){
-                if(team2Shift.getGoalie().getSaving() > SAVING_BENCHMARK){
-                    team1Goals++;
-                    goals.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())),1, Integer::sum);
+                if(team2Shift.getGoalie() == null){
+                    recordSave(team2Shift);
                 }else{
-                    saves.merge(team2Shift.getGoalie(),1, Integer::sum);
+                    if(team2Shift.getGoalie().getSaving() > SAVING_BENCHMARK){
+                        if(recordGoal(team1Shift)){
+                            team1Goals++;
+                        }
+                    }else{
+                        recordSave(team2Shift);
+                    }
                 }
             }
             for(int i=0;i<team2GoalAttempt;i++){
-                if(team1Shift.getGoalie().getSaving() > SAVING_BENCHMARK){
-                    team2Goals++;
-                    goals.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())),1, Integer::sum);
+                if(team1Shift.getGoalie() == null){
+                    recordSave(team1Shift);
                 }else{
-                    saves.merge(team1Shift.getGoalie(),1, Integer::sum);
+                    if(team1Shift.getGoalie().getSaving() > SAVING_BENCHMARK){
+                        if(recordGoal(team2Shift)){
+                            team2Goals++;
+                        }
+                    }else{
+                        recordSave(team1Shift);
+                    }
                 }
             }
         }
@@ -124,6 +136,38 @@ public class AlgoStrategy implements IStrategy{
         }else{
             return team2;
         }
+    }
+
+    private boolean recordShot(Shift shift){
+        if(shift.getForwards().size() > 0){
+            shots.merge(shift.getForwards().get(rand.nextInt(shift.getForwards().size())),1, Integer::sum);
+            return  true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean recordPenalty(Shift shift){
+        if(shift.getDefensemen().size() > 0){
+            penalties.merge(shift.getDefensemen().get(rand.nextInt(shift.getDefensemen().size())),1, Integer::sum);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean recordGoal(Shift shift){
+        if(shift.getForwards().size() > 0){
+            penalties.merge(shift.getForwards().get(rand.nextInt(shift.getForwards().size())),1, Integer::sum);
+            return  true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean recordSave(Shift shift){
+        saves.merge(shift.getGoalie(),1, Integer::sum);
+        return true;
     }
 
     private void resetAvailTOI(List<Player> players){
