@@ -14,59 +14,6 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class TradingTest {
-    @Test
-    public void sortByPlayerStrengthTest () {
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League league = new League("First League");
-        GameConfig.Trading tradingConfig = new GameConfig.Trading(8, 0.05, 2, 0.05, -0.1, 0.0, 0.1);
-        league.setTradingConfig(tradingConfig);
-
-        leagueModel.setCurrentLeague(league);
-        League leagueLOM = leagueModel.getCurrentLeague();
-        Trading trading = new Trading();
-        Player player = new Player();
-        HashMap<Object,Object> playerStrength = new HashMap<Object, Object>();
-        LinkedList strength = new LinkedList();
-
-        player = new Player("Player1", "goalie", 27, 5, 5, 5, 5);
-        Integer integer = 7;
-        playerStrength.put(player,integer);
-
-        player = new Player("Player2", "defense", 27, 5, 5, 5, 5);
-        integer = 3;
-        playerStrength.put(player,integer);
-
-        player = new Player("Player3", "forward", 27, 5, 5, 5, 5);
-        integer = 4;
-        playerStrength.put(player,integer);
-
-        player = new Player("Player4", "defense", 27, 5, 5, 5, 5);
-        integer = 2;
-        playerStrength.put(player,integer);
-
-        player = new Player("Player5", "goalie", 27, 5, 5, 5, 5);
-        integer = 6;
-        playerStrength.put(player,integer);
-
-        strength = new LinkedList(playerStrength.entrySet());
-
-        trading.sortByPlayerStrength(strength);
-
-        ArrayList<Object> values = new ArrayList<>();
-
-        for (Iterator it = strength.iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry) it.next();
-            values.add(entry.getValue());
-        }
-
-        assertEquals(2,values.get(0));
-        assertEquals(3,values.get(1));
-        assertEquals(4,values.get(2));
-        assertEquals(6,values.get(3));
-        assertEquals(7,values.get(4));
-
-
-    }
 
     @Test
     public void getWeakestPlayersTest(){

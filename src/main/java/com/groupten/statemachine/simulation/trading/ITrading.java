@@ -3,6 +3,7 @@ package com.groupten.statemachine.simulation.trading;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -11,8 +12,7 @@ public interface ITrading {
     void getInitialTeam();
     void getFinalTeam();
     String getWeakSection();
-    double computePlayerTradeOffers(String weakSection);
-    double computePlayersTradeOffers(String weakSection);
+    void computeDraftPickTradeOffers(String weakSection);
     void generateTradeOffers();
     boolean UITradeOffer();
     void UITradeAccept(HashMap<Player,Player> tradingPlayers);
@@ -24,4 +24,5 @@ public interface ITrading {
     Team userGetFromFreeAgents(Team tradingTeam);
     LinkedList sortByStrength(LinkedList strength);
     void getAveragePlayerStrength();
+    void getInitialAndFinalTradingPlayers(String weakSection);
 }

@@ -95,6 +95,30 @@ public class Team implements IPlayerSubscriber {
 
         return teamStrength;
     }
+    public double calculateTotalTeamStrength() {
+        for (Player player : activePlayers) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+        for (Player player : inActivePlayers) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+
+        return teamStrength;
+    }
 
     public int getTeamID() {
         return teamID;

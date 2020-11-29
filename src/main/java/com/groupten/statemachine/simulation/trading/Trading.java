@@ -8,7 +8,10 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.ITeamRoster;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.leagueobjectmodel.team.TeamRoster;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,6 +40,8 @@ public class Trading implements ITrading {
 	private final int numberOfGoalies = 4;
 	private final int numberOfForwards = 16;
 	private final int numberOfDefenses = 10;
+	ArrayList<Player> initialTradingPlayers = new ArrayList<>();
+	ArrayList<Player> finalTradingPlayers = new ArrayList<>();
 	ArrayList<Player> playersToTrade1 = new ArrayList<>();
 	ArrayList<Player> playersToTrade2 = new ArrayList<>();
 	HashMap<ArrayList<Player>,ArrayList<Player>> playersToTrade= new HashMap<>();
@@ -137,8 +142,16 @@ public class Trading implements ITrading {
 		double forwardStrengthDifference = 0.0;
 		double defenseStrengthDifference = 0.0;
 		String weakSection = null;
+		ArrayList<Player> totalPlayers = new ArrayList<>();
 
-		for(Player player : tradeInitializingTeam.getPlayers()) {
+		for(Player player : tradeInitializingTeam.getActivePlayers()) {
+			totalPlayers.add(player);
+		}
+		for(Player player : tradeInitializingTeam.getInActivePlayers()) {
+			totalPlayers.add(player);
+		}
+
+		for(Player player : totalPlayers) {
 			if(player.getPosition().equals("goalie")) {
 				goalieStrength = goalieStrength + player.calculateStrength();
 				numberOfGoalies = numberOfGoalies + 1;
@@ -152,6 +165,7 @@ public class Trading implements ITrading {
 				numberOfDefenses = numberOfDefenses + 1;
 			}
 		}
+
 		avgGoalieStrength = goalieStrength / numberOfGoalies;
 		goalieStrengthDifference = avgGoalieStrength - averageGoalieStrength;
 		avgForwardStrength = forwardStrength / numberOfForwards;
@@ -194,7 +208,13 @@ public class Trading implements ITrading {
 						return;
 					} else {
 						weakSection = getWeakSection();
-						for(Player player : finalizingTeam.getPlayers()) {
+						for(Player player : finalizingTeam.getActivePlayers()) {
+							if(player.getPosition().equals(weakSection)) {
+								playerStrength = playerStrength + player.calculateStrength();
+								numberOfPlayers = numberOfPlayers + 1;
+							}
+						}
+						for(Player player : finalizingTeam.getInActivePlayers()) {
 							if(player.getPosition().equals(weakSection)) {
 								playerStrength = playerStrength + player.calculateStrength();
 								numberOfPlayers = numberOfPlayers + 1;
@@ -226,178 +246,27 @@ public class Trading implements ITrading {
 				}
 			}
 		}
+		getInitialAndFinalTradingPlayers(weakSection);
 	}
 
 	@Override
-	public double computePlayerTradeOffers(String weakSection) {
-		console = Injector.instance().getConsoleObject();
-		leagueModel = Injector.instance().getLeagueModelObject();
-		leagueLOM = leagueModel.getCurrentLeague();
-		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
-		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
-		lossPoint = tradingConfig.getLossPoint();
-		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
-		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
-		double playerTradeStrength = 0.0;
-		double initialTeamStrength = 0.0;
-		double finalTeamStrength = 0.0;
-		HashMap<Player,Double> initialTradingPlayers = new HashMap<>();
-		HashMap<Player,Double> finalTradingPlayers = new HashMap<>();
-		HashMap<Player,Player> tradingPlayers = new HashMap<>();
-		HashMap<HashMap<Player,Player>,Double> tempInitialTeamStrength = new HashMap<>();
-		HashMap<HashMap<Player,Player>,Double> tempFinalTeamStrength = new HashMap<>();
+	public void computeDraftPickTradeOffers(String weakSection) {
 
-		for(Player player : tradeInitializingTeam.getPlayers()) {
-			if(player.getPosition().equals(weakSection)) {
-			}
-			else {
-				initialTradingPlayers.put(player,player.calculateStrength());
-			}
-		}
-		for(Player player : tradeFinalizingTeam.getPlayers()) {
-			if(player.getPosition().equals(weakSection)) {
-				finalTradingPlayers.put(player,player.calculateStrength());
-			}
-		}
-		for(Player player1 : initialTradingPlayers.keySet() ) {
-			for(Player player2 : finalTradingPlayers.keySet()) {
-				initialTeamStrength = tradeInitializingTeam.calculateTeamStrength();
-				finalTeamStrength = tradeFinalizingTeam.calculateTeamStrength();
-				tradeInitializingTeam.getPlayers().remove(player1);
-				tradeInitializingTeam.getPlayers().add(player2);
-				tradeFinalizingTeam.getPlayers().remove(player2);
-				tradeFinalizingTeam.getPlayers().add(player1);
-
-				if(tradeInitializingTeam.calculateTeamStrength() > initialTeamStrength &&
-						tradeFinalizingTeam.calculateTeamStrength() > finalTeamStrength) {
-					tradingPlayers.put(player1,player2);
-					tempInitialTeamStrength.put(tradingPlayers,tradeInitializingTeam.calculateTeamStrength());
-					tempFinalTeamStrength.put(tradingPlayers,tradeFinalizingTeam.calculateTeamStrength());
-				}
-				else {
-					tradeInitializingTeam.getPlayers().remove(player2);
-					tradeInitializingTeam.getPlayers().add(player1);
-					tradeFinalizingTeam.getPlayers().remove(player1);
-					tradeFinalizingTeam.getPlayers().add(player2);
-				}
-			}
-		}
-		Map<HashMap<Player,Player>,Double> initialSortedTeamStrength = tempInitialTeamStrength.entrySet() .stream()
-				.sorted(Map.Entry.<HashMap<Player,Player>,Double>comparingByValue().reversed())
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-		Map.Entry<HashMap<Player,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();
-		playerTradeStrength = entry.getValue();
-		return playerTradeStrength;
-		/*Map.Entry<HashMap<Player,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();
-		Map.Entry<Player,Player> playersEntry = entry.getKey().entrySet().iterator().next();
-		playersToTrade1.add(playersEntry.getKey());
-		playersToTrade2.add(playersEntry.getValue());*/
-	}
-
-	@Override
-	public double computePlayersTradeOffers(String weakSection) {
-		console = Injector.instance().getConsoleObject();
-		leagueModel = Injector.instance().getLeagueModelObject();
-		leagueLOM = leagueModel.getCurrentLeague();
-		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
-		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
-		lossPoint = tradingConfig.getLossPoint();
-		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
-		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
-		double playersTradeStrength = 0.0;
-		int maximumPlayerPerTrade = 1;
-		int playersChosen = 0;
-		double initialTeamStrength = 0.0;
-		double finalTeamStrength = 0.0;
-		ArrayList<Player> initialTradingPlayers = new ArrayList<>();
-		ArrayList<Player> finalTradingPlayers = new ArrayList<>();
-		ArrayList<ArrayList<Player>> initialCombinationsOfPlayers = new ArrayList<>();
-		/*ArrayList<ArrayList<Player>> initialCombinationsOfPlayers = new ArrayList<>();
-		HashMap<ArrayList<Player>,Player> playersToTrade = new HashMap<>();*/
-		//ArrayList<Player> finalPlayersToTrade = new ArrayList<>();
-
-		for(Player player : tradeInitializingTeam.getPlayers()) {
-			if(player.getPosition().equals(weakSection)) {
-			}
-			else {
-				initialTradingPlayers.add(player);
-			}
-		}
-		for(Player player : tradeFinalizingTeam.getPlayers()) {
-			if(player.getPosition().equals(weakSection)) {
-				finalTradingPlayers.add(player);
-			}
-		}
-
-
-		if(maximumPlayerPerTrade < maxPlayersPerTrade) {
-			for(int j = 1; j <= initialTradingPlayers.size() ; j++) {
-				ArrayList<Player> playerCombination = new ArrayList<>();
-					for(int k = j+1 ; k < initialTradingPlayers.size() && playersChosen < maximumPlayerPerTrade ; k++) {
-						if(playerCombination.contains(initialTradingPlayers.get(j))) {
-
-						}
-						else {
-							playerCombination.add(initialTradingPlayers.get(j));
-							playersChosen++;
-						}
-						playerCombination.add(initialTradingPlayers.get(k));
-						playersChosen++;
-					}
-					if(playerCombination.isEmpty()) {
-
-					}
-					else {
-						initialCombinationsOfPlayers.add(playerCombination);
-						playerCombination.clear();
-					}
-			}
-			maximumPlayerPerTrade++;
-		}
-
-		ArrayList<Double> freeAgentGoalieStrength = new ArrayList<>();
-		ArrayList<Double> freeAgentForwardStrength = new ArrayList<>();
-		ArrayList<Double> freeAgentDefenseStrength = new ArrayList<>();
-
-		for(Player player : leagueLOM.getFreeAgentsGoalies()) {
-			freeAgentGoalieStrength.add(player.calculateStrength());
-		}
-		for(Player player : leagueLOM.getFreeAgentsSkaters()) {
-			if(player.getPosition().equals("forward")) {
-				freeAgentForwardStrength.add(player.calculateStrength());
-			}
-			else if (player.getPosition().equals("defense")) {
-				freeAgentDefenseStrength.add(player.calculateStrength());
-			}
-		}
-		Collections.sort(freeAgentGoalieStrength);
-		Collections.reverse(freeAgentGoalieStrength);
-		Collections.sort(freeAgentForwardStrength);
-		Collections.reverse(freeAgentForwardStrength);
-		Collections.sort(freeAgentDefenseStrength);
-		Collections.reverse(freeAgentDefenseStrength);
-
-		for(ArrayList<Player> initialPlayersToTrade : initialCombinationsOfPlayers ) {
-			initialTeamStrength = tradeInitializingTeam.calculateTeamStrength();
-			finalTeamStrength = tradeInitializingTeam.calculateTeamStrength();
-			for(Player finalPlayerToTrade : finalTradingPlayers) {
-				for(int i=0;i<initialPlayersToTrade.size();i++) {
-					initialTeamStrength = initialTeamStrength - initialPlayersToTrade.get(i).calculateStrength();
-					finalTeamStrength = finalTeamStrength + initialPlayersToTrade.get(i).calculateStrength();
-				}
-				initialTeamStrength = initialTeamStrength + finalPlayerToTrade.calculateStrength();
-				finalTeamStrength = finalTeamStrength - finalPlayerToTrade.calculateStrength();
-			}
-
-		}
-
-
-
-		return playersTradeStrength;
 	}
 
 	@Override
 	public void generateTradeOffers() {
+		ITradeFactory tradeFactory = TradeFactory.FactorySingleton();
+		PlayerTradeOffers playerTradeOffers = tradeFactory.createPlayerTradeOffers();
+		PlayersTradeOffers playersTradeOffers = tradeFactory.createPlayersTradeOffers();
+		DraftPickTradeOffers draftPickTradeOffers = tradeFactory.createDraftPickTradeOffers();
+		String weakSection = getWeakSection();
+
+		playerTradeOffers.computePlayerTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+				initialTradingPlayers,finalTradingPlayers);
+		playersTradeOffers.computePlayersTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+				initialTradingPlayers,finalTradingPlayers);
+
 
 	}
 
@@ -447,10 +316,10 @@ public class Trading implements ITrading {
 			}
 		}
 
-
-		tradeInitializingTeam.calculateTeamStrength();
+/*
+		tradeInitializingTeam.calculateTotalTeamStrength();
 		tradeInitializingTeamStrength = tradeInitializingTeam.getTeamStrength();
-		tradeFinalizingTeam.calculateTeamStrength();
+		tradeFinalizingTeam.calculateTotalTeamStrength();
 		tradeFinalizingTeamStrength = tradeFinalizingTeam.getTeamStrength();
 		for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
 			player1 = Players.getKey();
@@ -462,9 +331,9 @@ public class Trading implements ITrading {
 		}
 		tradeInitializingTeam.setTeamStrength(0);
 		tradeFinalizingTeam.setTeamStrength(0);
-		tradeInitializingTeam.calculateTeamStrength();
+		tradeInitializingTeam.calculateTotalTeamStrength();
 		afterTradeInitializingStrength = tradeInitializingTeam.getTeamStrength();
-		tradeFinalizingTeam.calculateTeamStrength();
+		tradeFinalizingTeam.calculateTotalTeamStrength();
 		afterTradeFinalizingStrength = tradeFinalizingTeam.getTeamStrength();
 		if (tradeInitializingTeamStrength < afterTradeInitializingStrength || tradeFinalizingTeamStrength < afterTradeFinalizingStrength) {
 			if ((randomAcceptanceChanceGenerated + generalManagerPersonalityValue ) > randomAcceptanceChance) {
@@ -478,7 +347,7 @@ public class Trading implements ITrading {
 				tradeInitializingTeam.setLossPoint(0);
 				console.printLine("Trade successful!");
 			}
-		}
+		}*/
 		tradeInitializingTeam.setLossPoint(0);
 		adjustTeamPlayers();
 	}
@@ -516,10 +385,11 @@ public class Trading implements ITrading {
 			option = console.readInteger();
 			switch (option) {
 				case 1:
-					tradeInitializingTeam.getPlayers().remove(player1);
+					/*tradeInitializingTeam.getPlayers().remove(player1);
 					tradeInitializingTeam.getPlayers().add(player2);
 					tradeFinalizingTeam.getPlayers().remove(player2);
-					tradeFinalizingTeam.getPlayers().add(player1);
+					tradeFinalizingTeam.getPlayers().add(player1);*/
+					//Give the tradeList1 and tradeList2 to TeamRoster
 					console.printLine(player1.getPlayerName() + " traded with " + player2.getPlayerName());
 					break;
 				case 2:
@@ -548,8 +418,10 @@ public class Trading implements ITrading {
 		int initializingTeamSize = 0;
 		int finalizingTeamSize = 0;
 
-		initializingTeamSize = tradeInitializingTeam.getPlayers().size();
-		finalizingTeamSize = tradeFinalizingTeam.getPlayers().size();
+		initializingTeamSize = tradeInitializingTeam.getActivePlayers().size() +
+				tradeInitializingTeam.getInActivePlayers().size();
+		finalizingTeamSize = tradeFinalizingTeam.getActivePlayers().size() +
+				tradeFinalizingTeam.getInActivePlayers().size();
 
 		if (tradeInitializingTeam.isaITeam()) {
 			if (initializingTeamSize > teamSize) {
@@ -591,9 +463,17 @@ public class Trading implements ITrading {
 		int goalieCount = 0;
 		int forwardCount = 0;
 		int defenseCount = 0;
+		ArrayList<Player> totalPlayers = new ArrayList<>();
+
+		for(Player player : tradingTeam.getActivePlayers()) {
+			totalPlayers.add(player);
+		}
+		for(Player player : tradingTeam.getInActivePlayers()) {
+			totalPlayers.add(player);
+		}
 
 		HashMap<Player, Double> teamPlayerStrength = new HashMap<Player, Double>();
-		for (Player players : tradingTeam.getPlayers()) {
+		for (Player players : totalPlayers) {
 			double playerStrength = players.calculateStrength();
 			teamPlayerStrength.put(players, playerStrength);
 		}
@@ -608,25 +488,28 @@ public class Trading implements ITrading {
 				goalieCount++;
 
 				if (goalieCount > numberOfGoalies) {
-					tradingTeam.getPlayers().remove(entry.getKey());
+					totalPlayers.remove(entry.getKey());
 					leagueLOM.addFreeAgent(entry.getKey());
 				}
 			} else if (entry.getKey().getPosition() == "forward"){
 				forwardCount++;
 
 				if (forwardCount > numberOfForwards) {
-					tradingTeam.getPlayers().remove(entry.getKey());
+					totalPlayers.remove(entry.getKey());
 					leagueLOM.addFreeAgent(entry.getKey());
 				}
 			} else if (entry.getKey().getPosition() == "defense") {
 				defenseCount++;
 
 				if (defenseCount > numberOfDefenses) {
-					tradingTeam.getPlayers().remove(entry.getKey());
+					totalPlayers.remove(entry.getKey());
 					leagueLOM.addFreeAgent(entry.getKey());
 				}
 			}
 		}
+		ITeamRoster teamRoster = new TeamRoster(totalPlayers);
+		tradingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
+		tradingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return tradingTeam;
 	}
 
@@ -645,8 +528,17 @@ public class Trading implements ITrading {
 		int goalieCount = 0;
 		int forwardCount = 0;
 		int defenseCount = 0;
+		ArrayList<Player> totalPlayers = new ArrayList<>();
+		List<Player> updatedPlayersList = new ArrayList<Player>();
 
-		for (Player player : tradingTeam.getPlayers()) {
+		for(Player player : tradingTeam.getActivePlayers()) {
+			totalPlayers.add(player);
+		}
+		for(Player player : tradingTeam.getInActivePlayers()) {
+			totalPlayers.add(player);
+		}
+
+		for (Player player : totalPlayers) {
 			if (player.getPosition() == "goalie") {
 				goalieCount++;
 			} else if(player.getPosition() == "forward"){
@@ -655,7 +547,7 @@ public class Trading implements ITrading {
 				defenseCount++;
 			}
 		}
-		for (Player player : tradingTeam.getPlayers()) {
+		for (Player player : totalPlayers) {
 			if (player.getPosition().equals("goalie")) {
 				console.printLine(i + "\n Player Name : " + player.getPlayerName() + "\n Age : " + player.getAge() + "\n Checking : " + player.getChecking()
 						+ "\n Saving : " + player.getSaving() + "\n Shooting : " + player.getShooting() + "\n Saving : " + player.getSaving() + "\n");
@@ -663,7 +555,6 @@ public class Trading implements ITrading {
 			}
 		}
 		while (goalieCount > numberOfGoalies) {
-			List<Player> updatedPlayersList = new ArrayList<Player>();
 			try {
 				console.printLine("Please choose a goalie (player name) to drop : \n");
 				playerName = console.readLine();
@@ -671,7 +562,7 @@ public class Trading implements ITrading {
 				System.out.println("Invalid value!");
 				break;
 			}
-			for (Player player : tradingTeam.getPlayers()) {
+			for (Player player : totalPlayers) {
 				if (playerName.equals(player.getPlayerName())) {
 					goalieCount--;
 					leagueLOM.addFreeAgent(player);
@@ -680,9 +571,10 @@ public class Trading implements ITrading {
 					updatedPlayersList.add(player);
 				}
 			}
-			tradingTeam.setPlayers(updatedPlayersList);
+			totalPlayers.addAll(updatedPlayersList);
+			//tradingTeam.setPlayers(updatedPlayersList);
 		}
-		for (Player player : tradingTeam.getPlayers()) {
+		for (Player player : totalPlayers) {
 			i = 1;
 			if (player.getPosition().equals("forward")) {
 				console.printLine(i + "\n Player Name : " + player.getPlayerName() + "\n Age : " + player.getAge() + "\n Checking : " + player.getChecking()
@@ -691,7 +583,6 @@ public class Trading implements ITrading {
 			}
 		}
 		while (forwardCount > numberOfForwards) {
-			List<Player> updatedPlayersList = new ArrayList<Player>();
 			try {
 				console.printLine("Please choose a forward (player name) to drop : \n");
 				playerName = console.readLine();
@@ -699,7 +590,7 @@ public class Trading implements ITrading {
 				System.out.println("Invalid value!");
 				break;
 			}
-			for (Player player : tradingTeam.getPlayers()) {
+			for (Player player : totalPlayers) {
 				if (playerName.equals(player.getPlayerName())) {
 					forwardCount--;
 					leagueLOM.addFreeAgent(player);
@@ -708,9 +599,10 @@ public class Trading implements ITrading {
 					updatedPlayersList.add(player);
 				}
 			}
-			tradingTeam.setPlayers(updatedPlayersList);
+			totalPlayers.addAll(updatedPlayersList);
+			//tradingTeam.setPlayers(updatedPlayersList);
 		}
-		for (Player player : tradingTeam.getPlayers()) {
+		for (Player player : totalPlayers) {
 			i = 1;
 			if (player.getPosition().equals("defense")) {
 				console.printLine(i + "\n Player Name : " + player.getPlayerName() + "\n Age : " + player.getAge() + "\n Checking : " + player.getChecking()
@@ -719,7 +611,6 @@ public class Trading implements ITrading {
 			}
 		}
 		while (defenseCount > numberOfDefenses) {
-			List<Player> updatedPlayersList = new ArrayList<Player>();
 			try {
 				console.printLine("Please choose a defensemen (player name) to drop : \n");
 				playerName = console.readLine();
@@ -727,7 +618,7 @@ public class Trading implements ITrading {
 				System.out.println("Invalid value!");
 				break;
 			}
-			for (Player player : tradingTeam.getPlayers()) {
+			for (Player player : totalPlayers) {
 				if (playerName.equals(player.getPlayerName())) {
 					defenseCount--;
 					leagueLOM.addFreeAgent(player);
@@ -736,8 +627,12 @@ public class Trading implements ITrading {
 					updatedPlayersList.add(player);
 				}
 			}
-			tradingTeam.setPlayers(updatedPlayersList);
+			totalPlayers.addAll(updatedPlayersList);
+			//tradingTeam.setPlayers(updatedPlayersList);
 		}
+		ITeamRoster teamRoster = new TeamRoster(totalPlayers);
+		tradingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
+		tradingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return tradingTeam;
 	}
 
@@ -757,8 +652,16 @@ public class Trading implements ITrading {
 		int goalieCount = 0;
 		int forwardCount = 0;
 		int defenseCount = 0;
+		ArrayList<Player> totalPlayers = new ArrayList<>();
 
-		for (Player player : tradingTeam.getPlayers()) {
+		for(Player player : tradingTeam.getActivePlayers()) {
+			totalPlayers.add(player);
+		}
+		for(Player player : tradingTeam.getInActivePlayers()) {
+			totalPlayers.add(player);
+		}
+
+		for (Player player : totalPlayers) {
 			if (player.getPosition() == "goalie") {
 				goalieCount++;
 			} else if (player.getPosition() == "forward"){
@@ -778,7 +681,7 @@ public class Trading implements ITrading {
 		for (Map.Entry<Player, Double> entry : sortedGoaliePlayerStrength.entrySet()) {
 			if (goalieCount < numberOfGoalies) {
 				if (entry.getKey().getPosition().equals("goalie")) {
-					tradingTeam.getPlayers().add(entry.getKey());
+					totalPlayers.add(entry.getKey());
 					leagueLOM.getFreeAgentsGoalies().remove(entry.getKey());
 					goalieCount++;
 				}
@@ -795,10 +698,11 @@ public class Trading implements ITrading {
 		Map<Player,Double> sortedForwardPlayerStrength = forwardPlayerStrength.entrySet() .stream()
 				.sorted(Map.Entry.<Player,Double>comparingByValue().reversed())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
 		for (Map.Entry<Player, Double> entry : sortedForwardPlayerStrength.entrySet()) {
 			if (forwardCount < numberOfForwards) {
-				if (entry.getKey().getPosition().equals("forward") || entry.getKey().getPosition().equals("defense")) {
-					tradingTeam.getPlayers().add(entry.getKey());
+				if (entry.getKey().getPosition().equals("forward")) {
+					totalPlayers.add(entry.getKey());
 					leagueLOM.getFreeAgentsSkaters().remove(entry.getKey());
 					forwardCount++;
 				}
@@ -807,15 +711,19 @@ public class Trading implements ITrading {
 		Map<Player,Double> sortedDefensePlayerStrength = defensePlayerStrength.entrySet() .stream()
 				.sorted(Map.Entry.<Player,Double>comparingByValue().reversed())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
 		for (Map.Entry<Player, Double> entry : sortedDefensePlayerStrength.entrySet()) {
 			if (defenseCount < numberOfDefenses) {
-				if (entry.getKey().getPosition().equals("forward") || entry.getKey().getPosition().equals("defense")) {
-					tradingTeam.getPlayers().add(entry.getKey());
+				if (entry.getKey().getPosition().equals("defense")) {
+					totalPlayers.add(entry.getKey());
 					leagueLOM.getFreeAgentsSkaters().remove(entry.getKey());
 					defenseCount++;
 				}
 			}
 		}
+		ITeamRoster teamRoster = new TeamRoster(totalPlayers);
+		tradingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
+		tradingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return tradingTeam;
 	}
 
@@ -836,8 +744,16 @@ public class Trading implements ITrading {
 		int forwardCount = 0;
 		int defenseCount = 0;
 		int i = 1;
+		ArrayList<Player> totalPlayers = new ArrayList<>();
 
-		for (Player player : tradingTeam.getPlayers()) {
+		for(Player player : tradingTeam.getActivePlayers()) {
+			totalPlayers.add(player);
+		}
+		for(Player player : tradingTeam.getInActivePlayers()) {
+			totalPlayers.add(player);
+		}
+
+		for (Player player : totalPlayers) {
 			if (player.getPosition() == "goalie") {
 				goalieCount++;
 			} else if(player.getPosition() == "forward"){
@@ -863,7 +779,7 @@ public class Trading implements ITrading {
 				}
 				for (Player player : leagueLOM.getFreeAgentsGoalies()) {
 					if (playerName.equals(player.getPlayerName())) {
-						tradingTeam.addPlayer(player);
+						totalPlayers.add(player);
 						goalieCount++;
 					}
 					else {
@@ -871,6 +787,7 @@ public class Trading implements ITrading {
 					}
 				}
 			}
+			leagueLOM.getFreeAgents().clear();
 			for(Player player : updatedPlayersList) {
 				leagueLOM.addFreeAgent(player);
 			}
@@ -895,13 +812,14 @@ public class Trading implements ITrading {
 				}
 				for (Player player : leagueLOM.getFreeAgentsSkaters()) {
 					if (playerName.equals(player.getPlayerName())) {
-						tradingTeam.addPlayer(player);
+						totalPlayers.add(player);
 						defenseCount++;
 					} else {
 						updatedPlayersList.add(player);
 					}
 				}
 			}
+			leagueLOM.getFreeAgents().clear();
 			for(Player player : updatedPlayersList) {
 				leagueLOM.addFreeAgent(player);
 			}
@@ -926,13 +844,14 @@ public class Trading implements ITrading {
 				}
 				for (Player player : leagueLOM.getFreeAgentsSkaters()) {
 					if (playerName.equals(player.getPlayerName())) {
-						tradingTeam.addPlayer(player);
+						totalPlayers.add(player);
 						forwardCount++;
 					} else {
 						updatedPlayersList.add(player);
 					}
 				}
 			}
+			leagueLOM.getFreeAgents().clear();
 			for(Player player : updatedPlayersList) {
 				leagueLOM.addFreeAgent(player);
 			}
@@ -972,7 +891,24 @@ public class Trading implements ITrading {
 		for(Conference conference : leagueLOM.getConferences().values()){
 			for(Division division : conference.getDivisions().values()){
 				for(Team team : division.getTeams().values()){
-					for(Player player : team.getPlayers()){
+					for(Player player : team.getActivePlayers()){
+						if(player.getPosition().equals("goalie"))
+						{
+							goalieStrength = goalieStrength + player.calculateStrength();
+							numberOfGoalies = numberOfGoalies + 1;
+						}
+						else if(player.getPosition().equals("defense"))
+						{
+							defenseStrength = defenseStrength + player.calculateStrength();
+							numberOfDefenses = numberOfDefenses + 1;
+						}
+						else if(player.getPosition().equals("forward"))
+						{
+							forwardStrength = forwardStrength + player.calculateStrength();
+							numberOfForwards = numberOfForwards + 1;
+						}
+					}
+					for(Player player : team.getInActivePlayers()){
 						if(player.getPosition().equals("goalie"))
 						{
 							goalieStrength = goalieStrength + player.calculateStrength();
@@ -999,6 +935,33 @@ public class Trading implements ITrading {
 		getInitialTeam();
 	}
 
+	@Override
+	public void getInitialAndFinalTradingPlayers(String weakSection) {
+		for(Player player : tradeInitializingTeam.getActivePlayers()) {
+			if(player.getPosition().equals(weakSection)) {
+			}
+			else {
+				initialTradingPlayers.add(player);
+			}
+		}
+		for(Player player : tradeInitializingTeam.getInActivePlayers()) {
+			if(player.getPosition().equals(weakSection)) {
+			}
+			else {
+				initialTradingPlayers.add(player);
+			}
+		}
+		for(Player player : tradeFinalizingTeam.getActivePlayers()) {
+			if(player.getPosition().equals(weakSection)) {
+				finalTradingPlayers.add(player);
+			}
+		}
+		for(Player player : tradeFinalizingTeam.getInActivePlayers()) {
+			if(player.getPosition().equals(weakSection)) {
+				finalTradingPlayers.add(player);
+			}
+		}
+	}
 
 }
 
