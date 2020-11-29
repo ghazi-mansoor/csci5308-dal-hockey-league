@@ -5,6 +5,7 @@ import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.persistence.dao.ILeagueDAO;
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class League {
+public class League implements IPersistModel {
     private int leagueID;
     private String leagueName;
     private String userTeam;
@@ -162,7 +163,7 @@ public class League {
         freeAgents.remove(player);
     }
 
-    public boolean saveLeague() {
+    public boolean save() {
         ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
         leagueID = leagueDAO.createLeague(leagueName, agingConfig.getAverageRetirementAge(), agingConfig.getMaximumAge(),
                 injuriesConfig.getRandomInjuryChance(), injuriesConfig.getInjuryDaysHigh(), injuriesConfig.getInjuryDaysLows(),
