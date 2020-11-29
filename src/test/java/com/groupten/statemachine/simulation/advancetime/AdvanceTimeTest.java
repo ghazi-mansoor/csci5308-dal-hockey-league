@@ -1,6 +1,5 @@
 package com.groupten.statemachine.simulation.advancetime;
 
-import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;

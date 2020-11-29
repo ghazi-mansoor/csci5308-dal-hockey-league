@@ -6,9 +6,9 @@ import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
+import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
-import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

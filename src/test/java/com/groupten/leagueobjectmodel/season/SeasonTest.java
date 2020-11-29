@@ -1,11 +1,5 @@
 package com.groupten.leagueobjectmodel.season;
 
-import com.groupten.IO.serializedata.SerializeData;
-import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
-import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
