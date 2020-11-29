@@ -25,6 +25,7 @@ public class Season implements ISeason {
     private Date playoffStartsAt;
     private Date playoffEndsBy;
     private List<TeamStanding> teamStandings = new ArrayList<>();
+    private List<TeamStanding> playoffTeamStandings = new ArrayList<>();
     private List<Schedule> regularSchedules = new ArrayList<>();
     private List<Schedule> playoffSchedules = new ArrayList<>();
     private Team winner = null;
@@ -105,6 +106,10 @@ public class Season implements ISeason {
 
     public List<TeamStanding> getTeamStandings(){
         return teamStandings;
+    }
+
+    public List<TeamStanding> getPlayoffTeamStandings(){
+        return playoffTeamStandings;
     }
 
     @Override
@@ -216,11 +221,17 @@ public class Season implements ISeason {
             });
 
             TeamStanding team1 = conferenceTop10.get(0);
+            playoffTeamStandings.add(team1);
             TeamStanding team2 = conferenceTop10.get(5);
+            playoffTeamStandings.add(team2);
             TeamStanding team3 = conferenceTop10.get(1);
+            playoffTeamStandings.add(team3);
             TeamStanding team4 = conferenceTop10.get(6);
+            playoffTeamStandings.add(team4);
             TeamStanding team5 = conferenceTop10.get(2);
+            playoffTeamStandings.add(team5);
             TeamStanding team6 = conferenceTop10.get(7);
+            playoffTeamStandings.add(team6);
             TeamStanding team7;
             TeamStanding team8;
             TeamStanding div1Top4 = conferenceTop10.get(3);
@@ -242,6 +253,8 @@ public class Season implements ISeason {
                     team8 = div2Top5;
                 }
             }
+            playoffTeamStandings.add(team7);
+            playoffTeamStandings.add(team8);
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.playoffStartsAt);
