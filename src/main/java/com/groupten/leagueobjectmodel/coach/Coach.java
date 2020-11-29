@@ -1,10 +1,12 @@
 package com.groupten.leagueobjectmodel.coach;
 
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Coach {
+public class Coach implements IPersistModel {
     private int coachID;
     private int leagueID;
     private int teamID;
@@ -13,6 +15,8 @@ public class Coach {
     private double shooting;
     private double checking;
     private double saving;
+
+    public Coach() {}
 
     public Coach(String n, double sk, double sh, double ch, double sa) {
         coachName = n;
@@ -111,5 +115,10 @@ public class Coach {
 
     public void setSaving(double saving) {
         this.saving = saving;
+    }
+
+    @Override
+    public boolean save() {
+        return false;
     }
 }

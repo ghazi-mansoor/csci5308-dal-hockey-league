@@ -3,6 +3,7 @@ package com.groupten.leagueobjectmodel.team;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.player.IPlayerSubscriber;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.persistence.dao.ITeamDAO;
@@ -12,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class Team implements IPlayerSubscriber {
+public class Team implements IPlayerSubscriber, IPersistModel {
     private final int REQUIRED_NUMBER_OF_ACTIVE_PLAYERS = 20;
 
     private int teamID;
@@ -208,7 +209,7 @@ public class Team implements IPlayerSubscriber {
         this.divisionID = divisionID;
     }
 
-    public boolean saveTeam() {
+    public boolean save() {
         ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
         teamID = teamDAO.createTeam(divisionID, teamName);
         if (teamID != -0) {

@@ -9,8 +9,16 @@ import com.groupten.IO.deserializedata.DeserializeData;
 import com.groupten.IO.deserializedata.IDeserializeData;
 import com.groupten.IO.serializedata.ISerializeData;
 import com.groupten.IO.serializedata.SerializeData;
+import com.groupten.leagueobjectmodel.coach.CoachBuilder;
+import com.groupten.leagueobjectmodel.coach.ICoachBuilder;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModelFactory;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModelFactory;
+import com.groupten.leagueobjectmodel.player.IPlayerBuilder;
+import com.groupten.leagueobjectmodel.player.PlayerBuilder;
+import com.groupten.leagueobjectmodel.team.ITeamBuilder;
+import com.groupten.leagueobjectmodel.team.TeamBuilder;
 import com.groupten.persistence.dao.*;
 import com.groupten.statemachine.createteam.CreateTeam;
 import com.groupten.statemachine.createteam.ICreateTeam;
@@ -42,6 +50,7 @@ public class Injector {
     private static Injector instance = null;
     private IConsole consoleInterface;
 
+    private ILeagueModelFactory leagueModelFactory;
     private IJSONImport jsonInterface;
     private ICreateTeam createTeamInterface;
     private ILoadTeam loadTeamInterface;
@@ -64,10 +73,14 @@ public class Injector {
     private ITrophy trophyInterface;
 
     private ILeagueModel leagueModel;
+    private ITeamBuilder teamBuilder;
+    private ICoachBuilder coachBuilder;
+    private IPlayerBuilder playerBuilder;
 
     private Injector() {
         consoleInterface = new Console();
 
+        leagueModelFactory = new LeagueModelFactory();
         jsonInterface = new JSONImport();
         createTeamInterface = new CreateTeam();
         loadTeamInterface = new LoadTeam();
@@ -84,8 +97,6 @@ public class Injector {
         tradingInterface = new Trading();
         trophyInterface = new Trophy();
 
-
-
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
         divisionDatabaseInterface = new DivisionDAO();
@@ -93,6 +104,9 @@ public class Injector {
         playerDatabaseInterface = new PlayerDAO();
 
         leagueModel = new LeagueModel();
+        teamBuilder = new TeamBuilder();
+        coachBuilder = new CoachBuilder();
+        playerBuilder = new PlayerBuilder();
     }
 
     public static Injector instance() {
@@ -283,4 +297,35 @@ public class Injector {
         return leagueModel;
     }
 
+    public ILeagueModelFactory getLeagueModelFactory() {
+        return leagueModelFactory;
+    }
+
+    public void setLeagueModelFactory(ILeagueModelFactory leagueModelFactory) {
+        this.leagueModelFactory = leagueModelFactory;
+    }
+
+    public ITeamBuilder getTeamBuilder() {
+        return teamBuilder;
+    }
+
+    public void setTeamBuilder(ITeamBuilder teamBuilder) {
+        this.teamBuilder = teamBuilder;
+    }
+
+    public ICoachBuilder getCoachBuilder() {
+        return coachBuilder;
+    }
+
+    public void setCoachBuilder(ICoachBuilder coachBuilder) {
+        this.coachBuilder = coachBuilder;
+    }
+
+    public IPlayerBuilder getPlayerBuilder() {
+        return playerBuilder;
+    }
+
+    public void setPlayerBuilder(IPlayerBuilder playerBuilder) {
+        this.playerBuilder = playerBuilder;
+    }
 }

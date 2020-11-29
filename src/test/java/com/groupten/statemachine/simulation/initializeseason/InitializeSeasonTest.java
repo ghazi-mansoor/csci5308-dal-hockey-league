@@ -1,12 +1,10 @@
 package com.groupten.statemachine.simulation.initializeseason;
 
-import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class InitializeSeasonTest {

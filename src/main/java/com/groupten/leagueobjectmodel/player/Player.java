@@ -3,6 +3,7 @@ package com.groupten.leagueobjectmodel.player;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.persistence.dao.IPlayerDAO;
 
@@ -12,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Player {
+public class Player implements IPersistModel {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
     private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
     private final int MAX_TOI = 1080;
@@ -217,7 +218,7 @@ public class Player {
         return Collections.frequency(validChecks, false) == 0;
     }
 
-    public boolean savePlayer() {
+    public boolean save() {
         IPlayerDAO playerDAO = Injector.instance().getPlayerDatabaseObject();
         playerID = playerDAO.createPlayer(playerName, position, age, skating, shooting, checking, saving);
         if (playerID != 0) {
