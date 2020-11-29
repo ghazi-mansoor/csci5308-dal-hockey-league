@@ -198,23 +198,12 @@ public class CreateTeam implements ICreateTeam {
 
             for (int j = 0; j < skaters.size(); j++) {
                 skater = skaters.get(j);
-
-                if (i <= BREAK_POINT && skater.getPosition().equals("defense")){
-                    continue;
-                }else if(i > BREAK_POINT && skater.getPosition().equals("forward")){
-                    continue;
-                }
-
                 console.printLine((j + 1) + "\t\t" + skater.getAge() + "\t\t" + skater.getSkating() +
                         "\t\t\t" + skater.getShooting() + "\t\t\t\t" + skater.getChecking() +
                         "\t\t\t\t" + skater.getSaving() + "\t\t\t" + skater.getPosition() + "\t\t\t" + skater.getPlayerName());
             }
 
-            if (i > BREAK_POINT) {
-                console.printLine("\nEnter DEFENSE (ID)?");
-            } else {
-                console.printLine("\nEnter FORWARD (ID)?");
-            }
+            console.printLine("\nEnter Skater (ID)?");
 
             try {
                 int choice = console.readInteger();

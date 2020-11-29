@@ -30,11 +30,11 @@ public class SimulateGame implements ISimulateGame {
 
         IConsole console = Injector.instance().getConsoleObject();
         if(winner == team1){
-            console.printLine(team1.getTeamName() + " won against " + team2.getTeamName());
+//            console.printLine(team1.getTeamName() + " won against " + team2.getTeamName());
             recordWin(team1);
             recordLoss(team2);
         }else{
-            console.printLine(team2.getTeamName() + "\t\t***won against***\t\t" + team1.getTeamName());
+//            console.printLine(team2.getTeamName() + "\t\t***won against***\t\t" + team1.getTeamName());
             recordWin(team2);
             recordLoss(team1);
         }
