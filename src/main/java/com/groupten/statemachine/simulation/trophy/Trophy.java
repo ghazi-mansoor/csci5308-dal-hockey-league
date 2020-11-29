@@ -11,16 +11,16 @@ import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import com.groupten.statemachine.simulation.simulategame.strategy.IAlgoStrategyObserver;
 import com.groupten.statemachine.simulation.training.ITrainingObserver;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlgoStrategyObserver {
 
     private LinkedList<TrophyPerSeason> historicData = new LinkedList<>();
     private LinkedHashMap<Coach, Integer> coachRanking;
-    private Map<Player, Integer> bestPlayerRanking, bestDefenseMenRanking, topGoalRanking, bestGoalieRanking;
+    private Map<Player, Integer> bestPlayerRanking = new HashMap<>();
+    private Map<Player, Integer> bestDefenseMenRanking = new HashMap<>();
+    private Map<Player, Integer> topGoalRanking = new HashMap<>();
+    private Map<Player, Integer> bestGoalieRanking = new HashMap<>();
     private LinkedHashMap<Team, Integer> teamRanking = new LinkedHashMap<>();
 
     @Override
@@ -30,22 +30,30 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
 
     @Override
     public void updateShots(Map<Player, Integer> bestPlayerRanking) {
-        this.bestPlayerRanking = bestPlayerRanking;
+        for (Map.Entry<Player, Integer> entry : bestPlayerRanking.entrySet()) {
+            this.bestPlayerRanking.merge(entry.getKey(), entry.getValue(), Integer::sum);
+        }
     }
 
     @Override
     public void updatePenalties(Map<Player, Integer> bestDefenseMenRanking) {
-        this.bestDefenseMenRanking = bestDefenseMenRanking;
+        for (Map.Entry<Player, Integer> entry : bestDefenseMenRanking.entrySet()) {
+            this.bestDefenseMenRanking.merge(entry.getKey(), entry.getValue(), Integer::sum);
+        }
     }
 
     @Override
     public void updateGoals(Map<Player, Integer> topGoalRanking) {
-        this.topGoalRanking = topGoalRanking;
+        for (Map.Entry<Player, Integer> entry : topGoalRanking.entrySet()) {
+            this.topGoalRanking.merge(entry.getKey(), entry.getValue(), Integer::sum);
+        }
     }
 
     @Override
     public void updateSaves(Map<Player, Integer> bestGoalieRanking) {
-        this.bestGoalieRanking = bestGoalieRanking;
+        for (Map.Entry<Player, Integer> entry : bestGoalieRanking.entrySet()) {
+            this.bestGoalieRanking.merge(entry.getKey(), entry.getValue(), Integer::sum);
+        }
     }
 
     @Override
@@ -144,6 +152,7 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
 
         System.out.println(historicData);
 
+        console.printLine("*************************************");
         console.printLine("--------- Trophy Winners ----------");
         for (TrophyPerSeason trophyPerSeason : historicData) {
             console.printLine("Winner of Season " + seasonNumber--);
@@ -156,6 +165,7 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
             console.printLine("Rob Hawkey Memorial Cup\t\t\t" + trophyPerSeason.getRobHawkeyMemorialTrophy().getPlayerName());
             console.printLine("Participation Award\t\t\t" + trophyPerSeason.getParticipationAward().getTeamName());
         }
+        console.printLine("*************************************");
     }
 
     public void setCoachRanking(LinkedHashMap<Coach, Integer> coachRanking) {

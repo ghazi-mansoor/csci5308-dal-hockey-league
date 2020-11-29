@@ -60,6 +60,7 @@ public class LoadTeam implements ILoadTeam {
     public boolean loadExistingLeague() {
         IDeserializeData deserializeData = Injector.instance().getDeserializeDataObject();
         League league = deserializeData.importData(path + fileToBeLoaded + ".json");
+        System.out.println(league);
         if (league == null) {
             return false;
         } else {

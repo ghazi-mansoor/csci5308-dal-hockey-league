@@ -6,6 +6,7 @@ import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy;
+import com.groupten.statemachine.simulation.simulategame.strategy.IAlgoStrategyObserver;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,6 +26,7 @@ public class SimulateGame implements ISimulateGame {
         IResolveGame resolveGame = new ResolveGame(season);
         AlgoStrategy algoStrategy = new AlgoStrategy();
         algoStrategy.attach(this.season.getSeasonStat());
+        algoStrategy.attach((IAlgoStrategyObserver) Injector.instance().getTrophyObject());
         resolveGame.setStrategy(algoStrategy);
         Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
 

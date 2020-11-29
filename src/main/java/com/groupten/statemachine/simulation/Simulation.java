@@ -130,13 +130,18 @@ public class Simulation implements ISimulation {
         aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
-            console.printLine("Season won by:"+ season.getSeasonWinner().getTeamName());
+
+            console.printLine("*************************************");
+            console.printLine("Season won by: \t\t"+ season.getSeasonWinner().getTeamName());
+            console.printLine("*************************************");
             SeasonStat seasonStat = season.getSeasonStat();
-            console.printLine("Season Stats");
-            console.printLine("Shots per Game:"+ seasonStat.getAvgShots());
-            console.printLine("Penalties per Game:"+ seasonStat.getAvgPenalties());
-            console.printLine("Goals per Game:"+ seasonStat.getAvgGoals());
-            console.printLine("Saves per Game:"+ seasonStat.getAvgSaves());
+
+            console.printLine("************ Season Stats *************");
+            console.printLine("Shots per Game:\t\t" + seasonStat.getAvgShots());
+            console.printLine("Penalties per Game:\t\t"+ seasonStat.getAvgPenalties());
+            console.printLine("Goals per Game:\t\t"+ seasonStat.getAvgGoals());
+            console.printLine("Saves per Game:\t\t"+ seasonStat.getAvgSaves());
+            console.printLine("*************************************");
 
             ITrophy trophy = Injector.instance().getTrophyObject();
             trophy.awardTrophy();

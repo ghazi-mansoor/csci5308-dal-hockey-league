@@ -48,8 +48,10 @@ public class AlgoStrategy implements IStrategy{
     @Override
     public Team getWinner(Season season, Team team1, Team team2) {
         this.season = season;
+
         team1Shifts = prepareShifts(team1.getActivePlayers());
         team2Shifts = prepareShifts(team2.getActivePlayers());
+
         int team1Goals = 0;
         int team2Goals = 0;
 

@@ -17,8 +17,10 @@ public class DeserializeData implements IDeserializeData{
         League importedLeague;
 
         try {
+            System.out.println(path);
             fileReader = new FileReader(path);
             importedLeague = gson.fromJson(jsonParser.parse(fileReader).toString(), League.class);
+            System.out.println(importedLeague);
             fileReader.close();
         } catch (Exception e) {
             return null;
