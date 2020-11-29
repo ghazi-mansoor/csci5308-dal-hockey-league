@@ -151,22 +151,21 @@ public class Simulation implements ISimulation {
                 year++;
                 initializeSeason();
             }else{
+                console.printLine("Persisting to json file");
                 persist();
                 end();
             }
         }else{
+            persist();
             advanceTime();
         }
     }
 
     private void persist(){
         IConsole console = Injector.instance().getConsoleObject();
-        console.printLine("Exporting to json file");
         ISerializeData serializeData = Injector.instance().getSerializeDataObject();
         String path = "";
         serializeData.exportData(league, path);
-        console.printLine("Simulation saved to db");
-        league.save();
     }
 
     private void end(){
