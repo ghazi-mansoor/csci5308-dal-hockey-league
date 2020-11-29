@@ -104,7 +104,7 @@ public class Simulation implements ISimulation {
 
         if(season.isTradeEnded()){
         }else{
-            executeTrades();
+//            executeTrades();
         }
         aging();
     }
@@ -130,7 +130,6 @@ public class Simulation implements ISimulation {
         aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
-            season.notifyObservers();
             console.printLine("Season won by:"+ season.getSeasonWinner().getTeamName());
             SeasonStat seasonStat = season.getSeasonStat();
             console.printLine("Season Stats");

@@ -14,6 +14,10 @@ public class Coach {
     private double checking;
     private double saving;
 
+    public Coach(String n){
+        coachName = n;
+    }
+
     public Coach(String n, double sk, double sh, double ch, double sa) {
         coachName = n;
         skating = sk;
