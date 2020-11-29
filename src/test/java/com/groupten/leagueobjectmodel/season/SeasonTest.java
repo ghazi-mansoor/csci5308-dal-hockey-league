@@ -150,22 +150,4 @@ public class SeasonTest {
         Season season = new Season(2020);
         assertFalse(season.generatePlayoffSchedule());
     }
-
-    @Test
-    public void getTeamStandingsTest(){
-        Season season = new Season(2020);
-        assertEquals(0,season.getTeamStandings().size());
-    }
-
-    @Test
-    public void getRegularTeamsTest(){
-        Season season = new Season(2020);
-        assertEquals(0,season.getRegularTeams().size());
-    }
-
-    @Test
-    public void getPlayoffTeamsTest(){
-        Season season = new Season(2020);
-        assertEquals(0,season.getPlayoffTeams().size());
-    }
 }

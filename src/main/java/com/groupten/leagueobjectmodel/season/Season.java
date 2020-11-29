@@ -6,9 +6,9 @@ import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
+import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
-import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,9 +25,8 @@ public class Season implements ISeason {
     private Date playoffStartsAt;
     private Date playoffEndsBy;
     private List<TeamStanding> teamStandings = new ArrayList<>();
-    private List<Team> regularTeams = new ArrayList<>();
+    private List<TeamStanding> playoffTeamStandings = new ArrayList<>();
     private List<Schedule> regularSchedules = new ArrayList<>();
-    private List<Team> playoffTeams = new ArrayList<>();
     private List<Schedule> playoffSchedules = new ArrayList<>();
     private Team winner = null;
     private SeasonStat seasonStat;
@@ -109,12 +108,8 @@ public class Season implements ISeason {
         return teamStandings;
     }
 
-    public List<Team> getRegularTeams() {
-        return regularTeams;
-    }
-
-    public List<Team> getPlayoffTeams() {
-        return playoffTeams;
+    public List<TeamStanding> getPlayoffTeamStandings(){
+        return playoffTeamStandings;
     }
 
     @Override
@@ -125,7 +120,6 @@ public class Season implements ISeason {
         HashSet<String> conferenceNames = new HashSet<>();
         HashSet<String> divisionNames = new HashSet<>();
         teamStandings.forEach(teamStanding -> {
-            regularTeams.add(teamStanding.getTeam());
             conferenceNames.add(teamStanding.getConferenceName());
             divisionNames.add(teamStanding.getDivisionName());
         });
@@ -227,18 +221,17 @@ public class Season implements ISeason {
             });
 
             TeamStanding team1 = conferenceTop10.get(0);
-            playoffTeams.add(team1.getTeam());
+            playoffTeamStandings.add(team1);
             TeamStanding team2 = conferenceTop10.get(5);
-            playoffTeams.add(team2.getTeam());
+            playoffTeamStandings.add(team2);
             TeamStanding team3 = conferenceTop10.get(1);
-            playoffTeams.add(team3.getTeam());
+            playoffTeamStandings.add(team3);
             TeamStanding team4 = conferenceTop10.get(6);
-            playoffTeams.add(team4.getTeam());
+            playoffTeamStandings.add(team4);
             TeamStanding team5 = conferenceTop10.get(2);
-            playoffTeams.add(team5.getTeam());
+            playoffTeamStandings.add(team5);
             TeamStanding team6 = conferenceTop10.get(7);
-            playoffTeams.add(team6.getTeam());
-
+            playoffTeamStandings.add(team6);
             TeamStanding team7;
             TeamStanding team8;
             TeamStanding div1Top4 = conferenceTop10.get(3);
@@ -260,9 +253,8 @@ public class Season implements ISeason {
                     team8 = div2Top5;
                 }
             }
-            playoffTeams.add(team7.getTeam());
-            playoffTeams.add(team8.getTeam());
-
+            playoffTeamStandings.add(team7);
+            playoffTeamStandings.add(team8);
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.playoffStartsAt);
