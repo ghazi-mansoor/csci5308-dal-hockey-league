@@ -150,8 +150,6 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
 
         int seasonNumber = historicData.size();
 
-        System.out.println(historicData);
-
         console.printLine("*************************************");
         console.printLine("--------- Trophy Winners ----------");
         for (TrophyPerSeason trophyPerSeason : historicData) {

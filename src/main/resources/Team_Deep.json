@@ -23790,8 +23790,8 @@
     }
   ],
   "agingConfig": {
-    "averageRetirementAge": 47,
-    "maximumAge": 50,
+    "averageRetirementAge": 37,
+    "maximumAge": 47,
     "statDecayChance": 0.01
   },
   "gameResolverConfig": {
@@ -23806,7 +23806,7 @@
     "daysUntilStatIncreaseCheck": 70
   },
   "tradingConfig": {
-    "lossPoint": 100,
+    "lossPoint": 10,
     "randomTradeOfferChance": 0.02,
     "maxPlayersPerTrade": 1,
     "randomAcceptanceChance": 0.32,

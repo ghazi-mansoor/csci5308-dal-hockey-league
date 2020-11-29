@@ -15,7 +15,7 @@ public class AlgoStrategy implements IStrategy{
     int SHIFT_FORWARD = 3;
     int SHIFT_DEFENSE = 2;
     int SHIFT_GOALIE = 1;
-    double PENALTY_CHANCE = 0.20;
+    double PENALTY_CHANCE = 0.2;
     double SAVING_BENCHMARK = 14;
 
     Random rand = new Random();

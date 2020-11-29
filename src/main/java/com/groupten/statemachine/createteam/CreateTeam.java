@@ -235,7 +235,7 @@ public class CreateTeam implements ICreateTeam {
         leagueLOM = leagueModel.getCurrentLeague();
 
         for (int i = 1; i <= NO_OF_DEFENSE; i++) {
-            List<Player> defenses = new ArrayList<>(leagueLOM.getFreeAgentsForwards());
+            List<Player> defenses = new ArrayList<>(leagueLOM.getFreeAgentsDefenses());
             Player defense;
 
             console.printLine("\nPlease select a defense\n");

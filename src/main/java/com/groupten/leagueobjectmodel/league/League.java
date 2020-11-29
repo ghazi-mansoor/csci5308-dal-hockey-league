@@ -113,6 +113,16 @@ public class League implements IPersistModel {
         return goalies;
     }
 
+    public List<Player> getFreeAgentsSkaters() {
+        List<Player> skater = new ArrayList<>();
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")) {
+                skater.add(freeAgent);
+            }
+        }
+        return skater;
+    }
+
     public List<Player> getFreeAgentsForwards() {
         List<Player> forwards = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
