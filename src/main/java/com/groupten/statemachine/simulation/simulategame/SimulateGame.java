@@ -6,6 +6,7 @@ import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy;
+import com.groupten.statemachine.simulation.simulategame.strategy.IAlgoStrategyObserver;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,16 +26,17 @@ public class SimulateGame implements ISimulateGame {
         IResolveGame resolveGame = new ResolveGame(season);
         AlgoStrategy algoStrategy = new AlgoStrategy();
         algoStrategy.attach(this.season.getSeasonStat());
+        algoStrategy.attach((IAlgoStrategyObserver) Injector.instance().getTrophyObject());
         resolveGame.setStrategy(algoStrategy);
         Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
 
         IConsole console = Injector.instance().getConsoleObject();
         if(winner == team1){
-            console.printLine(team1.getTeamName() + " won against " + team2.getTeamName());
+//            console.printLine(team1.getTeamName() + " won against " + team2.getTeamName());
             recordWin(team1);
             recordLoss(team2);
         }else{
-            console.printLine(team2.getTeamName() + "\t\t***won against***\t\t" + team1.getTeamName());
+//            console.printLine(team2.getTeamName() + "\t\t***won against***\t\t" + team1.getTeamName());
             recordWin(team2);
             recordLoss(team1);
         }

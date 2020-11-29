@@ -18,6 +18,10 @@ public class Coach implements IPersistModel {
 
     public Coach() {}
 
+    public Coach(String n){
+        coachName = n;
+    }
+
     public Coach(String n, double sk, double sh, double ch, double sa) {
         coachName = n;
         skating = sk;

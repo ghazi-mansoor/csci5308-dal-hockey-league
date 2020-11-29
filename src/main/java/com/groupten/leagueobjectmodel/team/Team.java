@@ -27,7 +27,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     private double teamStrength;
     private int winPoint;
     private int lossPoint;
-    private ISwapPlayers swapPlayers;
+    private transient ISwapPlayers swapPlayers;
 
     public Team() {
         this.aITeam = true;
