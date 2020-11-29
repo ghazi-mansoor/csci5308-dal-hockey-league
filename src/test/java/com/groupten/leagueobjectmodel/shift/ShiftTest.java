@@ -94,13 +94,4 @@ public class ShiftTest {
         shift.addDefense(player2);
         assertEquals(10, (int)shift.getCheckingStat());
     }
-
-    @Test
-    public void getSavingStatTest(){
-        Shift shift = new Shift(10);
-        Player player1 = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        shift.setGoalie(player1);
-        assertEquals(5, (int)shift.getSavingStat());
-    }
-
 }

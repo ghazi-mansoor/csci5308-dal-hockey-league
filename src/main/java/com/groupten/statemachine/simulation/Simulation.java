@@ -161,7 +161,7 @@ public class Simulation implements ISimulation {
         String path = "src/main/resources/";
         serializeData.exportData(league, path);
         console.printLine("Simulation saved to db");
-        league.saveLeague();
+        league.save();
     }
 
     private void end(){
