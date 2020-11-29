@@ -16,7 +16,7 @@ public class LoadTeam implements ILoadTeam {
     private String path;
 
     public LoadTeam() {
-        this.path = System.getProperty("user.dir") + "\\";
+        this.path = System.getProperty("user.dir") + "/";
     }
 
     public LoadTeam(String path) {
