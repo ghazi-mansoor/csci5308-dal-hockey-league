@@ -22,6 +22,9 @@ public class PlayerBuilder implements IPlayerBuilder {
     }
 
     @Override
+    public void setAge(double age) { player.setAge(age); }
+
+    @Override
     public void setAgeFromBirthDay(int playerBirthDay, int playerBirthMonth, int playerBirthYear) {
         player.setBirthDay(playerBirthDay);
         player.setBirthMonth(playerBirthMonth);
