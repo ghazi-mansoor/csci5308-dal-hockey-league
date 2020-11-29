@@ -9,6 +9,7 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.ITeamBuilder;
 import com.groupten.leagueobjectmodel.team.Team;
 
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ import java.util.List;
 
 public class CreateTeam implements ICreateTeam {
 
-    private final int NO_OF_GOALIE = 2;
-    private final int NO_OF_SKATERS = 18;
+    private final int NO_OF_GOALIE = 4;
+    private final int BREAK_POINT = 16;
+    private final int NO_OF_SKATERS = 26;
 
     private String conferenceName, divisionName, teamName;
     private GeneralManager generalManager;
@@ -26,7 +28,8 @@ public class CreateTeam implements ICreateTeam {
     private List<Player> freeAgents = new ArrayList<>();
     private League leagueLOM;
 
-    public CreateTeam() {}
+    public CreateTeam() {
+    }
 
     @Override
     public void userPromptForNewTeam() {
@@ -195,12 +198,23 @@ public class CreateTeam implements ICreateTeam {
 
             for (int j = 0; j < skaters.size(); j++) {
                 skater = skaters.get(j);
+
+                if (i <= BREAK_POINT && skater.getPosition().equals("defense")){
+                    continue;
+                }else if(i > BREAK_POINT && skater.getPosition().equals("forward")){
+                    continue;
+                }
+
                 console.printLine((j + 1) + "\t\t" + skater.getAge() + "\t\t" + skater.getSkating() +
                         "\t\t\t" + skater.getShooting() + "\t\t\t\t" + skater.getChecking() +
                         "\t\t\t\t" + skater.getSaving() + "\t\t\t" + skater.getPosition() + "\t\t\t" + skater.getPlayerName());
             }
 
-            console.printLine("\nEnter Skater (ID)?");
+            if (i > BREAK_POINT) {
+                console.printLine("\nEnter DEFENSE (ID)?");
+            } else {
+                console.printLine("\nEnter FORWARD (ID)?");
+            }
 
             try {
                 int choice = console.readInteger();
@@ -225,18 +239,33 @@ public class CreateTeam implements ICreateTeam {
 
     @Override
     public boolean instantiateNewTeam() {
+//        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+//        leagueLOM = leagueModel.getCurrentLeague();
+//        Conference conference = leagueLOM.getConference(conferenceName);
+//        Division division = conference.getDivision(divisionName);
+//        Team team = new Team(teamName);
+//        leagueLOM.setUserTeam(teamName);
+//        team.setGeneralManager(generalManager);
+//        team.setHeadCoach(headCoach);
+//        team.setaITeam(false);
+//        for (Player player : freeAgents) {
+//            team.addActivePlayer(player);
+//        }
+//        return division.addTeam(team);
+
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        ITeamBuilder teamBuilder = Injector.instance().getTeamBuilder();
         leagueLOM = leagueModel.getCurrentLeague();
         Conference conference = leagueLOM.getConference(conferenceName);
         Division division = conference.getDivision(divisionName);
-        Team team = new Team(teamName);
+        teamBuilder.reset();
+        teamBuilder.setTeamName(teamName);
+        teamBuilder.setPlayerRosters(freeAgents);
+        Team team = teamBuilder.getResult();
         leagueLOM.setUserTeam(teamName);
         team.setGeneralManager(generalManager);
         team.setHeadCoach(headCoach);
         team.setaITeam(false);
-        for (Player player : freeAgents) {
-            team.addActivePlayer(player);
-        }
         return division.addTeam(team);
     }
 

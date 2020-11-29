@@ -20,19 +20,32 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
 
     private LinkedList<TrophyPerSeason> historicData = new LinkedList<>();
     private LinkedHashMap<Coach, Integer> coachRanking;
+    private Map<Player, Integer> bestPlayerRanking, bestDefenseMenRanking, topGoalRanking, bestGoalieRanking;
     private LinkedHashMap<Team, Integer> teamRanking = new LinkedHashMap<>();
-
-    public void setCoachRanking(LinkedHashMap<Coach, Integer> coachRanking) {
-        this.coachRanking = coachRanking;
-    }
-
-    public void setTeamRanking(LinkedHashMap<Team, Integer> teamRanking) {
-        this.teamRanking = teamRanking;
-    }
 
     @Override
     public void updateCoachRanking(LinkedHashMap<Coach, Integer> coachRanking) {
         this.coachRanking = coachRanking;
+    }
+
+    @Override
+    public void updateShots(Map<Player, Integer> bestPlayerRanking) {
+        this.bestPlayerRanking = bestPlayerRanking;
+    }
+
+    @Override
+    public void updatePenalties(Map<Player, Integer> bestDefenseMenRanking) {
+        this.bestDefenseMenRanking = bestDefenseMenRanking;
+    }
+
+    @Override
+    public void updateGoals(Map<Player, Integer> topGoalRanking) {
+        this.topGoalRanking = topGoalRanking;
+    }
+
+    @Override
+    public void updateSaves(Map<Player, Integer> bestGoalieRanking) {
+        this.bestGoalieRanking = bestGoalieRanking;
     }
 
     @Override
@@ -44,68 +57,83 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
     }
 
     @Override
-    public void updateShots(Map<Player, Integer> shots) {
-
-    }
-
-    @Override
-    public void updatePenalties(Map<Player, Integer> penalties) {
-
-    }
-
-    @Override
-    public void updateGoals(Map<Player, Integer> goals) {
-
-    }
-
-    @Override
-    public void updateSaves(Map<Player, Integer> goals) {
-
-    }
-
-    @Override
     public void awardTrophy() {
+
+        Team bestTeam = null, leastTeam = null;
+        Coach bestCoach = null;
+        Player bestPlayer = null, bestGoalie = null, bestDefenseMen = null, topGoalScorer = null;
+        int min = -1, max = 999999;
 
         TrophyPerSeason trophyPerSeason = new TrophyPerSeason();
         historicData.offerFirst(trophyPerSeason);
 
-        int bestTeamPoint = -1;
-        Team bestTeam = null;
         for (Map.Entry<Team, Integer> entry : teamRanking.entrySet()) {
-            if (entry.getValue() > bestTeamPoint) {
-                bestTeamPoint = entry.getValue();
+            if (entry.getValue() > min) {
+                min = entry.getValue();
                 bestTeam = entry.getKey();
             }
         }
-
         trophyPerSeason.setPresidentTrophy(bestTeam);
 
-        int bestCoachCount = -1;
-        Coach bestCoach = null;
+        min = -1;
+        for (Map.Entry<Player, Integer> entry : bestPlayerRanking.entrySet()) {
+            if (entry.getValue() > min) {
+                min = entry.getValue();
+                bestPlayer = entry.getKey();
+            }
+        }
+        trophyPerSeason.setCalderMemorialTrophy(bestPlayer);
+
+        min = -1;
+        for (Map.Entry<Player, Integer> entry : bestGoalieRanking.entrySet()) {
+            if (entry.getValue() > min) {
+                min = entry.getValue();
+                bestGoalie = entry.getKey();
+            }
+        }
+        trophyPerSeason.setVezinaTrophy(bestGoalie);
+
+        min = -1;
         for (Map.Entry<Coach, Integer> entry : coachRanking.entrySet()) {
-            System.out.println(bestCoachCount + " " + entry.getValue() + " " + entry.getKey().getCoachName());
-            if (entry.getValue() > bestCoachCount) {
-                bestCoachCount = entry.getValue();
+            if (entry.getValue() > min) {
+                min = entry.getValue();
                 bestCoach = entry.getKey();
             }
         }
-
         trophyPerSeason.setJackAdamAward(bestCoach);
 
-        int leastTeamPoint = 99999;
-        Team leastTeam = null;
+        min = -1;
+        for (Map.Entry<Player, Integer> entry : topGoalRanking.entrySet()) {
+            if (entry.getValue() > min) {
+                min = entry.getValue();
+                topGoalScorer = entry.getKey();
+            }
+        }
+        trophyPerSeason.setMauriceRichardTrophy(topGoalScorer);
+
+        min = -1;
+        for (Map.Entry<Player, Integer> entry : bestDefenseMenRanking.entrySet()) {
+            if (entry.getValue() > min) {
+                min = entry.getValue();
+                bestDefenseMen = entry.getKey();
+            }
+        }
+        trophyPerSeason.setRobHawkeyMemorialTrophy(bestDefenseMen);
+
         for (Map.Entry<Team, Integer> entry : teamRanking.entrySet()) {
-            if (entry.getValue() < leastTeamPoint) {
-                leastTeamPoint = entry.getValue();
+            if (entry.getValue() < max) {
+                max = entry.getValue();
                 leastTeam = entry.getKey();
             }
         }
-
         trophyPerSeason.setParticipationAward(leastTeam);
 
         teamRanking.clear();
         coachRanking.clear();
-
+        bestPlayerRanking.clear();
+        bestDefenseMenRanking.clear();
+        topGoalRanking.clear();
+        bestGoalieRanking.clear();
     }
 
     @Override
@@ -121,13 +149,20 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
             console.printLine("Winner of Season " + seasonNumber--);
             console.printLine("\nTrophy \t\t\t Winner");
             console.printLine("President's Trophy\t\t\t" + trophyPerSeason.getPresidentTrophy().getTeamName());
-//            console.printLine("Calder Memorial Trophy\t\t\t" + trophyPerSeason.getCalderMemorialTrophy().getPlayerName());
-//            console.printLine("Vezina Trophy\t\t\t" + trophyPerSeason.getVezinaTrophy().getPlayerName());
+            console.printLine("Calder Memorial Trophy\t\t\t" + trophyPerSeason.getCalderMemorialTrophy().getPlayerName());
+            console.printLine("Vezina Trophy\t\t\t" + trophyPerSeason.getVezinaTrophy().getPlayerName());
             console.printLine("Jack Adam's Award\t\t\t" + trophyPerSeason.getJackAdamAward().getCoachName());
-//            console.printLine("Maurice Richard Trophy\t\t\t" + trophyPerSeason.getMauriceRichardTrophy().getPlayerName());
-//            console.printLine("Rob Hawkey Memorial Cup\t\t\t" + trophyPerSeason.getRobHawkeyMemorialTrophy().getPlayerName());
+            console.printLine("Maurice Richard Trophy\t\t\t" + trophyPerSeason.getMauriceRichardTrophy().getPlayerName());
+            console.printLine("Rob Hawkey Memorial Cup\t\t\t" + trophyPerSeason.getRobHawkeyMemorialTrophy().getPlayerName());
             console.printLine("Participation Award\t\t\t" + trophyPerSeason.getParticipationAward().getTeamName());
         }
+    }
 
+    public void setCoachRanking(LinkedHashMap<Coach, Integer> coachRanking) {
+        this.coachRanking = coachRanking;
+    }
+
+    public void setTeamRanking(LinkedHashMap<Team, Integer> teamRanking) {
+        this.teamRanking = teamRanking;
     }
 }

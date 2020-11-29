@@ -3,13 +3,11 @@ package com.groupten;
 import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.trophy.Trophy;
-import org.junit.Test;
 
 import java.util.LinkedHashMap;
 
 public class test {
 
-    @Test
     public void doTest(){
         Trophy trophy = new Trophy();
         LinkedHashMap<Team, Integer> teamRanking = new LinkedHashMap<>();
