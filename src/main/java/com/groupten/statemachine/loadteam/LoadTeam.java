@@ -7,7 +7,6 @@ import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class LoadTeam implements ILoadTeam {
 
@@ -39,8 +38,6 @@ public class LoadTeam implements ILoadTeam {
     @Override
     public boolean doesTeamExist() {
         File[] files = new File(path).listFiles();
-
-        System.out.println(Arrays.toString(files));
 
         if (files == null) {
             return false;
