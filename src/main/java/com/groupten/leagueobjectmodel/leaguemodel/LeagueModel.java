@@ -127,4 +127,17 @@ public class LeagueModel implements ILeagueModel {
             return false;
         }
     }
+
+    @Override
+    public int getTotalNumberOfTeams() {
+        int teamCount = 0;
+        for (Conference conference : currentLeague.getConferences().values()) {
+            for (Division division : conference.getDivisions().values()) {
+                teamCount += division.getTeams().size();
+            }
+        }
+
+        return teamCount;
+    }
+
 }

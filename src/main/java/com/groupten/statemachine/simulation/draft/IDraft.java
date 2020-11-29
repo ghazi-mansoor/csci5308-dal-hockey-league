@@ -1,5 +1,7 @@
 package com.groupten.statemachine.simulation.draft;
 
-public interface IDraft {
+import com.groupten.leagueobjectmodel.season.Season;
 
+public interface IDraft {
+    void execute(Season season);
 }

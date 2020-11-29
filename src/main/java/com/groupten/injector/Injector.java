@@ -32,6 +32,8 @@ import com.groupten.statemachine.simulation.advancetime.AdvanceTime;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.Aging;
 import com.groupten.statemachine.simulation.aging.IAging;
+import com.groupten.statemachine.simulation.draft.Draft;
+import com.groupten.statemachine.simulation.draft.IDraft;
 import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
@@ -71,6 +73,7 @@ public class Injector {
     private ITeamDAO teamDatabaseInterface;
     private IPlayerDAO playerDatabaseInterface;
     private ITrophy trophyInterface;
+    private IDraft draftInterface;
 
     private ILeagueModel leagueModel;
     private ITeamBuilder teamBuilder;
@@ -96,6 +99,7 @@ public class Injector {
         deserializeDataInterface = new DeserializeData();
         tradingInterface = new Trading();
         trophyInterface = new Trophy();
+        draftInterface = new Draft();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -327,5 +331,13 @@ public class Injector {
 
     public void setPlayerBuilder(IPlayerBuilder playerBuilder) {
         this.playerBuilder = playerBuilder;
+    }
+
+    public IDraft getDraftInterface() {
+        return draftInterface;
+    }
+
+    public void setDraftInterface(IDraft draftInterface) {
+        this.draftInterface = draftInterface;
     }
 }
