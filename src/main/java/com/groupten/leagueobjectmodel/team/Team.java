@@ -48,6 +48,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
                 player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = activePlayers.size();
+            player.attach(this);
             activePlayers.add(player);
             return activePlayers.size() > initialSize;
         } else{
@@ -142,6 +143,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     public List<Player> getActivePlayers() { return activePlayers; }
 
     public void setActivePlayers(List<Player> activePlayers) {
+        attachTeamObserverToPlayer(activePlayers);
         this.activePlayers = activePlayers;
     }
 
@@ -200,6 +202,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     }
 
     public void setInActivePlayers(List<Player> inActivePlayers) {
+        attachTeamObserverToPlayer(inActivePlayers);
         this.inActivePlayers = inActivePlayers;
     }
 
@@ -221,4 +224,11 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         activePlayers = updatedRosters.get(PlayerRosterNames.ACTIVE_PLAYERS_ROSTER.name());
         inActivePlayers = updatedRosters.get(PlayerRosterNames.INACTIVE_PLAYERS_ROSTER.name());
     }
+
+    private void attachTeamObserverToPlayer(List<Player> players) {
+        for (Player player : players) {
+            player.attach(this);
+        }
+    }
+
 }
