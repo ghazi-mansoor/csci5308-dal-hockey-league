@@ -1,5 +1,11 @@
 package com.groupten.leagueobjectmodel.season;
 
+import com.groupten.IO.serializedata.SerializeData;
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -149,23 +155,5 @@ public class SeasonTest {
     public void generatePlayoffScheduleTest(){
         Season season = new Season(2020);
         assertFalse(season.generatePlayoffSchedule());
-    }
-
-    @Test
-    public void getTeamStandingsTest(){
-        Season season = new Season(2020);
-        assertEquals(0,season.getTeamStandings().size());
-    }
-
-    @Test
-    public void getRegularTeamsTest(){
-        Season season = new Season(2020);
-        assertEquals(0,season.getRegularTeams().size());
-    }
-
-    @Test
-    public void getPlayoffTeamsTest(){
-        Season season = new Season(2020);
-        assertEquals(0,season.getPlayoffTeams().size());
     }
 }
