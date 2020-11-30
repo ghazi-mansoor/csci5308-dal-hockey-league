@@ -32,7 +32,7 @@ public class TradingTest {
         console = Injector.instance().getConsoleObject();
         leagueModel = Injector.instance().getLeagueModelObject();
         JSONImport jsonImport = new JSONImport();
-        String path = "src/test/java/com/groupten/mocks/JsonMock.json";
+        String path = "src/test/java/com/groupten/mocks/TradingJsonMock.json";
         jsonImport.importJSONData(path);
         jsonImport.instantiateJSONData();
         leagueLOM = leagueModel.getCurrentLeague();
