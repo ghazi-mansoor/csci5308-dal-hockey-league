@@ -6,10 +6,18 @@ import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.ISimulation;
+import com.groupten.statemachine.simulation.draft.Draft;
+import com.groupten.statemachine.simulation.training.ITraining;
+import com.groupten.statemachine.simulation.training.ITrainingObserver;
+import com.groupten.statemachine.simulation.trophy.ITrophy;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class StateMachine {
+    private static final Logger logger = LogManager.getLogger(StateMachine.class.getName());
+
     public void init() {
         IConsole console = Injector.instance().getConsoleObject();
 
@@ -42,9 +50,11 @@ public class StateMachine {
                 createTeam();
             } else {
                 console.printLine("ERROR: Reading JSON file.");
+                logger.error("Reading JSON file");
             }
         } catch (IOException e) {
             console.printLine("ERROR: Invalid File Path.");
+            logger.error("Invalid File Path");
         }
         continueOrExit();
         importJson();
@@ -69,6 +79,7 @@ public class StateMachine {
                                         playerChoice();
                                     } else {
                                         console.printLine("FAILURE: Some error occurred.");
+                                        logger.fatal("Some error occurred in createTeam.instantiateNewTeam()");
                                     }
                                 } else {
                                     console.printLine("ERROR: Invalid Input.");
@@ -88,9 +99,11 @@ public class StateMachine {
 
             } else {
                 console.printLine("ERROR: Conference or Division does not exist.");
+                logger.error("Conference or Division does not exist");
             }
         } else {
             console.printLine("ERROR: Invalid Input.");
+            logger.error("Invalid Input");
         }
         continueOrExit();
         createTeam();
@@ -109,9 +122,11 @@ public class StateMachine {
                 playerChoice();
             } else {
                 console.printLine("FAILURE: Some error occurred.");
+                logger.fatal("Some error occurred in loadTeam.loadExistingLeague()");
             }
         } else {
             console.printLine("ERROR: Team does not exist.");
+            logger.error("Team does not exist");
         }
         continueOrExit();
         loadTeam();
@@ -126,6 +141,10 @@ public class StateMachine {
     }
 
     private void simulate(int numberOfSeasons) {
+        ITraining training = Injector.instance().getTrainingObject();
+        ITrophy trophy = Injector.instance().getTrophyObject();
+        training.subscribe((ITrainingObserver) trophy);
+
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Preparing for simulation.");
 

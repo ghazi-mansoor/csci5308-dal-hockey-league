@@ -18,7 +18,7 @@ public class GeneratePlayoffScheduleTest {
     }
 
     @Test
-    public void generatePlayoffScheduleTest(){
+    public void generatePlayoffScheduleTest() {
         GeneratePlayoffSchedule generatePlayoffSchedule = new GeneratePlayoffSchedule();
         assertFalse(generatePlayoffSchedule.generatePlayoffSchedule(season));
     }

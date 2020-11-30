@@ -1,6 +1,6 @@
 package com.groupten.statemachine.simulation.trading;
 
-public class TradeFactory implements ITradeFactory{
+public class TradeFactory implements ITradeFactory {
 
     private static TradeFactory tradeFactorySingleton = null;
 
@@ -18,6 +18,9 @@ public class TradeFactory implements ITradeFactory{
     public DraftPickTradeOffers createDraftPickTradeOffers() {
         return new DraftPickTradeOffers();
     }
+
+    @Override
+    public AdjustTeamPlayers createAdjustTeamPlayers() { return new AdjustTeamPlayers(); }
 
     @Override
     public Trading createTrading() {

@@ -13,7 +13,9 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -63,7 +65,7 @@ public class TradingTest {
             }
         }
         trading.getInitialTeam();
-        assertEquals(trading.getTradeInitializingTeam().getTeamName(),"Ottawa Blues");
+        assertEquals(trading.getTradeInitializingTeam().getTeamName(), "Ottawa Blues");
 
     }
 

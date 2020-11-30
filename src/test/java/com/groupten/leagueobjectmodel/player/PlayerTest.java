@@ -181,7 +181,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void getAvailTOITest(){
+    public void getAvailTOITest() {
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         player.setAvailTOI(100);
         assertEquals(100, player.getAvailTOI());
@@ -205,9 +205,19 @@ public class PlayerTest {
         int playerBirthMonth = 11;
         int playerBirthYear = 2000;
 
-        double playerAgeCalculated =  currentYear - playerBirthYear + ((currentMonth - playerBirthMonth) / 12.0) + ((currentDay - playerBirthDay) / 365.0);
+        double playerAgeCalculated = currentYear - playerBirthYear + ((currentMonth - playerBirthMonth) / 12.0) + ((currentDay - playerBirthDay) / 365.0);
 
         Player player = new Player("First Player", "forward", true, playerBirthDay, playerBirthMonth, playerBirthYear, 5.0, 5.0, 5.0, 5.0);
         assertEquals(playerAgeCalculated, player.getAge(), 0);
+    }
+
+    @Test
+    public void decayStatsTest() {
+        Player player = new Player("First Player", "forward", true, 18.0, 5.0, 5.0, 5.0, 5.0);
+        player.decayStats();
+        assertEquals(4.0, player.getSkating(), 0.0);
+        assertEquals(4.0, player.getShooting(), 0.0);
+        assertEquals(4.0, player.getChecking(), 0.0);
+        assertEquals(4.0, player.getSaving(), 0.0);
     }
 }

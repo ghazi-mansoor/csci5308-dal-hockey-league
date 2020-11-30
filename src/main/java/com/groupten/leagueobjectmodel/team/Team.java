@@ -6,7 +6,7 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.player.IPlayerSubscriber;
 import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.persistence.dao.ITeamDAO;
+import com.groupten.persistence.m1DB.dao.ITeamDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,13 +45,22 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         this.teamID = teamID;
     }
 
+    public static boolean isTeamNameValid(String teamName) {
+        if (teamName.isEmpty() || teamName.isBlank() || teamName.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public boolean addActivePlayer(Player player) {
         if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
                 player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = activePlayers.size();
+            player.attach(this);
             activePlayers.add(player);
             return activePlayers.size() > initialSize;
-        } else{
+        } else {
             return false;
         }
     }
@@ -75,14 +84,6 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         return count == 1;
     }
 
-    public static boolean isTeamNameValid(String teamName) {
-        if (teamName.isEmpty() || teamName.isBlank() || teamName.toLowerCase().equals("null")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public double calculateTeamStrength() {
         for (Player player : activePlayers) {
             String pos = player.getPosition();
@@ -97,6 +98,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
 
         return teamStrength;
     }
+
     public double calculateTotalTeamStrength() {
         for (Player player : activePlayers) {
             String pos = player.getPosition();
@@ -167,13 +169,14 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     public List<Player> getAllPlayers() {
         ArrayList<Player> totalPlayers = new ArrayList<>();
 
-        for(Player player : getActivePlayers()) {
+        for (Player player : getActivePlayers()) {
             totalPlayers.add(player);
         }
         for (Player player : getInActivePlayers()) {
             totalPlayers.add(player);
         }
-        return  totalPlayers;
+
+        return totalPlayers;
     }
 
     public void setAllPlayers(ArrayList<Player> allPlayers) {
@@ -182,9 +185,12 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         this.allPlayers = allPlayers;
     }
 
-    public List<Player> getActivePlayers() { return activePlayers; }
+    public List<Player> getActivePlayers() {
+        return activePlayers;
+    }
 
     public void setActivePlayers(List<Player> activePlayers) {
+        attachTeamObserverToPlayer(activePlayers);
         this.activePlayers = activePlayers;
     }
 
@@ -243,6 +249,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     }
 
     public void setInActivePlayers(List<Player> inActivePlayers) {
+        attachTeamObserverToPlayer(inActivePlayers);
         this.inActivePlayers = inActivePlayers;
     }
 
@@ -264,4 +271,11 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         activePlayers = updatedRosters.get(PlayerRosterNames.ACTIVE_PLAYERS_ROSTER.name());
         inActivePlayers = updatedRosters.get(PlayerRosterNames.INACTIVE_PLAYERS_ROSTER.name());
     }
+
+    private void attachTeamObserverToPlayer(List<Player> players) {
+        for (Player player : players) {
+            player.attach(this);
+        }
+    }
+
 }

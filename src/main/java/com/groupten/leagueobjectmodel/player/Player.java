@@ -3,9 +3,9 @@ package com.groupten.leagueobjectmodel.player;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
-import com.groupten.persistence.dao.IPlayerDAO;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
+import com.groupten.persistence.m1DB.dao.IPlayerDAO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,7 +15,8 @@ import java.util.Random;
 
 public class Player implements IPersistModel {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
-    private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
+    private final double LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
+    private final double STAT_DECREMENT = 1.0;
     private final int MAX_TOI = 1080;
 
     private int playerID;
@@ -34,10 +35,15 @@ public class Player implements IPersistModel {
     private boolean injured;
     private int injuryPeriod;
     private int availTOI;
+    private int draftYear;
     private transient List<IPlayerSubscriber> subscribers = new ArrayList<>();
 
     public Player() {
         this.availTOI = MAX_TOI;
+    }
+
+    public Player(String playerName) {
+        this.playerName = playerName;
     }
 
     public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
@@ -88,11 +94,41 @@ public class Player implements IPersistModel {
         this.playerID = playerID;
     }
 
-    public void subscribe(IPlayerSubscriber subscriber) {
+    public static boolean arePlayerFieldsValid(String pN, String pos, double sk, double sh, double ch, double sa) {
+        return isPlayerNameValid(pN) && isPositionValid(pos) && areStatsValid(sk, sh, ch, sa);
+    }
+
+    private static boolean isPlayerNameValid(String pN) {
+        boolean isValid;
+        if (pN.isEmpty() || pN.isBlank() || pN.toLowerCase().equals("null")) {
+            isValid = false;
+        } else {
+            isValid = true;
+        }
+
+        return isValid;
+    }
+
+    private static boolean isPositionValid(String pos) {
+        String positionLowerCased = pos.toLowerCase();
+        return positionLowerCased.equals("goalie") || positionLowerCased.equals("forward") || positionLowerCased.equals("defense");
+    }
+
+    private static boolean areStatsValid(double... args) {
+        List<Boolean> validChecks = new ArrayList<>();
+
+        for (double stat : args) {
+            validChecks.add(stat >= 1 && stat <= 20);
+        }
+
+        return Collections.frequency(validChecks, false) == 0;
+    }
+
+    public void attach(IPlayerSubscriber subscriber) {
         subscribers.add(subscriber);
     }
 
-    public void unsubscribe(IPlayerSubscriber subscriber) {
+    public void detach(IPlayerSubscriber subscriber) {
         subscribers.remove(subscriber);
     }
 
@@ -115,7 +151,7 @@ public class Player implements IPersistModel {
     private boolean shouldPlayerBeRetired() {
         double probabilityOfRetirement = calculateProbabilityOfRetirement();
         GameConfig.Aging agingConfig = getAgingConfig();
-        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER;
+        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER;
     }
 
     private double calculateProbabilityOfRetirement() {
@@ -175,49 +211,22 @@ public class Player implements IPersistModel {
     public double calculateStrength() {
         double strength = 0.0;
 
-        switch (position) {
-            case "forward":
-                strength = skating + shooting + (checking / 2);
-                break;
-            case "defense":
-                strength = skating + checking + (shooting / 2);
-                break;
-            case "goalie":
-                strength = skating + saving;
-                break;
+        if (position.equals(PlayerPosition.FORWARD.name().toLowerCase())) {
+            strength = skating + shooting + (checking / 2);
+        } else if (position.equals(PlayerPosition.DEFENSE.name().toLowerCase())) {
+            strength = skating + checking + (shooting / 2);
+        } else if (position.equals(PlayerPosition.GOALIE.name().toLowerCase())) {
+            strength = skating + saving;
         }
 
         return strength;
     }
 
-    public static boolean arePlayerFieldsValid(String pN, String pos, double sk, double sh, double ch, double sa) {
-        return isPlayerNameValid(pN) && isPositionValid(pos) && areStatsValid(sk, sh, ch, sa);
-    }
-
-    private static boolean isPlayerNameValid(String pN) {
-        boolean isValid;
-        if (pN.isEmpty() || pN.isBlank() || pN.toLowerCase().equals("null")) {
-            isValid = false;
-        } else {
-            isValid = true;
-        }
-
-        return isValid;
-    }
-
-    private static boolean isPositionValid(String pos) {
-        String positionLowerCased = pos.toLowerCase();
-        return positionLowerCased.equals("goalie") || positionLowerCased.equals("forward") || positionLowerCased.equals("defense");
-    }
-
-    private static boolean areStatsValid(double ...args) {
-        List<Boolean> validChecks = new ArrayList<>();
-
-        for (double stat : args) {
-            validChecks.add(stat >= 1 && stat <= 20);
-        }
-
-        return Collections.frequency(validChecks, false) == 0;
+    public void decayStats() {
+        this.skating -= STAT_DECREMENT;
+        this.shooting -= STAT_DECREMENT;
+        this.checking -= STAT_DECREMENT;
+        this.saving -= STAT_DECREMENT;
     }
 
     public boolean save() {
@@ -267,68 +276,68 @@ public class Player implements IPersistModel {
         this.captain = captain;
     }
 
-    public void setInjured(boolean injured) {
-        this.injured = injured;
-    }
-
     public boolean isInjured() {
         return injured;
     }
 
-    public void setAge(double age) {
-        this.age = age;
+    public void setInjured(boolean injured) {
+        this.injured = injured;
     }
 
     public double getAge() {
         return age;
     }
 
-    public void setSkating(double skating) {
-        this.skating = skating;
+    public void setAge(double age) {
+        this.age = age;
     }
 
     public double getSkating() {
         return skating;
     }
 
-    public void setShooting(double shooting) {
-        this.shooting = shooting;
+    public void setSkating(double skating) {
+        this.skating = skating;
     }
 
     public double getShooting() {
         return shooting;
     }
 
-    public void setChecking(double checking) {
-        this.checking = checking;
+    public void setShooting(double shooting) {
+        this.shooting = shooting;
     }
 
     public double getChecking() {
         return checking;
     }
 
-    public void setSaving(double saving) {
-        this.saving = saving;
+    public void setChecking(double checking) {
+        this.checking = checking;
     }
 
     public double getSaving() {
         return saving;
     }
 
-    public void setInjuryPeriod(int injuryPeriod) {
-        this.injuryPeriod = injuryPeriod;
+    public void setSaving(double saving) {
+        this.saving = saving;
     }
 
     public int getInjuryPeriod() {
         return injuryPeriod;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setInjuryPeriod(int injuryPeriod) {
+        this.injuryPeriod = injuryPeriod;
     }
 
     public String getPosition() {
         return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public int getAvailTOI() {
@@ -365,6 +374,14 @@ public class Player implements IPersistModel {
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public int getDraftYear() {
+        return draftYear;
+    }
+
+    public void setDraftYear(int draftYear) {
+        this.draftYear = draftYear;
     }
 }
 

@@ -1,5 +1,7 @@
 package com.groupten.leagueobjectmodel.team;
 
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 
 import java.util.Collection;
@@ -9,16 +11,26 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TeamRoster implements ITeamRoster {
+    private final int MAX_TOTAL_PLAYERS = 30;
     private final int MAX_INACTIVE_PLAYERS = 10;
     private final int MAX_ACTIVE_FORWARD_PLAYERS = 12;
     private final int MAX_ACTIVE_DEFENSE_PLAYERS = 6;
     private final int MAX_ACTIVE_GOALIES = 2;
 
-    private final List<Player> players;
+    private List<Player> players;
     private List<Player> activePlayerRoster;
     private List<Player> inActivePlayerRooster;
 
-    public TeamRoster(List<Player> players) {
+    public TeamRoster() { }
+
+    @Override
+    public void setPlayers(List<Player> players) {
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+
+        if (players.size() < MAX_TOTAL_PLAYERS) {
+            players.addAll(leagueModel.getCurrentLeague().getFreeAgents());
+        }
+
         this.players = players;
         rankPlayersAccordingToStrength();
     }
@@ -41,6 +53,15 @@ public class TeamRoster implements ITeamRoster {
 
         this.inActivePlayerRooster = players.subList(0, MAX_INACTIVE_PLAYERS);
         return this.inActivePlayerRooster;
+    }
+
+    @Override
+    public List<Player> returnExcessPlayers() {
+        for (Player player : activePlayerRoster) {
+            this.players.remove(player);
+        }
+
+        return players.subList(MAX_INACTIVE_PLAYERS, players.size());
     }
 
     private void rankPlayersAccordingToStrength() {

@@ -81,7 +81,7 @@ public class SwapPlayersTest {
             String playerName = "Forward Player " + i;
             Player player = new Player(playerName, "forward", false, 23, 11, 2000,
                     skating, shooting, checking, saving);
-            player.subscribe(team);
+            player.attach(team);
             players.add(player);
 
             skating++;
@@ -99,7 +99,7 @@ public class SwapPlayersTest {
             String playerName = "Defense Player " + i;
             Player player = new Player(playerName, "defense", false, 23, 11, 2000,
                     skating, shooting, checking, saving);
-            player.subscribe(team);
+            player.attach(team);
             players.add(player);
 
             skating++;
@@ -117,7 +117,7 @@ public class SwapPlayersTest {
             String playerName = "Goalie Player " + i;
             Player player = new Player(playerName, "goalie", false, 23, 11, 2000,
                     skating, shooting, checking, saving);
-            player.subscribe(team);
+            player.attach(team);
             players.add(player);
 
             skating++;

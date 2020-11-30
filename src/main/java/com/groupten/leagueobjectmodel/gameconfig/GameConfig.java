@@ -1,9 +1,7 @@
 package com.groupten.leagueobjectmodel.gameconfig;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameConfig {
-    public static class Aging  {
+    public static class Aging {
         private int averageRetirementAge;
         private int maximumAge;
         private double statDecayChance;
@@ -86,7 +84,7 @@ public class GameConfig {
 
 
         public Trading(int lossPoint, double randomTradeOfferChance, int maxPlayersPerTrade,
-                       double randomAcceptanceChance,double shrewd, double normal, double gambler) {
+                       double randomAcceptanceChance, double shrewd, double normal, double gambler) {
             this.lossPoint = lossPoint;
             this.randomTradeOfferChance = randomTradeOfferChance;
             this.maxPlayersPerTrade = maxPlayersPerTrade;
@@ -113,10 +111,16 @@ public class GameConfig {
             return randomAcceptanceChance;
         }
 
-        public double getShrewd() { return shrewd; }
+        public double getShrewd() {
+            return shrewd;
+        }
 
-        public double getNormal() { return normal; }
+        public double getNormal() {
+            return normal;
+        }
 
-        public double getGambler() { return gambler; }
+        public double getGambler() {
+            return gambler;
+        }
     }
 }

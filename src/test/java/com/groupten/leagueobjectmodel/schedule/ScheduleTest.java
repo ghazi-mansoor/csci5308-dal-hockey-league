@@ -31,7 +31,7 @@ public class ScheduleTest {
     public void addTeamTest() {
         Schedule schedule = new Schedule();
         schedule.addTeam(new Team("Team1"));
-        assertEquals(1,schedule.getTeams().size());
+        assertEquals(1, schedule.getTeams().size());
     }
 
     @Test
