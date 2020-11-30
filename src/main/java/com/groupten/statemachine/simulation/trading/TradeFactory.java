@@ -20,6 +20,9 @@ public class TradeFactory implements ITradeFactory {
     }
 
     @Override
+    public AdjustTeamPlayers createAdjustTeamPlayers() { return new AdjustTeamPlayers(); }
+
+    @Override
     public Trading createTrading() {
         return new Trading();
     }

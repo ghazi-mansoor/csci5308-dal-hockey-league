@@ -8,5 +8,7 @@ public interface ITradeFactory {
 
     public DraftPickTradeOffers createDraftPickTradeOffers();
 
+    public AdjustTeamPlayers createAdjustTeamPlayers();
+
     public Trading createTrading();
 }
