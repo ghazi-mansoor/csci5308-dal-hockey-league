@@ -8,7 +8,7 @@ import com.groupten.persistence.m1DB.dao.IConferenceDAO;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Conference implements IPersistModel {
+public class Conference {
     private final Map<String, Division> divisions = new HashMap<>();
     public int leagueID;
     private int conferenceID;
@@ -56,16 +56,6 @@ public class Conference implements IPersistModel {
 
     public Map<String, Division> getDivisions() {
         return divisions;
-    }
-
-    public boolean save() {
-        IConferenceDAO conferenceDAO = Injector.instance().getConferenceDatabaseObject();
-        conferenceID = conferenceDAO.createConference(leagueID, conferenceName);
-        if (conferenceID != 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public int getConferenceID() {

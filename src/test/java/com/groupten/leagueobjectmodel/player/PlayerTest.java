@@ -5,6 +5,7 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
+import com.groupten.leagueobjectmodel.team.Team;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -207,7 +208,15 @@ public class PlayerTest {
 
         double playerAgeCalculated = currentYear - playerBirthYear + ((currentMonth - playerBirthMonth) / 12.0) + ((currentDay - playerBirthDay) / 365.0);
 
-        Player player = new Player("First Player", "forward", true, playerBirthDay, playerBirthMonth, playerBirthYear, 5.0, 5.0, 5.0, 5.0);
+        IPlayerBuilder playerBuilder = Injector.instance().getPlayerBuilder();
+        playerBuilder.reset();
+        playerBuilder.setProfile("First Player", "forward");
+        playerBuilder.setAsCaptain(true);
+        playerBuilder.setDraftYear();
+        playerBuilder.setAge(playerAgeCalculated);
+        playerBuilder.setPlayerStats(5.0, 5.0, 5.0, 5.0);
+
+        Player player = playerBuilder.getResult();
         assertEquals(playerAgeCalculated, player.getAge(), 0);
     }
 
@@ -219,5 +228,14 @@ public class PlayerTest {
         assertEquals(4.0, player.getShooting(), 0.0);
         assertEquals(4.0, player.getChecking(), 0.0);
         assertEquals(4.0, player.getSaving(), 0.0);
+    }
+
+    @Test
+    public void detachTest() {
+        Team team = new Team("Team 1");
+        Player player = new Player("First Player", "forward", true, 18.0, 5.0, 5.0, 5.0, 5.0);
+        player.attach(team);
+        player.detach(team);
+        assertEquals(0, player.getSubscribersSize());
     }
 }

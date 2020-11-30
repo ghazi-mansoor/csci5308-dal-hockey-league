@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Player implements IPersistModel {
+public class Player {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
     private final double LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
     private final double STAT_DECREMENT = 1.0;
@@ -229,16 +229,6 @@ public class Player implements IPersistModel {
         this.saving -= STAT_DECREMENT;
     }
 
-    public boolean save() {
-        IPlayerDAO playerDAO = Injector.instance().getPlayerDatabaseObject();
-        playerID = playerDAO.createPlayer(playerName, position, age, skating, shooting, checking, saving);
-        if (playerID != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private double initializePlayerAge(int birthDay, int birthMonth, int birthYear) {
         LocalDateTime today = LocalDateTime.now();
         return today.getYear() - birthYear + ((today.getMonthValue() - birthMonth) / 12.0) + ((today.getDayOfMonth() - birthDay) / 365.0);
@@ -382,6 +372,10 @@ public class Player implements IPersistModel {
 
     public void setDraftYear(int draftYear) {
         this.draftYear = draftYear;
+    }
+
+    public int getSubscribersSize() {
+        return this.subscribers.size();
     }
 }
 

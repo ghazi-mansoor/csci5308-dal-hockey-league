@@ -44,6 +44,8 @@ import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.initializeseason.InitializeSeason;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.simulategame.SimulateGame;
+import com.groupten.statemachine.simulation.statsdecay.IStatsDecay;
+import com.groupten.statemachine.simulation.statsdecay.StatsDecay;
 import com.groupten.statemachine.simulation.trading.ITradeFactory;
 import com.groupten.statemachine.simulation.trading.TradeFactory;
 import com.groupten.statemachine.simulation.training.ITraining;
@@ -83,6 +85,7 @@ public class Injector {
     private IDraftStrategy weakTeamPicksFirstStrategy;
     private IDraftStrategy tradedTeamsStrategy;
     private ISimulationFactory simulationFactory;
+    private IStatsDecay statsDecay;
 
     private ILeagueModel leagueModel;
     private ITeamBuilder teamBuilder;
@@ -122,6 +125,7 @@ public class Injector {
         teamBuilder = new TeamBuilder();
         coachBuilder = new CoachBuilder();
         playerBuilder = new PlayerBuilder();
+        statsDecay = new StatsDecay();
     }
 
     public static Injector instance() {
@@ -270,5 +274,9 @@ public class Injector {
 
     public IDraftStrategy getTradedTeamsStrategy() {
         return tradedTeamsStrategy;
+    }
+
+    public IStatsDecay getStatsDecay() {
+        return statsDecay;
     }
 }

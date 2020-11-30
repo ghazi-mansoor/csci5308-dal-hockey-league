@@ -10,12 +10,14 @@ import java.util.Map;
 public class TradedTeamsStrategy implements IDraftStrategy {
 
     @Override
-    public void execute(List<TeamStanding> teamStandings, List<Player> players, Map<Map<Team, Team>, Integer> tradedTeamsMap, int currentRound) {
-        // if tradedTeamsMap has value currentRound
-            // Traverse <Team, Team> key and find TeamA in teamStandings
+    public void execute(List<TeamStanding> teamStandings, List<Player> players) {
+        // Get all maps that traded in current round
+        // if list of currentRoundTradePairs contains Key with TeamA:
+            // find TeamA in teamStandings
             // Replace TeamA with TeamB
             // Do draft...
         // else
             // Do draft
+
     }
 }

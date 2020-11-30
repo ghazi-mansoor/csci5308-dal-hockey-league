@@ -16,8 +16,7 @@ public class Coach implements IPersistModel {
     private double checking;
     private double saving;
 
-    public Coach() {
-    }
+    public Coach() { }
 
     public Coach(String n) {
         coachName = n;
