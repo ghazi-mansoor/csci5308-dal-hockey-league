@@ -10,10 +10,18 @@
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="TrophyLogsFile" fileName="logs/trophy.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="com.groupten.statemachine.simulation.draft.strategy.WeakTeamPicksFirstStrategy" level="info" addivity="false">
             <AppenderRef ref="DraftLogsFile" />
+        </Logger>
+        <Logger name="com.groupten.statemachine.simulation.trophy.Trophy" level="info" addivity="false">
+            <AppenderRef ref="TrophyLogsFile" />
         </Logger>
         <Root level="info" additivity="false">
             <AppenderRef ref="Console" />

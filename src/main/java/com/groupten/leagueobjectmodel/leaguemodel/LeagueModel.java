@@ -140,4 +140,11 @@ public class LeagueModel implements ILeagueModel {
         return teamCount;
     }
 
+    @Override
+    public void addExcessPlayersToFreeAgentsList(List<Player> excessPlayers) {
+        for (Player player : excessPlayers) {
+            this.currentLeague.addFreeAgent(player);
+        }
+    }
+
 }

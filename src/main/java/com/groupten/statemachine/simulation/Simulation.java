@@ -9,7 +9,6 @@ import com.groupten.leagueobjectmodel.season.ISeasonObserver;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.persistence.serializedata.ISerializeData;
-import com.groupten.statemachine.StateMachine;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.draft.IDraft;
@@ -114,7 +113,7 @@ public class Simulation implements ISimulation {
 
         if (season.isTradeEnded()) {
         } else {
-//            executeTrades();
+//             executeTrades();
         }
         aging();
     }
