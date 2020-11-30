@@ -16,7 +16,7 @@ import java.util.*;
 public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlgoStrategyObserver {
 
     private LinkedList<TrophyPerSeason> historicData = new LinkedList<>();
-    private LinkedHashMap<Coach, Integer> coachRanking;
+    private LinkedHashMap<Coach, Integer> coachRanking = new LinkedHashMap<>();
     private Map<Player, Integer> bestPlayerRanking = new HashMap<>();
     private Map<Player, Integer> bestDefenseMenRanking = new HashMap<>();
     private Map<Player, Integer> topGoalRanking = new HashMap<>();
@@ -166,11 +166,38 @@ public class Trophy implements ITrophy, ITrainingObserver, ISeasonObserver, IAlg
         console.printLine("*************************************");
     }
 
+    @Override
+    public LinkedList<TrophyPerSeason> getHistoricData() {
+        return historicData;
+    }
+
+    @Override
     public void setCoachRanking(LinkedHashMap<Coach, Integer> coachRanking) {
         this.coachRanking = coachRanking;
     }
 
+    @Override
     public void setTeamRanking(LinkedHashMap<Team, Integer> teamRanking) {
         this.teamRanking = teamRanking;
+    }
+
+    @Override
+    public void setBestPlayerRanking(Map<Player, Integer> bestPlayerRanking) {
+        this.bestPlayerRanking = bestPlayerRanking;
+    }
+
+    @Override
+    public void setBestDefenseMenRanking(Map<Player, Integer> bestDefenseMenRanking) {
+        this.bestDefenseMenRanking = bestDefenseMenRanking;
+    }
+
+    @Override
+    public void setTopGoalRanking(Map<Player, Integer> topGoalRanking) {
+        this.topGoalRanking = topGoalRanking;
+    }
+
+    @Override
+    public void setBestGoalieRanking(Map<Player, Integer> bestGoalieRanking) {
+        this.bestGoalieRanking = bestGoalieRanking;
     }
 }

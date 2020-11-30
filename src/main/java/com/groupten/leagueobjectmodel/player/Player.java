@@ -41,6 +41,10 @@ public class Player implements IPersistModel {
         this.availTOI = MAX_TOI;
     }
 
+    public Player(String playerName) {
+        this.playerName = playerName;
+    }
+
     public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         this.playerName = playerName;
         this.position = position;
