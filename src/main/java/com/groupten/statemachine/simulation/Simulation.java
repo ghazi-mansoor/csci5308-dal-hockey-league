@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Simulation implements ISimulation {
-    private static final Logger logger = LogManager.getLogger(Simulation.class.getName());
     private League league;
     private Season season;
     private int numberOfSeasons;
@@ -61,11 +60,9 @@ public class Simulation implements ISimulation {
         season.attach((ISeasonObserver) Injector.instance().getTrophyObject());
         if (initializeSeason.generateRegularSchedule(season)) {
             console.printLine("Regular schedule generated.");
-            logger.info("Regular season schedule generated");
             advanceTime();
         } else {
             console.printLine("FAILURE: Some error occurred.");
-            logger.fatal("Some error occurred in initializeSeason.generateRegularSchedule(season)");
         }
     }
 
@@ -86,11 +83,9 @@ public class Simulation implements ISimulation {
         console.printLine("Generating playoff schedule");
         if (generatePlayoffSchedule.generatePlayoffSchedule(season)) {
             console.printLine("Playoff schedule generated");
-            logger.info("Playoff schedule generated");
             training();
         } else {
             console.printLine("FAILURE: Some error occurred.");
-            logger.fatal("Some error occurred in generatePlayoffSchedule.generatePlayoffSchedule(season)");
         }
     }
 
@@ -113,7 +108,7 @@ public class Simulation implements ISimulation {
 
         if (season.isTradeEnded()) {
         } else {
-//             executeTrades();
+             executeTrades();
         }
         aging();
     }
@@ -180,7 +175,6 @@ public class Simulation implements ISimulation {
         ISerializeData serializeData = Injector.instance().getSerializeDataObject();
         String path = "";
         serializeData.exportData(league, path);
-        logger.info("Persisted to json file");
     }
 
     private void end() {
