@@ -76,8 +76,10 @@ public class AlgoStrategy implements IStrategy {
         resetAvailTOI(team2Players);
 
         if (team1Goals > team2Goals) {
+            logger.info(team1.getTeamName()+" won against "+team2.getTeamName());
             return team1;
         } else {
+            logger.info(team1.getTeamName()+" won against "+team2.getTeamName());
             return team2;
         }
     }
