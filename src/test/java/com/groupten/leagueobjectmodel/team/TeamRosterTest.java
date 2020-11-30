@@ -4,7 +4,6 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModelFactory;
-import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.Test;

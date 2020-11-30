@@ -6,12 +6,9 @@ import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.ISimulation;
-import com.groupten.statemachine.simulation.draft.Draft;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.training.ITrainingObserver;
 import com.groupten.statemachine.simulation.trophy.ITrophy;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 

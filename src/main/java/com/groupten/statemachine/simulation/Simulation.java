@@ -20,8 +20,6 @@ import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.trading.ITradeFactory;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.trophy.ITrophy;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Calendar;
 import java.util.Date;
