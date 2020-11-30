@@ -1,6 +1,5 @@
 package com.groupten.statemachine.simulation.simulategame;
 
-import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
@@ -30,13 +29,10 @@ public class SimulateGame implements ISimulateGame {
         resolveGame.setStrategy(algoStrategy);
         Team winner = resolveGame.getWinner(teamList.get(0), teamList.get(1));
 
-        IConsole console = Injector.instance().getConsoleObject();
         if (winner == team1) {
-//            console.printLine(team1.getTeamName() + " won against " + team2.getTeamName());
             recordWin(team1);
             recordLoss(team2);
         } else {
-//            console.printLine(team2.getTeamName() + "\t\t***won against***\t\t" + team1.getTeamName());
             recordWin(team2);
             recordLoss(team1);
         }
