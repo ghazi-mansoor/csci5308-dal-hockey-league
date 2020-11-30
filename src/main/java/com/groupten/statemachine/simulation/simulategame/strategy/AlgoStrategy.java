@@ -4,6 +4,9 @@ import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.shift.Shift;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.statemachine.simulation.simulategame.SimulateGame;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +21,7 @@ public class AlgoStrategy implements IStrategy {
     double PENALTY_CHANCE = 0.2;
     double SAVING_BENCHMARK = 14;
 
+    private static final Logger logger = LogManager.getLogger(AlgoStrategy.class.getName());
     Random rand = new Random();
     Season season;
     List<Shift> team1Shifts = new ArrayList<>();
@@ -26,6 +30,7 @@ public class AlgoStrategy implements IStrategy {
     Map<Player, Integer> penalties = new HashMap<>();
     Map<Player, Integer> goals = new HashMap<>();
     Map<Player, Integer> saves = new HashMap<>();
+
     private List<IAlgoStrategyObserver> observers = new ArrayList<>();
 
     public void attach(IAlgoStrategyObserver observer) {
@@ -48,7 +53,6 @@ public class AlgoStrategy implements IStrategy {
     @Override
     public Team getWinner(Season season, Team team1, Team team2) {
         this.season = season;
-
         team1Shifts = prepareShifts(team1.getActivePlayers());
         team2Shifts = prepareShifts(team2.getActivePlayers());
 
@@ -100,6 +104,7 @@ public class AlgoStrategy implements IStrategy {
                 if (team2Shift.getGoalie().getSaving() > SAVING_BENCHMARK) {
                     team1Goals++;
                     goals.merge(team1Shift.getForwards().get(rand.nextInt(team1Shift.getForwards().size())), 1, Integer::sum);
+                    logger.info(team1.getTeamName()+" scored a goal against "+ team2.getTeamName());
                 } else {
                     saves.merge(team2Shift.getGoalie(), 1, Integer::sum);
                 }
@@ -108,6 +113,7 @@ public class AlgoStrategy implements IStrategy {
                 if (team1Shift.getGoalie().getSaving() > SAVING_BENCHMARK) {
                     team2Goals++;
                     goals.merge(team2Shift.getForwards().get(rand.nextInt(team2Shift.getForwards().size())), 1, Integer::sum);
+                    logger.info(team2.getTeamName()+" scored a goal against "+ team1.getTeamName());
                 } else {
                     saves.merge(team1Shift.getGoalie(), 1, Integer::sum);
                 }
