@@ -350,7 +350,7 @@ public class Trading {
 					averagePlayersStrength = player.calculateStrength();
 				}
 			}
-			if(averagePlayersStrength < averageGoalieStrength - (averageGoalieStrength * 0.3)) {
+			if(averagePlayersStrength < averageGoalieStrength - (averageGoalieStrength * 0.7)) {
 				draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(weakSection,tradeInitializingTeam,
 						tradeFinalizingTeam,finalTradingPlayers,averageGoalieStrength,
 						averageForwardStrength,averageDefenseStrength);
@@ -366,7 +366,7 @@ public class Trading {
 					averagePlayersStrength = player.calculateStrength();
 				}
 			}
-			if(averagePlayersStrength < averageForwardStrength - (averageForwardStrength * 0.3)) {
+			if(averagePlayersStrength < averageForwardStrength - (averageForwardStrength * 0.7)) {
 				draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(weakSection,tradeInitializingTeam,
 						tradeFinalizingTeam,finalTradingPlayers,averageGoalieStrength,
 						averageForwardStrength,averageDefenseStrength);
@@ -382,7 +382,7 @@ public class Trading {
 					averagePlayersStrength = player.calculateStrength();
 				}
 			}
-			if(averagePlayersStrength < averageDefenseStrength - (averageDefenseStrength * 0.3)) {
+			if(averagePlayersStrength < averageDefenseStrength - (averageDefenseStrength * 0.7)) {
 				draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(weakSection,tradeInitializingTeam,
 						tradeFinalizingTeam,finalTradingPlayers,averageGoalieStrength,
 						averageForwardStrength,averageDefenseStrength);
@@ -467,12 +467,10 @@ public class Trading {
 			}
 		if ((randomAcceptanceChanceGenerated + generalManagerPersonalityValue ) > randomAcceptanceChance) {
 			for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
-				updatedInitialPlayerList.add(Players.getValue());
-				updatedFinalPlayerList.add(Players.getKey());
-
 				for(Player player : tradeInitializingTeam.getAllPlayers()) {
 					if(player.equals(Players.getKey())) {
 						player.detach(tradeInitializingTeam);
+						updatedFinalPlayerList.add(player);
 					}
 					else {
 						updatedInitialPlayerList.add(player);
@@ -481,6 +479,7 @@ public class Trading {
 				for(Player player : tradeFinalizingTeam.getAllPlayers()) {
 					if(player.equals(Players.getValue())) {
 						player.detach(tradeFinalizingTeam);
+						updatedInitialPlayerList.add(player);
 					}
 					else {
 						updatedFinalPlayerList.add(player);
@@ -521,14 +520,11 @@ public class Trading {
 		}
 		if ((randomAcceptanceChanceGenerated + generalManagerPersonalityValue ) > randomAcceptanceChance) {
 			for (Map.Entry<ArrayList<Player>, Player> Players : tradingPlayers.entrySet()) {
-				updatedInitialPlayerList.add(Players.getValue());
-				for(Player player : Players.getKey()) {
-					updatedFinalPlayerList.add(player);
-				}
 				for(Player player : tradeInitializingTeam.getAllPlayers()) {
 					for(Player players : Players.getKey()) {
 						if(player.equals(players)) {
 							player.detach(tradeInitializingTeam);
+							updatedFinalPlayerList.add(player);
 						}
 						else {
 							updatedInitialPlayerList.add(player);
@@ -538,6 +534,7 @@ public class Trading {
 				for(Player player : tradeFinalizingTeam.getAllPlayers()) {
 					if(player.equals(Players.getValue())) {
 						player.detach(tradeFinalizingTeam);
+						updatedInitialPlayerList.add(player);
 					}
 					else {
 						updatedFinalPlayerList.add(player);
@@ -579,12 +576,10 @@ public class Trading {
 			option = console.readInteger();
 			switch (option) {
 				case 1:
-					updatedInitialPlayerList.add(Players.getValue());
-					updatedFinalPlayerList.add(Players.getKey());
-
 					for(Player player : tradeInitializingTeam.getAllPlayers()) {
 						if(player.equals(Players.getKey())) {
 							player.detach(tradeInitializingTeam);
+							updatedFinalPlayerList.add(player);
 						}
 						else {
 							updatedInitialPlayerList.add(player);
@@ -593,6 +588,7 @@ public class Trading {
 					for(Player player : tradeFinalizingTeam.getAllPlayers()) {
 						if(player.equals(Players.getValue())) {
 							player.detach(tradeFinalizingTeam);
+							updatedInitialPlayerList.add(player);
 						}
 						else {
 							updatedFinalPlayerList.add(player);
@@ -643,14 +639,11 @@ public class Trading {
 			option = console.readInteger();
 			switch (option) {
 				case 1:
-					updatedInitialPlayerList.add(Players.getValue());
-					for(Player player : Players.getKey()) {
-						updatedFinalPlayerList.add(player);
-					}
 					for(Player player : tradeInitializingTeam.getAllPlayers()) {
 						for(Player players : Players.getKey()) {
 							if(player.equals(players)) {
 								player.detach(tradeInitializingTeam);
+								updatedFinalPlayerList.add(player);
 							}
 							else {
 								updatedInitialPlayerList.add(player);
@@ -660,6 +653,7 @@ public class Trading {
 					for(Player player : tradeFinalizingTeam.getAllPlayers()) {
 						if(player.equals(Players.getValue())) {
 							player.detach(tradeFinalizingTeam);
+							updatedInitialPlayerList.add(player);
 						}
 						else {
 							updatedFinalPlayerList.add(player);
@@ -703,10 +697,10 @@ public class Trading {
 		tradeOccured = false;
 
 		for (Map.Entry<Integer, Player> Players : draftPickTradeOffer.entrySet()) {
-			updatedInitialPlayerList.add(Players.getValue());
 			for(Player player : tradeFinalizingTeam.getAllPlayers()) {
 				if(player.equals(Players.getValue())) {
 					player.detach(tradeFinalizingTeam);
+					updatedInitialPlayerList.add(player);
 				}
 				else {
 					updatedFinalPlayerList.add(player);
@@ -748,10 +742,10 @@ public class Trading {
 			option = console.readInteger();
 			switch (option) {
 				case 1:
-					updatedInitialPlayerList.add(Players.getValue());
 					for(Player player : tradeFinalizingTeam.getAllPlayers()) {
 						if(player.equals(Players.getValue())) {
 							player.detach(tradeFinalizingTeam);
+							updatedInitialPlayerList.add(player);
 						}
 						else {
 							updatedFinalPlayerList.add(player);
