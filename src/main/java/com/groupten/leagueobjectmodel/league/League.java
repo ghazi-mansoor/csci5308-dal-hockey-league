@@ -7,7 +7,7 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.m1DB.dao.ILeagueDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +35,14 @@ public class League implements IPersistModel {
     public League(int leagueID, String leagueName) {
         this(leagueName);
         this.leagueID = leagueID;
+    }
+
+    public static boolean isLeagueNameValid(String lN) {
+        if (lN.isEmpty() || lN.isBlank() || lN.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public String getUserTeam() {
@@ -143,17 +151,8 @@ public class League implements IPersistModel {
         return defense;
     }
 
-
     public List<GeneralManager> getGeneralManagers() {
         return generalManagers;
-    }
-
-    public static boolean isLeagueNameValid(String lN) {
-        if (lN.isEmpty() || lN.isBlank() || lN.toLowerCase().equals("null")) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     public String getLeagueName() {

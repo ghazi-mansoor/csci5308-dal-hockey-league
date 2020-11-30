@@ -50,7 +50,7 @@ public class PlayersGenerator implements IPlayersGenerator {
             initializePlayerStatsRangesForForwardPosition();
         } else if (position.equals(PlayerPosition.DEFENSE.name())) {
             initializePlayerStatsRangesForDefensePosition();
-        } else if (position.equals(PlayerPosition.GOALIE.name())){
+        } else if (position.equals(PlayerPosition.GOALIE.name())) {
             initializePlayerStatsRangesForGoaliePosition();
         }
 
@@ -96,7 +96,7 @@ public class PlayersGenerator implements IPlayersGenerator {
     }
 
     private String generatePlayerNameRandomly() {
-        int firstNameIndex = new Random().nextInt(firstNamesToPickFrom.length) ;
+        int firstNameIndex = new Random().nextInt(firstNamesToPickFrom.length);
         int lastNameIndex = new Random().nextInt(lastNamesToPickFrom.length);
         return firstNamesToPickFrom[firstNameIndex] + " " + lastNamesToPickFrom[lastNameIndex];
     }

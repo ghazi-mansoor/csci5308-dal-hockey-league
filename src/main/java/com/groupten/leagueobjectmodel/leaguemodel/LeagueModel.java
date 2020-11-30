@@ -6,7 +6,7 @@ import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.persistence.dao.ILeagueDAO;
+import com.groupten.persistence.m1DB.dao.ILeagueDAO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +52,7 @@ public class LeagueModel implements ILeagueModel {
                 return false;
             } else {
                 int conferenceID = conference.getConferenceID();
-                Map <String, Division> divisions = conference.getDivisions();
+                Map<String, Division> divisions = conference.getDivisions();
 
                 return saveDivisions(conferenceID, divisions);
             }

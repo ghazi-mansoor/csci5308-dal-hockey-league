@@ -3,16 +3,16 @@ package com.groupten.leagueobjectmodel.conference;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
-import com.groupten.persistence.dao.IConferenceDAO;
+import com.groupten.persistence.m1DB.dao.IConferenceDAO;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Conference implements IPersistModel {
+    private final Map<String, Division> divisions = new HashMap<>();
     public int leagueID;
     private int conferenceID;
     private String conferenceName;
-    private final Map<String, Division> divisions = new HashMap<>();
 
     public Conference(String conferenceName) {
         this.conferenceName = conferenceName;
@@ -23,13 +23,21 @@ public class Conference implements IPersistModel {
         this.conferenceID = conferenceID;
     }
 
+    public static boolean isConferenceNameValid(String conferenceName) {
+        if (conferenceName.isEmpty() || conferenceName.isBlank() || conferenceName.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public boolean addDivision(Division division) {
-        if(Division.isDivisionNameValid(division.getDivisionName())){
+        if (Division.isDivisionNameValid(division.getDivisionName())) {
             String divisionName = division.getDivisionName();
             int initialSize = divisions.size();
             divisions.put(divisionName, division);
             return divisions.size() > initialSize;
-        }else{
+        } else {
             return false;
         }
     }
@@ -42,19 +50,13 @@ public class Conference implements IPersistModel {
         return divisions.containsKey(divisionName);
     }
 
-    public static boolean isConferenceNameValid(String conferenceName) {
-        if (conferenceName.isEmpty() || conferenceName.isBlank() || conferenceName.toLowerCase().equals("null")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public Division getDivision(String divisionName) {
         return divisions.get(divisionName);
     }
 
-    public Map<String, Division> getDivisions() { return divisions; }
+    public Map<String, Division> getDivisions() {
+        return divisions;
+    }
 
     public boolean save() {
         IConferenceDAO conferenceDAO = Injector.instance().getConferenceDatabaseObject();

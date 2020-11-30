@@ -6,6 +6,9 @@ import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.ISimulation;
+import com.groupten.statemachine.simulation.training.ITraining;
+import com.groupten.statemachine.simulation.training.ITrainingObserver;
+import com.groupten.statemachine.simulation.trophy.ITrophy;
 
 import java.io.IOException;
 
@@ -126,6 +129,10 @@ public class StateMachine {
     }
 
     private void simulate(int numberOfSeasons) {
+        ITraining training = Injector.instance().getTrainingObject();
+        ITrophy trophy = Injector.instance().getTrophyObject();
+        training.subscribe((ITrainingObserver) trophy);
+
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Preparing for simulation.");
 

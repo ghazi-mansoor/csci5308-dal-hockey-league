@@ -28,26 +28,26 @@ public class SimulateGame implements ISimulateGame {
         algoStrategy.attach(this.season.getSeasonStat());
         algoStrategy.attach((IAlgoStrategyObserver) Injector.instance().getTrophyObject());
         resolveGame.setStrategy(algoStrategy);
-        Team winner = resolveGame.getWinner(teamList.get(0),teamList.get(1));
+        Team winner = resolveGame.getWinner(teamList.get(0), teamList.get(1));
 
         IConsole console = Injector.instance().getConsoleObject();
-        if(winner == team1){
+        if (winner == team1) {
 //            console.printLine(team1.getTeamName() + " won against " + team2.getTeamName());
             recordWin(team1);
             recordLoss(team2);
-        }else{
+        } else {
 //            console.printLine(team2.getTeamName() + "\t\t***won against***\t\t" + team1.getTeamName());
             recordWin(team2);
             recordLoss(team1);
         }
     }
 
-    private void recordWin(Team team){
+    private void recordWin(Team team) {
         season.recordWin(team);
-        team.setWinPoint( team.getWinPoint() + 1);
+        team.setWinPoint(team.getWinPoint() + 1);
     }
 
-    private void recordLoss(Team team){
-        team.setLossPoint( team.getLossPoint() + 1);
+    private void recordLoss(Team team) {
+        team.setLossPoint(team.getLossPoint() + 1);
     }
 }

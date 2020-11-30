@@ -9,27 +9,27 @@ public class Schedule {
     private Date gameDate;
     private HashSet<Team> teams = new HashSet<>();
 
-    public Schedule(){
+    public Schedule() {
         gameDate = null;
     }
 
-    public Schedule(Date date){
+    public Schedule(Date date) {
         gameDate = new Date();
-    }
-
-    public void setGameDate(Date gameDate) {
-        this.gameDate = gameDate;
     }
 
     public Date getGameDate() {
         return gameDate;
     }
 
-    public boolean addTeam(Team team){
-        if(teams.size() <=2){
+    public void setGameDate(Date gameDate) {
+        this.gameDate = gameDate;
+    }
+
+    public boolean addTeam(Team team) {
+        if (teams.size() <= 2) {
             teams.add(team);
             return true;
-        }else{
+        } else {
             return false;
         }
     }

@@ -8,13 +8,13 @@ import static org.junit.Assert.assertEquals;
 public class ShiftTest {
 
     @Test
-    public void getIntervalTest(){
+    public void getIntervalTest() {
         Shift shift = new Shift(10);
         assertEquals(10, shift.getInterval());
     }
 
     @Test
-    public void getForwardsTest(){
+    public void getForwardsTest() {
         Shift shift = new Shift(10);
         Player player = new Player(1, "First Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addForward(player);
@@ -22,7 +22,7 @@ public class ShiftTest {
     }
 
     @Test
-    public void addForwardTest(){
+    public void addForwardTest() {
         Shift shift = new Shift(10);
         Player player1 = new Player(1, "First Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addForward(player1);
@@ -32,7 +32,7 @@ public class ShiftTest {
     }
 
     @Test
-    public void getDefensemenTest(){
+    public void getDefensemenTest() {
         Shift shift = new Shift(10);
         Player player = new Player(1, "First Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addDefense(player);
@@ -40,7 +40,7 @@ public class ShiftTest {
     }
 
     @Test
-    public void addDefenseTest(){
+    public void addDefenseTest() {
         Shift shift = new Shift(10);
         Player player1 = new Player(1, "First Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addDefense(player1);
@@ -50,7 +50,7 @@ public class ShiftTest {
     }
 
     @Test
-    public void getGoalieTest(){
+    public void getGoalieTest() {
         Shift shift = new Shift(10);
         Player player = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.setGoalie(player);
@@ -58,7 +58,7 @@ public class ShiftTest {
     }
 
     @Test
-    public void addGoalieTest(){
+    public void addGoalieTest() {
         Shift shift = new Shift(10);
         Player player1 = new Player(1, "First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.setGoalie(player1);
@@ -66,32 +66,32 @@ public class ShiftTest {
     }
 
     @Test
-    public void getShootingStatTest(){
+    public void getShootingStatTest() {
         Shift shift = new Shift(10);
         Player player1 = new Player(1, "First Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addForward(player1);
         Player player2 = new Player(2, "Second Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addForward(player2);
-        assertEquals(10, (int)shift.getShootingStat());
+        assertEquals(10, (int) shift.getShootingStat());
     }
 
     @Test
-    public void getSkatingStatTest(){
+    public void getSkatingStatTest() {
         Shift shift = new Shift(10);
         Player player1 = new Player(1, "First Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addForward(player1);
         Player player2 = new Player(2, "Second Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addDefense(player2);
-        assertEquals(10, (int)shift.getSkatingStat());
+        assertEquals(10, (int) shift.getSkatingStat());
     }
 
     @Test
-    public void getCheckingStatTest(){
+    public void getCheckingStatTest() {
         Shift shift = new Shift(10);
         Player player1 = new Player(1, "First Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addDefense(player1);
         Player player2 = new Player(2, "Second Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
         shift.addDefense(player2);
-        assertEquals(10, (int)shift.getCheckingStat());
+        assertEquals(10, (int) shift.getCheckingStat());
     }
 }

@@ -4,9 +4,6 @@
   "userTeam": "Team Deep",
   "conferences": {
     "Western Conference": {
-      "leagueID": 0,
-      "conferenceID": 0,
-      "conferenceName": "Western Conference",
       "divisions": {
         "Atlantic": {
           "divisionID": 0,
@@ -11094,12 +11091,12 @@
             }
           }
         }
-      }
-    },
-    "Eastern Conference": {
+      },
       "leagueID": 0,
       "conferenceID": 0,
-      "conferenceName": "Eastern Conference",
+      "conferenceName": "Western Conference"
+    },
+    "Eastern Conference": {
       "divisions": {
         "Pacific": {
           "divisionID": 0,
@@ -22187,7 +22184,10 @@
             }
           }
         }
-      }
+      },
+      "leagueID": 0,
+      "conferenceID": 0,
+      "conferenceName": "Eastern Conference"
     }
   },
   "freeAgents": [

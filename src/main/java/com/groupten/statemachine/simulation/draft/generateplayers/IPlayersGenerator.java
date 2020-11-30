@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface IPlayersGenerator {
-   Map<String, List<Player>> generatePlayers();
+    Map<String, List<Player>> generatePlayers();
 }
