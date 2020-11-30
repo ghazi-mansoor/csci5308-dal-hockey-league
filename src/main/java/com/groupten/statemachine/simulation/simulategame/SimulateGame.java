@@ -1,21 +1,17 @@
 package com.groupten.statemachine.simulation.simulategame;
 
-import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy;
 import com.groupten.statemachine.simulation.simulategame.strategy.IAlgoStrategyObserver;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class SimulateGame implements ISimulateGame {
-    private static final Logger logger = LogManager.getLogger(SimulateGame.class.getName());
     private Season season;
 
     @Override
@@ -34,11 +30,9 @@ public class SimulateGame implements ISimulateGame {
         Team winner = resolveGame.getWinner(teamList.get(0), teamList.get(1));
 
         if (winner == team1) {
-            logger.info(team1.getTeamName() + " won against " + team2.getTeamName());
             recordWin(team1);
             recordLoss(team2);
         } else {
-            logger.info(team2.getTeamName() + " won against " + team1.getTeamName());
             recordWin(team2);
             recordLoss(team1);
         }
