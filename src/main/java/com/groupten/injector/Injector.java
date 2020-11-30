@@ -35,10 +35,7 @@ import com.groupten.statemachine.simulation.draft.Draft;
 import com.groupten.statemachine.simulation.draft.IDraft;
 import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
 import com.groupten.statemachine.simulation.draft.generateplayers.PlayersGenerator;
-import com.groupten.statemachine.simulation.draft.strategy.DraftContext;
-import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
-import com.groupten.statemachine.simulation.draft.strategy.IDraftStrategy;
-import com.groupten.statemachine.simulation.draft.strategy.WeakTeamPicksFirstStrategy;
+import com.groupten.statemachine.simulation.draft.strategy.*;
 import com.groupten.statemachine.simulation.factories.ISimulationFactory;
 import com.groupten.statemachine.simulation.factories.SimulationFactory;
 import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlayoffSchedule;
@@ -84,6 +81,7 @@ public class Injector {
     private IPlayersGenerator playersGeneratorInterface;
     private IDraftContext draftContextInterface;
     private IDraftStrategy weakTeamPicksFirstStrategy;
+    private IDraftStrategy tradedTeamsStrategy;
     private ISimulationFactory simulationFactory;
 
     private ILeagueModel leagueModel;
@@ -113,6 +111,7 @@ public class Injector {
         playersGeneratorInterface = new PlayersGenerator();
         draftContextInterface = new DraftContext();
         weakTeamPicksFirstStrategy = new WeakTeamPicksFirstStrategy();
+        tradedTeamsStrategy = new TradedTeamsStrategy();
         simulationFactory = new SimulationFactory();
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -267,5 +266,9 @@ public class Injector {
 
     public ISimulationFactory getSimulationFactory() {
         return simulationFactory;
+    }
+
+    public IDraftStrategy getTradedTeamsStrategy() {
+        return tradedTeamsStrategy;
     }
 }

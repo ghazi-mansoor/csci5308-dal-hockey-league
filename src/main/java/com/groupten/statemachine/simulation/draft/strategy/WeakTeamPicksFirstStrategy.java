@@ -12,12 +12,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
     private static final Logger logger = LogManager.getLogger(WeakTeamPicksFirstStrategy.class.getName());
 
     @Override
-    public void execute(List<TeamStanding> teamStandings, List<Player> players) {
+    public void execute(List<TeamStanding> teamStandings, List<Player> players, Map<Map<Team, Team>, Integer> tradedTeamsMap, int currentRound) {
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
         ITeamRoster teamRoster = leagueModelFactory.createTeamRoster();

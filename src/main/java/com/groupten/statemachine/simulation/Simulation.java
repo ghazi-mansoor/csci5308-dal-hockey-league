@@ -106,7 +106,7 @@ public class Simulation implements ISimulation {
 
         if (season.isTradeEnded()) {
         } else {
-//            executeTrades();
+             executeTrades();
         }
         aging();
     }

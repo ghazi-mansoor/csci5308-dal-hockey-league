@@ -15,7 +15,8 @@ import java.util.Random;
 
 public class Player implements IPersistModel {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
-    private final double PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
+    private final double LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
+    private final double STAT_DECREMENT = 1.0;
     private final int MAX_TOI = 1080;
 
     private int playerID;
@@ -150,7 +151,7 @@ public class Player implements IPersistModel {
     private boolean shouldPlayerBeRetired() {
         double probabilityOfRetirement = calculateProbabilityOfRetirement();
         GameConfig.Aging agingConfig = getAgingConfig();
-        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > PROBABILITY_THRESHOLD_FOR_RETIRING_PLAYER;
+        return age > agingConfig.getMaximumAge() || probabilityOfRetirement > LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER;
     }
 
     private double calculateProbabilityOfRetirement() {
@@ -210,19 +211,22 @@ public class Player implements IPersistModel {
     public double calculateStrength() {
         double strength = 0.0;
 
-        switch (position) {
-            case "forward":
-                strength = skating + shooting + (checking / 2);
-                break;
-            case "defense":
-                strength = skating + checking + (shooting / 2);
-                break;
-            case "goalie":
-                strength = skating + saving;
-                break;
+        if (position.equals(PlayerPosition.FORWARD.name().toLowerCase())) {
+            strength = skating + shooting + (checking / 2);
+        } else if (position.equals(PlayerPosition.DEFENSE.name().toLowerCase())) {
+            strength = skating + checking + (shooting / 2);
+        } else if (position.equals(PlayerPosition.GOALIE.name().toLowerCase())) {
+            strength = skating + saving;
         }
 
         return strength;
+    }
+
+    public void decayStats() {
+        this.skating -= STAT_DECREMENT;
+        this.shooting -= STAT_DECREMENT;
+        this.checking -= STAT_DECREMENT;
+        this.saving -= STAT_DECREMENT;
     }
 
     public boolean save() {
