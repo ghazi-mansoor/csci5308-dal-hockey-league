@@ -175,6 +175,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         for (Player player : getInActivePlayers()) {
             totalPlayers.add(player);
         }
+
         return totalPlayers;
     }
 

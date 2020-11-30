@@ -210,4 +210,14 @@ public class PlayerTest {
         Player player = new Player("First Player", "forward", true, playerBirthDay, playerBirthMonth, playerBirthYear, 5.0, 5.0, 5.0, 5.0);
         assertEquals(playerAgeCalculated, player.getAge(), 0);
     }
+
+    @Test
+    public void decayStatsTest() {
+        Player player = new Player("First Player", "forward", true, 18.0, 5.0, 5.0, 5.0, 5.0);
+        player.decayStats();
+        assertEquals(4.0, player.getSkating(), 0.0);
+        assertEquals(4.0, player.getShooting(), 0.0);
+        assertEquals(4.0, player.getChecking(), 0.0);
+        assertEquals(4.0, player.getSaving(), 0.0);
+    }
 }
