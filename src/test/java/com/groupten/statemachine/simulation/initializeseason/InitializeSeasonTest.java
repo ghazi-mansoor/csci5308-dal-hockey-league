@@ -18,7 +18,7 @@ public class InitializeSeasonTest {
     }
 
     @Test
-    public void generatePlayoffScheduleTest(){
+    public void generatePlayoffScheduleTest() {
         InitializeSeason initializeSeason = new InitializeSeason();
         assertFalse(initializeSeason.generateRegularSchedule(season));
     }

@@ -16,9 +16,10 @@ public class Coach implements IPersistModel {
     private double checking;
     private double saving;
 
-    public Coach() {}
+    public Coach() {
+    }
 
-    public Coach(String n){
+    public Coach(String n) {
         coachName = n;
     }
 
@@ -47,7 +48,7 @@ public class Coach implements IPersistModel {
         }
     }
 
-    private static boolean areStatsValid(double ...args) {
+    private static boolean areStatsValid(double... args) {
         List<Boolean> validChecks = new ArrayList<>();
 
         for (double stat : args) {
@@ -73,12 +74,12 @@ public class Coach implements IPersistModel {
         this.teamID = teamID;
     }
 
-    public void setCoachID(int coachID) {
-        this.coachID = coachID;
-    }
-
     public int getCoachID() {
         return coachID;
+    }
+
+    public void setCoachID(int coachID) {
+        this.coachID = coachID;
     }
 
     public String getCoachName() {

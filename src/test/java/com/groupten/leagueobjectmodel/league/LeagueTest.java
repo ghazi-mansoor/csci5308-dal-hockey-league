@@ -92,7 +92,7 @@ public class LeagueTest {
     @Test
     public void getFreeAgentsTest() {
         League league = new League(1, "First League");
-        Player player = new Player(1,"First Player", "goalie", 27, 5, 5, 5, 5);
+        Player player = new Player(1, "First Player", "goalie", 27, 5, 5, 5, 5);
         league.addFreeAgent(player);
         player = new Player(2, "Second Player", "goalie", 27, 5, 5, 5, 5);
         league.addFreeAgent(player);

@@ -99,7 +99,6 @@ public class JSONImport implements IJSONImport {
         String leagueName = jsonData.get("leagueName").getAsString();
         conferences = (JsonArray) jsonData.get("conferences");
 
-        //leagueLOM = new League(leagueName);
         leagueLOM = leagueModelFactory.createLeague(leagueName);
 
         agingLOM = new GameConfig.Aging(averageRetirementAge, maximumAge, statDecayChance);
@@ -121,7 +120,6 @@ public class JSONImport implements IJSONImport {
                 divisions = (JsonArray) conference.get("divisions");
                 String conferenceName = conference.get("conferenceName").getAsString();
 
-                // conferenceLOM = new Conference(conferenceName);
                 conferenceLOM = leagueModelFactory.createConference(conferenceName);
 
                 for (int j = 0; j < divisions.size(); j++) {
@@ -129,7 +127,6 @@ public class JSONImport implements IJSONImport {
                     teams = (JsonArray) division.get("teams");
                     String divisionName = division.get("divisionName").getAsString();
 
-                    // divisionLOM = new Division(divisionName);
                     divisionLOM = leagueModelFactory.createDivision(divisionName);
 
                     for (int k = 0; k < teams.size(); k++) {
@@ -150,8 +147,6 @@ public class JSONImport implements IJSONImport {
                         double coachSaving = headCoach.get("saving").getAsDouble();
                         players = (JsonArray) team.get("players");
 
-                        // teamLOM = new Team(teamName);
-
                         for (int l = 0; l < players.size(); l++) {
                             teamPlayer = (JsonObject) players.get(l);
                             String playerName = teamPlayer.get("playerName").getAsString();
@@ -165,7 +160,6 @@ public class JSONImport implements IJSONImport {
                             double playerChecking = teamPlayer.get("checking").getAsDouble();
                             double playerSaving = teamPlayer.get("saving").getAsDouble();
 
-                            // playerLOM = new Player(playerName, position, captain, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
                             if (Player.arePlayerFieldsValid(playerName, position, playerSkating, playerShooting, playerChecking, playerSaving)) {
                                 success = true;
                             } else {
@@ -188,9 +182,7 @@ public class JSONImport implements IJSONImport {
                         teamBuilder.setPlayerRosters(allPlayers);
                         teamLOM = teamBuilder.getResult();
 
-                        // managerLOM = new GeneralManager(gmName, gmPersonality);
                         managerLOM = leagueModelFactory.createGeneralManager(gmName, gmPersonality);
-                        // coachLOM = new Coach(coachName, coachSkating, coachShooting, coachChecking, coachSaving);
                         coachBuilder.reset();
                         coachBuilder.setName(coachName);
                         coachBuilder.setCoachStats(coachSkating, coachShooting, coachChecking, coachSaving);
@@ -198,31 +190,31 @@ public class JSONImport implements IJSONImport {
 
                         if (teamLOM.setGeneralManager(managerLOM)) {
                             success = true;
-                        }else{
+                        } else {
                             throw new Exception("Issue with JSON Data");
                         }
 
                         if (teamLOM.setHeadCoach(coachLOM)) {
                             success = true;
-                        }else{
+                        } else {
                             throw new Exception("Issue with JSON Data");
                         }
 
                         if (divisionLOM.addTeam(teamLOM)) {
                             success = true;
-                        }else{
+                        } else {
                             throw new Exception("Issue with JSON Data");
                         }
                     }
                     if (conferenceLOM.addDivision(divisionLOM)) {
                         success = true;
-                    }else{
+                    } else {
                         throw new Exception("Issue with JSON Data");
                     }
                 }
                 if (leagueLOM.addConference(conferenceLOM)) {
                     success = true;
-                }else{
+                } else {
                     throw new Exception("Issue with JSON Data");
                 }
 
@@ -241,7 +233,6 @@ public class JSONImport implements IJSONImport {
                 double playerChecking = freeAgent.get("checking").getAsDouble();
                 double playerSaving = freeAgent.get("saving").getAsDouble();
 
-                // playerLOM = new Player(playerName, position, playerBirthDay, playerBirthMonth, playerBirthYear, playerSkating, playerShooting, playerChecking, playerSaving);
                 playerBuilder.reset();
                 playerBuilder.setProfile(playerName, position);
                 playerBuilder.setAgeFromBirthDay(playerBirthDay, playerBirthMonth, playerBirthYear);
@@ -250,7 +241,7 @@ public class JSONImport implements IJSONImport {
 
                 if (leagueLOM.addFreeAgent(playerLOM)) {
                     success = true;
-                }else{
+                } else {
                     throw new Exception("Issue with JSON Data");
                 }
             }
@@ -269,7 +260,7 @@ public class JSONImport implements IJSONImport {
 
                 if (leagueLOM.addCoach(coachLOM)) {
                     success = true;
-                }else{
+                } else {
                     throw new Exception("Issue with JSON Data");
                 }
             }
@@ -295,7 +286,7 @@ public class JSONImport implements IJSONImport {
             } else {
                 throw new Exception("Issue with JSON Data");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             success = false;
         }
 

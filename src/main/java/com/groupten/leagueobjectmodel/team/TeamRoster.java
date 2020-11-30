@@ -18,7 +18,10 @@ public class TeamRoster implements ITeamRoster {
     private List<Player> activePlayerRoster;
     private List<Player> inActivePlayerRooster;
 
-    public TeamRoster() { };
+    public TeamRoster() {
+    }
+
+    ;
 
     @Override
     public void setPlayers(List<Player> players) {

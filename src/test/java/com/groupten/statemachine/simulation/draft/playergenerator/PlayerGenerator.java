@@ -6,8 +6,6 @@ import com.groupten.statemachine.jsonimport.JSONImport;
 import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
 public class PlayerGenerator {
     @Test
     public void generatePlayersTest() {

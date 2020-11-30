@@ -13,14 +13,14 @@ import static org.junit.Assert.*;
 public class TeamTest {
     @Test
     public void addPlayerTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         Player player = new Player("First Player", "goalie", false, 27, 5, 5, 5, 5);
         assertTrue(team.addActivePlayer(player));
     }
 
     @Test
     public void isPlayersCountValidTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
             team.addActivePlayer(player);
@@ -30,7 +30,7 @@ public class TeamTest {
 
     @Test
     public void doesTeamHaveOneCaptainTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         for (int i = 0; i < 18; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
             team.addActivePlayer(player);
@@ -58,7 +58,7 @@ public class TeamTest {
 
     @Test
     public void calculateTeamStrengthTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
             team.addActivePlayer(player);
@@ -69,33 +69,33 @@ public class TeamTest {
 
     @Test
     public void setTeamIDTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         team.setTeamID(1);
         assertEquals(1, team.getTeamID());
     }
 
     @Test
     public void getTeamIDTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         assertEquals(1, team.getTeamID());
     }
 
     @Test
     public void setTeamNameTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         team.setTeamName("Updated First Team");
         assertEquals("Updated First Team", team.getTeamName());
     }
 
     @Test
     public void getTeamNameTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         assertEquals("First Team", team.getTeamName());
     }
 
     @Test
     public void setGeneralManagerTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         GeneralManager generalManager = new GeneralManager("Manager", "normal");
         team.setGeneralManager(generalManager);
         assertEquals("Manager", team.getGeneralManager().getManagerName());
@@ -103,7 +103,7 @@ public class TeamTest {
 
     @Test
     public void getGeneralManagerTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         GeneralManager generalManager = new GeneralManager("Manager", "normal");
         team.setGeneralManager(generalManager);
         assertEquals("Manager", team.getGeneralManager().getManagerName());
@@ -111,7 +111,7 @@ public class TeamTest {
 
     @Test
     public void setHeadCoachTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         Coach coach = new Coach("Coach", 0.5, 0.5, 0.5, 0.5);
         team.setHeadCoach(coach);
         assertEquals("Coach", team.getHeadCoach().getCoachName());
@@ -119,7 +119,7 @@ public class TeamTest {
 
     @Test
     public void getHeadCoachTest() {
-        Team team  = new Team("First Team");
+        Team team = new Team("First Team");
         Coach coach = new Coach("Coach", 0.5, 0.5, 0.5, 0.5);
         team.setHeadCoach(coach);
         assertEquals("Coach", team.getHeadCoach().getCoachName());
@@ -127,7 +127,7 @@ public class TeamTest {
 
     @Test
     public void getPlayersTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
             team.addActivePlayer(player);
@@ -137,26 +137,26 @@ public class TeamTest {
 
     @Test
     public void setPlayersTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         List<Player> players = new ArrayList<Player>();
         for (int i = 0; i < 20; i++) {
             Player player = new Player(i, "Player", "goalie", false, 27, 5, 5, 5, 5);
             players.add(player);
         }
         team.setActivePlayers(players);
-        assertEquals(20,team.getActivePlayers().size());
+        assertEquals(20, team.getActivePlayers().size());
     }
 
     @Test
     public void setTeamStrengthTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         team.setTeamStrength(100.0);
         assertEquals(100.0, team.getTeamStrength(), 0.0);
     }
 
     @Test
     public void setaITeamTest() {
-        Team team  = new Team(1, "First Team");
+        Team team = new Team(1, "First Team");
         team.setaITeam(true);
         assertTrue(team.isaITeam());
     }

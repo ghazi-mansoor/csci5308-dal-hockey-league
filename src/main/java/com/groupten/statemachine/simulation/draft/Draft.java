@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Draft implements IDraft {
+    private static final Logger logger = LogManager.getLogger(Draft.class.getName());
     private List<TeamStanding> combinedSortedTeamStandings = new ArrayList<>();
     private List<TeamStanding> regularSeasonStandings = new ArrayList<>();
     private List<TeamStanding> playoffStandings = new ArrayList<>();
@@ -25,7 +26,6 @@ public class Draft implements IDraft {
     private List<Player> goaliePlayersForDraft = new ArrayList<>();
     private IDraftContext draftContext;
     private IDraftStrategy draftStrategy;
-    private static final Logger logger = LogManager.getLogger(Draft.class.getName());
 
     @Override
     public void execute(Season season) {
@@ -56,7 +56,7 @@ public class Draft implements IDraft {
 
     private void generateDraftPlayers() {
         IPlayersGenerator playersGenerator = Injector.instance().getPlayersGeneratorInterface();
-        Map<String, List<Player>> generatedPlayers =  playersGenerator.generatePlayers();
+        Map<String, List<Player>> generatedPlayers = playersGenerator.generatePlayers();
 
         forwardPlayersForDraft = generatedPlayers.get(PlayerPosition.FORWARD.name());
         defensePlayersForDraft = generatedPlayers.get(PlayerPosition.DEFENSE.name());

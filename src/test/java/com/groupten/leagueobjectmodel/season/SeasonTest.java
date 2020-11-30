@@ -21,49 +21,49 @@ public class SeasonTest {
     }
 
     @Test
-    public void getCurrentDateTest(){
+    public void getCurrentDateTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("30/09/2020", dateFormat.format(season.getCurrentDate()));
     }
 
     @Test
-    public void getRegularSeasonStartsAtTest(){
+    public void getRegularSeasonStartsAtTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("01/10/2020", dateFormat.format(season.getRegularSeasonStartsAt()));
     }
 
     @Test
-    public void getRegularSeasonEndsAtTest(){
+    public void getRegularSeasonEndsAtTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("03/04/2021", dateFormat.format(season.getRegularSeasonEndsAt()));
     }
 
     @Test
-    public void getTradeEndsAtTest(){
+    public void getTradeEndsAtTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("22/02/2021", dateFormat.format(season.getTradeEndsAt()));
     }
 
     @Test
-    public void getPlayoffStartsAtTest(){
+    public void getPlayoffStartsAtTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("14/04/2021", dateFormat.format(season.getPlayoffStartsAt()));
     }
 
     @Test
-    public void getPlayoffEndsByTest(){
+    public void getPlayoffEndsByTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals("01/06/2021", dateFormat.format(season.getPlayoffEndsBy()));
     }
 
     @Test
-    public void advanceTimeTest(){
+    public void advanceTimeTest() {
         Season season = new Season(2020);
         season.advanceTime();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -83,7 +83,7 @@ public class SeasonTest {
     }
 
     @Test
-    public void isTodayRegularSeasonEndTest(){
+    public void isTodayRegularSeasonEndTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date d = null;
@@ -97,7 +97,7 @@ public class SeasonTest {
     }
 
     @Test
-    public void schedulesTodayTest(){
+    public void schedulesTodayTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date d = null;
@@ -108,11 +108,11 @@ public class SeasonTest {
         }
         season.setCurrentDate(d);
 
-        assertEquals(0,season.schedulesToday().size());
+        assertEquals(0, season.schedulesToday().size());
     }
 
     @Test
-    public void isTradeEndedTest(){
+    public void isTradeEndedTest() {
         Season season = new Season(2020);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date d = null;
@@ -134,19 +134,19 @@ public class SeasonTest {
     }
 
     @Test
-    public void isWinnerDetermined(){
+    public void isWinnerDetermined() {
         Season season = new Season(2020);
         assertFalse(season.isWinnerDetermined());
     }
 
     @Test
-    public void generateRegularScheduleTest(){
+    public void generateRegularScheduleTest() {
         Season season = new Season(2020);
         assertFalse(season.generateRegularSchedule());
     }
 
     @Test
-    public void generatePlayoffScheduleTest(){
+    public void generatePlayoffScheduleTest() {
         Season season = new Season(2020);
         assertFalse(season.generatePlayoffSchedule());
     }

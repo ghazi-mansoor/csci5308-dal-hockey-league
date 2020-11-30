@@ -21,7 +21,7 @@ public class AdvanceTimeTest {
     }
 
     @Test
-    public void advanceTimeTest(){
+    public void advanceTimeTest() {
         AdvanceTime advanceTime = new AdvanceTime();
         advanceTime.advanceTime(season);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
