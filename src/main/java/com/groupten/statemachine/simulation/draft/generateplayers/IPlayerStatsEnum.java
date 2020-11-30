@@ -1,6 +1,5 @@
 package com.groupten.statemachine.simulation.draft.generateplayers;
 
-public interface IPlayerStatsRanges {
+public interface IPlayerStatsEnum {
     double getDoubleValue();
 }
-

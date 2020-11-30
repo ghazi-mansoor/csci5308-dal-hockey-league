@@ -14,11 +14,14 @@ public class TeamRoster implements ITeamRoster {
     private final int MAX_ACTIVE_DEFENSE_PLAYERS = 6;
     private final int MAX_ACTIVE_GOALIES = 2;
 
-    private final List<Player> players;
+    private List<Player> players;
     private List<Player> activePlayerRoster;
     private List<Player> inActivePlayerRooster;
 
-    TeamRoster(List<Player> players) {
+    public TeamRoster() { };
+
+    @Override
+    public void setPlayers(List<Player> players) {
         this.players = players;
         rankPlayersAccordingToStrength();
     }

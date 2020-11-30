@@ -38,6 +38,10 @@ import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenera
 import com.groupten.statemachine.simulation.draft.generateplayers.PlayersGenerator;
 import com.groupten.statemachine.simulation.draft.strategy.DraftContext;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
+import com.groupten.statemachine.simulation.draft.strategy.IDraftStrategy;
+import com.groupten.statemachine.simulation.draft.strategy.WeakTeamPicksFirstStrategy;
+import com.groupten.statemachine.simulation.factories.ISimulationFactory;
+import com.groupten.statemachine.simulation.factories.SimulationFactory;
 import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
@@ -78,8 +82,10 @@ public class Injector {
     private IPlayerDAO playerDatabaseInterface;
     private ITrophy trophyInterface;
     private IDraft draftInterface;
-    private IDraftContext draftContextInterface;
     private IPlayersGenerator playersGeneratorInterface;
+    private IDraftContext draftContextInterface;
+    private IDraftStrategy weakTeamPicksFirstStrategy;
+    private ISimulationFactory simulationFactory;
 
     private ILeagueModel leagueModel;
     private ITeamBuilder teamBuilder;
@@ -106,8 +112,10 @@ public class Injector {
         tradingInterface = new Trading();
         trophyInterface = new Trophy();
         draftInterface = new Draft();
-        draftContextInterface = new DraftContext();
         playersGeneratorInterface = new PlayersGenerator();
+        draftContextInterface = new DraftContext();
+        weakTeamPicksFirstStrategy = new WeakTeamPicksFirstStrategy();
+        simulationFactory = new SimulationFactory();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -349,11 +357,19 @@ public class Injector {
         this.draftInterface = draftInterface;
     }
 
+    public IPlayersGenerator getPlayersGeneratorInterface() {
+        return playersGeneratorInterface;
+    }
+
     public IDraftContext getDraftContextInterface() {
         return draftContextInterface;
     }
 
-    public IPlayersGenerator getPlayersGeneratorInterface() {
-        return playersGeneratorInterface;
+    public IDraftStrategy getWeakTeamPicksFirstStrategy() {
+        return weakTeamPicksFirstStrategy;
+    }
+
+    public ISimulationFactory getSimulationFactory() {
+        return simulationFactory;
     }
 }

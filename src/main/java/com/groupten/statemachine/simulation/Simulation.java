@@ -11,7 +11,9 @@ import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
+import com.groupten.statemachine.simulation.draft.Draft;
 import com.groupten.statemachine.simulation.draft.IDraft;
+import com.groupten.statemachine.simulation.factories.ISimulationFactory;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.injury.Injury;
@@ -131,9 +133,6 @@ public class Simulation implements ISimulation {
         aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
-            IDraft draft = Injector.instance().getDraftInterface();
-            draft.execute(season);
-
             console.printLine("*************************************");
             console.printLine("Season won by: \t\t"+ season.getSeasonWinner().getTeamName());
             console.printLine("*************************************");
@@ -149,6 +148,12 @@ public class Simulation implements ISimulation {
             ITrophy trophy = Injector.instance().getTrophyObject();
             trophy.awardTrophy();
             trophy.trophyWinners();
+
+            if (numberOfSeasons == 1) {
+                ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
+                IDraft draft = simulationFactory.createDraft();
+                draft.execute(season);
+            }
 
             if(numberOfSeasons > 0){
                 year++;

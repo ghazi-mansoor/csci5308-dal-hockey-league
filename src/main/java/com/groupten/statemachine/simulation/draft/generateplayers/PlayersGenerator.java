@@ -10,49 +10,41 @@ import com.groupten.statemachine.simulation.draft.DraftConstants;
 import java.util.*;
 
 public class PlayersGenerator implements IPlayersGenerator {
+    private double minimumAge = PlayerAgeRange.MINIMUM_AGE.getDoubleValue();
+    private double maximumAge = PlayerAgeRange.MAXIMUM_AGE.getDoubleValue();
+    private double minimumSkatingStat;
+    private double maximumSkatingStat;
+    private double minimumShootingStat;
+    private double maximumShootingStat;
+    private double minimumCheckingStat;
+    private double maximumCheckingStat;
+    private double minimumSavingStat;
+    private double maximumSavingStat;
     private Map<String, List<Player>> playersGenerated = new HashMap<>();
-    private int numberOfForwardPlayers;
-    private int numberOfDefensePlayers;
-    private int numberOfGoaliePlayers;
-
-    public PlayersGenerator() {
-        this.numberOfForwardPlayers = calculateNumberOfPlayersToGenerate(PlayerPosition.FORWARD.name());
-        this.numberOfDefensePlayers = calculateNumberOfPlayersToGenerate(PlayerPosition.DEFENSE.name());
-        this.numberOfGoaliePlayers = calculateNumberOfPlayersToGenerate(PlayerPosition.GOALIE.name());
-    }
 
     @Override
     public Map<String, List<Player>> generatePlayers() {
-        List<Player> forwardPlayers = buildPlayersForPosition(PlayerPosition.FORWARD.name(), numberOfForwardPlayers);
-        playersGenerated.put("forward players", forwardPlayers);
+        List<Player> forwardPlayers = buildPlayersForPosition(PlayerPosition.FORWARD.name());
+        List<Player> defensePlayers = buildPlayersForPosition(PlayerPosition.DEFENSE.name());
+        List<Player> goaliePlayers = buildPlayersForPosition(PlayerPosition.GOALIE.name());
+
+        playersGenerated.put(PlayerPosition.FORWARD.name(), forwardPlayers);
+        playersGenerated.put(PlayerPosition.DEFENSE.name(), defensePlayers);
+        playersGenerated.put(PlayerPosition.GOALIE.name(), goaliePlayers);
+
         return playersGenerated;
     }
 
-    private List<Player> buildPlayersForPosition(String position, int numberOfPlayers) {
+    private List<Player> buildPlayersForPosition(String position) {
         List<Player> players = new ArrayList<>();
         IPlayerBuilder playerBuilder = Injector.instance().getPlayerBuilder();
-        double minimumAge = 0.0;
-        double maximumAge = 0.0;
-        double minimumSkatingStat = 0.0;
-        double maximumSkatingStat = 0.0;
-        double minimumShootingStat = 0.0;
-        double maximumShootingStat = 0.0;
-        double minimumCheckingStat = 0.0;
-        double maximumCheckingStat = 0.0;
-        double minimumSavingStat = 0.0;
-        double maximumSavingStat = 0.0;
+
+        int numberOfPlayers = calculateNumberOfPlayersToGenerate(position);
 
         if (position.equals(PlayerPosition.FORWARD.name())) {
-            minimumAge = ForwardPlayerStatsRanges.MINIMUM_AGE.getDoubleValue();
-            maximumAge = ForwardPlayerStatsRanges.MAXIMUM_AGE.getDoubleValue();
-            minimumSkatingStat = ForwardPlayerStatsRanges.MINIMUM_SKATING_STAT.getDoubleValue();
-            maximumSkatingStat = ForwardPlayerStatsRanges.MAXIMUM_SKATING_STAT.getDoubleValue();
-            minimumShootingStat = ForwardPlayerStatsRanges.MINIMUM_SHOOTING_STAT.getDoubleValue();
-            maximumShootingStat = ForwardPlayerStatsRanges.MAXIMUM_SHOOTING_STAT.getDoubleValue();
-            minimumCheckingStat = ForwardPlayerStatsRanges.MINIMUM_CHECKING_STAT.getDoubleValue();
-            maximumCheckingStat = ForwardPlayerStatsRanges.MAXIMUM_CHECKING_STAT.getDoubleValue();
-            minimumSavingStat = ForwardPlayerStatsRanges.MINIMUM_SAVING_STAT.getDoubleValue();
-            maximumSavingStat = ForwardPlayerStatsRanges.MAXIMUM_SAVING_STAT.getDoubleValue();
+            initializePlayerStatsRangesForForwardPosition();
+        } else if (position.equals(PlayerPosition.DEFENSE.name())) {
+            initializePlayerStatsRangesForDefensePosition();
         }
 
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -76,27 +68,56 @@ public class PlayersGenerator implements IPlayersGenerator {
     }
 
     private int calculateNumberOfPlayersToGenerate(String position) {
+        int draftRounds = 0;
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        double percentageOfTotalPlayers = 0.0;
 
-        switch (position) {
-            case "forward":
-                percentageOfTotalPlayers = DraftConstants.PERCENTAGE_OF_FORWARD_PLAYERS.getDoubleValue();
-                break;
-            case "defense":
-                percentageOfTotalPlayers = DraftConstants.PERCENTAGE_OF_DEFENSE_PLAYERS.getDoubleValue();
-                break;
-            case "goalie":
-                percentageOfTotalPlayers = DraftConstants.PERCENTAGE_OF_GOALIE_PLAYERS.getDoubleValue();
-                break;
+        if (position.equals(PlayerPosition.FORWARD.name())) {
+            draftRounds = DraftConstants.NUMBER_OF_FORWARD_DRAFT_ROUNDS.getIntValue();
+        } else if (position.equals(PlayerPosition.DEFENSE.name())) {
+            draftRounds = DraftConstants.NUMBER_OF_DEFENSE_DRAFT_ROUNDS.getIntValue();
+        } else if (position.equals(PlayerPosition.GOALIE.name())) {
+            draftRounds = DraftConstants.NUMBER_OF_GOALIE_DRAFT_ROUNDS.getIntValue();
         }
 
-        return (int) Math.round(DraftConstants.NUMBER_OF_ROUNDS.getIntValue() * leagueModel.getTotalNumberOfTeams() * percentageOfTotalPlayers);
+        return draftRounds * leagueModel.getTotalNumberOfTeams();
     }
 
     private double generateRandomValueBetweenInterval(double intervalStart, double intervalEnd) {
         double random = new Random().nextDouble();
         return intervalStart + (random * (intervalEnd - intervalStart));
+    }
+
+    private void initializePlayerStatsRangesForForwardPosition() {
+        minimumSkatingStat = ForwardPlayerStatsRanges.MINIMUM_SKATING_STAT.getDoubleValue();
+        maximumSkatingStat = ForwardPlayerStatsRanges.MAXIMUM_SKATING_STAT.getDoubleValue();
+        minimumShootingStat = ForwardPlayerStatsRanges.MINIMUM_SHOOTING_STAT.getDoubleValue();
+        maximumShootingStat = ForwardPlayerStatsRanges.MAXIMUM_SHOOTING_STAT.getDoubleValue();
+        minimumCheckingStat = ForwardPlayerStatsRanges.MINIMUM_CHECKING_STAT.getDoubleValue();
+        maximumCheckingStat = ForwardPlayerStatsRanges.MAXIMUM_CHECKING_STAT.getDoubleValue();
+        minimumSavingStat = ForwardPlayerStatsRanges.MINIMUM_SAVING_STAT.getDoubleValue();
+        maximumSavingStat = ForwardPlayerStatsRanges.MAXIMUM_SAVING_STAT.getDoubleValue();
+    }
+
+    private void initializePlayerStatsRangesForDefensePosition() {
+        minimumSkatingStat = DefensePlayerStatsRanges.MINIMUM_SKATING_STAT.getDoubleValue();
+        maximumSkatingStat = DefensePlayerStatsRanges.MAXIMUM_SKATING_STAT.getDoubleValue();
+        minimumShootingStat = DefensePlayerStatsRanges.MINIMUM_SHOOTING_STAT.getDoubleValue();
+        maximumShootingStat = DefensePlayerStatsRanges.MAXIMUM_SHOOTING_STAT.getDoubleValue();
+        minimumCheckingStat = DefensePlayerStatsRanges.MINIMUM_CHECKING_STAT.getDoubleValue();
+        maximumCheckingStat = DefensePlayerStatsRanges.MAXIMUM_CHECKING_STAT.getDoubleValue();
+        minimumSavingStat = DefensePlayerStatsRanges.MINIMUM_SAVING_STAT.getDoubleValue();
+        maximumSavingStat = DefensePlayerStatsRanges.MAXIMUM_SAVING_STAT.getDoubleValue();
+    }
+
+    private void initializePlayerStatsRangesForGoaliePosition() {
+        minimumSkatingStat = GoaliePlayerStatsRanges.MINIMUM_SKATING_STAT.getDoubleValue();
+        maximumSkatingStat = GoaliePlayerStatsRanges.MAXIMUM_SKATING_STAT.getDoubleValue();
+        minimumShootingStat = GoaliePlayerStatsRanges.MINIMUM_SHOOTING_STAT.getDoubleValue();
+        maximumShootingStat = GoaliePlayerStatsRanges.MAXIMUM_SHOOTING_STAT.getDoubleValue();
+        minimumCheckingStat = GoaliePlayerStatsRanges.MINIMUM_CHECKING_STAT.getDoubleValue();
+        maximumCheckingStat = GoaliePlayerStatsRanges.MAXIMUM_CHECKING_STAT.getDoubleValue();
+        minimumSavingStat = GoaliePlayerStatsRanges.MINIMUM_SAVING_STAT.getDoubleValue();
+        maximumSavingStat = GoaliePlayerStatsRanges.MAXIMUM_SAVING_STAT.getDoubleValue();
     }
 
 }

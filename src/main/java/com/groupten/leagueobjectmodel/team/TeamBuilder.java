@@ -21,7 +21,8 @@ public class TeamBuilder implements ITeamBuilder {
 
     @Override
     public void setPlayerRosters(List<Player> players) {
-        ITeamRoster teamRoster = new TeamRoster(players);
+        ITeamRoster teamRoster = new TeamRoster();
+        teamRoster.setPlayers(players);
         team.setActivePlayers(teamRoster.createActivePlayerRoster());
         team.setInActivePlayers(teamRoster.createInActivePlayerRoster());
     }
