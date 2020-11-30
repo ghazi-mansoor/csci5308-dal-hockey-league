@@ -22,6 +22,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     private boolean aITeam;
     private List<Player> activePlayers = new ArrayList<>();
     private List<Player> inActivePlayers = new ArrayList<>();
+    private List<Player> allPlayers = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
     private double teamStrength;
@@ -97,6 +98,30 @@ public class Team implements IPlayerSubscriber, IPersistModel {
 
         return teamStrength;
     }
+    public double calculateTotalTeamStrength() {
+        for (Player player : activePlayers) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+        for (Player player : inActivePlayers) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+
+        return teamStrength;
+    }
 
     public int getTeamID() {
         return teamID;
@@ -138,6 +163,24 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         } else {
             return false;
         }
+    }
+
+    public List<Player> getAllPlayers() {
+        ArrayList<Player> totalPlayers = new ArrayList<>();
+
+        for(Player player : getActivePlayers()) {
+            totalPlayers.add(player);
+        }
+        for (Player player : getInActivePlayers()) {
+            totalPlayers.add(player);
+        }
+        return  totalPlayers;
+    }
+
+    public void setAllPlayers(ArrayList<Player> allPlayers) {
+        this.activePlayers = null;
+        this.inActivePlayers = null;
+        this.allPlayers = allPlayers;
     }
 
     public List<Player> getActivePlayers() { return activePlayers; }
