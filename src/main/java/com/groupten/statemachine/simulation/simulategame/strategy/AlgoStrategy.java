@@ -76,10 +76,8 @@ public class AlgoStrategy implements IStrategy {
         resetAvailTOI(team2Players);
 
         if (team1Goals > team2Goals) {
-            logger.info(team1.getTeamName()+ " won against " + team2.getTeamName());
             return team1;
         } else {
-            logger.info(team2.getTeamName()+ " won against " + team1.getTeamName());
             return team2;
         }
     }
@@ -181,19 +179,27 @@ public class AlgoStrategy implements IStrategy {
     }
 
     private void recordShot(Shift shift){
-        shots.merge(shift.getForwards().get(rand.nextInt(shift.getForwards().size())), 1, Integer::sum);
+        Player shotBy = shift.getForwards().get(rand.nextInt(shift.getForwards().size()));
+        shots.merge(shotBy, 1, Integer::sum);
+        logger.info(shotBy.getPlayerName()+" made a shot");
     }
 
     private void recordPenalty(Shift shift){
-        penalties.merge(shift.getDefensemen().get(rand.nextInt(shift.getDefensemen().size())), 1, Integer::sum);
+        Player penaltyBy = shift.getDefensemen().get(rand.nextInt(shift.getDefensemen().size()));
+        penalties.merge(penaltyBy, 1, Integer::sum);
+        logger.info(penaltyBy.getPlayerName()+" made a penalty");
     }
 
     private void recordGoal(Shift shift){
-        goals.merge(shift.getForwards().get(rand.nextInt(shift.getForwards().size())), 1, Integer::sum);
+        Player goalBy = shift.getForwards().get(rand.nextInt(shift.getForwards().size()));
+        goals.merge(goalBy, 1, Integer::sum);
+        logger.info(goalBy.getPlayerName()+" made a goal");
     }
 
     private void recordSave(Shift shift){
-        saves.merge(shift.getGoalie(), 1, Integer::sum);
+        Player goalie = shift.getGoalie();
+        saves.merge(goalie, 1, Integer::sum);
+        logger.info(goalie.getPlayerName()+" saved a goal");
     }
 
     private void resetAvailTOI(List<Player> players) {

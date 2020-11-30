@@ -15,6 +15,11 @@
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="GameSimulationLogsFile" fileName="logs/gameSimulation.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="com.groupten.statemachine.simulation.draft.strategy.WeakTeamPicksFirstStrategy" level="info" addivity="false">
@@ -22,6 +27,9 @@
         </Logger>
         <Logger name="com.groupten.statemachine.simulation.trophy.Trophy" level="info" addivity="false">
             <AppenderRef ref="TrophyLogsFile" />
+        </Logger>
+        <Logger name="com.groupten.statemachine.simulation.simulategame.strategy.AlgoStrategy" level="info" addivity="false">
+            <AppenderRef ref="GameSimulationLogsFile" />
         </Logger>
         <Root level="info" additivity="false">
             <AppenderRef ref="Console" />
