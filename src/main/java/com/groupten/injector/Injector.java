@@ -32,14 +32,24 @@ import com.groupten.statemachine.simulation.advancetime.AdvanceTime;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.Aging;
 import com.groupten.statemachine.simulation.aging.IAging;
+import com.groupten.statemachine.simulation.draft.Draft;
+import com.groupten.statemachine.simulation.draft.IDraft;
+import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
+import com.groupten.statemachine.simulation.draft.generateplayers.PlayersGenerator;
+import com.groupten.statemachine.simulation.draft.strategy.DraftContext;
+import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
+import com.groupten.statemachine.simulation.draft.strategy.IDraftStrategy;
+import com.groupten.statemachine.simulation.draft.strategy.WeakTeamPicksFirstStrategy;
+import com.groupten.statemachine.simulation.factories.ISimulationFactory;
+import com.groupten.statemachine.simulation.factories.SimulationFactory;
 import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.initializeseason.InitializeSeason;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.simulategame.SimulateGame;
-import com.groupten.statemachine.simulation.trading.ITrading;
-import com.groupten.statemachine.simulation.trading.Trading;
+import com.groupten.statemachine.simulation.trading.ITradeFactory;
+import com.groupten.statemachine.simulation.trading.TradeFactory;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.training.Training;
 import com.groupten.statemachine.simulation.trophy.ITrophy;
@@ -63,7 +73,7 @@ public class Injector {
     private ISimulateGame simulateGameInterface;
     private ISerializeData serializeDataInterface;
     private IDeserializeData deserializeDataInterface;
-    private ITrading tradingInterface;
+    private ITradeFactory tradingInterface;
     private IComparator comparatorInterface;
     private ILeagueDAO leagueDatabaseInterface;
     private IConferenceDAO conferenceDatabaseInterface;
@@ -71,6 +81,11 @@ public class Injector {
     private ITeamDAO teamDatabaseInterface;
     private IPlayerDAO playerDatabaseInterface;
     private ITrophy trophyInterface;
+    private IDraft draftInterface;
+    private IPlayersGenerator playersGeneratorInterface;
+    private IDraftContext draftContextInterface;
+    private IDraftStrategy weakTeamPicksFirstStrategy;
+    private ISimulationFactory simulationFactory;
 
     private ILeagueModel leagueModel;
     private ITeamBuilder teamBuilder;
@@ -94,8 +109,13 @@ public class Injector {
         comparatorInterface = new Comparator();
         serializeDataInterface = new SerializeData();
         deserializeDataInterface = new DeserializeData();
-        tradingInterface = new Trading();
+        tradingInterface = new TradeFactory();
         trophyInterface = new Trophy();
+        draftInterface = new Draft();
+        playersGeneratorInterface = new PlayersGenerator();
+        draftContextInterface = new DraftContext();
+        weakTeamPicksFirstStrategy = new WeakTeamPicksFirstStrategy();
+        simulationFactory = new SimulationFactory();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -241,11 +261,11 @@ public class Injector {
         return simulateGameInterface;
     }
 
-    public ITrading getTradingObject() {
+    public ITradeFactory getTradingObject() {
         return tradingInterface;
     }
 
-    public void setTradingObject(ITrading tradingInterface) {
+    public void setTradingObject(ITradeFactory tradingInterface) {
         this.tradingInterface = tradingInterface;
     }
 
@@ -327,5 +347,29 @@ public class Injector {
 
     public void setPlayerBuilder(IPlayerBuilder playerBuilder) {
         this.playerBuilder = playerBuilder;
+    }
+
+    public IDraft getDraftInterface() {
+        return draftInterface;
+    }
+
+    public void setDraftInterface(IDraft draftInterface) {
+        this.draftInterface = draftInterface;
+    }
+
+    public IPlayersGenerator getPlayersGeneratorInterface() {
+        return playersGeneratorInterface;
+    }
+
+    public IDraftContext getDraftContextInterface() {
+        return draftContextInterface;
+    }
+
+    public IDraftStrategy getWeakTeamPicksFirstStrategy() {
+        return weakTeamPicksFirstStrategy;
+    }
+
+    public ISimulationFactory getSimulationFactory() {
+        return simulationFactory;
     }
 }

@@ -176,6 +176,7 @@ public class JSONImport implements IJSONImport {
                             playerBuilder.setProfile(playerName, position);
                             playerBuilder.setAsCaptain(captain);
                             playerBuilder.setAgeFromBirthDay(playerBirthDay, playerBirthMonth, playerBirthYear);
+                            playerBuilder.setDraftYear();
                             playerBuilder.setPlayerStats(playerSkating, playerShooting, playerChecking, playerSaving);
                             playerLOM = playerBuilder.getResult();
 

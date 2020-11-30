@@ -34,6 +34,7 @@ public class Player implements IPersistModel {
     private boolean injured;
     private int injuryPeriod;
     private int availTOI;
+    private int draftYear;
     private transient List<IPlayerSubscriber> subscribers = new ArrayList<>();
 
     public Player() {
@@ -88,11 +89,11 @@ public class Player implements IPersistModel {
         this.playerID = playerID;
     }
 
-    public void subscribe(IPlayerSubscriber subscriber) {
+    public void attach(IPlayerSubscriber subscriber) {
         subscribers.add(subscriber);
     }
 
-    public void unsubscribe(IPlayerSubscriber subscriber) {
+    public void detach(IPlayerSubscriber subscriber) {
         subscribers.remove(subscriber);
     }
 
@@ -180,7 +181,7 @@ public class Player implements IPersistModel {
                 strength = skating + shooting + (checking / 2);
                 break;
             case "defense":
-                strength = skating + shooting + (shooting / 2);
+                strength = skating + checking + (shooting / 2);
                 break;
             case "goalie":
                 strength = skating + saving;
@@ -365,6 +366,14 @@ public class Player implements IPersistModel {
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public int getDraftYear() {
+        return draftYear;
+    }
+
+    public void setDraftYear(int draftYear) {
+        this.draftYear = draftYear;
     }
 }
 

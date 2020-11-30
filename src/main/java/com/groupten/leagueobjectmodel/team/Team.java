@@ -22,6 +22,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     private boolean aITeam;
     private List<Player> activePlayers = new ArrayList<>();
     private List<Player> inActivePlayers = new ArrayList<>();
+    private List<Player> allPlayers = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
     private double teamStrength;
@@ -48,6 +49,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         if (Player.arePlayerFieldsValid(player.getPlayerName(), player.getPosition(),
                 player.getSkating(), player.getShooting(), player.getChecking(), player.getSaving())) {
             int initialSize = activePlayers.size();
+            player.attach(this);
             activePlayers.add(player);
             return activePlayers.size() > initialSize;
         } else{
@@ -84,6 +86,30 @@ public class Team implements IPlayerSubscriber, IPersistModel {
 
     public double calculateTeamStrength() {
         for (Player player : activePlayers) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+
+        return teamStrength;
+    }
+    public double calculateTotalTeamStrength() {
+        for (Player player : activePlayers) {
+            String pos = player.getPosition();
+            double playerStrength = player.calculateStrength();
+
+            if (player.isInjured()) {
+                teamStrength += (playerStrength / 2);
+            } else {
+                teamStrength += playerStrength;
+            }
+        }
+        for (Player player : inActivePlayers) {
             String pos = player.getPosition();
             double playerStrength = player.calculateStrength();
 
@@ -139,9 +165,28 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         }
     }
 
+    public List<Player> getAllPlayers() {
+        ArrayList<Player> totalPlayers = new ArrayList<>();
+
+        for(Player player : getActivePlayers()) {
+            totalPlayers.add(player);
+        }
+        for (Player player : getInActivePlayers()) {
+            totalPlayers.add(player);
+        }
+        return  totalPlayers;
+    }
+
+    public void setAllPlayers(ArrayList<Player> allPlayers) {
+        this.activePlayers = null;
+        this.inActivePlayers = null;
+        this.allPlayers = allPlayers;
+    }
+
     public List<Player> getActivePlayers() { return activePlayers; }
 
     public void setActivePlayers(List<Player> activePlayers) {
+        attachTeamObserverToPlayer(activePlayers);
         this.activePlayers = activePlayers;
     }
 
@@ -200,6 +245,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     }
 
     public void setInActivePlayers(List<Player> inActivePlayers) {
+        attachTeamObserverToPlayer(inActivePlayers);
         this.inActivePlayers = inActivePlayers;
     }
 
@@ -221,4 +267,11 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         activePlayers = updatedRosters.get(PlayerRosterNames.ACTIVE_PLAYERS_ROSTER.name());
         inActivePlayers = updatedRosters.get(PlayerRosterNames.INACTIVE_PLAYERS_ROSTER.name());
     }
+
+    private void attachTeamObserverToPlayer(List<Player> players) {
+        for (Player player : players) {
+            player.attach(this);
+        }
+    }
+
 }

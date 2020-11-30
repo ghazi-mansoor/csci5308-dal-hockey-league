@@ -11,11 +11,14 @@ import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
+import com.groupten.statemachine.simulation.draft.Draft;
+import com.groupten.statemachine.simulation.draft.IDraft;
+import com.groupten.statemachine.simulation.factories.ISimulationFactory;
 import com.groupten.statemachine.simulation.generateplayoffschedule.IGeneratePlayoffSchedule;
 import com.groupten.statemachine.simulation.initializeseason.IInitializeSeason;
 import com.groupten.statemachine.simulation.injury.Injury;
 import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
-import com.groupten.statemachine.simulation.trading.ITrading;
+import com.groupten.statemachine.simulation.trading.ITradeFactory;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.trophy.ITrophy;
 
@@ -121,8 +124,8 @@ public class Simulation implements ISimulation {
 
     private void executeTrades(){
         IConsole console = Injector.instance().getConsoleObject();
-        ITrading trading = Injector.instance().getTradingObject();
-        trading.startTrading();
+        ITradeFactory trading = Injector.instance().getTradingObject();
+        trading.createTrading().startTrading();
     }
 
     private void aging(){
@@ -130,7 +133,6 @@ public class Simulation implements ISimulation {
         aging.advanceEveryPlayersAge(this.league,1);
         IConsole console = Injector.instance().getConsoleObject();
         if(season.isWinnerDetermined()){
-
             console.printLine("*************************************");
             console.printLine("Season won by: \t\t"+ season.getSeasonWinner().getTeamName());
             console.printLine("*************************************");
@@ -147,26 +149,31 @@ public class Simulation implements ISimulation {
             trophy.awardTrophy();
             trophy.trophyWinners();
 
+            if (numberOfSeasons == 1) {
+                ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
+                IDraft draft = simulationFactory.createDraft();
+                draft.execute(season);
+            }
+
             if(numberOfSeasons > 0){
                 year++;
                 initializeSeason();
             }else{
+                console.printLine("Persisting to json file");
                 persist();
                 end();
             }
         }else{
+            persist();
             advanceTime();
         }
     }
 
     private void persist(){
         IConsole console = Injector.instance().getConsoleObject();
-        console.printLine("Exporting to json file");
         ISerializeData serializeData = Injector.instance().getSerializeDataObject();
         String path = "";
         serializeData.exportData(league, path);
-        console.printLine("Simulation saved to db");
-        league.save();
     }
 
     private void end(){
