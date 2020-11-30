@@ -27,13 +27,14 @@ public class PlayerTradeOffers {
         leagueLOM = leagueModel.getCurrentLeague();
         double initialTeamStrength = 0.0;
         double finalTeamStrength = 0.0;
+        double tempInitialTeamStrength = 0.0;
+        double tempFinalTeamStrength = 0.0;
         double initialTeamStrengthMinRange = 0.0;
         double initialTeamStrengthMaxRange = 0.0;
         double finalTeamStrengthMinRange = 0.0;
         double finalTeamStrengthMaxRange = 0.0;
-        HashMap<Player,Player> tradingPlayers = new HashMap<>();
-        HashMap<HashMap<Player,Player>,Double> tempInitialTeamStrength = new HashMap<>();
-        HashMap<HashMap<Player,Player>,Double> tempFinalTeamStrength = new HashMap<>();
+        HashMap<HashMap<Player,Player>,Double> tradeInitialTeamStrength = new HashMap<>();
+        HashMap<HashMap<Player,Player>,Double> tradeFinalTeamStrength = new HashMap<>();
         HashMap<HashMap<Player,Player>,Double> playerTradeOffer = new HashMap<>();
 
         initialTeamStrengthMinRange = tradeInitializingTeam.calculateTeamStrength() -
@@ -44,11 +45,13 @@ public class PlayerTradeOffers {
                 (tradeFinalizingTeam.calculateTeamStrength()*0.1);
         finalTeamStrengthMaxRange = tradeFinalizingTeam.calculateTeamStrength() +
                 (tradeFinalizingTeam.calculateTeamStrength()*0.1);
+        initialTeamStrength = tradeInitializingTeam.calculateTotalTeamStrength();
+        finalTeamStrength = tradeFinalizingTeam.calculateTotalTeamStrength();
 
         for(Player player1 : initialTradingPlayers ) {
             for(Player player2 : finalTradingPlayers) {
-                initialTeamStrength = tradeInitializingTeam.calculateTotalTeamStrength();
-                finalTeamStrength = tradeFinalizingTeam.calculateTotalTeamStrength();
+                tempInitialTeamStrength = initialTeamStrength;
+                tempFinalTeamStrength = finalTeamStrength;
 
                 initialTeamStrength = initialTeamStrength - player1.calculateStrength();
                 initialTeamStrength = initialTeamStrength + player2.calculateStrength();
@@ -56,14 +59,16 @@ public class PlayerTradeOffers {
                 finalTeamStrength = finalTeamStrength + player1.calculateStrength();
 
                 if(initialTeamStrength > initialTeamStrengthMinRange && finalTeamStrength > finalTeamStrengthMinRange) {
+                    HashMap<Player,Player> tradingPlayers = new HashMap<>();
                     tradingPlayers.put(player1,player2);
-                    tempInitialTeamStrength.put(tradingPlayers,tradeInitializingTeam.calculateTotalTeamStrength());
-                    tempFinalTeamStrength.put(tradingPlayers,tradeFinalizingTeam.calculateTotalTeamStrength());
-                    tradingPlayers.clear();
+                    tradeInitialTeamStrength.put(tradingPlayers,initialTeamStrength);
+                    tradeFinalTeamStrength.put(tradingPlayers,finalTeamStrength);
                 }
+                tempInitialTeamStrength = 0.0;
+                tempFinalTeamStrength = 0.0;
             }
         }
-        Map<HashMap<Player,Player>,Double> initialSortedTeamStrength = tempInitialTeamStrength.entrySet() .stream()
+        Map<HashMap<Player,Player>,Double> initialSortedTeamStrength = tradeInitialTeamStrength.entrySet() .stream()
                 .sorted(Map.Entry.<HashMap<Player,Player>,Double>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         Map.Entry<HashMap<Player,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();

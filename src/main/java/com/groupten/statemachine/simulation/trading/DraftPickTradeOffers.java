@@ -26,7 +26,6 @@ public class DraftPickTradeOffers {
         leagueLOM = leagueModel.getCurrentLeague();
         GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
         HashMap<Player,Double> finalTradingPlayersStrength = new HashMap<>();
-        HashMap<Integer,Player> playerDraftPickTrading = new HashMap<>();
         HashMap<HashMap<Integer,Player>,Double> afterTradingTeamStrength = new HashMap<>();
         HashMap<Integer,Player> draftPickTradeOffer = new HashMap<>();
         Player playerTraded;
@@ -54,12 +53,15 @@ public class DraftPickTradeOffers {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         Set<Player> playerSet = finalSortedTradingPlayersStrength.keySet();
         ArrayList<Player> finalSortedTradingPlayers = new ArrayList<Player>(playerSet);
-
-        for(int i=0;i<numberOfDraftPicks;i++) {
+        Double initialTeamStrength = tradeInitializingTeam.calculateTotalTeamStrength();
+        Double tempInitialTeamStrength = 0.0;
+        for(int i=1;i<=numberOfDraftPicks;i++) {
+            HashMap<Integer,Player> playerDraftPickTrading = new HashMap<>();
+            tempInitialTeamStrength = initialTeamStrength;
             playerTraded = finalSortedTradingPlayers.get(i);
-            tradeInitializingTeam.addActivePlayer(playerTraded);
+            tempInitialTeamStrength = tempInitialTeamStrength + playerTraded.calculateStrength();
             playerDraftPickTrading.put(i,playerTraded);
-            afterTradingTeamStrength.put(playerDraftPickTrading,tradeInitializingTeam.calculateTotalTeamStrength());
+            afterTradingTeamStrength.put(playerDraftPickTrading,tempInitialTeamStrength);
         }
 
         Map<HashMap<Integer,Player>,Double> sortedAfterTradingTeamStrength = afterTradingTeamStrength.entrySet() .stream()

@@ -4,15 +4,6 @@ public class TradeFactory implements ITradeFactory{
 
     private static TradeFactory tradeFactorySingleton = null;
 
-    public static ITradeFactory FactorySingleton()
-    {
-        if (tradeFactorySingleton == null)
-        {
-            tradeFactorySingleton = new TradeFactory();
-        }
-        return tradeFactorySingleton;
-    }
-
     @Override
     public PlayerTradeOffers createPlayerTradeOffers() {
         return new PlayerTradeOffers();

@@ -22,7 +22,7 @@ public class TradingTest {
     private ILeagueModel leagueModel;
     private League leagueLOM;
     GameConfig.Trading tradingConfig;
-    ITradeFactory tradeFactory = TradeFactory.FactorySingleton();
+    ITradeFactory tradeFactory = Injector.instance().getTradingObject();
     PlayerTradeOffers playerTradeOffers = tradeFactory.createPlayerTradeOffers();
     PlayersTradeOffers playersTradeOffers = tradeFactory.createPlayersTradeOffers();
     DraftPickTradeOffers draftPickTradeOffers = tradeFactory.createDraftPickTradeOffers();
@@ -40,67 +40,15 @@ public class TradingTest {
     }
 
     @Test
-    public void UIDropPlayersTest(){
-        for (Conference c : leagueLOM.getConferences().values()) {
-            for (Division d : c.getDivisions().values()) {
-                for (Team team : d.getTeams().values()) {
-                   // System.out.println(team.getTeamName()+"  "+team.getAllPlayers().size());
-                   while(team.getAllPlayers().size() > 30) {
-                       trading.UIDropPlayers(team);
-                       assertNotEquals(team.getAllPlayers().size(),30);
-                   }
-                   assertEquals(team.getAllPlayers().size(),30);
-                }
-            }
-        }
-    }
-
-    @Test
-    public void UIGetFromFreeAgentsTest(){
-        for (Conference c : leagueLOM.getConferences().values()) {
-            for (Division d : c.getDivisions().values()) {
-                for (Team team : d.getTeams().values()) {
-                    //System.out.println(team.getTeamName()+"  "+team.getAllPlayers().size());
-                    while(team.getAllPlayers().size() < 30) {
-                        trading.UIDropPlayers(team);
-                        assertNotEquals(team.getAllPlayers().size(),30);
-                    }
-                    assertEquals(team.getAllPlayers().size(),30);
-                }
-            }
-        }
-    }
-
-    @Test
-    public void UITradeOfferTest(){
-
-        if(trading.UITradeOffer())
-        {
-            assertTrue(trading.isTrade());
-        }
-        else
-        {
-            assertFalse(trading.isTrade());
-        }
-
-    }
-
-    @Test
-    public void UIPlayerTradeAcceptTest(){
-        HashMap<Player, Player> tradingPlayers = new HashMap<>();
-
-    }
-
-    @Test
     public void getAveragePlayerStrengthTest(){
         assertEquals(trading.getAverageDefenseStrength(),0.0,0);
         assertEquals(trading.getAverageForwardStrength(),0.0,0);
         assertEquals(trading.getAverageGoalieStrength(),0.0,0);
 
         trading.getAveragePlayerStrength();
-        /*System.out.println(trading.getAverageDefenseStrength());
+        System.out.println(trading.getAverageDefenseStrength());
         System.out.println(trading.getAverageForwardStrength());
-        System.out.println(trading.getAverageGoalieStrength());*/
+        System.out.println(trading.getAverageGoalieStrength());
         assertNotEquals(trading.getAverageDefenseStrength(),0.0,0);
         assertNotEquals(trading.getAverageForwardStrength(),0.0,0);
         assertNotEquals(trading.getAverageGoalieStrength(),0.0,0);
@@ -153,6 +101,225 @@ public class TradingTest {
         trading.getInitialAndFinalTradingPlayers(trading.getWeakSection());
         assertNotEquals(trading.getInitialTradingPlayers().size(),0);
         assertNotEquals(trading.getFinalTradingPlayers().size(),0);
+    }
+
+    @Test
+    public void computePlayerTradeOffersTest() {
+
+        trading.setWeakSection("defense");
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    if(team.getTeamName().equals("Ottawa Blues")) {
+                        trading.setTradeInitializingTeam(team);
+                        for(Player player : trading.getTradeInitializingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+
+                            }
+                            else {
+                                trading.getInitialTradingPlayers().add(player);
+                            }
+                        }
+                    } else if(team.getTeamName().equals("Winnipeg Hound Dogs")) {
+                        trading.setTradeFinalizingTeam(team);
+                        for(Player player : trading.getTradeFinalizingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+                                trading.getFinalTradingPlayers().add(player);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HashMap<HashMap<Player,Player>,Double> playerTradeOffer = playerTradeOffers.computePlayerTradeOffers(trading.getWeakSection(),
+                trading.getTradeInitializingTeam(),trading.getTradeFinalizingTeam(),trading.getInitialTradingPlayers(),trading.getFinalTradingPlayers());
+        assertEquals(playerTradeOffer.size(),1);
+    }
+
+    @Test
+    public void computePlayersTradeOffersTest() {
+        trading.setWeakSection("defense");
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    if(team.getTeamName().equals("Ottawa Blues")) {
+                        trading.setTradeInitializingTeam(team);
+                        for(Player player : trading.getTradeInitializingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+
+                            }
+                            else {
+                                trading.getInitialTradingPlayers().add(player);
+                            }
+                        }
+                    } else if(team.getTeamName().equals("Winnipeg Hound Dogs")) {
+                        trading.setTradeFinalizingTeam(team);
+                        for(Player player : trading.getTradeFinalizingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+                                trading.getFinalTradingPlayers().add(player);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HashMap<HashMap<ArrayList<Player>, Player>, Double> playersTradeOffer = playersTradeOffers.computePlayersTradeOffers(trading.getWeakSection(),
+                trading.getTradeInitializingTeam(),trading.getTradeFinalizingTeam(),trading.getInitialTradingPlayers(),trading.getFinalTradingPlayers());
+        assertEquals(playersTradeOffer.size(),1);
+    }
+
+    @Test
+    public void computeDraftPickTradeOffersTest() {
+        trading.setWeakSection("defense");
+        trading.setAverageGoalieStrength(26.33096590909091);
+        trading.setAverageForwardStrength(26.741666666666667);
+        trading.setAverageDefenseStrength(22.15625);
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    if(team.getTeamName().equals("Ottawa Blues")) {
+                        trading.setTradeInitializingTeam(team);
+                    } else if(team.getTeamName().equals("Winnipeg Hound Dogs")) {
+                        trading.setTradeFinalizingTeam(team);
+                        for(Player player : trading.getTradeFinalizingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+                                trading.getFinalTradingPlayers().add(player);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HashMap<Integer,Player> draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(trading.getWeakSection(),
+                trading.getTradeInitializingTeam(),trading.getTradeFinalizingTeam(),trading.getFinalTradingPlayers(),trading.getAverageGoalieStrength(),
+                trading.getAverageForwardStrength(),trading.getAverageDefenseStrength());
+        assertEquals(draftPickTradeOffer.size(),1);
+    }
+
+    @Test
+    public void UITradeOfferTest(){
+
+        if(trading.UITradeOffer())
+        {
+            assertTrue(trading.isTrade());
+        }
+        else
+        {
+            assertFalse(trading.isTrade());
+        }
+
+    }
+
+    @Test
+    public void UIPlayerTradeAcceptTest(){
+        HashMap<Player, Player> tradingPlayers = new HashMap<>();
+        trading.setWeakSection("defense");
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    if(team.getTeamName().equals("Ottawa Blues")) {
+                        trading.setTradeInitializingTeam(team);
+                        trading.getTradeInitializingTeam().setLossPoint(11);
+                        for(Player player : trading.getTradeInitializingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+
+                            }
+                            else {
+                                trading.getInitialTradingPlayers().add(player);
+                            }
+                        }
+                    } else if(team.getTeamName().equals("Winnipeg Hound Dogs")) {
+                        trading.setTradeFinalizingTeam(team);
+                        for(Player player : trading.getTradeFinalizingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+                                trading.getFinalTradingPlayers().add(player);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HashMap<HashMap<Player,Player>,Double> playerTradeOffer = playerTradeOffers.computePlayerTradeOffers(trading.getWeakSection(),
+                trading.getTradeInitializingTeam(),trading.getTradeFinalizingTeam(),trading.getInitialTradingPlayers(),trading.getFinalTradingPlayers());
+        Map.Entry<HashMap<Player,Player>,Double> entry = playerTradeOffer.entrySet().iterator().next();
+        tradingPlayers.put(entry.getKey().entrySet().iterator().next().getKey(),
+                entry.getKey().entrySet().iterator().next().getValue());
+        assertEquals(trading.getTradeInitializingTeam().getAllPlayers().size(),30);
+        assertNotEquals(trading.getTradeInitializingTeam().getLossPoint(),0);
+        trading.UIPlayerTradeAccept(tradingPlayers);
+        assertEquals(trading.getTradeInitializingTeam().getLossPoint(),0);
+    }
+
+    @Test
+    public void UIPlayersTradeAcceptTest(){
+        HashMap<ArrayList<Player>, Player> tradingPlayers = new HashMap<>();
+        trading.setWeakSection("defense");
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    if(team.getTeamName().equals("Ottawa Blues")) {
+                        trading.setTradeInitializingTeam(team);
+                        trading.getTradeInitializingTeam().setLossPoint(11);
+                        for(Player player : trading.getTradeInitializingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+
+                            }
+                            else {
+                                trading.getInitialTradingPlayers().add(player);
+                            }
+                        }
+                    } else if(team.getTeamName().equals("Winnipeg Hound Dogs")) {
+                        trading.setTradeFinalizingTeam(team);
+                        for(Player player : trading.getTradeFinalizingTeam().getAllPlayers()) {
+                            if(player.getPosition().equals(trading.getWeakSection())) {
+                                trading.getFinalTradingPlayers().add(player);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HashMap<HashMap<ArrayList<Player>, Player>, Double> playersTradeOffer = playersTradeOffers.computePlayersTradeOffers(trading.getWeakSection(),
+                trading.getTradeInitializingTeam(),trading.getTradeFinalizingTeam(),trading.getInitialTradingPlayers(),trading.getFinalTradingPlayers());
+        Map.Entry<HashMap<ArrayList<Player>,Player>,Double> entry = playersTradeOffer.entrySet().iterator().next();
+        tradingPlayers.put(entry.getKey().entrySet().iterator().next().getKey(),
+                entry.getKey().entrySet().iterator().next().getValue());
+        assertEquals(trading.getTradeInitializingTeam().getAllPlayers().size(),30);
+        assertNotEquals(trading.getTradeInitializingTeam().getLossPoint(),0);
+        trading.UIPlayersTradeAccept(tradingPlayers);
+        assertEquals(trading.getTradeInitializingTeam().getLossPoint(),0);
+    }
+
+    @Test
+    public void UIDropPlayersTest(){
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    // System.out.println(team.getTeamName()+"  "+team.getAllPlayers().size());
+                    while(team.getAllPlayers().size() > 30) {
+                        trading.UIDropPlayers(team);
+                        assertNotEquals(team.getAllPlayers().size(),30);
+                    }
+                    assertEquals(team.getAllPlayers().size(),30);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void UIGetFromFreeAgentsTest(){
+        for (Conference c : leagueLOM.getConferences().values()) {
+            for (Division d : c.getDivisions().values()) {
+                for (Team team : d.getTeams().values()) {
+                    //System.out.println(team.getTeamName()+"  "+team.getAllPlayers().size());
+                    while(team.getAllPlayers().size() < 30) {
+                        trading.UIDropPlayers(team);
+                        assertNotEquals(team.getAllPlayers().size(),30);
+                    }
+                    assertEquals(team.getAllPlayers().size(),30);
+                }
+            }
+        }
     }
 
 }

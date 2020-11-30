@@ -39,9 +39,6 @@ public class PlayersTradeOffers {
         HashMap<HashMap<ArrayList<Player>,Player>,Double> tempInitialTeamStrength = new HashMap<>();
         HashMap<HashMap<ArrayList<Player>,Player>,Double> tempFinalTeamStrength = new HashMap<>();
         HashMap<HashMap<ArrayList<Player>,Player>,Double> playersTradeOffer = new HashMap<>();
-		/*ArrayList<ArrayList<Player>> initialCombinationsOfPlayers = new ArrayList<>();
-		HashMap<ArrayList<Player>,Player> playersToTrade = new HashMap<>();*/
-        //ArrayList<Player> finalPlayersToTrade = new ArrayList<>();
 
         if(maximumPlayerPerTrade < maxPlayersPerTrade) {
             for(int j = 1; j <= initialTradingPlayers.size() ; j++) {
@@ -62,7 +59,6 @@ public class PlayersTradeOffers {
                 }
                 else {
                     initialCombinationsOfPlayers.add(playerCombination);
-                    playerCombination.clear();
                 }
             }
             maximumPlayerPerTrade++;
@@ -132,9 +128,7 @@ public class PlayersTradeOffers {
                 }
                 finalPositionToTrade = finalPlayerToTrade.getPosition();
                 initialTeamStrengthSum = initialTeamStrengthSum - initialPlayersToTradeStrengthSum;
-                //finalTeamStrengthSum = finalTeamStrengthSum + initialPlayersToTradeStrengthSum;
                 initialTeamStrengthSum = initialTeamStrengthSum + finalPlayerToTrade.calculateStrength();
-                //finalTeamStrengthSum = finalTeamStrengthSum - finalPlayerToTrade.calculateStrength();
                 Collections.sort(finalTeamStrength);
                 Collections.reverse(finalTeamStrength);
 
@@ -151,16 +145,20 @@ public class PlayersTradeOffers {
                 {
                     finalTeamStrengthSum = finalTeamStrengthSum + finalStrength;
                 }
+
                 for(String position : initialPositionsToTrade) {
+                    int goalie = 0;
+                    int forward = 0;
+                    int defense = 0;
                     if(position.equals("goalie")) {
-                        initialTeamStrengthSum = initialTeamStrengthSum + freeAgentGoalieStrength.get(0);
-                        freeAgentGoalieStrength.remove(0);
+                        initialTeamStrengthSum = initialTeamStrengthSum + freeAgentGoalieStrength.get(goalie);
+                        goalie++;
                     } else if(position.equals("forward")) {
-                        initialTeamStrengthSum = initialTeamStrengthSum + freeAgentForwardStrength.get(0);
-                        freeAgentForwardStrength.remove(0);
+                        initialTeamStrengthSum = initialTeamStrengthSum + freeAgentForwardStrength.get(forward);
+                        forward++;
                     } else if(position.equals("defense")) {
-                        initialTeamStrengthSum = initialTeamStrengthSum + freeAgentDefenseStrength.get(0);
-                        freeAgentDefenseStrength.remove(0);
+                        initialTeamStrengthSum = initialTeamStrengthSum + freeAgentDefenseStrength.get(defense);
+                        defense++;
                     }
                 }
                 if(initialTeamStrengthSum >= initialTeamStrengthMinRange && finalTeamStrengthSum >= finalTeamStrengthMinRange) {
