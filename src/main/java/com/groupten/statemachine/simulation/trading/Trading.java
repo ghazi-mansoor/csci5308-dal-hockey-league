@@ -7,6 +7,7 @@ import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.player.IPlayerSubscriber;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.ITeamRoster;
 import com.groupten.leagueobjectmodel.team.Team;
@@ -46,6 +47,7 @@ public class Trading {
 	private boolean tradeOccured = false;
 	private ArrayList<Player> initialTradingPlayers = new ArrayList<>();
 	private ArrayList<Player> finalTradingPlayers = new ArrayList<>();
+	private transient List<ITradingSubscriber> subscribers = new ArrayList<>();
 
 	public Team getTradeInitializingTeam() {
 		return tradeInitializingTeam;
@@ -197,8 +199,24 @@ public class Trading {
 		getFinalTeam();
 		getInitialAndFinalTradingPlayers(weakSection);
 		generateTradeOffers();
+		adjustingTeamPlayers();
+	}
+	public void attach(ITradingSubscriber subscriber) {
+		subscribers.add(subscriber);
 	}
 
+	public void detach(ITradingSubscriber subscriber) {
+		subscribers.remove(subscriber);
+	}
+
+	private void notifySubscribers() {
+		for (ITradingSubscriber subscriber : subscribers) {
+			List<Team> teams = new ArrayList<>();
+			teams.add(tradeInitializingTeam);
+			teams.add(tradeFinalizingTeam);
+			subscriber.update(teams);
+		}
+	}
 	public void getInitialTeam() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
