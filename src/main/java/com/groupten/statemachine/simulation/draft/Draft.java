@@ -8,6 +8,8 @@ import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftStrategy;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +25,7 @@ public class Draft implements IDraft {
     private List<Player> goaliePlayersForDraft = new ArrayList<>();
     private IDraftContext draftContext;
     private IDraftStrategy draftStrategy;
+    private static final Logger logger = LogManager.getLogger(Draft.class.getName());
 
     @Override
     public void execute(Season season) {
@@ -93,7 +96,7 @@ public class Draft implements IDraft {
         }
 
         while (currentDraftRound < draftCount) {
-            System.out.println("Draft Round " + currentDraftRound + " for drafting players at position: " + position);
+            logger.info("Draft Round " + currentDraftRound + " for drafting players at position: " + position);
             draftContext.executeStrategy(combinedSortedTeamStandings, draftPlayersList);
             currentDraftRound += 1;
         }

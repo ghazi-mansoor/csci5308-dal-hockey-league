@@ -13,6 +13,8 @@ import com.groupten.statemachine.simulation.draft.generateplayers.constants.Goal
 import java.util.*;
 
 public class PlayersGenerator implements IPlayersGenerator {
+    private final String[] firstNamesToPickFrom = {"Raghav", "Wen", "Prashant", "Fred", "Tina", "Walter", "Mozhgan", "Karan", "Sammy", "Don", "Nancy", "Shakuntala", "Mary", "Abraham", "Pat"};
+    private final String[] lastNamesToPickFrom = {"Patel", "Rogers", "Plant", "Williamson", "Nelson", "Wu", "Morrison", "Hawkey", "Marley", "Chang", "Singh", "Hendrix", "Burbchuk", "Fei", "Greenbaum"};
     private double minimumAge = PlayerAgeRange.MINIMUM_AGE.getDoubleValue();
     private double maximumAge = PlayerAgeRange.MAXIMUM_AGE.getDoubleValue();
     private double minimumSkatingStat;
@@ -48,11 +50,13 @@ public class PlayersGenerator implements IPlayersGenerator {
             initializePlayerStatsRangesForForwardPosition();
         } else if (position.equals(PlayerPosition.DEFENSE.name())) {
             initializePlayerStatsRangesForDefensePosition();
+        } else if (position.equals(PlayerPosition.GOALIE.name())){
+            initializePlayerStatsRangesForGoaliePosition();
         }
 
         for (int i = 0; i < numberOfPlayers; i++) {
             playerBuilder.reset();
-            String playerName = "Player " + i;
+            String playerName = generatePlayerNameRandomly();
             playerBuilder.setProfile(playerName, position);
 
             double playerAge = generateRandomValueBetweenInterval(minimumAge, maximumAge);
@@ -89,6 +93,12 @@ public class PlayersGenerator implements IPlayersGenerator {
     private double generateRandomValueBetweenInterval(double intervalStart, double intervalEnd) {
         double random = new Random().nextDouble();
         return intervalStart + (random * (intervalEnd - intervalStart));
+    }
+
+    private String generatePlayerNameRandomly() {
+        int firstNameIndex = new Random().nextInt(firstNamesToPickFrom.length) ;
+        int lastNameIndex = new Random().nextInt(lastNamesToPickFrom.length);
+        return firstNamesToPickFrom[firstNameIndex] + " " + lastNamesToPickFrom[lastNameIndex];
     }
 
     private void initializePlayerStatsRangesForForwardPosition() {
