@@ -718,7 +718,8 @@ public class Trading {
 		}
 		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
 		tradeInitializingTeam.setLossPoint(0);
-		ITeamRoster teamRoster = new TeamRoster(tradeInitializingTeam.getAllPlayers());
+		ITeamRoster teamRoster = new TeamRoster();
+		teamRoster.setPlayers(tradeInitializingTeam.getAllPlayers());
 		tradeInitializingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradeInitializingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return draftPicksTraded;
@@ -770,7 +771,8 @@ public class Trading {
 		}
 		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
 		tradeInitializingTeam.setLossPoint(0);
-		ITeamRoster teamRoster = new TeamRoster(tradeInitializingTeam.getAllPlayers());
+		ITeamRoster teamRoster = new TeamRoster();
+		teamRoster.setPlayers(tradeInitializingTeam.getAllPlayers());
 		tradeInitializingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradeInitializingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return draftPicksTraded;
@@ -876,7 +878,8 @@ public class Trading {
 				}
 			}
 		}
-		ITeamRoster teamRoster = new TeamRoster(totalPlayers);
+		ITeamRoster teamRoster = new TeamRoster();
+		teamRoster.setPlayers(totalPlayers);
 		tradingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return tradingTeam;
@@ -998,7 +1001,8 @@ public class Trading {
 			totalPlayers.addAll(updatedPlayersList);
 			//tradingTeam.setPlayers(updatedPlayersList);
 		}
-		ITeamRoster teamRoster = new TeamRoster(totalPlayers);
+		ITeamRoster teamRoster = new TeamRoster();
+		teamRoster.setPlayers(totalPlayers);
 		tradingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return tradingTeam;
@@ -1088,7 +1092,8 @@ public class Trading {
 				}
 			}
 		}
-		ITeamRoster teamRoster = new TeamRoster(totalPlayers);
+		ITeamRoster teamRoster = new TeamRoster();
+		teamRoster.setPlayers(totalPlayers);
 		tradingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
 		return tradingTeam;
