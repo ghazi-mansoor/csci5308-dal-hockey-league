@@ -4,7 +4,6 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.IPlayerBuilder;
 import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.leagueobjectmodel.player.PlayerBuilder;
 import com.groupten.leagueobjectmodel.player.PlayerPosition;
 import com.groupten.statemachine.simulation.draft.DraftConstants;
 
@@ -70,9 +69,10 @@ public class PlayersGenerator implements IPlayersGenerator {
             double savingStat = generateRandomValueBetweenInterval(minimumSavingStat, maximumSavingStat);
             playerBuilder.setPlayerStats(skatingStat, shootingStat, checkingStat, savingStat);
 
+            players.add(playerBuilder.getResult());
         }
 
-        return null;
+        return players;
     }
 
     private int calculateNumberOfPlayersToGenerate(String position) {

@@ -34,6 +34,8 @@ import com.groupten.statemachine.simulation.aging.Aging;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.draft.Draft;
 import com.groupten.statemachine.simulation.draft.IDraft;
+import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
+import com.groupten.statemachine.simulation.draft.generateplayers.PlayersGenerator;
 import com.groupten.statemachine.simulation.draft.strategy.DraftContext;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
 import com.groupten.statemachine.simulation.generateplayoffschedule.GeneratePlayoffSchedule;
@@ -77,6 +79,7 @@ public class Injector {
     private ITrophy trophyInterface;
     private IDraft draftInterface;
     private IDraftContext draftContextInterface;
+    private IPlayersGenerator playersGeneratorInterface;
 
     private ILeagueModel leagueModel;
     private ITeamBuilder teamBuilder;
@@ -104,6 +107,7 @@ public class Injector {
         trophyInterface = new Trophy();
         draftInterface = new Draft();
         draftContextInterface = new DraftContext();
+        playersGeneratorInterface = new PlayersGenerator();
 
         leagueDatabaseInterface = new LeagueDAO();
         conferenceDatabaseInterface = new ConferenceDAO();
@@ -347,5 +351,9 @@ public class Injector {
 
     public IDraftContext getDraftContextInterface() {
         return draftContextInterface;
+    }
+
+    public IPlayersGenerator getPlayersGeneratorInterface() {
+        return playersGeneratorInterface;
     }
 }
