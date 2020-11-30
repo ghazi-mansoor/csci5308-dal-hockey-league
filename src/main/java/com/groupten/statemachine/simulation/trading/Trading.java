@@ -15,7 +15,7 @@ import com.groupten.leagueobjectmodel.team.TeamRoster;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Trading implements ITrading {
+public class Trading {
 
 	public Trading() {
 	}
@@ -188,7 +188,7 @@ public class Trading implements ITrading {
 		this.finalTradingPlayers = finalTradingPlayers;
 	}
 
-	@Override
+
 	public void startTrading() {
 		getAveragePlayerStrength();
 		getInitialTeam();
@@ -196,9 +196,9 @@ public class Trading implements ITrading {
 		getFinalTeam();
 		getInitialAndFinalTradingPlayers(weakSection);
 		generateTradeOffers();
+		adjustTeamPlayers();
 	}
 
-	@Override
 	public void getInitialTeam() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -222,7 +222,6 @@ public class Trading implements ITrading {
 		}
 	}
 
-	@Override
 	public void calculateWeakSection() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -285,7 +284,6 @@ public class Trading implements ITrading {
 		}
 	}
 
-	@Override
 	public void getFinalTeam() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -347,9 +345,8 @@ public class Trading implements ITrading {
 		}
 	}
 
-	@Override
 	public void generateTradeOffers() {
-		ITradeFactory tradeFactory = TradeFactory.FactorySingleton();
+		ITradeFactory tradeFactory = Injector.instance().getTradingObject();
 		PlayerTradeOffers playerTradeOffers = tradeFactory.createPlayerTradeOffers();
 		PlayersTradeOffers playersTradeOffers = tradeFactory.createPlayersTradeOffers();
 		DraftPickTradeOffers draftPickTradeOffers = tradeFactory.createDraftPickTradeOffers();
@@ -441,7 +438,6 @@ public class Trading implements ITrading {
 
 	}
 
-	@Override
 	public boolean UITradeOffer() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -461,7 +457,6 @@ public class Trading implements ITrading {
 		return trade;
 	}
 
-	@Override
 	public void UIPlayerTradeAccept(HashMap<Player, Player> tradingPlayers) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -510,10 +505,8 @@ public class Trading implements ITrading {
 		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
 		console.printLine("Player trade successful!");
 		tradeInitializingTeam.setLossPoint(0);
-		adjustTeamPlayers();
 	}
 
-	@Override
 	public void UIPlayersTradeAccept(HashMap<ArrayList<Player>, Player> tradingPlayers) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -572,10 +565,8 @@ public class Trading implements ITrading {
 		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
 		console.printLine("Players trade successful!");
 		tradeInitializingTeam.setLossPoint(0);
-		adjustTeamPlayers();
 	}
 
-	@Override
 	public void userPlayerTradeAccept(HashMap<Player, Player> tradingPlayers) {
 		int option = 0;
 		console = Injector.instance().getConsoleObject();
@@ -632,10 +623,8 @@ public class Trading implements ITrading {
 			tradeInitializingTeam.setLossPoint(0);
 			break;
 		}
-		adjustTeamPlayers();
 	}
 
-	@Override
 	public void userPlayersTradeAccept(HashMap<ArrayList<Player>, Player> tradingPlayers) {
 		int option = 0;
 		console = Injector.instance().getConsoleObject();
@@ -699,10 +688,8 @@ public class Trading implements ITrading {
 			tradeInitializingTeam.setLossPoint(0);
 			break;
 		}
-		adjustTeamPlayers();
 	}
 
-	@Override
 	public HashMap<HashMap<Team,Team>,Integer> UIdraftPickTradeAccept(HashMap<Integer, Player> draftPickTradeOffer) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -734,11 +721,9 @@ public class Trading implements ITrading {
 		ITeamRoster teamRoster = new TeamRoster(tradeInitializingTeam.getAllPlayers());
 		tradeInitializingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradeInitializingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
-		adjustTeamPlayers();
 		return draftPicksTraded;
 	}
 
-	@Override
 	public HashMap<HashMap<Team,Team>,Integer> userDraftPickTradeAccept(HashMap<Integer, Player> draftPickTradeOffer) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -788,11 +773,9 @@ public class Trading implements ITrading {
 		ITeamRoster teamRoster = new TeamRoster(tradeInitializingTeam.getAllPlayers());
 		tradeInitializingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
 		tradeInitializingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
-		adjustTeamPlayers();
 		return draftPicksTraded;
 	}
 
-	@Override
 	public void adjustTeamPlayers() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -837,7 +820,6 @@ public class Trading implements ITrading {
 
 	}
 
-	@Override
 	public Team UIDropPlayers(Team tradingTeam) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -900,7 +882,6 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
-	@Override
 	public Team userDropPlayers(Team tradingTeam) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -1023,7 +1004,6 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
-	@Override
 	public Team UIGetFromFreeAgents(Team tradingTeam) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -1114,7 +1094,6 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
-	@Override
 	public Team userGetFromFreeAgents(Team tradingTeam) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -1246,7 +1225,6 @@ public class Trading implements ITrading {
 		return tradingTeam;
 	}
 
-	@Override
 	public void getAveragePlayerStrength(){
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -1305,7 +1283,6 @@ public class Trading implements ITrading {
 		getInitialTeam();
 	}
 
-	@Override
 	public void getInitialAndFinalTradingPlayers(String weakSection) {
 		for(Player player : tradeInitializingTeam.getActivePlayers()) {
 			if(player.getPosition().equals(weakSection)) {
