@@ -29,6 +29,7 @@ public class TradingTest {
     PlayersTradeOffers playersTradeOffers = tradeFactory.createPlayersTradeOffers();
     DraftPickTradeOffers draftPickTradeOffers = tradeFactory.createDraftPickTradeOffers();
     Trading trading = tradeFactory.createTrading();
+    AdjustTeamPlayers adjustTeamPlayers = tradeFactory.createAdjustTeamPlayers();
     @Before
     public void instantiate(){
         console = Injector.instance().getConsoleObject();
@@ -58,14 +59,14 @@ public class TradingTest {
         for (Conference c : leagueLOM.getConferences().values()) {
             for (Division d : c.getDivisions().values()) {
                 for (Team team : d.getTeams().values()) {
-                    if(team.getTeamName().equals("Ottawa Blues")) {
-                        team.setLossPoint(12);
+                    if(team.getTeamName().equals("Cairo Blazers")) {
+                        team.setLossPoint(20);
                     }
                 }
             }
         }
         trading.getInitialTeam();
-        assertEquals(trading.getTradeInitializingTeam().getTeamName(), "Ottawa Blues");
+        assertEquals(trading.getTradeInitializingTeam().getTeamName(), "Cairo Blazers");
 
     }
 
@@ -295,7 +296,7 @@ public class TradingTest {
                 for (Team team : d.getTeams().values()) {
                     // System.out.println(team.getTeamName()+"  "+team.getAllPlayers().size());
                     while(team.getAllPlayers().size() > 30) {
-                        trading.UIDropPlayers(team);
+                        adjustTeamPlayers.UIDropPlayers(team);
                         assertNotEquals(team.getAllPlayers().size(),30);
                     }
                     assertEquals(team.getAllPlayers().size(),30);
@@ -311,7 +312,7 @@ public class TradingTest {
                 for (Team team : d.getTeams().values()) {
                     //System.out.println(team.getTeamName()+"  "+team.getAllPlayers().size());
                     while(team.getAllPlayers().size() < 30) {
-                        trading.UIDropPlayers(team);
+                        adjustTeamPlayers.UIDropPlayers(team);
                         assertNotEquals(team.getAllPlayers().size(),30);
                     }
                     assertEquals(team.getAllPlayers().size(),30);
