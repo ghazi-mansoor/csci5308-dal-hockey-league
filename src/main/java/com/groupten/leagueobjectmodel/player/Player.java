@@ -34,9 +34,11 @@ public class Player implements IPersistModel {
     private boolean injured;
     private int injuryPeriod;
     private int availTOI;
-    private List<IPlayerSubscriber> subscribers = new ArrayList<>();
+    private transient List<IPlayerSubscriber> subscribers = new ArrayList<>();
 
-    public Player() {}
+    public Player() {
+        this.availTOI = MAX_TOI;
+    }
 
     public Player(String playerName, String position, double age, double skating, double shooting, double checking, double saving) {
         this.playerName = playerName;

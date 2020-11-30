@@ -15,7 +15,7 @@ public class AlgoStrategy implements IStrategy{
     int SHIFT_FORWARD = 3;
     int SHIFT_DEFENSE = 2;
     int SHIFT_GOALIE = 1;
-    double PENALTY_CHANCE = 0.20;
+    double PENALTY_CHANCE = 0.2;
     double SAVING_BENCHMARK = 14;
 
     Random rand = new Random();
@@ -48,8 +48,10 @@ public class AlgoStrategy implements IStrategy{
     @Override
     public Team getWinner(Season season, Team team1, Team team2) {
         this.season = season;
+
         team1Shifts = prepareShifts(team1.getActivePlayers());
         team2Shifts = prepareShifts(team2.getActivePlayers());
+
         int team1Goals = 0;
         int team2Goals = 0;
 

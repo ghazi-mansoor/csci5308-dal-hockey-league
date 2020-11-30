@@ -9,6 +9,7 @@ import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.team.ITeamBuilder;
 import com.groupten.leagueobjectmodel.team.Team;
 
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ import java.util.List;
 
 public class CreateTeam implements ICreateTeam {
 
-    private final int NO_OF_GOALIE = 2;
-    private final int NO_OF_SKATERS = 18;
+    private final int NO_OF_GOALIE = 4;
+    private final int NO_OF_DEFENSE = 16;
+    private final int NO_OF_FORWARDS = 16;
 
     private String conferenceName, divisionName, teamName;
     private GeneralManager generalManager;
@@ -26,7 +28,8 @@ public class CreateTeam implements ICreateTeam {
     private List<Player> freeAgents = new ArrayList<>();
     private League leagueLOM;
 
-    public CreateTeam() {}
+    public CreateTeam() {
+    }
 
     @Override
     public void userPromptForNewTeam() {
@@ -178,35 +181,81 @@ public class CreateTeam implements ICreateTeam {
     }
 
     @Override
-    public boolean selectTeamSkaters() {
+    public boolean selectTeamForwards() {
         boolean status = false;
 
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         IConsole console = Injector.instance().getConsoleObject();
         leagueLOM = leagueModel.getCurrentLeague();
 
-        for (int i = 1; i <= NO_OF_SKATERS; i++) {
-            List<Player> skaters = new ArrayList<>(leagueLOM.getFreeAgentsSkaters());
-            Player skater;
+        for (int i = 1; i <= NO_OF_FORWARDS; i++) {
+            List<Player> forwards = new ArrayList<>(leagueLOM.getFreeAgentsForwards());
+            Player forward;
 
-            console.printLine("\nPlease select a skater\n");
+            console.printLine("\nPlease select a forward\n");
 
             console.printLine("ID\t\tAge\t\t\tSkating\t\t\tShooting\t\tChecking\t\tSaving\t\tPosition\t\tName");
 
-            for (int j = 0; j < skaters.size(); j++) {
-                skater = skaters.get(j);
-                console.printLine((j + 1) + "\t\t" + skater.getAge() + "\t\t" + skater.getSkating() +
-                        "\t\t\t" + skater.getShooting() + "\t\t\t\t" + skater.getChecking() +
-                        "\t\t\t\t" + skater.getSaving() + "\t\t\t" + skater.getPosition() + "\t\t\t" + skater.getPlayerName());
+            for (int j = 0; j < forwards.size(); j++) {
+                forward = forwards.get(j);
+                console.printLine((j + 1) + "\t\t" + forward.getAge() + "\t\t" + forward.getSkating() +
+                        "\t\t\t" + forward.getShooting() + "\t\t\t\t" + forward.getChecking() +
+                        "\t\t\t\t" + forward.getSaving() + "\t\t\t" + forward.getPosition() + "\t\t\t" + forward.getPlayerName());
             }
 
-            console.printLine("\nEnter Skater (ID)?");
+            console.printLine("\nEnter Forward (ID)?");
 
             try {
                 int choice = console.readInteger();
-                if (choice >= 1 && choice <= (skaters.size())) {
-                    freeAgents.add(skaters.get(choice - 1));
-                    leagueLOM.removeFreeAgent(skaters.get(choice - 1));
+                if (choice >= 1 && choice <= (forwards.size())) {
+                    freeAgents.add(forwards.get(choice - 1));
+                    leagueLOM.removeFreeAgent(forwards.get(choice - 1));
+                    status = true;
+                } else {
+                    status = false;
+                    break;
+                }
+            } catch (InputMismatchException exception) {
+                status = false;
+                break;
+            }
+            if (status == false) {
+                break;
+            }
+        }
+        return status;
+    }
+
+    @Override
+    public boolean selectTeamDefense() {
+        boolean status = false;
+
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        IConsole console = Injector.instance().getConsoleObject();
+        leagueLOM = leagueModel.getCurrentLeague();
+
+        for (int i = 1; i <= NO_OF_DEFENSE; i++) {
+            List<Player> defenses = new ArrayList<>(leagueLOM.getFreeAgentsDefenses());
+            Player defense;
+
+            console.printLine("\nPlease select a defense\n");
+
+            console.printLine("ID\t\tAge\t\t\tSkating\t\t\tShooting\t\tChecking\t\tSaving\t\tPosition\t\tName");
+
+            for (int j = 0; j < defenses.size(); j++) {
+                defense = defenses.get(j);
+                console.printLine((j + 1) + "\t\t" + defense.getAge() + "\t\t" + defense.getSkating() +
+                        "\t\t\t" + defense.getShooting() + "\t\t\t\t" + defense.getChecking() +
+                        "\t\t\t\t" + defense.getSaving() + "\t\t\t" + defense.getPosition() + "\t\t\t" + defense.getPlayerName());
+            }
+
+            console.printLine("\nEnter Defense (ID)?");
+
+            try {
+                int choice = console.readInteger();
+                if (choice >= 1 && choice <= (defenses.size())) {
+                    freeAgents.add(defenses.get(choice - 1));
+                    leagueLOM.removeFreeAgent(defenses.get(choice - 1));
                     status = true;
                 } else {
                     status = false;
@@ -226,17 +275,18 @@ public class CreateTeam implements ICreateTeam {
     @Override
     public boolean instantiateNewTeam() {
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        ITeamBuilder teamBuilder = Injector.instance().getTeamBuilder();
         leagueLOM = leagueModel.getCurrentLeague();
         Conference conference = leagueLOM.getConference(conferenceName);
         Division division = conference.getDivision(divisionName);
-        Team team = new Team(teamName);
+        teamBuilder.reset();
+        teamBuilder.setTeamName(teamName);
+        teamBuilder.setPlayerRosters(freeAgents);
+        Team team = teamBuilder.getResult();
         leagueLOM.setUserTeam(teamName);
         team.setGeneralManager(generalManager);
         team.setHeadCoach(headCoach);
         team.setaITeam(false);
-        for (Player player : freeAgents) {
-            team.addActivePlayer(player);
-        }
         return division.addTeam(team);
     }
 

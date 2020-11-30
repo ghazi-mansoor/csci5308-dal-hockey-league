@@ -2,7 +2,7 @@
    "leagueName": "Deep League",
    "gameplayConfig": {
       "aging": {
-         "averageRetirementAge": 37,
+         "averageRetirementAge": 47,
          "maximumAge": 50,
          "statDecayChance": 0.01
       },
