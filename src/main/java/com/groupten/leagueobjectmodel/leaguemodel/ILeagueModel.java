@@ -7,4 +7,5 @@ public interface ILeagueModel {
     boolean saveLeagueModel();
     League getCurrentLeague();
     boolean setCurrentLeague(League currentLeague);
+    int getTotalNumberOfTeams();
 }

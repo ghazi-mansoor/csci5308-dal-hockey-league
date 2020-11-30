@@ -4,7 +4,12 @@ import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.season.Season;
+import com.groupten.leagueobjectmodel.team.ITeamRoster;
+import com.groupten.leagueobjectmodel.team.TeamRoster;
+
+import java.util.List;
 
 public class LeagueModelFactory implements ILeagueModelFactory {
 
@@ -32,4 +37,11 @@ public class LeagueModelFactory implements ILeagueModelFactory {
     public Season createSeason() {
         return new Season();
     }
+
+    @Override
+    public ITeamRoster createTeamRoster() {
+        return new TeamRoster();
+    }
+
+
 }
