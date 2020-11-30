@@ -9,6 +9,7 @@ import com.groupten.leagueobjectmodel.season.ISeasonObserver;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.persistence.serializedata.ISerializeData;
+import com.groupten.statemachine.StateMachine;
 import com.groupten.statemachine.simulation.advancetime.IAdvanceTime;
 import com.groupten.statemachine.simulation.aging.IAging;
 import com.groupten.statemachine.simulation.draft.IDraft;
@@ -20,12 +21,15 @@ import com.groupten.statemachine.simulation.simulategame.ISimulateGame;
 import com.groupten.statemachine.simulation.trading.ITradeFactory;
 import com.groupten.statemachine.simulation.training.ITraining;
 import com.groupten.statemachine.simulation.trophy.ITrophy;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class Simulation implements ISimulation {
+    private static final Logger logger = LogManager.getLogger(Simulation.class.getName());
     private League league;
     private Season season;
     private int numberOfSeasons;
@@ -58,9 +62,11 @@ public class Simulation implements ISimulation {
         season.attach((ISeasonObserver) Injector.instance().getTrophyObject());
         if (initializeSeason.generateRegularSchedule(season)) {
             console.printLine("Regular schedule generated.");
+            logger.info("Regular season schedule generated");
             advanceTime();
         } else {
             console.printLine("FAILURE: Some error occurred.");
+            logger.fatal("Some error occurred in initializeSeason.generateRegularSchedule(season)");
         }
     }
 
@@ -81,9 +87,11 @@ public class Simulation implements ISimulation {
         console.printLine("Generating playoff schedule");
         if (generatePlayoffSchedule.generatePlayoffSchedule(season)) {
             console.printLine("Playoff schedule generated");
+            logger.info("Playoff schedule generated");
             training();
         } else {
             console.printLine("FAILURE: Some error occurred.");
+            logger.fatal("Some error occurred in generatePlayoffSchedule.generatePlayoffSchedule(season)");
         }
     }
 
@@ -173,6 +181,7 @@ public class Simulation implements ISimulation {
         ISerializeData serializeData = Injector.instance().getSerializeDataObject();
         String path = "";
         serializeData.exportData(league, path);
+        logger.info("Persisted to json file");
     }
 
     private void end() {
