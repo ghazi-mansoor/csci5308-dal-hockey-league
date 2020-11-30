@@ -44,11 +44,7 @@ public class TradingTest {
         assertEquals(trading.getAverageDefenseStrength(),0.0,0);
         assertEquals(trading.getAverageForwardStrength(),0.0,0);
         assertEquals(trading.getAverageGoalieStrength(),0.0,0);
-
         trading.getAveragePlayerStrength();
-        System.out.println(trading.getAverageDefenseStrength());
-        System.out.println(trading.getAverageForwardStrength());
-        System.out.println(trading.getAverageGoalieStrength());
         assertNotEquals(trading.getAverageDefenseStrength(),0.0,0);
         assertNotEquals(trading.getAverageForwardStrength(),0.0,0);
         assertNotEquals(trading.getAverageGoalieStrength(),0.0,0);

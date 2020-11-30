@@ -177,11 +177,13 @@ public class PlayersTradeOffers {
             freeAgentDefenseStrength.clear();
             freeAgentForwardStrength.clear();
         }
-        Map<HashMap<ArrayList<Player>,Player>,Double> initialSortedTeamStrength = tempInitialTeamStrength.entrySet() .stream()
-                .sorted(Map.Entry.<HashMap<ArrayList<Player>,Player>,Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-        Map.Entry<HashMap<ArrayList<Player>,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();
-        playersTradeOffer.put(entry.getKey(),entry.getValue());
+        if(tempInitialTeamStrength.size() > 0) {
+            Map<HashMap<ArrayList<Player>,Player>,Double> initialSortedTeamStrength = tempInitialTeamStrength.entrySet() .stream()
+                    .sorted(Map.Entry.<HashMap<ArrayList<Player>,Player>,Double>comparingByValue().reversed())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+            Map.Entry<HashMap<ArrayList<Player>,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();
+            playersTradeOffer.put(entry.getKey(),entry.getValue());
+        }
         return playersTradeOffer;
     }
 

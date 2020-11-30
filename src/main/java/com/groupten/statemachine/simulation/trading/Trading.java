@@ -41,6 +41,7 @@ public class Trading {
 	private final int numberOfForwards = 16;
 	private final int numberOfDefenses = 10;
 	private String weakSection = null;
+	private boolean tradeOccured = false;
 	private ArrayList<Player> initialTradingPlayers = new ArrayList<>();
 	private ArrayList<Player> finalTradingPlayers = new ArrayList<>();
 
@@ -187,7 +188,13 @@ public class Trading {
 	public void setFinalTradingPlayers(ArrayList<Player> finalTradingPlayers) {
 		this.finalTradingPlayers = finalTradingPlayers;
 	}
+	public boolean isTradeOccured() {
+		return tradeOccured;
+	}
 
+	public void setTradeOccured(boolean tradeOccured) {
+		this.tradeOccured = tradeOccured;
+	}
 
 	public void startTrading() {
 		getAveragePlayerStrength();
@@ -196,7 +203,9 @@ public class Trading {
 		getFinalTeam();
 		getInitialAndFinalTradingPlayers(weakSection);
 		generateTradeOffers();
-		adjustTeamPlayers();
+		if(tradeOccured == true) {
+			adjustTeamPlayers();
+		}
 	}
 
 	public void getInitialTeam() {
@@ -405,20 +414,33 @@ public class Trading {
 			}
 		}
 
-		Map.Entry<HashMap<Player,Player>,Double> playerEntry = playerTradeOffer.entrySet().iterator().next();
-		Double playerTradeOfferStrength = playerEntry.getValue();
-		Map.Entry<HashMap<ArrayList<Player>,Player>,Double> playersEntry = playersTradeOffer.entrySet().iterator().next();
-		Double playersTradeOfferStrength = playersEntry.getValue();
+		Double playerTradeOfferStrength = 0.0;
+		Double playersTradeOfferStrength = 0.0;
+		HashMap<Player,Player> playerTradingPlayers = new HashMap<>();
+		HashMap<ArrayList<Player>,Player> playersTradingPlayers = new HashMap<>();
+
+		if(playerTradeOffer.size() > 0) {
+			Map.Entry<HashMap<Player,Player>,Double> playerEntry = playerTradeOffer.entrySet().iterator().next();
+			playerTradingPlayers.put(playerEntry.getKey().entrySet().iterator().next().getKey(),
+					playerEntry.getKey().entrySet().iterator().next().getValue());
+			playerTradeOfferStrength = playerEntry.getValue();
+		}
+		if(playersTradeOffer.size() > 0) {
+			Map.Entry<HashMap<ArrayList<Player>,Player>,Double> playersEntry = playersTradeOffer.entrySet().iterator().next();
+			playersTradingPlayers.put(playersEntry.getKey().entrySet().iterator().next().getKey(),
+					playersEntry.getKey().entrySet().iterator().next().getValue());
+			playersTradeOfferStrength = playersEntry.getValue();
+		}
 
 		if(tradeInitializingTeam.isaITeam()) {
 			if(draftPickTradeOffer.size() > 0) {
 				UIdraftPickTradeAccept(draftPickTradeOffer);
 			} else {
 				if(playerTradeOfferStrength >= playersTradeOfferStrength) {
-					UIPlayerTradeAccept(playerEntry.getKey());
+					UIPlayerTradeAccept(playerTradingPlayers);
 				}
 				else {
-					UIPlayersTradeAccept(playersEntry.getKey());
+					UIPlayersTradeAccept(playersTradingPlayers);
 				}
 			}
 		}
@@ -427,14 +449,13 @@ public class Trading {
 				userDraftPickTradeAccept(draftPickTradeOffer);
 			} else {
 				if(playerTradeOfferStrength >= playersTradeOfferStrength) {
-					userPlayerTradeAccept(playerEntry.getKey());
+					userPlayerTradeAccept(playerTradingPlayers);
 				}
 				else {
-					userPlayersTradeAccept(playersEntry.getKey());
+					userPlayersTradeAccept(playersTradingPlayers);
 				}
 			}
 		}
-
 
 	}
 
@@ -468,6 +489,7 @@ public class Trading {
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
 		Random random = new Random();
 		double randomAcceptanceChanceGenerated = random.nextDouble();
+		tradeOccured = false;
 
 			if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("gambler")) {
 				generalManagerPersonalityValue = tradingConfig.getGambler();
@@ -500,6 +522,7 @@ public class Trading {
 					}
 				}
 			}
+			tradeOccured = true;
 		}
 		tradeInitializingTeam.setAllPlayers(updatedInitialPlayerList);
 		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
@@ -524,6 +547,7 @@ public class Trading {
 		double afterTradeInitializingStrength = 0.0;
 		double tradeFinalizingTeamStrength = 0.0;
 		double afterTradeFinalizingStrength = 0.0;
+		tradeOccured = false;
 
 		if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("gambler")) {
 			generalManagerPersonalityValue = tradingConfig.getGambler();
@@ -560,6 +584,7 @@ public class Trading {
 					}
 				}
 			}
+			tradeOccured = true;
 		}
 		tradeInitializingTeam.setAllPlayers(updatedInitialPlayerList);
 		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
@@ -577,6 +602,7 @@ public class Trading {
 		lossPoint = tradingConfig.getLossPoint();
 		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+		tradeOccured = false;
 
 		console.printLine("User trade initiated!");
 		ArrayList<Player> updatedInitialPlayerList = new ArrayList<>();
@@ -610,6 +636,7 @@ public class Trading {
 							updatedFinalPlayerList.add(player);
 						}
 					}
+					tradeOccured = true;
 					console.printLine(Players.getKey().getPlayerName() + " traded with " + Players.getValue().getPlayerName());
 					break;
 				case 2:
@@ -635,6 +662,7 @@ public class Trading {
 		lossPoint = tradingConfig.getLossPoint();
 		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+		tradeOccured = false;
 
 		console.printLine("User trade initiated!");
 		ArrayList<Player> updatedInitialPlayerList = new ArrayList<>();
@@ -674,7 +702,7 @@ public class Trading {
 							updatedFinalPlayerList.add(player);
 						}
 					}
-
+					tradeOccured = true;
 					console.printLine("Trade of players successful!");
 					break;
 				case 2:
@@ -702,6 +730,7 @@ public class Trading {
 		HashMap<Team,Team> draftPickTradingTeams = new HashMap<>();
 		HashMap<HashMap<Team,Team>,Integer> draftPicksTraded = new HashMap<>();
 		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
+		tradeOccured = false;
 
 		for (Map.Entry<Integer, Player> Players : draftPickTradeOffer.entrySet()) {
 			tradeInitializingTeam.addActivePlayer(Players.getValue());
@@ -713,6 +742,8 @@ public class Trading {
 					updatedFinalPlayerList.add(player);
 				}
 			}
+			tradeOccured = true;
+			console.printLine("Draft pick trade successful!");
 			draftPickTradingTeams.put(tradeInitializingTeam,tradeFinalizingTeam);
 			draftPicksTraded.put(draftPickTradingTeams,Players.getKey());
 		}
@@ -758,6 +789,7 @@ public class Trading {
 					}
 					draftPickTradingTeams.put(tradeInitializingTeam,tradeFinalizingTeam);
 					draftPicksTraded.put(draftPickTradingTeams,Players.getKey());
+					tradeOccured = true;
 					console.printLine("Trade of player and draft pick successful!");
 					break;
 				case 2:

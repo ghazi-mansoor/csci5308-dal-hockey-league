@@ -68,11 +68,13 @@ public class PlayerTradeOffers {
                 tempFinalTeamStrength = 0.0;
             }
         }
-        Map<HashMap<Player,Player>,Double> initialSortedTeamStrength = tradeInitialTeamStrength.entrySet() .stream()
-                .sorted(Map.Entry.<HashMap<Player,Player>,Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-        Map.Entry<HashMap<Player,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();
-        playerTradeOffer.put(entry.getKey(), entry.getValue());
+        if(tradeInitialTeamStrength.size() > 0) {
+            Map<HashMap<Player,Player>,Double> initialSortedTeamStrength = tradeInitialTeamStrength.entrySet() .stream()
+                    .sorted(Map.Entry.<HashMap<Player,Player>,Double>comparingByValue().reversed())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+            Map.Entry<HashMap<Player,Player>,Double> entry = initialSortedTeamStrength.entrySet().iterator().next();
+            playerTradeOffer.put(entry.getKey(), entry.getValue());
+        }
         return playerTradeOffer;
     }
 
