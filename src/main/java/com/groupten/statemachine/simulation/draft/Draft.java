@@ -1,7 +1,6 @@
 package com.groupten.statemachine.simulation.draft;
 
 import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.player.PlayerPosition;
 import com.groupten.leagueobjectmodel.season.Season;

@@ -6,6 +6,9 @@ import com.groupten.leagueobjectmodel.player.IPlayerBuilder;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.player.PlayerPosition;
 import com.groupten.statemachine.simulation.draft.DraftConstants;
+import com.groupten.statemachine.simulation.draft.generateplayers.constants.DefensePlayerStatsRanges;
+import com.groupten.statemachine.simulation.draft.generateplayers.constants.ForwardPlayerStatsRanges;
+import com.groupten.statemachine.simulation.draft.generateplayers.constants.GoaliePlayerStatsRanges;
 
 import java.util.*;
 
@@ -54,6 +57,7 @@ public class PlayersGenerator implements IPlayersGenerator {
 
             double playerAge = generateRandomValueBetweenInterval(minimumAge, maximumAge);
             playerBuilder.setAge(playerAge);
+            playerBuilder.setDraftYear();
 
             double skatingStat = generateRandomValueBetweenInterval(minimumSkatingStat, maximumSkatingStat);
             double shootingStat = generateRandomValueBetweenInterval(minimumShootingStat, maximumShootingStat);

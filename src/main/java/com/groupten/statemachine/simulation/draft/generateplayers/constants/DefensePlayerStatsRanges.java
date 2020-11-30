@@ -1,4 +1,6 @@
-package com.groupten.statemachine.simulation.draft.generateplayers;
+package com.groupten.statemachine.simulation.draft.generateplayers.constants;
+
+import com.groupten.statemachine.simulation.draft.generateplayers.IPlayerStatsEnum;
 
 public enum DefensePlayerStatsRanges implements IPlayerStatsEnum {
     MINIMUM_SKATING_STAT(10.0), MAXIMUM_SKATING_STAT(19.0), MINIMUM_SHOOTING_STAT(9.0), MAXIMUM_SHOOTING_STAT(18.0),

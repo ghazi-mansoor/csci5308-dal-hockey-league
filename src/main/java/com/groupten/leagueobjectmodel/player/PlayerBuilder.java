@@ -33,6 +33,12 @@ public class PlayerBuilder implements IPlayerBuilder {
     }
 
     @Override
+    public void setDraftYear() {
+        LocalDateTime today = LocalDateTime.now();
+        player.setDraftYear(today.getYear());
+    }
+
+    @Override
     public void setPlayerStats(double playerSkatingStat, double playerShootingStat, double playerCheckingStat, double playerSavingStat) {
         player.setSkating(playerSkatingStat);
         player.setShooting(playerShootingStat);

@@ -6,11 +6,15 @@ import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.ITeamRoster;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
+    private static final Logger logger = LogManager.getLogger(WeakTeamPicksFirstStrategy.class.getName());
+
     @Override
     public void execute(List<TeamStanding> teamStandings, List<Player> players) {
         ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
@@ -25,9 +29,10 @@ public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
             activePlayers.addAll(inActivePlayers);
 
             Player bestPlayer = players.get(0);
-            System.out.println(bestPlayer.getPlayerName() + " drafted by " + team.getTeamName());
-            activePlayers.add(bestPlayer);
 
+            logger.info(bestPlayer.getPlayerName() + " drafted by " + team.getTeamName());
+
+            activePlayers.add(bestPlayer);
             teamRoster.setPlayers(activePlayers);
             team.setActivePlayers(teamRoster.createActivePlayerRoster());
             team.setInActivePlayers(teamRoster.createInActivePlayerRoster());
