@@ -18,7 +18,7 @@ public class TeamRoster implements ITeamRoster {
     private List<Player> activePlayerRoster;
     private List<Player> inActivePlayerRooster;
 
-    TeamRoster(List<Player> players) {
+    public TeamRoster(List<Player> players) {
         this.players = players;
         rankPlayersAccordingToStrength();
     }
