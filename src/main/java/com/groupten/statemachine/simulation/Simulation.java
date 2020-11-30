@@ -31,6 +31,7 @@ public class Simulation implements ISimulation {
     private int numberOfSeasons;
     private int year;
     private int daysSinceStatsIncreased;
+    private IDraft draft;
 
     public Simulation() {
         Calendar cal = Calendar.getInstance();
@@ -46,6 +47,8 @@ public class Simulation implements ISimulation {
         if (this.numberOfSeasons > 0) {
             initializeSeason();
         }
+        ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
+        draft = simulationFactory.createDraft();
     }
 
     private void initializeSeason() {
@@ -149,8 +152,6 @@ public class Simulation implements ISimulation {
             trophy.trophyWinners();
 
             if (numberOfSeasons == 1) {
-                ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
-                IDraft draft = simulationFactory.createDraft();
                 draft.execute(season);
             }
 
