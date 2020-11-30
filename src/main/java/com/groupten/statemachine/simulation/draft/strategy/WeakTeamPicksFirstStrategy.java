@@ -18,7 +18,7 @@ public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
     private static final Logger logger = LogManager.getLogger(WeakTeamPicksFirstStrategy.class.getName());
 
     @Override
-    public void execute(List<TeamStanding> teamStandings, List<Player> players) {
+    public void execute(List<TeamStanding> teamStandings, List<Player> players, List<List<Team>> tradePickTeams) {
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
         ITeamRoster teamRoster = leagueModelFactory.createTeamRoster();

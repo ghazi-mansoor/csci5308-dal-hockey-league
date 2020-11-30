@@ -104,7 +104,7 @@ public class Draft implements IDraft {
                 draftContext.setStrategy(draftStrategy);
             }
 
-            draftContext.executeStrategy(combinedSortedTeamStandings, draftPlayersList);
+            draftContext.executeStrategy(combinedSortedTeamStandings, draftPlayersList, tradePickTeams);
             currentDraftRound += 1;
         }
     }
