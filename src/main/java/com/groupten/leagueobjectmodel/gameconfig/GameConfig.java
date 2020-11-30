@@ -80,15 +80,21 @@ public class GameConfig {
         private double randomTradeOfferChance;
         private int maxPlayersPerTrade;
         private double randomAcceptanceChance;
-        private HashMap<String,Double> gmTable;
+        private double shrewd;
+        private double normal;
+        private double gambler;
+
 
         public Trading(int lossPoint, double randomTradeOfferChance, int maxPlayersPerTrade,
-                       double randomAcceptanceChance,HashMap<String,Double> gmTable) {
+                       double randomAcceptanceChance,double shrewd, double normal, double gambler) {
             this.lossPoint = lossPoint;
             this.randomTradeOfferChance = randomTradeOfferChance;
             this.maxPlayersPerTrade = maxPlayersPerTrade;
             this.randomAcceptanceChance = randomAcceptanceChance;
-            this.gmTable = gmTable;
+            this.shrewd = shrewd;
+            this.normal = normal;
+            this.gambler = gambler;
+
         }
 
         public int getLossPoint() {
@@ -107,8 +113,10 @@ public class GameConfig {
             return randomAcceptanceChance;
         }
 
-        public HashMap<String,Double> getGmTable() { return gmTable; }
+        public double getShrewd() { return shrewd; }
 
-        public void setGmTable(HashMap<String,Double> gmTable) { this.gmTable = gmTable; }
+        public double getNormal() { return normal; }
+
+        public double getGambler() { return gambler; }
     }
 }

@@ -9,20 +9,23 @@ import java.util.LinkedList;
 
 public interface ITrading {
 
+    void startTrading();
     void getInitialTeam();
     void getFinalTeam();
-    String getWeakSection();
-    void computeDraftPickTradeOffers(String weakSection);
+    void calculateWeakSection();
     void generateTradeOffers();
     boolean UITradeOffer();
-    void UITradeAccept(HashMap<Player,Player> tradingPlayers);
-    void userTradeAccept(HashMap<Player,Player> tradingPlayers);
+    void UIPlayerTradeAccept(HashMap<Player,Player> tradingPlayers);
+    void UIPlayersTradeAccept(HashMap<ArrayList<Player>,Player> tradingPlayers);
+    void userPlayerTradeAccept(HashMap<Player,Player> tradingPlayers);
+    void userPlayersTradeAccept(HashMap<ArrayList<Player>,Player> tradingPlayers);
+    HashMap<HashMap<Team,Team>,Integer> UIdraftPickTradeAccept(HashMap<Integer,Player> draftPickTradeOffer);
+    HashMap<HashMap<Team,Team>,Integer>  userDraftPickTradeAccept(HashMap<Integer,Player> draftPickTradeOffer);
     void adjustTeamPlayers();
     Team UIDropPlayers(Team tradingTeam);
     Team userDropPlayers(Team tradingTeam);
     Team UIGetFromFreeAgents(Team tradingTeam);
     Team userGetFromFreeAgents(Team tradingTeam);
-    LinkedList sortByStrength(LinkedList strength);
     void getAveragePlayerStrength();
     void getInitialAndFinalTradingPlayers(String weakSection);
 }

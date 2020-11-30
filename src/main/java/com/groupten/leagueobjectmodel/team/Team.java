@@ -22,6 +22,7 @@ public class Team implements IPlayerSubscriber, IPersistModel {
     private boolean aITeam;
     private List<Player> activePlayers = new ArrayList<>();
     private List<Player> inActivePlayers = new ArrayList<>();
+    private List<Player> allPlayers = new ArrayList<>();
     private GeneralManager generalManager;
     private Coach headCoach;
     private double teamStrength;
@@ -161,6 +162,24 @@ public class Team implements IPlayerSubscriber, IPersistModel {
         } else {
             return false;
         }
+    }
+
+    public List<Player> getAllPlayers() {
+        ArrayList<Player> totalPlayers = new ArrayList<>();
+
+        for(Player player : getActivePlayers()) {
+            totalPlayers.add(player);
+        }
+        for (Player player : getInActivePlayers()) {
+            totalPlayers.add(player);
+        }
+        return  totalPlayers;
+    }
+
+    public void setAllPlayers(ArrayList<Player> allPlayers) {
+        this.activePlayers = null;
+        this.inActivePlayers = null;
+        this.allPlayers = allPlayers;
     }
 
     public List<Player> getActivePlayers() { return activePlayers; }

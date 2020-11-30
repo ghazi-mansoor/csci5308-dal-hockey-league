@@ -40,11 +40,9 @@ public class Trading implements ITrading {
 	private final int numberOfGoalies = 4;
 	private final int numberOfForwards = 16;
 	private final int numberOfDefenses = 10;
-	ArrayList<Player> initialTradingPlayers = new ArrayList<>();
-	ArrayList<Player> finalTradingPlayers = new ArrayList<>();
-	ArrayList<Player> playersToTrade1 = new ArrayList<>();
-	ArrayList<Player> playersToTrade2 = new ArrayList<>();
-	HashMap<ArrayList<Player>,ArrayList<Player>> playersToTrade= new HashMap<>();
+	private String weakSection = null;
+	private ArrayList<Player> initialTradingPlayers = new ArrayList<>();
+	private ArrayList<Player> finalTradingPlayers = new ArrayList<>();
 
 	public Team getTradeInitializingTeam() {
 		return tradeInitializingTeam;
@@ -94,6 +92,112 @@ public class Trading implements ITrading {
 		this.playerName = playerName;
 	}
 
+	public int getMaxPlayersPerTrade() {
+		return maxPlayersPerTrade;
+	}
+
+	public void setMaxPlayersPerTrade(int maxPlayersPerTrade) {
+		this.maxPlayersPerTrade = maxPlayersPerTrade;
+	}
+
+	public int getLossPoint() {
+		return lossPoint;
+	}
+
+	public void setLossPoint(int lossPoint) {
+		this.lossPoint = lossPoint;
+	}
+
+	public String getGeneralManagerPersonality() {
+		return generalManagerPersonality;
+	}
+
+	public void setGeneralManagerPersonality(String generalManagerPersonality) {
+		this.generalManagerPersonality = generalManagerPersonality;
+	}
+
+	public double getGeneralManagerPersonalityValue() {
+		return generalManagerPersonalityValue;
+	}
+
+	public void setGeneralManagerPersonalityValue(double generalManagerPersonalityValue) {
+		this.generalManagerPersonalityValue = generalManagerPersonalityValue;
+	}
+
+	public double getRandomTradeOfferChance() {
+		return randomTradeOfferChance;
+	}
+
+	public void setRandomTradeOfferChance(double randomTradeOfferChance) {
+		this.randomTradeOfferChance = randomTradeOfferChance;
+	}
+
+	public double getRandomAcceptanceChance() {
+		return randomAcceptanceChance;
+	}
+
+	public void setRandomAcceptanceChance(double randomAcceptanceChance) {
+		this.randomAcceptanceChance = randomAcceptanceChance;
+	}
+
+	public double getAverageGoalieStrength() {
+		return averageGoalieStrength;
+	}
+
+	public void setAverageGoalieStrength(double averageGoalieStrength) {
+		this.averageGoalieStrength = averageGoalieStrength;
+	}
+
+	public double getAverageDefenseStrength() {
+		return averageDefenseStrength;
+	}
+
+	public void setAverageDefenseStrength(double averageDefenseStrength) {
+		this.averageDefenseStrength = averageDefenseStrength;
+	}
+
+	public double getAverageForwardStrength() {
+		return averageForwardStrength;
+	}
+
+	public void setAverageForwardStrength(double averageForwardStrength) {
+		this.averageForwardStrength = averageForwardStrength;
+	}
+
+	public String getWeakSection() {
+		return weakSection;
+	}
+
+	public void setWeakSection(String weakSection) {
+		this.weakSection = weakSection;
+	}
+
+	public ArrayList<Player> getInitialTradingPlayers() {
+		return initialTradingPlayers;
+	}
+
+	public void setInitialTradingPlayers(ArrayList<Player> initialTradingPlayers) {
+		this.initialTradingPlayers = initialTradingPlayers;
+	}
+
+	public ArrayList<Player> getFinalTradingPlayers() {
+		return finalTradingPlayers;
+	}
+
+	public void setFinalTradingPlayers(ArrayList<Player> finalTradingPlayers) {
+		this.finalTradingPlayers = finalTradingPlayers;
+	}
+
+	@Override
+	public void startTrading() {
+		getAveragePlayerStrength();
+		getInitialTeam();
+		calculateWeakSection();
+		getFinalTeam();
+		getInitialAndFinalTradingPlayers(weakSection);
+		generateTradeOffers();
+	}
+
 	@Override
 	public void getInitialTeam() {
 		console = Injector.instance().getConsoleObject();
@@ -108,10 +212,9 @@ public class Trading implements ITrading {
 		for (Conference c : leagueLOM.getConferences().values()) {
 			for (Division d : c.getDivisions().values()) {
 				for (Team initializingTeam : d.getTeams().values()) {
-					tradeInitializingTeam = initializingTeam;
-					if (tradeInitializingTeam.isaITeam()) {
-						if (tradeInitializingTeam.getLossPoint() >= lossPoint) {
-							getFinalTeam();
+					if (initializingTeam.isaITeam()) {
+						if (initializingTeam.getLossPoint() >= lossPoint) {
+							tradeInitializingTeam = initializingTeam;
 						}
 					}
 				}
@@ -120,7 +223,7 @@ public class Trading implements ITrading {
 	}
 
 	@Override
-	public String getWeakSection() {
+	public void calculateWeakSection() {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
 		leagueLOM = leagueModel.getCurrentLeague();
@@ -141,7 +244,6 @@ public class Trading implements ITrading {
 		double goalieStrengthDifference = 0.0;
 		double forwardStrengthDifference = 0.0;
 		double defenseStrengthDifference = 0.0;
-		String weakSection = null;
 		ArrayList<Player> totalPlayers = new ArrayList<>();
 
 		for(Player player : tradeInitializingTeam.getActivePlayers()) {
@@ -181,7 +283,6 @@ public class Trading implements ITrading {
 		else {
 			weakSection = "defense";
 		}
-		return weakSection;
 	}
 
 	@Override
@@ -194,7 +295,6 @@ public class Trading implements ITrading {
 		lossPoint = tradingConfig.getLossPoint();
 		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
-		String weakSection = null;
 		int numberOfPlayers = 0;
 		double finalizingTeamStrength = 0.0;
 		double playerStrength = 0.0;
@@ -207,7 +307,6 @@ public class Trading implements ITrading {
 					if (finalizingTeam == tradeInitializingTeam) {
 						return;
 					} else {
-						weakSection = getWeakSection();
 						for(Player player : finalizingTeam.getActivePlayers()) {
 							if(player.getPosition().equals(weakSection)) {
 								playerStrength = playerStrength + player.calculateStrength();
@@ -246,12 +345,6 @@ public class Trading implements ITrading {
 				}
 			}
 		}
-		getInitialAndFinalTradingPlayers(weakSection);
-	}
-
-	@Override
-	public void computeDraftPickTradeOffers(String weakSection) {
-
 	}
 
 	@Override
@@ -260,12 +353,90 @@ public class Trading implements ITrading {
 		PlayerTradeOffers playerTradeOffers = tradeFactory.createPlayerTradeOffers();
 		PlayersTradeOffers playersTradeOffers = tradeFactory.createPlayersTradeOffers();
 		DraftPickTradeOffers draftPickTradeOffers = tradeFactory.createDraftPickTradeOffers();
-		String weakSection = getWeakSection();
+		HashMap<Integer,Player> draftPickTradeOffer = new HashMap<>();
+		HashMap<HashMap<Player,Player>,Double> playerTradeOffer = new HashMap<>();
+		HashMap<HashMap<ArrayList<Player>,Player>,Double> playersTradeOffer = new HashMap<>();
+		Double averagePlayersStrength = 0.0;
 
-		playerTradeOffers.computePlayerTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
-				initialTradingPlayers,finalTradingPlayers);
-		playersTradeOffers.computePlayersTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
-				initialTradingPlayers,finalTradingPlayers);
+		if(weakSection.equals("goalie")) {
+			for(Player player : tradeInitializingTeam.getActivePlayers()) {
+				if(player.getPosition().equals("goalie")) {
+					averagePlayersStrength = player.calculateStrength();
+				}
+			}
+			if(averagePlayersStrength < averageGoalieStrength - (averageGoalieStrength * 0.3)) {
+				draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(weakSection,tradeInitializingTeam,
+						tradeFinalizingTeam,finalTradingPlayers,averageGoalieStrength,
+						averageForwardStrength,averageDefenseStrength);
+			} else {
+				playerTradeOffer = playerTradeOffers.computePlayerTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+						initialTradingPlayers,finalTradingPlayers);
+				playersTradeOffer = playersTradeOffers.computePlayersTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+						initialTradingPlayers,finalTradingPlayers);
+			}
+		} else if(weakSection.equals("forward")) {
+			for(Player player : tradeInitializingTeam.getActivePlayers()) {
+				if(player.getPosition().equals("forward")) {
+					averagePlayersStrength = player.calculateStrength();
+				}
+			}
+			if(averagePlayersStrength < averageForwardStrength - (averageForwardStrength * 0.3)) {
+				draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(weakSection,tradeInitializingTeam,
+						tradeFinalizingTeam,finalTradingPlayers,averageGoalieStrength,
+						averageForwardStrength,averageDefenseStrength);
+			} else {
+				playerTradeOffer = playerTradeOffers.computePlayerTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+						initialTradingPlayers,finalTradingPlayers);
+				playersTradeOffer = playersTradeOffers.computePlayersTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+						initialTradingPlayers,finalTradingPlayers);
+			}
+		} else if(weakSection.equals("defense")) {
+			for(Player player : tradeInitializingTeam.getActivePlayers()) {
+				if(player.getPosition().equals("defense")) {
+					averagePlayersStrength = player.calculateStrength();
+				}
+			}
+			if(averagePlayersStrength < averageDefenseStrength - (averageDefenseStrength * 0.3)) {
+				draftPickTradeOffer = draftPickTradeOffers.computeDraftPickTradeOffers(weakSection,tradeInitializingTeam,
+						tradeFinalizingTeam,finalTradingPlayers,averageGoalieStrength,
+						averageForwardStrength,averageDefenseStrength);
+			} else {
+				playerTradeOffer = playerTradeOffers.computePlayerTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+						initialTradingPlayers,finalTradingPlayers);
+				playersTradeOffer = playersTradeOffers.computePlayersTradeOffers(weakSection,tradeInitializingTeam,tradeFinalizingTeam,
+						initialTradingPlayers,finalTradingPlayers);
+			}
+		}
+
+		Map.Entry<HashMap<Player,Player>,Double> playerEntry = playerTradeOffer.entrySet().iterator().next();
+		Double playerTradeOfferStrength = playerEntry.getValue();
+		Map.Entry<HashMap<ArrayList<Player>,Player>,Double> playersEntry = playersTradeOffer.entrySet().iterator().next();
+		Double playersTradeOfferStrength = playersEntry.getValue();
+
+		if(tradeInitializingTeam.isaITeam()) {
+			if(draftPickTradeOffer.size() > 0) {
+				UIdraftPickTradeAccept(draftPickTradeOffer);
+			} else {
+				if(playerTradeOfferStrength >= playersTradeOfferStrength) {
+					UIPlayerTradeAccept(playerEntry.getKey());
+				}
+				else {
+					UIPlayersTradeAccept(playersEntry.getKey());
+				}
+			}
+		}
+		else {
+			if(draftPickTradeOffer.size() > 0) {
+				userDraftPickTradeAccept(draftPickTradeOffer);
+			} else {
+				if(playerTradeOfferStrength >= playersTradeOfferStrength) {
+					userPlayerTradeAccept(playerEntry.getKey());
+				}
+				else {
+					userPlayersTradeAccept(playersEntry.getKey());
+				}
+			}
+		}
 
 
 	}
@@ -291,7 +462,59 @@ public class Trading implements ITrading {
 	}
 
 	@Override
-	public void UITradeAccept(HashMap<Player, Player> tradingPlayers) {
+	public void UIPlayerTradeAccept(HashMap<Player, Player> tradingPlayers) {
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+		Random random = new Random();
+		double randomAcceptanceChanceGenerated = random.nextDouble();
+
+			if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("gambler")) {
+				generalManagerPersonalityValue = tradingConfig.getGambler();
+			} else if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("shrewd")) {
+				generalManagerPersonalityValue = tradingConfig.getShrewd();
+			} else if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("normal")) {
+				generalManagerPersonalityValue = tradingConfig.getNormal();
+			}
+		ArrayList<Player> updatedInitialPlayerList = new ArrayList<>();
+		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
+		if ((randomAcceptanceChanceGenerated + generalManagerPersonalityValue ) > randomAcceptanceChance) {
+			for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
+				tradeInitializingTeam.addActivePlayer(Players.getValue());
+				tradeFinalizingTeam.addActivePlayer(Players.getKey());
+
+				for(Player player : tradeInitializingTeam.getAllPlayers()) {
+					if(player.equals(Players.getKey())) {
+
+					}
+					else {
+						updatedInitialPlayerList.add(player);
+					}
+				}
+				for(Player player : tradeFinalizingTeam.getAllPlayers()) {
+					if(player.equals(Players.getValue())) {
+
+					}
+					else {
+						updatedFinalPlayerList.add(player);
+					}
+				}
+			}
+		}
+		tradeInitializingTeam.setAllPlayers(updatedInitialPlayerList);
+		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
+		console.printLine("Player trade successful!");
+		tradeInitializingTeam.setLossPoint(0);
+		adjustTeamPlayers();
+	}
+
+	@Override
+	public void UIPlayersTradeAccept(HashMap<ArrayList<Player>, Player> tradingPlayers) {
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
 		leagueLOM = leagueModel.getCurrentLeague();
@@ -309,51 +532,51 @@ public class Trading implements ITrading {
 		double tradeFinalizingTeamStrength = 0.0;
 		double afterTradeFinalizingStrength = 0.0;
 
-		for(Map.Entry<String, Double> personality : tradingConfig.getGmTable().entrySet())
-		{
-			if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals(personality.getKey())) {
-				generalManagerPersonalityValue = personality.getValue();
-			}
+		if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("gambler")) {
+			generalManagerPersonalityValue = tradingConfig.getGambler();
+		} else if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("shrewd")) {
+			generalManagerPersonalityValue = tradingConfig.getShrewd();
+		} else if(tradeFinalizingTeam.getGeneralManager().getManagerPersonality().equals("normal")) {
+			generalManagerPersonalityValue = tradingConfig.getNormal();
 		}
+		ArrayList<Player> updatedInitialPlayerList = new ArrayList<>();
+		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
+		if ((randomAcceptanceChanceGenerated + generalManagerPersonalityValue ) > randomAcceptanceChance) {
+			for (Map.Entry<ArrayList<Player>, Player> Players : tradingPlayers.entrySet()) {
+				tradeInitializingTeam.addActivePlayer(Players.getValue());
+				for(Player player : Players.getKey()) {
+					tradeFinalizingTeam.addActivePlayer(player);
+				}
 
-/*
-		tradeInitializingTeam.calculateTotalTeamStrength();
-		tradeInitializingTeamStrength = tradeInitializingTeam.getTeamStrength();
-		tradeFinalizingTeam.calculateTotalTeamStrength();
-		tradeFinalizingTeamStrength = tradeFinalizingTeam.getTeamStrength();
-		for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
-			player1 = Players.getKey();
-			player2 = Players.getValue();
-			tradeInitializingTeam.getPlayers().remove(player1);
-			tradeInitializingTeam.getPlayers().add(player2);
-			tradeFinalizingTeam.getPlayers().remove(player2);
-			tradeFinalizingTeam.getPlayers().add(player1);
-		}
-		tradeInitializingTeam.setTeamStrength(0);
-		tradeFinalizingTeam.setTeamStrength(0);
-		tradeInitializingTeam.calculateTotalTeamStrength();
-		afterTradeInitializingStrength = tradeInitializingTeam.getTeamStrength();
-		tradeFinalizingTeam.calculateTotalTeamStrength();
-		afterTradeFinalizingStrength = tradeFinalizingTeam.getTeamStrength();
-		if (tradeInitializingTeamStrength < afterTradeInitializingStrength || tradeFinalizingTeamStrength < afterTradeFinalizingStrength) {
-			if ((randomAcceptanceChanceGenerated + generalManagerPersonalityValue ) > randomAcceptanceChance) {
-				console.printLine("Trade declined since its not beneficial.");
-				tradeInitializingTeam.setLossPoint(0);
-				tradeInitializingTeam.getPlayers().remove(player2);
-				tradeInitializingTeam.getPlayers().add(player1);
-				tradeFinalizingTeam.getPlayers().remove(player1);
-				tradeFinalizingTeam.getPlayers().add(player2);
-			} else {
-				tradeInitializingTeam.setLossPoint(0);
-				console.printLine("Trade successful!");
+				for(Player player : tradeInitializingTeam.getAllPlayers()) {
+					for(Player players : Players.getKey()) {
+						if(player.equals(players)) {
+
+						}
+						else {
+							updatedInitialPlayerList.add(player);
+						}
+					}
+				}
+				for(Player player : tradeFinalizingTeam.getAllPlayers()) {
+					if(player.equals(Players.getValue())) {
+
+					}
+					else {
+						updatedFinalPlayerList.add(player);
+					}
+				}
 			}
-		}*/
+		}
+		tradeInitializingTeam.setAllPlayers(updatedInitialPlayerList);
+		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
+		console.printLine("Players trade successful!");
 		tradeInitializingTeam.setLossPoint(0);
 		adjustTeamPlayers();
 	}
 
 	@Override
-	public void userTradeAccept(HashMap<Player, Player> tradingPlayers) {
+	public void userPlayerTradeAccept(HashMap<Player, Player> tradingPlayers) {
 		int option = 0;
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
@@ -363,46 +586,210 @@ public class Trading implements ITrading {
 		lossPoint = tradingConfig.getLossPoint();
 		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
 		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
-		Player player1 = new Player();
-		Player player2 = new Player();
-		int maximumPlayerPerTrade = 1;
 
 		console.printLine("User trade initiated!");
-
+		ArrayList<Player> updatedInitialPlayerList = new ArrayList<>();
+		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
 		for (Map.Entry<Player, Player> Players : tradingPlayers.entrySet()) {
-			if (maximumPlayerPerTrade > maxPlayersPerTrade) {
-				break;
-			}
-
-			player1 = Players.getKey();
-			player2 = Players.getValue();
-			console.printLine("\n Player Name : " + player1.getPlayerName() + "\n Age : " + player1.getAge() + "\n Checking : " + player1.getChecking()
-					+ "\n Saving : " + player1.getSaving() + "\n Shooting : " + player1.getShooting() + "\n Saving : " + player1.getSaving() + "\n");
-			console.printLine("\n Player Name : " + player2.getPlayerName() + "\n Age : " + player2.getAge() + "\n Checking : " + player2.getChecking()
-					+ "\n Saving : " + player2.getSaving() + "\n Shooting : " + player2.getShooting() + "\n Saving : " + player2.getSaving() + "\n");
-			console.printLine("\n Do you want to trade " + player1.getPlayerName() + " with " + player2.getPlayerName());
+			console.printLine("\n Player Name : " + Players.getKey().getPlayerName() + "\n Age : " + Players.getKey().getAge() + "\n Checking : " + Players.getKey().getChecking()
+					+ "\n Saving : " + Players.getKey().getSaving() + "\n Shooting : " + Players.getKey().getShooting() + "\n Saving : " + Players.getKey().getSaving() + "\n");
+			console.printLine("\n Player Name : " + Players.getValue().getPlayerName() + "\n Age : " + Players.getValue().getAge() + "\n Checking : " + Players.getValue().getChecking()
+					+ "\n Saving : " + Players.getValue().getSaving() + "\n Shooting : " + Players.getValue().getShooting() + "\n Saving : " + Players.getValue().getSaving() + "\n");
+			console.printLine("\n Do you want to trade " + Players.getKey().getPlayerName() + " with " + Players.getValue().getPlayerName());
 			console.printLine("1. Yes \n 2. No \n Choose 1 or 2");
 			option = console.readInteger();
 			switch (option) {
 				case 1:
-					/*tradeInitializingTeam.getPlayers().remove(player1);
-					tradeInitializingTeam.getPlayers().add(player2);
-					tradeFinalizingTeam.getPlayers().remove(player2);
-					tradeFinalizingTeam.getPlayers().add(player1);*/
-					//Give the tradeList1 and tradeList2 to TeamRoster
-					console.printLine(player1.getPlayerName() + " traded with " + player2.getPlayerName());
+					tradeInitializingTeam.addActivePlayer(Players.getValue());
+					tradeFinalizingTeam.addActivePlayer(Players.getKey());
+
+					for(Player player : tradeInitializingTeam.getAllPlayers()) {
+						if(player.equals(Players.getKey())) {
+
+						}
+						else {
+							updatedInitialPlayerList.add(player);
+						}
+					}
+					for(Player player : tradeFinalizingTeam.getAllPlayers()) {
+						if(player.equals(Players.getValue())) {
+
+						}
+						else {
+							updatedFinalPlayerList.add(player);
+						}
+					}
+					console.printLine(Players.getKey().getPlayerName() + " traded with " + Players.getValue().getPlayerName());
 					break;
 				case 2:
 					console.printLine("Trade offer declined.");
-					tradeInitializingTeam.setLossPoint(0);
 					break;
 				default:
 					console.printLine("Invalid option!");
 			}
+			tradeInitializingTeam.setAllPlayers(updatedInitialPlayerList);
+			tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
 			tradeInitializingTeam.setLossPoint(0);
 			break;
 		}
 		adjustTeamPlayers();
+	}
+
+	@Override
+	public void userPlayersTradeAccept(HashMap<ArrayList<Player>, Player> tradingPlayers) {
+		int option = 0;
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+
+		console.printLine("User trade initiated!");
+		ArrayList<Player> updatedInitialPlayerList = new ArrayList<>();
+		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
+		for (Map.Entry<ArrayList<Player>, Player> Players : tradingPlayers.entrySet()) {
+
+			for(Player player : Players.getKey()) {
+				console.printLine("\n Player Name : " + player.getPlayerName() + "\n Age : " + player.getAge() + "\n Checking : " + player.getChecking()
+						+ "\n Saving : " + player.getSaving() + "\n Shooting : " + player.getShooting() + "\n Saving : " + player.getSaving() + "\n");
+			}
+			console.printLine("\n Player Name : " + Players.getValue().getPlayerName() + "\n Age : " + Players.getValue().getAge() + "\n Checking : " + Players.getValue().getChecking()
+					+ "\n Saving : " + Players.getValue().getSaving() + "\n Shooting : " + Players.getValue().getShooting() + "\n Saving : " + Players.getValue().getSaving() + "\n");
+			console.printLine("\n Do you want to trade the above players?");
+			console.printLine("1. Yes \n 2. No \n Choose 1 or 2");
+			option = console.readInteger();
+			switch (option) {
+				case 1:
+					tradeInitializingTeam.addActivePlayer(Players.getValue());
+					for(Player player : Players.getKey()) {
+						tradeFinalizingTeam.addActivePlayer(player);
+					}
+					for(Player player : tradeInitializingTeam.getAllPlayers()) {
+						for(Player players : Players.getKey()) {
+							if(player.equals(players)) {
+
+							}
+							else {
+								updatedInitialPlayerList.add(player);
+							}
+						}
+					}
+					for(Player player : tradeFinalizingTeam.getAllPlayers()) {
+						if(player.equals(Players.getValue())) {
+
+						}
+						else {
+							updatedFinalPlayerList.add(player);
+						}
+					}
+
+					console.printLine("Trade of players successful!");
+					break;
+				case 2:
+					console.printLine("Trade offer declined.");
+					break;
+				default:
+					console.printLine("Invalid option!");
+			}
+			tradeInitializingTeam.setAllPlayers(updatedInitialPlayerList);
+			tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
+			tradeInitializingTeam.setLossPoint(0);
+			break;
+		}
+		adjustTeamPlayers();
+	}
+
+	@Override
+	public HashMap<HashMap<Team,Team>,Integer> UIdraftPickTradeAccept(HashMap<Integer, Player> draftPickTradeOffer) {
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+		HashMap<Team,Team> draftPickTradingTeams = new HashMap<>();
+		HashMap<HashMap<Team,Team>,Integer> draftPicksTraded = new HashMap<>();
+		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
+
+		for (Map.Entry<Integer, Player> Players : draftPickTradeOffer.entrySet()) {
+			tradeInitializingTeam.addActivePlayer(Players.getValue());
+			for(Player player : tradeFinalizingTeam.getAllPlayers()) {
+				if(player.equals(Players.getValue())) {
+
+				}
+				else {
+					updatedFinalPlayerList.add(player);
+				}
+			}
+			draftPickTradingTeams.put(tradeInitializingTeam,tradeFinalizingTeam);
+			draftPicksTraded.put(draftPickTradingTeams,Players.getKey());
+		}
+		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
+		tradeInitializingTeam.setLossPoint(0);
+		ITeamRoster teamRoster = new TeamRoster(tradeInitializingTeam.getAllPlayers());
+		tradeInitializingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
+		tradeInitializingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
+		adjustTeamPlayers();
+		return draftPicksTraded;
+	}
+
+	@Override
+	public HashMap<HashMap<Team,Team>,Integer> userDraftPickTradeAccept(HashMap<Integer, Player> draftPickTradeOffer) {
+		console = Injector.instance().getConsoleObject();
+		leagueModel = Injector.instance().getLeagueModelObject();
+		leagueLOM = leagueModel.getCurrentLeague();
+		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
+		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
+		lossPoint = tradingConfig.getLossPoint();
+		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
+		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
+		HashMap<Team,Team> draftPickTradingTeams = new HashMap<>();
+		HashMap<HashMap<Team,Team>,Integer> draftPicksTraded = new HashMap<>();
+		int option = 0;
+
+		ArrayList<Player> updatedFinalPlayerList = new ArrayList<>();
+		for (Map.Entry<Integer, Player> Players : draftPickTradeOffer.entrySet()) {
+
+			console.printLine("\n Player Name : " + Players.getValue().getPlayerName() + "\n Age : " + Players.getValue().getAge() + "\n Checking : " + Players.getValue().getChecking()
+					+ "\n Saving : " + Players.getValue().getSaving() + "\n Shooting : " + Players.getValue().getShooting() + "\n Saving : " + Players.getValue().getSaving() + "\n");
+			console.printLine("Do you want to trade your draft pick chance in round "+Players.getKey()+" with the above player?");
+			console.printLine("1. Yes \n 2. No \n Choose 1 or 2");
+			option = console.readInteger();
+			switch (option) {
+				case 1:
+					tradeInitializingTeam.addActivePlayer(Players.getValue());
+					for(Player player : tradeFinalizingTeam.getAllPlayers()) {
+						if(player.equals(Players.getValue())) {
+
+						}
+						else {
+							updatedFinalPlayerList.add(player);
+						}
+					}
+					draftPickTradingTeams.put(tradeInitializingTeam,tradeFinalizingTeam);
+					draftPicksTraded.put(draftPickTradingTeams,Players.getKey());
+					console.printLine("Trade of player and draft pick successful!");
+					break;
+				case 2:
+					console.printLine("Trade offer declined.");
+					break;
+				default:
+					console.printLine("Invalid option!");
+			}
+
+		}
+		tradeFinalizingTeam.setAllPlayers(updatedFinalPlayerList);
+		tradeInitializingTeam.setLossPoint(0);
+		ITeamRoster teamRoster = new TeamRoster(tradeInitializingTeam.getAllPlayers());
+		tradeInitializingTeam.setActivePlayers(teamRoster.createActivePlayerRoster());
+		tradeInitializingTeam.setInActivePlayers(teamRoster.createInActivePlayerRoster());
+		adjustTeamPlayers();
+		return draftPicksTraded;
 	}
 
 	@Override
@@ -860,27 +1247,10 @@ public class Trading implements ITrading {
 	}
 
 	@Override
-	public LinkedList sortByStrength(LinkedList strength) {
+	public void getAveragePlayerStrength(){
 		console = Injector.instance().getConsoleObject();
 		leagueModel = Injector.instance().getLeagueModelObject();
 		leagueLOM = leagueModel.getCurrentLeague();
-		GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
-		maxPlayersPerTrade = tradingConfig.getMaxPlayersPerTrade();
-		lossPoint = tradingConfig.getLossPoint();
-		randomTradeOfferChance = tradingConfig.getRandomTradeOfferChance();
-		randomAcceptanceChance = tradingConfig.getRandomAcceptanceChance();
-
-		Collections.sort(strength, new Comparator() {
-			public int compare(Object o1, Object o2) {
-				return ((Comparable) ((Map.Entry) (o1)).getValue())
-						.compareTo(((Map.Entry) (o2)).getValue());
-			}
-		});
-		return strength;
-	}
-
-	@Override
-	public void getAveragePlayerStrength(){
 		int numberOfGoalies = 0;
 		int numberOfForwards = 0;
 		int numberOfDefenses = 0;

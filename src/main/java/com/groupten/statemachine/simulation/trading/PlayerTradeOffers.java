@@ -25,7 +25,6 @@ public class PlayerTradeOffers {
         console = Injector.instance().getConsoleObject();
         leagueModel = Injector.instance().getLeagueModelObject();
         leagueLOM = leagueModel.getCurrentLeague();
-        GameConfig.Trading tradingConfig = leagueLOM.getTradingConfig();
         double initialTeamStrength = 0.0;
         double finalTeamStrength = 0.0;
         double initialTeamStrengthMinRange = 0.0;
