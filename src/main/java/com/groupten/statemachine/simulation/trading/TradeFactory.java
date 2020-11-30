@@ -1,6 +1,6 @@
 package com.groupten.statemachine.simulation.trading;
 
-public class TradeFactory implements ITradeFactory{
+public class TradeFactory implements ITradeFactory {
 
     private static TradeFactory tradeFactorySingleton = null;
 

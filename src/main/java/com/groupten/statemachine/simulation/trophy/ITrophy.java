@@ -11,13 +11,21 @@ import java.util.Map;
 public interface ITrophy {
 
     void awardTrophy();
+
     void trophyWinners();
+
     LinkedList<TrophyPerSeason> getHistoricData();
+
     void setCoachRanking(LinkedHashMap<Coach, Integer> coachRanking);
+
     void setTeamRanking(LinkedHashMap<Team, Integer> teamRanking);
+
     void setBestPlayerRanking(Map<Player, Integer> bestPlayerRanking);
+
     void setBestDefenseMenRanking(Map<Player, Integer> bestDefenseMenRanking);
+
     void setTopGoalRanking(Map<Player, Integer> topGoalRanking);
+
     void setBestGoalieRanking(Map<Player, Integer> bestGoalieRanking);
 
 }

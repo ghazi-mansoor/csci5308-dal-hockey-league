@@ -103,17 +103,17 @@ public class Season implements ISeason {
         cal.add(Calendar.DATE, 1);
         this.currentDate = cal.getTime();
 
-        if(isTodayRegularSeasonEnd()){
+        if (isTodayRegularSeasonEnd()) {
             notifyObservers();
         }
 
     }
 
-    public List<TeamStanding> getTeamStandings(){
+    public List<TeamStanding> getTeamStandings() {
         return teamStandings;
     }
 
-    public List<TeamStanding> getPlayoffTeamStandings(){
+    public List<TeamStanding> getPlayoffTeamStandings() {
         return playoffTeamStandings;
     }
 

@@ -22,7 +22,7 @@ public class ResolveGameTest {
     }
 
     @Test
-    public void getStrategyTest(){
+    public void getStrategyTest() {
         Season season = new Season();
         ResolveGame resolveGame = new ResolveGame(season);
         IStrategy strategy = new RandomStrategy();
@@ -31,7 +31,7 @@ public class ResolveGameTest {
     }
 
     @Test
-    public void setStrategyTest(){
+    public void setStrategyTest() {
         Season season = new Season();
         ResolveGame resolveGame = new ResolveGame(season);
         IStrategy strategy = new RandomStrategy();
@@ -41,19 +41,19 @@ public class ResolveGameTest {
 
 
     @Test
-    public void getWinnerTest(){
+    public void getWinnerTest() {
         Season season = new Season();
         ResolveGame resolveGame = new ResolveGame(season);
 
-        Team team1  = new Team(1, "First Team");
+        Team team1 = new Team(1, "First Team");
         Player player1 = new Player("First Player", "goalie", false, 27, 5, 5, 5, 5);
         team1.addActivePlayer(player1);
 
-        Team team2  = new Team(2, "Second Team");
+        Team team2 = new Team(2, "Second Team");
         Player player2 = new Player("Second Player", "goalie", false, 27, 5, 5, 5, 5);
         team1.addActivePlayer(player2);
 
-        Team team = resolveGame.getWinner(team1,team2);
+        Team team = resolveGame.getWinner(team1, team2);
 
         assertTrue(team == team1 || team == team2);
     }

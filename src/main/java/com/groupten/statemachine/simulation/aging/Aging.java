@@ -68,24 +68,24 @@ public class Aging implements IAging {
     }
 
     private Player findBestFreeAgent(List<Player> freeAgents, Player player) {
-         String playerPosition = player.getPosition();
-         boolean isPlayerCaptain = player.isCaptain();
+        String playerPosition = player.getPosition();
+        boolean isPlayerCaptain = player.isCaptain();
 
-         Predicate<Player> byPosition = freeAgent -> freeAgent.getPosition().equals(playerPosition);
-         List<Player> freeAgentsWithSamePosition = freeAgents.stream().filter(byPosition).collect(Collectors.toList());
+        Predicate<Player> byPosition = freeAgent -> freeAgent.getPosition().equals(playerPosition);
+        List<Player> freeAgentsWithSamePosition = freeAgents.stream().filter(byPosition).collect(Collectors.toList());
 
-         TreeMap<Double, Player> freeAgentsRanked = new TreeMap<Double, Player>();
+        TreeMap<Double, Player> freeAgentsRanked = new TreeMap<Double, Player>();
 
-         for (Player freeAgentPlayer : freeAgentsWithSamePosition) {
-             double strength = freeAgentPlayer.calculateStrength();
-             freeAgentsRanked.put(strength, freeAgentPlayer);
-         }
+        for (Player freeAgentPlayer : freeAgentsWithSamePosition) {
+            double strength = freeAgentPlayer.calculateStrength();
+            freeAgentsRanked.put(strength, freeAgentPlayer);
+        }
 
-         Map.Entry<Double, Player> bestFreeAgentEntry = freeAgentsRanked.lastEntry();
-         Player bestFreeAgent = bestFreeAgentEntry.getValue();
-         bestFreeAgent.setCaptain(isPlayerCaptain);
+        Map.Entry<Double, Player> bestFreeAgentEntry = freeAgentsRanked.lastEntry();
+        Player bestFreeAgent = bestFreeAgentEntry.getValue();
+        bestFreeAgent.setCaptain(isPlayerCaptain);
 
-         return bestFreeAgent;
+        return bestFreeAgent;
     }
 
 }

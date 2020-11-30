@@ -22,16 +22,16 @@ public class RandomStrategy implements IStrategy {
         GameConfig.GameResolver gameResolver = league.getGameResolverConfig();
         double randomWinChance = gameResolver.getRandomWinChance();
 
-        if(new Random().nextDouble() > randomWinChance){
-            if(team1.getTeamStrength() > team2.getTeamStrength()){
+        if (new Random().nextDouble() > randomWinChance) {
+            if (team1.getTeamStrength() > team2.getTeamStrength()) {
                 return team1;
-            }else{
+            } else {
                 return team2;
             }
-        }else{
-            if(team1.getTeamStrength() < team2.getTeamStrength()){
+        } else {
+            if (team1.getTeamStrength() < team2.getTeamStrength()) {
                 return team1;
-            }else{
+            } else {
                 return team2;
             }
         }

@@ -13,7 +13,7 @@ public class TeamBuilderTest {
     public void resetTest() {
         ITeamBuilder teamBuilder = new TeamBuilder();
         teamBuilder.reset();
-        assert(teamBuilder.getResult() != null);
+        assert (teamBuilder.getResult() != null);
     }
 
     @Test

@@ -14,7 +14,7 @@ public class GeneralManagerTest {
         assertFalse(GeneralManager.isManagerValid(generalManager1));
         GeneralManager generalManager2 = new GeneralManager("", "normal");
         assertFalse(GeneralManager.isManagerValid(generalManager2));
-        GeneralManager generalManager3= new GeneralManager("Null", "normal");
+        GeneralManager generalManager3 = new GeneralManager("Null", "normal");
         assertFalse(GeneralManager.isManagerValid(generalManager3));
     }
 

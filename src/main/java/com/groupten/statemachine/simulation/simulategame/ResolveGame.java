@@ -6,10 +6,10 @@ import com.groupten.statemachine.simulation.simulategame.strategy.IStrategy;
 import com.groupten.statemachine.simulation.simulategame.strategy.RandomStrategy;
 
 public class ResolveGame implements IResolveGame {
-    private IStrategy strategy;
     private final Season season;
+    private IStrategy strategy;
 
-    public ResolveGame(Season season){
+    public ResolveGame(Season season) {
         this.strategy = new RandomStrategy();
         this.season = season;
     }
@@ -25,7 +25,7 @@ public class ResolveGame implements IResolveGame {
     }
 
     @Override
-    public Team getWinner(Team team1, Team team2){
+    public Team getWinner(Team team1, Team team2) {
         return strategy.getWinner(this.season, team1, team2);
     }
 }

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IDraftContext {
     void setStrategy(IDraftStrategy draftStrategy);
+
     void executeStrategy(List<TeamStanding> teamStandings, List<Player> players);
 }
