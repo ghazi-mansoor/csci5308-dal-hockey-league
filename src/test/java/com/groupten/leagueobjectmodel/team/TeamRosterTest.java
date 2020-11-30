@@ -1,6 +1,12 @@
 package com.groupten.leagueobjectmodel.team;
 
+import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModelFactory;
+import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.statemachine.jsonimport.JSONImport;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,19 +17,30 @@ import static org.junit.Assert.assertEquals;
 public class TeamRosterTest {
     @Test
     public void createActiveInActiveRostersTest() {
-        ITeamBuilder teamBuilder = new TeamBuilder();
-        teamBuilder.reset();
-        teamBuilder.setTeamName("First Team");
+        JSONImport jsonTestSuccess = new JSONImport();
+        String path = "src/test/java/com/groupten/mocks/league.json";
+        jsonTestSuccess.importJSONData(path);
+        jsonTestSuccess.instantiateJSONData();
+
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+        ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
+        ITeamRoster teamRoster = leagueModelFactory.createTeamRoster();
 
         List<Player> players = initializePlayers();
-        teamBuilder.setPlayerRosters(players);
-        Team team = teamBuilder.getResult();
+        teamRoster.setPlayers(players);
 
-        List<Player> activePlayers = team.getActivePlayers();
-        List<Player> inActivePlayers = team.getInActivePlayers();
+        List<Player> activePlayers = teamRoster.createActivePlayerRoster();
+        List<Player> inActivePlayers = teamRoster.createInActivePlayerRoster();
+        List<Player> excessPlayers = teamRoster.returnExcessPlayers();
 
         assertEquals(20, activePlayers.size());
         assertEquals(10, inActivePlayers.size());
+        assertEquals(23, excessPlayers.size());
+
+        leagueModel.addExcessPlayersToFreeAgentsList(excessPlayers);
+        League currentLeague = leagueModel.getCurrentLeague();
+
+        assertEquals(80, currentLeague.getFreeAgents().size());
     }
 
     private List<Player> initializePlayers() {

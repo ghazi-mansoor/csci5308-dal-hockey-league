@@ -49,6 +49,15 @@ public class TeamRoster implements ITeamRoster {
         return this.inActivePlayerRooster;
     }
 
+    @Override
+    public List<Player> returnExcessPlayers() {
+        for (Player player : activePlayerRoster) {
+            this.players.remove(player);
+        }
+
+        return players.subList(MAX_INACTIVE_PLAYERS, players.size());
+    }
+
     private void rankPlayersAccordingToStrength() {
         this.players.sort(Comparator.comparingDouble(Player::calculateStrength).reversed());
     }

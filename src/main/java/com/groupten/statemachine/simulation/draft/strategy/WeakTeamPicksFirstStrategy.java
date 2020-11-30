@@ -1,6 +1,7 @@
 package com.groupten.statemachine.simulation.draft.strategy;
 
 import com.groupten.injector.Injector;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModelFactory;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.ITeamRoster;
@@ -17,6 +18,7 @@ public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
 
     @Override
     public void execute(List<TeamStanding> teamStandings, List<Player> players) {
+        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
         ITeamRoster teamRoster = leagueModelFactory.createTeamRoster();
         players.sort(Comparator.comparingDouble(Player::calculateStrength).reversed());
@@ -36,6 +38,7 @@ public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
             teamRoster.setPlayers(activePlayers);
             team.setActivePlayers(teamRoster.createActivePlayerRoster());
             team.setInActivePlayers(teamRoster.createInActivePlayerRoster());
+            leagueModel.addExcessPlayersToFreeAgentsList(teamRoster.returnExcessPlayers());
 
             players.remove(bestPlayer);
         }
