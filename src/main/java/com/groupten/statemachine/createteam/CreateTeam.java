@@ -19,7 +19,7 @@ import java.util.List;
 public class CreateTeam implements ICreateTeam {
 
     private final int NO_OF_GOALIE = 4;
-    private final int NO_OF_DEFENSE = 16;
+    private final int NO_OF_DEFENSE = 10;
     private final int NO_OF_FORWARDS = 16;
 
     private String conferenceName, divisionName, teamName;
