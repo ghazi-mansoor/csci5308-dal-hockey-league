@@ -14,7 +14,9 @@ public interface ICreateTeam {
 
     boolean selectTeamGoalies();
 
-    boolean selectTeamSkaters();
+    boolean selectTeamForwards();
+
+    boolean selectTeamDefense();
 
     boolean instantiateNewTeam();
 

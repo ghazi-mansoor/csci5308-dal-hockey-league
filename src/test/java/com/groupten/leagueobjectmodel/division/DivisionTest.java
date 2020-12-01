@@ -1,8 +1,6 @@
 package com.groupten.leagueobjectmodel.division;
 
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.persistence.dao.IDivisionDAO;
-import com.groupten.persistence.dao.database.DivisionDAO;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

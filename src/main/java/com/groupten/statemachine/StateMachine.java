@@ -2,12 +2,13 @@ package com.groupten.statemachine;
 
 import com.groupten.IO.console.IConsole;
 import com.groupten.injector.Injector;
-import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.statemachine.createteam.ICreateTeam;
 import com.groupten.statemachine.jsonimport.IJSONImport;
 import com.groupten.statemachine.loadteam.ILoadTeam;
 import com.groupten.statemachine.simulation.ISimulation;
+import com.groupten.statemachine.simulation.training.ITraining;
+import com.groupten.statemachine.simulation.training.ITrainingObserver;
+import com.groupten.statemachine.simulation.trophy.ITrophy;
 
 import java.io.IOException;
 
@@ -39,15 +40,14 @@ public class StateMachine {
         try {
             json.importJSONData(path);
             console.printLine("SUCCESS: Reading JSON file.");
-            if (json.isLeagueNameUnique()) {
-                if (json.instantiateJSONData()) {
-                    console.printLine("SUCCESS: JSON Loaded.");
-                    createTeam();
-                }
+            if (json.instantiateJSONData()) {
+                console.printLine("SUCCESS: JSON Loaded.");
+                createTeam();
+            } else {
+                console.printLine("ERROR: Reading JSON file.");
             }
         } catch (IOException e) {
             console.printLine("ERROR: Invalid File Path.");
-
         }
         continueOrExit();
         importJson();
@@ -65,12 +65,16 @@ public class StateMachine {
                 if (createTeam.selectTeamGeneralManager()) {
                     if (createTeam.selectTeamHeadCoach()) {
                         if (createTeam.selectTeamGoalies()) {
-                            if (createTeam.selectTeamSkaters()) {
-                                if (createTeam.instantiateNewTeam()) {
-                                    console.printLine("SUCCESS: Team Created.");
-                                    playerChoice();
+                            if (createTeam.selectTeamForwards()) {
+                                if (createTeam.selectTeamDefense()) {
+                                    if (createTeam.instantiateNewTeam()) {
+                                        console.printLine("SUCCESS: Team Created.");
+                                        playerChoice();
+                                    } else {
+                                        console.printLine("FAILURE: Some error occurred.");
+                                    }
                                 } else {
-                                    console.printLine("FAILURE: Some error occurred.");
+                                    console.printLine("ERROR: Invalid Input.");
                                 }
                             } else {
                                 console.printLine("ERROR: Invalid Input.");
@@ -106,10 +110,10 @@ public class StateMachine {
             if (loadTeam.loadExistingLeague()) {
                 console.printLine("SUCCESS: Team Selected.");
                 playerChoice();
-            }else{
+            } else {
                 console.printLine("FAILURE: Some error occurred.");
             }
-        }else{
+        } else {
             console.printLine("ERROR: Team does not exist.");
         }
         continueOrExit();
@@ -125,15 +129,17 @@ public class StateMachine {
     }
 
     private void simulate(int numberOfSeasons) {
+        ITraining training = Injector.instance().getTrainingObject();
+        ITrophy trophy = Injector.instance().getTrophyObject();
+        training.subscribe((ITrainingObserver) trophy);
+
         IConsole console = Injector.instance().getConsoleObject();
         console.printLine("Preparing for simulation.");
 
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
-        League leagueLOM = leagueModel.getCurrentLeague();
         ISimulation simulation = Injector.instance().getSimulationObject();
 
         console.printLine("Simulating " + numberOfSeasons + " Seasons.");
-        simulation.init(leagueLOM,numberOfSeasons);
+        simulation.init(numberOfSeasons);
         end();
     }
 
@@ -142,11 +148,11 @@ public class StateMachine {
 
         console.printLine("\nDo you want to Retry? (y/n)");
         String choice = console.readLine().toLowerCase();
-        if(choice.equals("y")){
+        if (choice.equals("y")) {
             console.printLine("\nOk..starting again.");
-        }else if(choice.equals("n")){
+        } else if (choice.equals("n")) {
             end();
-        }else{
+        } else {
             console.printLine("ERROR: Invalid Input.");
         }
     }

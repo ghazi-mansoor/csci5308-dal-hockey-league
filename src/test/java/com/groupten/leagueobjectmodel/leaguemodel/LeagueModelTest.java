@@ -1,18 +1,10 @@
 package com.groupten.leagueobjectmodel.leaguemodel;
 
-import com.groupten.leagueobjectmodel.conference.Conference;
-import com.groupten.leagueobjectmodel.conference.ConferenceTest;
-import com.groupten.leagueobjectmodel.division.Division;
-import com.groupten.leagueobjectmodel.division.DivisionTest;
-import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.league.League;
-import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.persistence.dao.*;
-import com.groupten.persistence.dao.database.*;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class LeagueModelTest {
     @Test

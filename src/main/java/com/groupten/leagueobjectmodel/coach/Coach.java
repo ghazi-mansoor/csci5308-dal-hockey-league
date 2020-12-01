@@ -1,10 +1,12 @@
 package com.groupten.leagueobjectmodel.coach;
 
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Coach {
+public class Coach implements IPersistModel {
     private int coachID;
     private int leagueID;
     private int teamID;
@@ -13,6 +15,12 @@ public class Coach {
     private double shooting;
     private double checking;
     private double saving;
+
+    public Coach() { }
+
+    public Coach(String n) {
+        coachName = n;
+    }
 
     public Coach(String n, double sk, double sh, double ch, double sa) {
         coachName = n;
@@ -39,7 +47,7 @@ public class Coach {
         }
     }
 
-    private static boolean areStatsValid(double ...args) {
+    private static boolean areStatsValid(double... args) {
         List<Boolean> validChecks = new ArrayList<>();
 
         for (double stat : args) {
@@ -65,12 +73,12 @@ public class Coach {
         this.teamID = teamID;
     }
 
-    public void setCoachID(int coachID) {
-        this.coachID = coachID;
-    }
-
     public int getCoachID() {
         return coachID;
+    }
+
+    public void setCoachID(int coachID) {
+        this.coachID = coachID;
     }
 
     public String getCoachName() {
@@ -111,5 +119,10 @@ public class Coach {
 
     public void setSaving(double saving) {
         this.saving = saving;
+    }
+
+    @Override
+    public boolean save() {
+        return false;
     }
 }

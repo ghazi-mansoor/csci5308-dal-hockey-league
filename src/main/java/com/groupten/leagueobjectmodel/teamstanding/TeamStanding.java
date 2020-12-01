@@ -3,7 +3,7 @@ package com.groupten.leagueobjectmodel.teamstanding;
 
 import com.groupten.leagueobjectmodel.team.Team;
 
-public class TeamStanding implements Comparable<TeamStanding>{
+public class TeamStanding implements Comparable<TeamStanding> {
     private Team team;
     private String divisionName;
     private String conferenceName;
@@ -12,7 +12,7 @@ public class TeamStanding implements Comparable<TeamStanding>{
     private int conferenceRank;
     private int divisionRank;
 
-    public TeamStanding(Team team,String divisionName,String conferenceName, int points, int leagueRank, int conferenceRank,int divisionRank){
+    public TeamStanding(Team team, String divisionName, String conferenceName, int points, int leagueRank, int conferenceRank, int divisionRank) {
         this.team = team;
         this.divisionName = divisionName;
         this.conferenceName = conferenceName;
