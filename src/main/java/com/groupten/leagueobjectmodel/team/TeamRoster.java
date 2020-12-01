@@ -3,6 +3,7 @@ package com.groupten.leagueobjectmodel.team;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.player.PlayerPosition;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -37,9 +38,9 @@ public class TeamRoster implements ITeamRoster {
 
     @Override
     public List<Player> createActivePlayerRoster() {
-        List<Player> activeForwardPlayers = filterPlayersByPosition("forward").stream().limit(MAX_ACTIVE_FORWARD_PLAYERS).collect(Collectors.toList());
-        List<Player> activeDefensePlayers = filterPlayersByPosition("defense").stream().limit(MAX_ACTIVE_DEFENSE_PLAYERS).collect(Collectors.toList());
-        List<Player> activeGoaliePlayers = filterPlayersByPosition("goalie").stream().limit(MAX_ACTIVE_GOALIES).collect(Collectors.toList());
+        List<Player> activeForwardPlayers = filterPlayersByPosition(PlayerPosition.FORWARD.name().toLowerCase()).stream().limit(MAX_ACTIVE_FORWARD_PLAYERS).collect(Collectors.toList());
+        List<Player> activeDefensePlayers = filterPlayersByPosition(PlayerPosition.DEFENSE.name().toLowerCase()).stream().limit(MAX_ACTIVE_DEFENSE_PLAYERS).collect(Collectors.toList());
+        List<Player> activeGoaliePlayers = filterPlayersByPosition(PlayerPosition.GOALIE.name().toLowerCase()).stream().limit(MAX_ACTIVE_GOALIES).collect(Collectors.toList());
 
         this.activePlayerRoster = Stream.of(activeForwardPlayers, activeDefensePlayers, activeGoaliePlayers).flatMap(Collection::stream).collect(Collectors.toList());
         return this.activePlayerRoster;

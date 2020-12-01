@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface IDraftStrategy {
-    void execute(List<TeamStanding> teamStandings, List<Player> players, Map<Map<Team, Team>, Integer> tradedTeamsMap, int currentRound);
+    void execute(List<TeamStanding> teamStandings, List<Player> players, List<List<Team>> tradePickTeams);
 }

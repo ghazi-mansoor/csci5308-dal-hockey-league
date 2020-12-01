@@ -2,7 +2,7 @@ package com.groupten.leagueobjectmodel.generalmanager;
 
 import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 
-public class GeneralManager implements IPersistModel {
+public class GeneralManager {
     private int managerID;
     private String managerName;
     private String managerPersonality;
@@ -70,10 +70,5 @@ public class GeneralManager implements IPersistModel {
 
     public void setTeamID(int teamID) {
         this.teamID = teamID;
-    }
-
-    @Override
-    public boolean save() {
-        return false;
     }
 }

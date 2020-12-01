@@ -18,8 +18,7 @@ public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
     private static final Logger logger = LogManager.getLogger(WeakTeamPicksFirstStrategy.class.getName());
 
     @Override
-    public void execute(List<TeamStanding> teamStandings, List<Player> players, Map<Map<Team, Team>, Integer> tradedTeamsMap, int currentRound) {
-        ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
+    public void execute(List<TeamStanding> teamStandings, List<Player> players, List<List<Team>> tradePickTeams) {
         ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
         ITeamRoster teamRoster = leagueModelFactory.createTeamRoster();
         players.sort(Comparator.comparingDouble(Player::calculateStrength).reversed());
@@ -39,7 +38,6 @@ public class WeakTeamPicksFirstStrategy implements IDraftStrategy {
             teamRoster.setPlayers(activePlayers);
             team.setActivePlayers(teamRoster.createActivePlayerRoster());
             team.setInActivePlayers(teamRoster.createInActivePlayerRoster());
-            leagueModel.addExcessPlayersToFreeAgentsList(teamRoster.returnExcessPlayers());
 
             players.remove(bestPlayer);
         }

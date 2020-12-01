@@ -3,6 +3,7 @@ package com.groupten.leagueobjectmodel.season;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
 import com.groupten.leagueobjectmodel.team.Team;
+import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 
 import java.util.Date;
 import java.util.List;
@@ -39,4 +40,8 @@ public interface ISeason {
     boolean isTradeEnded();
 
     boolean isWinnerDetermined();
+
+    List<TeamStanding> getTeamStandings();
+
+    List<TeamStanding> getPlayoffTeamStandings();
 }

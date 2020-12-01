@@ -3,23 +3,26 @@ package com.groupten.statemachine.simulation.draft;
 import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.player.PlayerPosition;
+import com.groupten.leagueobjectmodel.season.ISeason;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.team.Team;
 import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftStrategy;
+import com.groupten.statemachine.simulation.trading.ITradingSubscriber;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-public class Draft implements IDraft {
+public class Draft implements IDraft, ITradingSubscriber {
     private static final Logger logger = LogManager.getLogger(Draft.class.getName());
     private List<TeamStanding> combinedSortedTeamStandings = new ArrayList<>();
     private List<TeamStanding> regularSeasonStandings = new ArrayList<>();
     private List<TeamStanding> playoffStandings = new ArrayList<>();
-    private Map<Map<Team, Team>, Integer> tradedTeamsMap = new HashMap<>();
+    private List<List<Team>> tradePickTeams = new ArrayList<>();
+
     private List<Player> forwardPlayersForDraft = new ArrayList<>();
     private List<Player> defensePlayersForDraft = new ArrayList<>();
     private List<Player> goaliePlayersForDraft = new ArrayList<>();
@@ -36,12 +39,12 @@ public class Draft implements IDraft {
         draftPlayers(draftContext, PlayerPosition.GOALIE.name());
     }
 
-    private void initialize(Season season) {
+    private void initialize(ISeason season) {
         preprocessTeamStandings(season);
         generateDraftPlayers();
     }
 
-    private void preprocessTeamStandings(Season season) {
+    private void preprocessTeamStandings(ISeason season) {
         regularSeasonStandings = season.getTeamStandings();
         playoffStandings = season.getPlayoffTeamStandings();
 
@@ -94,7 +97,7 @@ public class Draft implements IDraft {
         while (currentDraftRound < draftCount) {
             logger.info("Draft Round " + currentDraftRound + " for drafting players at position: " + position);
 
-            if (tradedTeamsMap.size() == 0) {
+            if (tradePickTeams.size() == 0) {
                 draftStrategy = Injector.instance().getWeakTeamPicksFirstStrategy();
                 draftContext.setStrategy(draftStrategy);
             } else {
@@ -102,8 +105,13 @@ public class Draft implements IDraft {
                 draftContext.setStrategy(draftStrategy);
             }
 
-            draftContext.executeStrategy(combinedSortedTeamStandings, draftPlayersList, tradedTeamsMap, currentDraftRound);
+            draftContext.executeStrategy(combinedSortedTeamStandings, draftPlayersList, tradePickTeams);
             currentDraftRound += 1;
         }
+    }
+
+    @Override
+    public void update(List<Team> teams) {
+        tradePickTeams.add(teams);
     }
 }

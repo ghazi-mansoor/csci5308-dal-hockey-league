@@ -10,5 +10,5 @@ import java.util.Map;
 public interface IDraftContext {
     void setStrategy(IDraftStrategy draftStrategy);
 
-    void executeStrategy(List<TeamStanding> teamStandings, List<Player> players, Map<Map<Team, Team>, Integer> tradedTeamsMap, int currentRound);
+    void executeStrategy(List<TeamStanding> teamStandings, List<Player> players, List<List<Team>> tradePickTeams);
 }

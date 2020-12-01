@@ -16,7 +16,7 @@ public class DraftContext implements IDraftContext {
     }
 
     @Override
-    public void executeStrategy(List<TeamStanding> teamStandings, List<Player> players, Map<Map<Team, Team>, Integer> tradedTeamsMap, int currentRound) {
-        strategy.execute(teamStandings, players, tradedTeamsMap, currentRound);
+    public void executeStrategy(List<TeamStanding> teamStandings, List<Player> players, List<List<Team>> tradePickTeams) {
+        strategy.execute(teamStandings, players, tradePickTeams);
     }
 }

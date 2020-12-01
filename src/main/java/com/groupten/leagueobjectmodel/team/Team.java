@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class Team implements IPlayerSubscriber, IPersistModel {
+public class Team implements IPlayerSubscriber {
     private final int REQUIRED_NUMBER_OF_ACTIVE_PLAYERS = 20;
 
     private int teamID;
@@ -232,16 +232,6 @@ public class Team implements IPlayerSubscriber, IPersistModel {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
-    }
-
-    public boolean save() {
-        ITeamDAO teamDAO = Injector.instance().getTeamDatabaseObject();
-        teamID = teamDAO.createTeam(divisionID, teamName);
-        if (teamID != -0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public List<Player> getInActivePlayers() {

@@ -7,6 +7,7 @@ import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
 import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.player.Player;
+import com.groupten.leagueobjectmodel.player.PlayerPosition;
 import com.groupten.persistence.m1DB.dao.ILeagueDAO;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class League implements IPersistModel {
+public class League {
     private int leagueID;
     private String leagueName;
     private String userTeam;
@@ -114,40 +115,44 @@ public class League implements IPersistModel {
     public List<Player> getFreeAgentsGoalies() {
         List<Player> goalies = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals("goalie")) {
+            if (freeAgent.getPosition().equals(PlayerPosition.GOALIE.name().toLowerCase())) {
                 goalies.add(freeAgent);
             }
         }
+
         return goalies;
     }
 
     public List<Player> getFreeAgentsSkaters() {
         List<Player> skater = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")) {
+            if (freeAgent.getPosition().equals(PlayerPosition.FORWARD.name().toLowerCase()) || freeAgent.getPosition().equals(PlayerPosition.DEFENSE.name().toLowerCase())) {
                 skater.add(freeAgent);
             }
         }
+
         return skater;
     }
 
     public List<Player> getFreeAgentsForwards() {
         List<Player> forwards = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals("forward")) {
+            if (freeAgent.getPosition().equals(PlayerPosition.FORWARD.name().toLowerCase())) {
                 forwards.add(freeAgent);
             }
         }
+
         return forwards;
     }
 
     public List<Player> getFreeAgentsDefenses() {
         List<Player> defense = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals("defense")) {
+            if (freeAgent.getPosition().equals(PlayerPosition.DEFENSE.name().toLowerCase())) {
                 defense.add(freeAgent);
             }
         }
+
         return defense;
     }
 
@@ -181,19 +186,6 @@ public class League implements IPersistModel {
 
     public void removeFreeAgent(Player player) {
         freeAgents.remove(player);
-    }
-
-    public boolean save() {
-        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
-        leagueID = leagueDAO.createLeague(leagueName, agingConfig.getAverageRetirementAge(), agingConfig.getMaximumAge(),
-                injuriesConfig.getRandomInjuryChance(), injuriesConfig.getInjuryDaysHigh(), injuriesConfig.getInjuryDaysLows(),
-                tradingConfig.getLossPoint(), tradingConfig.getRandomTradeOfferChance(), tradingConfig.getMaxPlayersPerTrade(),
-                tradingConfig.getRandomAcceptanceChance());
-        if (leagueID != 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public GameConfig.Aging getAgingConfig() {

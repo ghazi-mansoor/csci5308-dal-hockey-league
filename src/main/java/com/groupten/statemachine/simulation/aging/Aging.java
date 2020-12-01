@@ -1,8 +1,10 @@
 package com.groupten.statemachine.simulation.aging;
 
+import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.division.Division;
 import com.groupten.leagueobjectmodel.league.League;
+import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
 
@@ -14,9 +16,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Aging implements IAging {
+    private ILeagueModel leagueModel;
 
     @Override
     public void advanceEveryPlayersAge(League league, int days) {
+        leagueModel = Injector.instance().getLeagueModelObject();
         advanceTeamPlayerAges(league, days);
         advanceFreeAgentAges(league, days);
     }
@@ -42,6 +46,7 @@ public class Aging implements IAging {
 
             team.setActivePlayers(updatePlayerRosterBasedOnRetirements(activePlayers, freeAgents, days));
             team.setInActivePlayers(updatePlayerRosterBasedOnRetirements(inActivePlayers, freeAgents, days));
+
         }
     }
 

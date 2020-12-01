@@ -23,7 +23,7 @@ public class Trading {
 
 	public Trading() {
 	}
-	private static final Logger logger = LogManager.getLogger(Draft.class.getName());
+	private static final Logger logger = LogManager.getLogger(Trading.class.getName());
 	private IConsole console;
 	private ILeagueModel leagueModel;
 	private League leagueLOM;
@@ -47,7 +47,7 @@ public class Trading {
 	private boolean tradeOccured = false;
 	private ArrayList<Player> initialTradingPlayers = new ArrayList<>();
 	private ArrayList<Player> finalTradingPlayers = new ArrayList<>();
-	private transient List<ITradingSubscriber> subscribers = new ArrayList<>();
+	private List<ITradingSubscriber> subscribers = new ArrayList<>();
 
 	public Team getTradeInitializingTeam() {
 		return tradeInitializingTeam;

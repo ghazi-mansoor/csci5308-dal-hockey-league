@@ -8,7 +8,7 @@ import com.groupten.persistence.m1DB.dao.IDivisionDAO;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Division implements IPersistModel {
+public class Division {
     private int divisionID;
     private int conferenceID;
     private String divisionName;
@@ -60,16 +60,6 @@ public class Division implements IPersistModel {
 
     public void setConferenceID(int conferenceID) {
         this.conferenceID = conferenceID;
-    }
-
-    public boolean save() {
-        IDivisionDAO divisionDAO = Injector.instance().getDivisionDatabaseObject();
-        divisionID = divisionDAO.createDivision(conferenceID, divisionName);
-        if (divisionID != 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public int getDivisionID() {
