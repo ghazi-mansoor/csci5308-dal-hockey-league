@@ -108,7 +108,7 @@ public class Simulation implements ISimulation {
 
         if (season.isTradeEnded()) {
         } else {
-             executeTrades();
+             // executeTrades();
         }
         aging();
     }
@@ -150,9 +150,11 @@ public class Simulation implements ISimulation {
             trophy.awardTrophy();
             trophy.trophyWinners();
 
-            ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
-            draft = simulationFactory.createDraft();
-            draft.execute(season);
+            if (numberOfSeasons == 1) {
+                ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
+                draft = simulationFactory.createDraft();
+                draft.execute(season);
+            }
 
             if (numberOfSeasons > 0) {
                 year++;
