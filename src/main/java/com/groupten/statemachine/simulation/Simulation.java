@@ -150,11 +150,14 @@ public class Simulation implements ISimulation {
             trophy.awardTrophy();
             trophy.trophyWinners();
 
-            if (numberOfSeasons == 1) {
-                ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
-                draft = simulationFactory.createDraft();
-                draft.execute(season);
-            }
+            IDraft draft = Injector.instance().getDraftInterface();
+            draft.execute(season);
+
+//            if (numberOfSeasons == 1) {
+//                ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
+//                draft = simulationFactory.createDraft();
+//                draft.execute(season);
+//            }
 
             if (numberOfSeasons > 0) {
                 year++;

@@ -47,7 +47,7 @@ public class Trading {
 	private boolean tradeOccured = false;
 	private ArrayList<Player> initialTradingPlayers = new ArrayList<>();
 	private ArrayList<Player> finalTradingPlayers = new ArrayList<>();
-	private transient List<ITradingSubscriber> subscribers = new ArrayList<>();
+	private List<ITradingSubscriber> subscribers = new ArrayList<>();
 
 	public Team getTradeInitializingTeam() {
 		return tradeInitializingTeam;
