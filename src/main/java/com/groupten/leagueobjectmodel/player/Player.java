@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class Player {
     private final double NUMBER_OF_DAYS_PER_YEAR = 365.0;
-    private final double LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER = 90.0;
+    private final double LIKELIHOOD_THRESHOLD_FOR_RETIRING_PLAYER = 95.0;
     private final double STAT_DECREMENT = 1.0;
     private final int MAX_TOI = 1080;
 

@@ -10,12 +10,13 @@ import com.groupten.leagueobjectmodel.teamstanding.TeamStanding;
 import com.groupten.statemachine.simulation.draft.generateplayers.IPlayersGenerator;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftContext;
 import com.groupten.statemachine.simulation.draft.strategy.IDraftStrategy;
+import com.groupten.statemachine.simulation.trading.ITradingSubscriber;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-public class Draft implements IDraft {
+public class Draft implements IDraft, ITradingSubscriber {
     private static final Logger logger = LogManager.getLogger(Draft.class.getName());
     private List<TeamStanding> combinedSortedTeamStandings = new ArrayList<>();
     private List<TeamStanding> regularSeasonStandings = new ArrayList<>();
@@ -107,5 +108,10 @@ public class Draft implements IDraft {
             draftContext.executeStrategy(combinedSortedTeamStandings, draftPlayersList, tradePickTeams);
             currentDraftRound += 1;
         }
+    }
+
+    @Override
+    public void update(List<Team> teams) {
+        tradePickTeams.add(teams);
     }
 }

@@ -115,7 +115,7 @@ public class League {
     public List<Player> getFreeAgentsGoalies() {
         List<Player> goalies = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals(PlayerPosition.FORWARD.name().toLowerCase())) {
+            if (freeAgent.getPosition().equals(PlayerPosition.GOALIE.name().toLowerCase())) {
                 goalies.add(freeAgent);
             }
         }

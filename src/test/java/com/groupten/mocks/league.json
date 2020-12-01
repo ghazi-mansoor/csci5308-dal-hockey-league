@@ -18,7 +18,7 @@
       "daysUntilStatIncreaseCheck": 70
     },
     "trading": {
-      "lossPoint": 100,
+      "lossPoint": 150,
       "randomTradeOfferChance": 0.02,
       "maxPlayersPerTrade": 1,
       "randomAcceptanceChance": 0.32,
