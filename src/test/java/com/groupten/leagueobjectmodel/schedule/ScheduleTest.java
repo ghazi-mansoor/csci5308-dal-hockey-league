@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ScheduleTest {
 
@@ -32,7 +31,7 @@ public class ScheduleTest {
     public void addTeamTest() {
         Schedule schedule = new Schedule();
         schedule.addTeam(new Team("Team1"));
-        assertEquals(1,schedule.getTeams().size());
+        assertEquals(1, schedule.getTeams().size());
     }
 
     @Test

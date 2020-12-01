@@ -3,19 +3,8 @@ package com.groupten.statemachine.simulation.generateplayoffschedule;
 import com.groupten.leagueobjectmodel.season.Season;
 
 public class GeneratePlayoffSchedule implements IGeneratePlayoffSchedule {
-    private Season season;
-
-    public Season getSeason() {
-        return season;
-    }
-
     @Override
-    public void setSeason(Season season) {
-        this.season = season;
-    }
-
-    @Override
-    public boolean generatePlayoffSchedule() {
+    public boolean generatePlayoffSchedule(Season season) {
         return season.generatePlayoffSchedule();
     }
 }

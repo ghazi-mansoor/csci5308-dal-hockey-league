@@ -5,10 +5,10 @@ import com.groupten.leagueobjectmodel.coach.Coach;
 import com.groupten.leagueobjectmodel.conference.Conference;
 import com.groupten.leagueobjectmodel.gameconfig.GameConfig;
 import com.groupten.leagueobjectmodel.generalmanager.GeneralManager;
+import com.groupten.leagueobjectmodel.leaguemodel.IPersistModel;
 import com.groupten.leagueobjectmodel.player.Player;
-import com.groupten.leagueobjectmodel.season.Season;
-import com.groupten.persistence.dao.ILeagueDAO;
-import com.groupten.persistence.dao.database.LeagueDAO;
+import com.groupten.leagueobjectmodel.player.PlayerPosition;
+import com.groupten.persistence.m1DB.dao.ILeagueDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +18,7 @@ import java.util.Map;
 public class League {
     private int leagueID;
     private String leagueName;
+    private String userTeam;
     private Map<String, Conference> conferences = new HashMap<>();
     private List<Player> freeAgents = new ArrayList<>();
     private List<Coach> coaches = new ArrayList<>();
@@ -35,6 +36,22 @@ public class League {
     public League(int leagueID, String leagueName) {
         this(leagueName);
         this.leagueID = leagueID;
+    }
+
+    public static boolean isLeagueNameValid(String lN) {
+        if (lN.isEmpty() || lN.isBlank() || lN.toLowerCase().equals("null")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public String getUserTeam() {
+        return userTeam;
+    }
+
+    public void setUserTeam(String userTeam) {
+        this.userTeam = userTeam;
     }
 
     public boolean addConference(Conference conference) {
@@ -98,33 +115,49 @@ public class League {
     public List<Player> getFreeAgentsGoalies() {
         List<Player> goalies = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals("goalie")) {
+            if (freeAgent.getPosition().equals(PlayerPosition.GOALIE.name().toLowerCase())) {
                 goalies.add(freeAgent);
             }
         }
+
         return goalies;
     }
 
     public List<Player> getFreeAgentsSkaters() {
-        List<Player> skaters = new ArrayList<>();
+        List<Player> skater = new ArrayList<>();
         for (Player freeAgent : freeAgents) {
-            if (freeAgent.getPosition().equals("forward") || freeAgent.getPosition().equals("defense")) {
-                skaters.add(freeAgent);
+            if (freeAgent.getPosition().equals(PlayerPosition.FORWARD.name().toLowerCase()) || freeAgent.getPosition().equals(PlayerPosition.DEFENSE.name().toLowerCase())) {
+                skater.add(freeAgent);
             }
         }
-        return skaters;
+
+        return skater;
+    }
+
+    public List<Player> getFreeAgentsForwards() {
+        List<Player> forwards = new ArrayList<>();
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals(PlayerPosition.FORWARD.name().toLowerCase())) {
+                forwards.add(freeAgent);
+            }
+        }
+
+        return forwards;
+    }
+
+    public List<Player> getFreeAgentsDefenses() {
+        List<Player> defense = new ArrayList<>();
+        for (Player freeAgent : freeAgents) {
+            if (freeAgent.getPosition().equals(PlayerPosition.DEFENSE.name().toLowerCase())) {
+                defense.add(freeAgent);
+            }
+        }
+
+        return defense;
     }
 
     public List<GeneralManager> getGeneralManagers() {
         return generalManagers;
-    }
-
-    public static boolean isLeagueNameValid(String lN) {
-        if (lN.isEmpty() || lN.isBlank() || lN.toLowerCase().equals("null")) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     public String getLeagueName() {
@@ -153,19 +186,6 @@ public class League {
 
     public void removeFreeAgent(Player player) {
         freeAgents.remove(player);
-    }
-
-    public boolean saveLeague() {
-        ILeagueDAO leagueDAO = Injector.instance().getLeagueDatabaseObject();
-        leagueID = leagueDAO.createLeague(leagueName, agingConfig.getAverageRetirementAge(), agingConfig.getMaximumAge(),
-                injuriesConfig.getRandomInjuryChance(), injuriesConfig.getInjuryDaysHigh(), injuriesConfig.getInjuryDaysLows(),
-                tradingConfig.getLossPoint(), tradingConfig.getRandomTradeOfferChance(), tradingConfig.getMaxPlayersPerTrade(),
-                tradingConfig.getRandomAcceptanceChance());
-        if (leagueID != 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public GameConfig.Aging getAgingConfig() {

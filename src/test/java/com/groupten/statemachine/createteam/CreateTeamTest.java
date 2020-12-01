@@ -47,7 +47,6 @@ public class CreateTeamTest {
 
     @Test
     public void instantiateNewTeamTest() {
-        Player player;
         List<Player> listOfPlayer = new ArrayList<>();
         ILeagueModel leagueModel = Injector.instance().getLeagueModelObject();
         League league = new League("Deep Test League");
@@ -61,19 +60,25 @@ public class CreateTeamTest {
         createTeam.setConferenceName("Deep Test Conference");
         createTeam.setDivisionName("Deep Division Division");
         createTeam.setTeamName("Deep Test 3");
-        createTeam.setGeneralManager(new GeneralManager("First General Manager"));
+        createTeam.setGeneralManager(new GeneralManager("First General Manager", "Normal"));
         createTeam.setHeadCoach(new Coach("First Coach", 0.5, 0.5, 0.5, 0.5));
 
-        player = new Player("First Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        listOfPlayer.add(player);
-        player = new Player("Second Player", "goalie", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        listOfPlayer.add(player);
-        player = new Player("Third Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        listOfPlayer.add(player);
-        player = new Player("Forth Player", "forward", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        listOfPlayer.add(player);
-        player = new Player("Fifth Player", "defense", false, 20.0, 5.0, 5.0, 5.0, 5.0);
-        listOfPlayer.add(player);
+        double skating = 2.0;
+        double shooting = 2.0;
+        double checking = 5.0;
+        double saving = 2.0;
+
+        for (int i = 0; i < 30; i++) {
+            String playerName = "Forward Player " + i;
+            Player player = new Player(playerName, "forward", false, 23, 11, 2000,
+                    skating, shooting, checking, saving);
+            listOfPlayer.add(player);
+
+            skating++;
+            shooting++;
+            checking++;
+            saving++;
+        }
 
         createTeam.setFreeAgents(listOfPlayer);
 

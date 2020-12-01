@@ -2,20 +2,9 @@ package com.groupten.statemachine.simulation.initializeseason;
 
 import com.groupten.leagueobjectmodel.season.Season;
 
-public class InitializeSeason implements IInitializeSeason{
-    private Season season;
-
-    public Season getSeason() {
-        return season;
-    }
-
+public class InitializeSeason implements IInitializeSeason {
     @Override
-    public void setSeason(Season season){
-        this.season = season;
-    }
-
-    @Override
-    public boolean generateRegularSchedule() {
+    public boolean generateRegularSchedule(Season season) {
         return season.generateRegularSchedule();
     }
 }

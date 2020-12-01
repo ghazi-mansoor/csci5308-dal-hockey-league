@@ -9,7 +9,6 @@ import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.leaguemodel.LeagueModel;
 import com.groupten.leagueobjectmodel.player.Player;
 import com.groupten.leagueobjectmodel.team.Team;
-import com.groupten.statemachine.simulation.aging.Aging;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -23,7 +22,7 @@ public class AgingTest {
 
         League league = new League("First League");
         leagueModel.setCurrentLeague(league);
-        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50);
+        GameConfig.Aging agingConfig = new GameConfig.Aging(35, 50, 0.01);
         league.setAgingConfig(agingConfig);
         GameConfig.Injuries injuriesConfig = new GameConfig.Injuries(0.05, 1, 260);
         league.setInjuriesConfig(injuriesConfig);
@@ -49,22 +48,22 @@ public class AgingTest {
         division.addTeam(team);
 
         Player teamPlayer = new Player("First Player", "goalie", false, 30, 5, 5, 5, 5);
-        team.addPlayer(teamPlayer);
+        team.addActivePlayer(teamPlayer);
         teamPlayer = new Player("Second Player", "goalie", false, 50, 5, 5, 5, 5);
-        team.addPlayer(teamPlayer);
+        team.addActivePlayer(teamPlayer);
         teamPlayer = new Player("Third Player", "defense", false, 30, 5, 5, 5, 5);
-        team.addPlayer(teamPlayer);
+        team.addActivePlayer(teamPlayer);
         teamPlayer = new Player("Fourth Player", "defense", false, 30, 5, 5, 5, 5);
-        team.addPlayer(teamPlayer);
+        team.addActivePlayer(teamPlayer);
         teamPlayer = new Player("Fifth Player", "forward", false, 50, 5, 2, 5, 5);
-        team.addPlayer(teamPlayer);
+        team.addActivePlayer(teamPlayer);
 
         Aging aging = new Aging();
         aging.advanceEveryPlayersAge(league, 365);
 
-        assertTrue(team.getPlayers().contains(bestFreeAgentGoalie));
+        assertTrue(team.getActivePlayers().contains(bestFreeAgentGoalie));
         assertFalse(league.getFreeAgents().contains(bestFreeAgentGoalie));
-        assertTrue(team.getPlayers().contains(bestFreeAgentForward));
+        assertTrue(team.getActivePlayers().contains(bestFreeAgentForward));
         assertFalse(league.getFreeAgents().contains(bestFreeAgentForward));
     }
 }

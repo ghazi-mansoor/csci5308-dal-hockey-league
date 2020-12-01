@@ -6,8 +6,6 @@ public interface IJSONImport {
 
     boolean importJSONData(String path) throws IOException;
 
-    boolean isLeagueNameUnique();
-
     boolean instantiateJSONData();
 
 }
