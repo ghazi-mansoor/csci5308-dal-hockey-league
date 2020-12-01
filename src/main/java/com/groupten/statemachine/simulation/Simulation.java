@@ -5,6 +5,7 @@ import com.groupten.injector.Injector;
 import com.groupten.leagueobjectmodel.league.League;
 import com.groupten.leagueobjectmodel.leaguemodel.ILeagueModel;
 import com.groupten.leagueobjectmodel.schedule.Schedule;
+import com.groupten.leagueobjectmodel.season.ISeason;
 import com.groupten.leagueobjectmodel.season.ISeasonObserver;
 import com.groupten.leagueobjectmodel.season.Season;
 import com.groupten.leagueobjectmodel.seasonstat.SeasonStat;
@@ -47,8 +48,6 @@ public class Simulation implements ISimulation {
         if (this.numberOfSeasons > 0) {
             initializeSeason();
         }
-        ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
-        draft = simulationFactory.createDraft();
     }
 
     private void initializeSeason() {
@@ -151,9 +150,9 @@ public class Simulation implements ISimulation {
             trophy.awardTrophy();
             trophy.trophyWinners();
 
-            if (numberOfSeasons == 1) {
-                draft.execute(season);
-            }
+            ISimulationFactory simulationFactory = Injector.instance().getSimulationFactory();
+            draft = simulationFactory.createDraft();
+            draft.execute(season);
 
             if (numberOfSeasons > 0) {
                 year++;

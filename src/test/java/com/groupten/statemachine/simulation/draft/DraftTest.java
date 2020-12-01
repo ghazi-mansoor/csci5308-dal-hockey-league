@@ -22,7 +22,7 @@ public class DraftTest {
 
         ILeagueModelFactory leagueModelFactory = Injector.instance().getLeagueModelFactory();
         IDraft draft = Injector.instance().getDraftInterface();
-        ISeason season = leagueModelFactory.createSeason();
+        Season season = leagueModelFactory.createSeason();
         draft.execute(season);
     }
 }

@@ -30,7 +30,7 @@ public class Draft implements IDraft, ITradingSubscriber {
     private IDraftStrategy draftStrategy;
 
     @Override
-    public void execute(ISeason season) {
+    public void execute(Season season) {
         initialize(season);
 
         draftContext = Injector.instance().getDraftContextInterface();

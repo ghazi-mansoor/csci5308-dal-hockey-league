@@ -39,7 +39,7 @@
         <Logger name="com.groupten.statemachine.simulation.trading" level="info" addivity="false">
             <AppenderRef ref="TradingLogsFile" />
         </Logger>
-        <Root level="error" additivity="false">
+        <Root level="info" additivity="false">
             <AppenderRef ref="Console" />
         </Root>
     </Loggers>
