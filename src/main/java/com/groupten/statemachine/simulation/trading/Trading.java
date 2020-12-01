@@ -23,7 +23,7 @@ public class Trading {
 
 	public Trading() {
 	}
-	private static final Logger logger = LogManager.getLogger(Draft.class.getName());
+	private static final Logger logger = LogManager.getLogger(Trading.class.getName());
 	private IConsole console;
 	private ILeagueModel leagueModel;
 	private League leagueLOM;

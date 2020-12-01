@@ -112,6 +112,6 @@ public class Draft implements IDraft, ITradingSubscriber {
 
     @Override
     public void update(List<Team> teams) {
-        tradePickTeams.add(teams);
+        // tradePickTeams.add(teams);
     }
 }
